@@ -6,8 +6,8 @@ function App() {
       <header className="App-header">
        
         <div className="FormApp">
-        <h3>SIGN IN</h3>
-          <form>
+        <h3>BARITAS SIGN IN</h3>
+          <form action="/cashier/process_order.html">
             <label>
               <input type="text" name="username" placeholder="Username" />
             </label>
