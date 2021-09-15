@@ -68,3 +68,181 @@
   padding:4%;
   font-size: 18pt;
 }
+
+
+.process{
+  background-color: #9A4258;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+
+.proc{
+  width: 100%;
+  padding:5%;
+}
+.porder{
+  background-color:#800020;
+  color:white;
+  border:none;
+  border-radius:5px;
+  width:100%;
+  font-size: 45pt;
+  padding:25%;
+  text-decoration:none;
+
+}
+
+
+
+
+
+.tablemap{
+  background-color: #9A4258;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  
+}
+
+.waitermap{
+  background-color: #9A4258;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  
+}
+
+.tableright{
+  margin-left: 5%;
+}
+
+
+.tableleft{
+  margin-top:-53%;
+  margin-left:55%;
+  width:40%;
+}
+
+.tableleft .map{
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+}
+.tableleft .tablenum{
+  width: 92%;
+  padding:22%;
+  background-color:#800020;
+  color:white;
+  border:1px solid white;
+  border-radius:5px;
+  font-size: 18pt;
+  text-decoration:none;
+}
+
+.tableleft .maptab{
+  width: 30%;
+  margin-top: 18%;
+}
+.map{
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+ 
+}
+
+.wmap{
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin-left:10%
+ 
+}
+.maptab{
+  width: 30%;
+  margin-top: 15%;
+}
+
+.mapwait{
+  width: 60%;
+  margin-top: 30%;
+}
+
+.tablenum{
+  width: 57%;
+  padding:15%;
+  background-color:#800020;
+  color:white;
+  border:1px solid white;
+  border-radius:5px;
+  font-size: 18pt;
+  text-decoration:none;
+
+}
+
+
+.waitnum{
+  width: 80%;
+  padding:25%;
+  background-color:#800020;
+  color:white;
+  border:none;
+  border-radius:5px;
+  font-size: 18pt;
+  text-decoration:none;
+
+}
+
+
+
+.menu{
+  background-color: #9A4258;
+  display: flex;
+  flex-direction: row;
+}
+
+.midmenu{
+  margin-left:17%;
+  width:50%;
+}
+
+.top{
+  color:white;
+}
+
+
+
+.topmenu{
+  width: 100%;
+  display:flex;
+  flex-direction: row;
+  margin-top:5%;
+}
+
+.menuop{
+  width: 90%;
+  padding:60%;
+  background-color:#800020;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-size: 12pt;
+  text-decoration:none;
+  text-align: center;
+}
+
+
+.ordern{
+  padding:10%;
+  background-color:white;
+  margin-left:42%;
+  width:10%;
+}
+
+
