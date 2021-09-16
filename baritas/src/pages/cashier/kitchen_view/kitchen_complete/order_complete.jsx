@@ -21,13 +21,13 @@ import { FiHome, FiLogOut} from "react-icons/fi";
 
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
-import "../../../Header.css";
-import '../../../App.css';
-import logo from "../../../images/IMG_8850.JPG";
+import "../../../../Header.css";
+import '../../../../App.css';
+import logo from "../../../../images/IMG_8850.JPG";
 
 
 
-const OrderPage = () => {
+const OrderCPage = () => {
   
   
 
@@ -67,12 +67,12 @@ const OrderPage = () => {
 
 
       <div class="midorder">
-        <section class="pending" id="pending">
+        <section class="completed" id="completed">
         <div class="topop">
               <Container>
                   <Row>
-                      <Col><h4 class="active" id="act"><strong>Pending</strong></h4></Col>
-                      <Col> <Link to="/cashier/kitchen_view/kitchen_complete/"><h4 class="com">Completed</h4></Link></Col>        
+                      <Col><Link to="/cashier/kitchen_view/"><h4 class="com">Pending</h4></Link></Col>
+                      <Col> <h4 class="active" id="act"><strong>Completed</strong></h4> </Col>        
                   </Row>
                 </Container>
             </div>
@@ -80,7 +80,6 @@ const OrderPage = () => {
             <div class="orders">
                 <h4>#OrderL123</h4>
                 <h6>Delivery:Waiter 1</h6>
-                
                 <div class="menit">
                     <span><img class="imgf"src={logo} width='60' height="40" alt="logo"></img>Meat Spring Rolls(3)<span><p>x1</p></span></span>
                     <h6>Ghc 10</h6>
@@ -90,7 +89,6 @@ const OrderPage = () => {
                 
             </div>
         </section>
-       
       
            
           </div>
@@ -98,6 +96,6 @@ const OrderPage = () => {
   );
 };
 
-export default OrderPage;
+export default OrderCPage;
 
 

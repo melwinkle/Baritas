@@ -14,7 +14,7 @@ import {
 } from "react-pro-sidebar";
 
 //import icons from react icons
-import { FaList, FaRegHeart } from "react-icons/fa";
+import { FaList } from "react-icons/fa";
 import { FiHome, FiLogOut} from "react-icons/fi";
 
 
@@ -23,6 +23,7 @@ import { FiHome, FiLogOut} from "react-icons/fi";
 import "react-pro-sidebar/dist/css/styles.css";
 import "../../../Header.css";
 import '../../../App.css';
+
 
 
 
@@ -52,8 +53,8 @@ const MenuPage = () => {
               <MenuItem active={true} icon={<FiHome />}>
                 New
               </MenuItem>
-              <MenuItem icon={<FaList />}>Order</MenuItem>
-              <MenuItem icon={<FaRegHeart />}>Settings</MenuItem>
+              <MenuItem  icon={<FaList />}>Order <Link to="/cashier/kitchen_view/"></Link></MenuItem>
+            
             </Menu>
           </SidebarContent>
           <SidebarFooter>
@@ -67,11 +68,16 @@ const MenuPage = () => {
 
       <div class="midmenu">
             <div class="top">
-                <h3><strong>Order</strong>Menu</h3>
+              <Container>
+                  <Row>
+                      <Col><h3><strong>Order</strong>Menu</h3></Col>
+                      <Col> <form ><input type="search" placeholder="Search for food,drinks,etc"></input><button variant="outline-success">Search</button></form></Col>        
+                  </Row>
+                </Container>
             </div>
 
             <div class="topmenu">
-                   
+                   {/* <img src={start} alt="startes" width="100" height="50"></img> */}
                         <Container>
                             <Row>
                                 <Col><Link to="/cashier/waiter/"><button class="menuop" id="starter">Starter</button></Link></Col>
@@ -88,30 +94,27 @@ const MenuPage = () => {
             </div>
 
             <div class="menuitem">
-            <Container>
-                            <Row>
-                                <Col>
-          <Link to="/cashier/table/"><button class="met" id="s1" >Wings</button></Link>
-      </Col>
-                                <Col> 
-          <Link to="/cashier/table/"><button class="met" id="s2" >Spring Rolls</button></Link>
-       </Col>
-                                <Col> 
-          <Link to="/cashier/table/"><button class="met" id="s3" >Meatballs</button></Link>
-        </Col>
-                              
-                            </Row>
-                            </Container>
-           
+              <Container>
+                  <Row>
+                      <Col><Link to="/cashier/table/"><button class="met" id="s1" >Wings</button></Link></Col>
+                      <Col><Link to="/cashier/table/"><button class="met" id="s2" >Spring Rolls</button></Link></Col>
+                      <Col><Link to="/cashier/table/"><button class="met" id="s3" >Meatballs</button></Link></Col>
+                    </Row>
 
+                    <Row>
+                      <Col><Link to="/cashier/table/"><button class="met" id="s1" >Wings</button></Link></Col>
+                      <Col><Link to="/cashier/table/"><button class="met" id="s2" >Spring Rolls</button></Link></Col>
+                      <Col><Link to="/cashier/table/"><button class="met" id="s3" >Meatballs</button></Link></Col>
+                    </Row> 
+                </Container>
             </div>
 
-      </div>
+          </div>
 
-      <div class="ordern">
-     
+        <div class="ordern">
+      
 
-      </div>
+        </div>
       </div>
   );
 };

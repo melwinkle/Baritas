@@ -13,6 +13,9 @@ import TablePage from "./pages/cashier/table/table_map.jsx";
 import TakeawayPage from "./pages/cashier/takeaway/takeaway_order.jsx";
 import WaiterPage from "./pages/cashier/waiter/waiter.jsx";
 import MenuPage from "./pages/cashier/menu/menu_main.jsx";
+import OrderPage from "./pages/cashier/kitchen_view/order_main.jsx";
+import OrderCPage from "./pages/cashier/kitchen_view/kitchen_complete/order_complete.jsx";
+import BarPage from "./pages/bar/bar_main.jsx";
 class App extends Component {
   render() {
     return (
@@ -24,6 +27,9 @@ class App extends Component {
        <Route exact path="/cashier/takeaway" component={TakeawayPage} />
        <Route exact path="/cashier/waiter" component={WaiterPage} />
        <Route exact path="/cashier/menu" component={MenuPage} />
+       <Route exact path="/cashier/kitchen_view" component={OrderPage} />
+       <Route exact path="/cashier/kitchen_view/kitchen_complete" component={OrderCPage} />
+       <Route exact path="/bar" component={BarPage} />
       </Router>
     );
   }
