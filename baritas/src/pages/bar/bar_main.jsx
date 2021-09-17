@@ -13,6 +13,8 @@ import "react-pro-sidebar/dist/css/styles.css";
 import "../../Header.css";
 import '../../App.css';
 import logo from "../../images/IMG_8850.JPG";
+import { FaCheckCircle } from 'react-icons/fa';
+
 
 
 
@@ -35,8 +37,8 @@ const BarPage = () => {
         <div class="topbar">
               <Container>
                   <Row>
-                      <Col><h4 class="active" id="act"><strong>Pending</strong></h4></Col>
-                      <Col> <Link to="/cashier/kitchen_view/kitchen_complete/"><h4 class="com">Completed</h4></Link></Col>        
+                      <Col><h4 class="active" id="act"><strong>Open</strong></h4></Col>
+                      <Col> <Link to="/bar/bar_complete/"><h4 class="com">Completed</h4></Link></Col>        
                   </Row>
                 </Container>
             </div>
@@ -46,18 +48,28 @@ const BarPage = () => {
        
             <section class="bar">
             <div class="bars">
+                <div class="bhead">
                 <h4>#OrderL123</h4>
-                <h6>Delivery:Waiter 1</h6>
+                <h6>Delivery</h6>
+                </div>
+                
                 
                 <div class="barit">
-                    <span><img class="imgf"src={logo} width='60' height="40" alt="logo"></img>Pineapple Juice<span><p>x1</p></span></span>
-                    <h6>Ghc 10</h6>
+                    <span><img class="imgf"src={logo} width='50' height="30" alt="logo"></img>Pineapple Juice<span><p>x1</p></span></span>
+                </div>
+                
+
+                <div class="optbar">
+                    <button type="button" class="yes"><FaCheckCircle></FaCheckCircle></button>
+                   
                 </div>
 
                 
                 
             </div>
             </section>
+
+            
       
            
           </div>

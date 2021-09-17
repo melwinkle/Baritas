@@ -17,7 +17,8 @@ import { FaCheckCircle } from 'react-icons/fa';
 
 
 
-const BarCPage = () => {
+
+const KitchenCPage = () => {
   
   
 
@@ -36,8 +37,8 @@ const BarCPage = () => {
         <div class="topbar">
               <Container>
                   <Row>
-                  <Col><Link to="/bar/"><h4 class="com" id="act"><strong>Open</strong></h4></Link></Col>
-                      <Col> <h4 class="active">Completed</h4></Col>         
+                      <Col><Link to="/kitchen/"><h4  id="act" class="com"><strong>Open</strong></h4></Link></Col>
+                      <Col> <h4 class="active" >Completed</h4></Col>        
                   </Row>
                 </Container>
             </div>
@@ -46,7 +47,7 @@ const BarCPage = () => {
         </section>
        
             <section class="bar">
-            <div class="barsc">
+            <div class="bars">
                 <div class="bhead">
                 <h4>#OrderL123</h4>
                 <h6>Delivery</h6>
@@ -58,14 +59,17 @@ const BarCPage = () => {
                 </div>
                 
 
-                <div class="optbarc">
-                    <button class="yes" disabled><FaCheckCircle></FaCheckCircle></button>
+                <div class="optbar">
+                    <button type="button" class="yes"><FaCheckCircle></FaCheckCircle></button>
+                   
                 </div>
 
                 
                 
             </div>
             </section>
+
+            
       
            
           </div>
@@ -73,6 +77,6 @@ const BarCPage = () => {
   );
 };
 
-export default BarCPage;
+export default KitchenCPage;
 
 

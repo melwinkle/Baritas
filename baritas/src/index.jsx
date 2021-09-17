@@ -2,6 +2,7 @@
 import React from "react";
 
 
+
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +20,13 @@ class MainPage extends React.Component {
       // eslint-disable-next-line
       if (val !="" && val.length<6) {
         err = <strong>Password should be longer than 6 characters</strong>;
+      }
+    }
+
+    if (nam === "username") {
+      // eslint-disable-next-line
+      if (val =="admin" ) {
+        window.location.href="/adminsitrator";
       }
     }
     this.setState({errormessage: err});

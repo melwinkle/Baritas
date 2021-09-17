@@ -306,12 +306,39 @@
   background-color:white;
   text-align:center;
   color:#C19BA4;
+  padding:1%;
 
 }
 .topbar .active{
-  color:#6E011C;
+  background-color:#6E011C;
+  color:white;
+  border-radius: 5px;
 }
 
+.topbar .com{
+  background-color:#C19BA4;
+  color:white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.bhead{
+  background-color:#800020;
+  color:white;
+  padding:1%;
+  
+}
+
+.bhead h4{
+  margin-top:2%;
+  margin-left:2%;
+ 
+}
+
+.bhead h6{
+  margin-left:70%;
+  margin-top:-12%;
+}
 .orders{
   margin-left:18%;
   margin-top:2%;
@@ -353,6 +380,52 @@
   margin-left:1%;
 }
 
+
+.barit{
+  background-color:#800020;
+  font-size: 12pt;
+  border-radius:10px;
+  margin-left:1%;
+  margin-right: 1%;
+  color:white;
+  margin-top:3%;
+  padding:0.5%;
+  margin-bottom:10%;
+}
+
+.barit h6{
+  margin-left:78%;
+  margin-top:-6%;
+}
+
+.barit p{
+  margin-left:90%;
+  margin-top:-15%;
+}
+
+.barit .imgf{
+  border-radius: 10px;
+  margin-top:2%;
+  margin-left:1%;
+}
+
+.optbar{
+  margin-left:80%;
+  margin-top:8%;
+}
+
+.optbar button{
+  border:none;
+  background:none;
+}
+
+.optbar .yes svg{
+  fill: #069337;
+}
+
+.optbar .no svg{
+  fill: #CE1A1A;
+}
 .totod{
   background-color:#800020;
   color:white;
@@ -371,6 +444,25 @@
   background-color:white;
   width:18%;
   color:#800020;
+  border-radius:10px;
 }
+
+
+.optbarc{
+  margin-left:80%;
+  margin-top:8%;
+}
+
+.optbarc button{
+  border:none;
+  background:none;
+  
+}
+
+.optbarc .yes svg{
+  fill: #069337;
+}
+
+
 
 
