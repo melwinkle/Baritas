@@ -8,14 +8,73 @@ class MainPage extends React.Component {
     super(props);
     this.state = {
       username: '',
-      age: null,
+      password: null,
       errormessage: ''
     };
+
+
+    
   }
   myChangeHandler = (event) => {
     let nam = event.target.name;
     let val = event.target.value;
     let err = '';
+
+    if (nam === "password") {
+      // eslint-disable-next-line
+      if (val !="" && val.length<3 ) {
+        err = <strong>Password should be longer than 2 characters</strong>;
+      }else{
+        if(val==="bar"){
+          window.location.href="/bar";
+        }
+      }
+    }
+
+    if (nam === "password") {
+      // eslint-disable-next-line
+      if (val !="" && val.length<3 ) {
+        err = <strong>Password should be longer than 2 characters</strong>;
+      }else{
+        if(val==="kitchen"){
+          window.location.href="/kitchen";
+        }
+      }
+    } 
+
+    if (nam === "password") {
+      // eslint-disable-next-line
+      if (val !="" && val.length<3 ) {
+        err = <strong>Password should be longer than 2 characters</strong>;
+      }else{
+        if(val==="production"){
+          window.location.href="/production";
+        }
+      }
+    } 
+
+    if (nam === "password") {
+      // eslint-disable-next-line
+      if (val !="" && val.length<3 ) {
+        err = <strong>Password should be longer than 2 characters</strong>;
+      }else{
+        if(val==="store"){
+          window.location.href="/store";
+        }
+      }
+    } 
+
+    if (nam === "password") {
+      // eslint-disable-next-line
+      if (val !="" && val.length<3 ) {
+        err = <strong>Password should be longer than 2 characters</strong>;
+      }else{
+        if(val==="cashier"){
+          window.location.href="/cashier/orders/";
+        }
+      }
+    } 
+
     if (nam === "password") {
       // eslint-disable-next-line
       if (val !="" && val.length<6) {
@@ -23,29 +82,36 @@ class MainPage extends React.Component {
       }
     }
 
-    if (nam === "username") {
+    if (nam === "password") {
       // eslint-disable-next-line
-      if (val =="admin" ) {
-        window.location.href="/adminsitrator";
+      if (val =="admin") {
+        // if(nam=="password"){
+
+        // }
+        window.location.href="/administrator";
       }
     }
     this.setState({errormessage: err});
     this.setState({[nam]: val});
   }
+
+  
+
+
   render() {
     return (
       <div className="App">
        <header className="App-header">
          <div className="FormApp">         
             <h3>BARITAS SIGN IN</h3>           
-            <form action="/cashier/orders/">
+            <form >
               <label>
-                <input type="text" name="username" placeholder="Username" onChange={this.myChangeHandler}/>
+                <input type="text" name="username" placeholder="Username"  onChange={this.myChangeHandler}/>
               </label>
               <br></br>
               <label>
                 <input type="password" name="password" placeholder="Password" onChange={this.myChangeHandler}/>
-                {this.state.errormessage}
+                <p>{this.state.errormessage}</p>
               </label>
               <br></br>
              
