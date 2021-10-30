@@ -1,14 +1,19 @@
  import './App.css';
 import React from "react";
+<<<<<<< HEAD
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Container, Row, Col } from 'reactstrap';
+=======
+import {PostData} from '../src/services/PostData';
+>>>>>>> fcf20bd7f1c22aa4e427d7a826e9874b278ced81
 
 
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
       username: '',
       password: ''
     };
@@ -57,6 +62,55 @@ class MainPage extends React.Component {
       alert("Invalid username and password");
     }
     event.preventDefault();
+=======
+      user: '',
+      pass: '',
+      err: '',
+      redirect:false
+    };
+
+    this.login = this.login.bind(this);
+    this.onChange = this.onChange.bind(this);
+    
+  }
+
+  login(){
+    if(this.state.user && this.state.pass){
+      PostData(this.state).then((result)=>{
+        if((result.UserData.role)==='1'){
+          sessionStorage.setItem('adminData',result);
+          this.setState({redirect:true});
+          window.location='/administrator';
+        }
+        else if((result.UserData.role)==='2'){
+          sessionStorage.setItem('kitchenData',result);
+          this.setState({redirect:true});
+          window.location='/kitchen';
+        }
+        else if((result.UserData.role)==='3'){
+          sessionStorage.setItem('barData',result);
+          this.setState({redirect:true});
+          window.location='/bar';
+        }
+        else if((result.UserData.role)==='4'){
+          sessionStorage.setItem('cashierData',result);
+          this.setState({redirect:true});
+          window.location='/cashier';
+        }
+        
+        else{
+          console.log("login Error");
+        }
+      });
+    }
+  
+  }
+ 
+  onChange(e){
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+>>>>>>> fcf20bd7f1c22aa4e427d7a826e9874b278ced81
   }
 
 
@@ -94,24 +148,31 @@ class MainPage extends React.Component {
               <Container>
             <Row>
               <label>
-                <input type="text" name="username" placeholder="Username"  onChange={this.myChangeHandler}/>
+                <input type="text" name="user" placeholder="Username" onChange={this.onChange}/>
               </label>
               </Row>
 
 
               <Row>
               <label>
-                <input type="password" name="password" placeholder="Password" onChange={this.myChangeHandler}/>
+                <input type="password" name="pass" placeholder="Password" onChange={this.onChange} />
                 <p>{this.state.errormessage}</p>
               </label>
             </Row>
 
             <Row>
              
+<<<<<<< HEAD
             <button id="subbut" type="submit" >Sign In</button>
             </Row>
             </Container>
            </form> */}
+=======
+            <button class="subbut" type="button" onClick={this.login} >Sign In</button>
+        
+            
+           </form>
+>>>>>>> fcf20bd7f1c22aa4e427d7a826e9874b278ced81
         </div>
       </header>
     </div>
