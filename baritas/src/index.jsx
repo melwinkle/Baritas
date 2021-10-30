@@ -1,101 +1,60 @@
  import './App.css';
 import React from "react";
-
+import {PostData} from '../src/services/PostData';
 
 
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: null,
-      errormessage: ''
+      user: '',
+      pass: '',
+      err: '',
+      redirect:false
     };
 
-
+    this.login = this.login.bind(this);
+    this.onChange = this.onChange.bind(this);
     
   }
-  myChangeHandler = (event) => {
-    let nam = event.target.name;
-    let val = event.target.value;
-    let err = '';
 
-    if (nam === "password") {
-      // eslint-disable-next-line
-      if (val !="" && val.length<3 ) {
-        err = <strong>Password should be longer than 2 characters</strong>;
-      }else{
-        if(val==="bar"){
-          window.location.href="/bar";
+  login(){
+    if(this.state.user && this.state.pass){
+      PostData(this.state).then((result)=>{
+        if((result.UserData.role)==='1'){
+          sessionStorage.setItem('adminData',result);
+          this.setState({redirect:true});
+          window.location='/administrator';
         }
-      }
+        else if((result.UserData.role)==='2'){
+          sessionStorage.setItem('kitchenData',result);
+          this.setState({redirect:true});
+          window.location='/kitchen';
+        }
+        else if((result.UserData.role)==='3'){
+          sessionStorage.setItem('barData',result);
+          this.setState({redirect:true});
+          window.location='/bar';
+        }
+        else if((result.UserData.role)==='4'){
+          sessionStorage.setItem('cashierData',result);
+          this.setState({redirect:true});
+          window.location='/cashier';
+        }
+        
+        else{
+          console.log("login Error");
+        }
+      });
     }
-
-    if (nam === "password") {
-      // eslint-disable-next-line
-      if (val !="" && val.length<3 ) {
-        err = <strong>Password should be longer than 2 characters</strong>;
-      }else{
-        if(val==="kitchen"){
-          window.location.href="/kitchen";
-        }
-      }
-    } 
-
-    if (nam === "password") {
-      // eslint-disable-next-line
-      if (val !="" && val.length<3 ) {
-        err = <strong>Password should be longer than 2 characters</strong>;
-      }else{
-        if(val==="production"){
-          window.location.href="/production";
-        }
-      }
-    } 
-
-    if (nam === "password") {
-      // eslint-disable-next-line
-      if (val !="" && val.length<3 ) {
-        err = <strong>Password should be longer than 2 characters</strong>;
-      }else{
-        if(val==="store"){
-          window.location.href="/store";
-        }
-      }
-    } 
-
-    if (nam === "password") {
-      // eslint-disable-next-line
-      if (val !="" && val.length<3 ) {
-        err = <strong>Password should be longer than 2 characters</strong>;
-      }else{
-        if(val==="cashier"){
-          window.location.href="/cashier/orders/";
-        }
-      }
-    } 
-
-    if (nam === "password") {
-      // eslint-disable-next-line
-      if (val !="" && val.length<6) {
-        err = <strong>Password should be longer than 6 characters</strong>;
-      }
-    }
-
-    if (nam === "password") {
-      // eslint-disable-next-line
-      if (val =="admin") {
-        // if(nam=="password"){
-
-        // }
-        window.location.href="/administrator";
-      }
-    }
-    this.setState({errormessage: err});
-    this.setState({[nam]: val});
-  }
-
   
+  }
+ 
+  onChange(e){
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
 
 
   render() {
@@ -106,16 +65,17 @@ class MainPage extends React.Component {
             <h3>BARITAS SIGN IN</h3>           
             <form >
               <label>
-                <input type="text" name="username" placeholder="Username"  onChange={this.myChangeHandler}/>
+                <input type="text" name="user" placeholder="Username" onChange={this.onChange}/>
               </label>
               <br></br>
               <label>
-                <input type="password" name="password" placeholder="Password" onChange={this.myChangeHandler}/>
+                <input type="password" name="pass" placeholder="Password" onChange={this.onChange} />
                 <p>{this.state.errormessage}</p>
               </label>
               <br></br>
              
-            <button class="subbut" type="submit" >Sign In</button>
+            <button class="subbut" type="button" onClick={this.login} >Sign In</button>
+        
             
            </form>
         </div>
