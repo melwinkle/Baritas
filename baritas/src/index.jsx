@@ -22,6 +22,7 @@ class MainPage extends React.Component {
   }
 
   login(){
+    console.log(this.state);
     if(this.state.user && this.state.pass){
       PostData(this.state).then((result)=>{
         if((result.UserData.role)==='1'){
@@ -66,12 +67,12 @@ class MainPage extends React.Component {
        <header className="App-header">
          <div className="FormApp">         
             <h3>BARITAS SIGN IN</h3>    
-            <Form onSubmit={this.login}>
+            <Form>
             <Container>
               <Row id="in">
   <Form.Group className="mb-3 in" controlId="formBasicEmail">
     <Form.Label>Username</Form.Label>
-    <Form.Control type="text" name="username"  value={this.state.username} onChange={this.handleChange} placeholder="Enter Username" />
+    <Form.Control type="text" name="user" onChange={this.onChange} placeholder="Enter Username" />
   
   </Form.Group>
   </Row>
@@ -80,11 +81,11 @@ class MainPage extends React.Component {
   <Row id="in">
   <Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Password</Form.Label>
-    <Form.Control type="password" name="password"  value={this.state.password}  onChange={this.handleChange} placeholder="Password" />
+    <Form.Control type="password" name="pass" onChange={this.onChange} placeholder="Password" />
   </Form.Group>
   </Row>
   <Row id="in">
-  <Button variant="primary" id="subbut" type="submit">
+  <Button variant="primary" id="subbut" type="button" onClick={this.login}>
     Submit
   </Button>
   </Row>
