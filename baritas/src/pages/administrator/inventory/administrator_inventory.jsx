@@ -8,7 +8,7 @@ const AxiosPost = () => {
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/Baritas_backend/apis/fetchallinventory.php'
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallinventory.php'
       );
       setPosts({ blogs: data.data });
       console.log(data);

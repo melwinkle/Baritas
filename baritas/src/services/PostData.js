@@ -1,5 +1,5 @@
 export function PostData(userData){
-    let baseUrl ='http://localhost/Baritas/Baritas_backend/apis/login.php';
+    let baseUrl ='http://localhost/Baritas/baritas/Baritas_backend/apis/login.php';
     return new Promise((resolve,reject) =>{
 
         fetch(baseUrl,{
@@ -14,6 +14,7 @@ export function PostData(userData){
         }).then((response)=> response.json()
         .then((responseJSON)=>{
             resolve(responseJSON);
+            console.log(responseJSON);
         }))
         .catch((error)=>{
             reject(error);

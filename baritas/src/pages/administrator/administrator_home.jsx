@@ -13,7 +13,7 @@ function AdminPage (){
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/Baritas_backend/apis/fetchallrestaurants.php'
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallrestaurants.php'
         );
         setRest({ blogs: data.data });
         console.log(data);

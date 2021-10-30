@@ -25,7 +25,7 @@ function EditInventory(props) {
     const{name,category,unit,inn,Measure,limit}=inventory;
 
     useEffect( async ()=>{
-        await fetch('http://localhost/Baritas/Baritas_backend/apis/getainventoryitem.php?id='+props.match.params.id)
+        await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getainventoryitem.php?id='+props.match.params.id)
         .then((response)=>response.json())
         .then((responseJSON)=>{
             setInventory(responseJSON.inventory);
