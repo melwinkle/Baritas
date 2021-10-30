@@ -5,7 +5,11 @@ import {FiLogOut} from "react-icons/fi";
 import {FaHome,FaBell,FaStoreAlt} from "react-icons/fa";
 import DataTable from './component/DataTable';
 import data from './Table/data';
-
+import {
+    ProSidebar,
+    SidebarHeader,
+    SidebarContent,
+  } from "react-pro-sidebar";
 import { Container, Row, Col } from 'reactstrap';
 // get data fron the procution folder 
 
@@ -52,27 +56,65 @@ class ProductionPage extends React.Component {
     return (
         
         <div class="proda">
-            <div class="accor">
-          
-                <Container>
-                    <Row>
-                        <Col><Link to="/production/production_home"> <button><FaHome/></button></Link></Col>
-                        <Col> <Link to="/production/alert/"><button><FaBell /></button> </Link></Col>
-                        <Col> <Link to="/production/transact/production_transact"><button><FaStoreAlt /></button></Link> </Col>
-                        <Col> <Link to="/"><button><FiLogOut /></button> </Link></Col>
-                    </Row>
-                </Container>
-        
-               
-               
+
+
+<div id="header">
+          {/* collapsed props to change menu size using menucollapse state */}
+        <ProSidebar >
+          <SidebarHeader>
+          <div className="logotext">
+              <Row>
+                  <Col><h2>B</h2></Col>
+              
+              </Row>
+              
+              
             </div>
-        
-         
             
-  
-   
+          </SidebarHeader>
+          <SidebarContent id="menuit">
+              <div class="menuitem c">
+              <Link to="/production/"> <button><FaHome /><div> Home</div>
+             </button></Link>
+             
+              </div>
+
+              <div class="menuitem">
+              <Link to="/production/alert/"> <button><FaBell/><div> Alerts</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/production/transact/"> <button><FaStoreAlt/><div> Sales</div>
+             </button></Link>
+             
+              </div>
+           
+              <div class="menuitem">
+              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
+             </button></Link>
+             
+              </div>
+            
+             
+             
+             
+             
+            
+          </SidebarContent>
+          {/* <SidebarFooter>
+            Baritas (c)
+          </SidebarFooter> */}
+        </ProSidebar>
+      </div>
+            <Container id="menur">
+                <Row>
+                <Link to="/production/new/" ><button class="addmenu">Add New +</button></Link>
+
+                </Row>
+                <Row id="menutab">
             <div class="menutab">
-            <Link to="/production/new/" ><button class="addmenu">Add New +</button></Link>
+           
             <input
                 value={searchValue}
                 onChange={this.onChangeSearch}
@@ -88,6 +130,14 @@ class ProductionPage extends React.Component {
                 options={options}
             />
           </div>
+
+                </Row>
+            </Container>
+        
+         
+            
+  
+   
             
         </div>
 

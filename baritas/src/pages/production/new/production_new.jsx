@@ -14,72 +14,83 @@ import { Container, Row, Col } from 'reactstrap';
        
         return (
           <div class="proda">
-              {/* <div class="accorr c">
-                 <Link to="/administrator/menu/"><button><FaHome/></button></Link>
-                <button><FiLogOut /></button> 
-            </div> */}
+            <Container id="prodn">
+
+                <Row>
+                
+             <Link to="/production/"><button id="pback"><BiArrowBack/>BACK</button></Link> 
+         
+                </Row>
+
+                <Row>
+                <div class="addm c">
+         
+         <h3>Invoice</h3>
+         <form>
+             <Container>
+                 <Row>
+                     <Col><label>Date</label>
+             <input type="text" placeholder="Item name"/></Col>
+             <Col><label>Branch</label>
+                     <select>
+                         <option value="Sauces">Adenta</option>
+                         <option value="Hot/Spicy">Madina</option>
+                         <option value="Hot/Spicy">Campus Hub</option>
+                         <option value="Hot/Spicy">Production</option>
+                         
+                     </select></Col>
+             </Row>
+
+
+             
+
+
+                 <Row>
+                     <Col>
+                     <label>Product</label>
+                     <select>
+                         <option value="Sauces">Adenta</option>
+                         <option value="Hot/Spicy">Madina</option>
+                         <option value="Hot/Spicy">Campus Hub</option>
+                         <option value="Hot/Spicy">Production</option>
+                         
+                     </select>
+             </Col>
+
+             </Row>
+
+
+             <Row>
+             <Col>
+             <label>Quantity</label>
+             <input type="number" /></Col>
+             
+                 </Row>
+
+                 
+
+                 <Row><button>Save</button></Row>
+                
+             </Container>
+             
+
+
+             
+
+             
+             
+             
+
+             
+         </form>
+
+     </div>
+                </Row>
+            </Container>
 
           
-          <div class="pback">
-             <Link to="/production/"><button><BiArrowBack/>BACK</button></Link> 
-          </div>
-            <div class="addm c">
-         
-                <h3>Add New Product</h3>
-                <form>
-                    <Container>
-                        <Row>
-                            <Col><label>Name</label>
-                    <input type="text" placeholder="Item name"/></Col>
-                    <Col><label>Image</label>
-                    <input type="file"/></Col>
-                    </Row>
-
-
-                    
-
-
-                        <Row>
-                            <Col><label>Category</label>
-                            <select>
-                                <option value="Sauces">Sauces</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                            </select>
-                    </Col>
-
-                    </Row>
-
-
-                    <Row>
-                    <Col>
-                    <label>Price</label>
-                    <input type="number" /></Col>
-                    <Col>
-                    <label>In Stock</label>
-                    <input type="number" /></Col>
-                        </Row>
-
-                        
-
-                        <Row><button>Save</button></Row>
-                       
-                    </Container>
-                    
-
-
-                    
-
-                    
-                    
-                    
-
-                    
-                </form>
-
-            </div>
+        
+            
 
           </div>
         );

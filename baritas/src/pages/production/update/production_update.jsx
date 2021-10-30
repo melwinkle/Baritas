@@ -14,72 +14,78 @@ import rooster from "../../../images/IMG_8850.JPG";
        
         return (
           <div class="proda">
-              {/* <div class="accorr c">
-                 <Link to="/administrator/menu/"><button><FaHome/></button></Link>
-                <button><FiLogOut /></button> 
-            </div> */}
+             
 
           
-          <div class="pback">
-             <Link to="/production/"><button><BiArrowBack/>BACK</button></Link> 
-          </div>
-            <div class="addm c">
-            <img src={rooster} alt="product"/>
-                <h3>Jollof Sauce</h3>
-                <form>
-                    <Container>
-                        <Row>
-                            <Col><label>Name</label>
-                    <input type="text" placeholder="Item name"/></Col>
-                    <Col><label>Image</label>
-                    <input type="file"/></Col>
-                    </Row>
+             <Container id="prodn">
+
+<Row>
+
+<Link to="/production/"><button id="pback"><BiArrowBack/>BACK</button></Link> 
+
+</Row>
+
+<Row>
+<div class="addm c">
+<img src={rooster} alt="product"/>
+<h3>Update Product</h3>
+<form>
+<Container>
+ <Row>
+     <Col><label>Name</label>
+<input type="text" placeholder="Item name"/></Col>
+<Col><label>Image</label>
+<input type="file"/></Col>
+</Row>
 
 
-                    
 
 
-                        <Row>
-                            <Col><label>Category</label>
-                            <select>
-                                <option value="Sauces">Sauces</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                            </select>
-                    </Col>
 
-                    </Row>
+ <Row>
+     <Col><label>Category</label>
+     <select>
+         <option value="Sauces">Sauces</option>
+         <option value="Hot/Spicy">Hot&Spicy</option>
+         <option value="Hot/Spicy">Hot&Spicy</option>
+         <option value="Hot/Spicy">Hot&Spicy</option>
+         <option value="Hot/Spicy">Hot&Spicy</option>
+     </select>
+</Col>
 
-
-                    <Row>
-                    <Col>
-                    <label>Price</label>
-                    <input type="number" /></Col>
-                    <Col>
-                    <label>In Stock</label>
-                    <input type="number" /></Col>
-                        </Row>
-
-                        
-
-                        <Row><button>Save</button></Row>
-                       
-                    </Container>
-                    
+</Row>
 
 
-                    
+<Row>
+<Col>
+<label>Price</label>
+<input type="number" /></Col>
+<Col>
+<label>In Stock</label>
+<input type="number" /></Col>
+ </Row>
 
-                    
-                    
-                    
+ 
 
-                    
-                </form>
+ <Row><button>Save</button></Row>
 
-            </div>
+</Container>
+
+
+
+
+
+
+
+
+
+
+</form>
+
+</div>
+</Row>
+</Container>
+
 
           </div>
         );

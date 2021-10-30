@@ -5,7 +5,11 @@ import {FiLogOut} from "react-icons/fi";
 import {FaHome,FaBell,FaStoreAlt} from "react-icons/fa";
 import DataTable from '../../component/DataTable';
 import data from '../../Table/data';
-
+import {
+    ProSidebar,
+    SidebarHeader,
+    SidebarContent,
+  } from "react-pro-sidebar";
 import { Container, Row, Col } from 'reactstrap';
 // get data fron the procution folder 
 
@@ -17,11 +21,9 @@ class ProductionAPage extends React.Component {
         this.state = {
             columns: [
               { title: "#", data: "#" },
-              { title: "Product", data: "name" },
-              { title: "Category", data: "category" },
-              { title: "In Stock", data: "price" },
-              { title: "Price", data: "stock" },
-              { title: "Actions", data: "actions" },
+              { title: "Date", data: "name" },
+              { title: "Message", data: "category" },
+              { title: "Branch", data: "price" },
             ],
             searchValue: '',
             options: {
@@ -52,31 +54,63 @@ class ProductionAPage extends React.Component {
     return (
         
         <div class="proda">
-            <div class="naccor">
-                <Container>
-                    <Row>
-                        <Col><Link to="/production/"> <button><FaHome/></button></Link></Col>
-                        <Col> <Link to="/production/alert/"><button><FaBell /></button> </Link></Col>
-                        <Col> <Link to="/production/transact/"><button><FaStoreAlt /></button></Link> </Col>
-                        <Col> <Link to="/"><button><FiLogOut /></button> </Link></Col>
-                    </Row>
-                </Container>
-        
-               
-               
-            </div>
-        
-            <div class="noptprod">
-                <Container>
-                    <Row>
-                        <Col>  <Link to="/production/alert"><button class="o1">GENERAL</button></Link></Col>
-                        <Col> <Link to="/production/alert/archive"><button class="o1 ac">ARCHIVE</button></Link></Col>
-                    </Row>
-                </Container>
+            <div id="header">
+          {/* collapsed props to change menu size using menucollapse state */}
+        <ProSidebar >
+          <SidebarHeader>
+          <div className="logotext">
+              <Row>
+                  <Col><h2>B</h2></Col>
+              
+              </Row>
+              
+              
             </div>
             
-  
-   
+          </SidebarHeader>
+          <SidebarContent id="menuit">
+              <div class="menuitem">
+              <Link to="/production/"> <button><FaHome /><div> Home</div>
+             </button></Link>
+             
+              </div>
+
+              <div class="menuitem c">
+              <Link to="/production/alert/"> <button><FaBell/><div> Alerts</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/production/transact/"> <button><FaStoreAlt/><div> Sales</div>
+             </button></Link>
+             
+              </div>
+           
+              <div class="menuitem">
+              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
+             </button></Link>
+             
+              </div>
+            
+             
+             
+             
+             
+            
+          </SidebarContent>
+          {/* <SidebarFooter>
+            Baritas (c)
+          </SidebarFooter> */}
+        </ProSidebar>
+      </div>
+        
+        <Container id="menurr">
+            <Row >
+            <Col>  <Link to="/production/alert"><button class="o1">GENERAL</button></Link></Col>
+                        <Col> <Link to="/production/alert/archive"><button class="o1 ac">ARCHIVE</button></Link></Col>
+            </Row>
+
+            <Row id="menutab">
             <div class="menutab">
             <input
                 value={searchValue}
@@ -84,7 +118,7 @@ class ProductionAPage extends React.Component {
                 autoComplete={'off'}
                 type="text"
                 placeholder="Search ..."
-                class="searchbar"
+                class="searchbars"
             />
             <DataTable
                 ref={this.dataTableRef}
@@ -93,6 +127,13 @@ class ProductionAPage extends React.Component {
                 options={options}
             />
           </div>
+            </Row>
+        </Container>
+            
+            
+  
+   
+          
             
         </div>
 

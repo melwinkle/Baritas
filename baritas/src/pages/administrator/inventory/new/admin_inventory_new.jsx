@@ -69,7 +69,14 @@ class InventoryNPage extends React.Component {
                     <Col>
                     <label>In Stock</label>
                     <input type="number" /></Col>
+
+
                         </Row>
+
+                        <Row>
+                            <Col >
+                    <label>Stock Limit</label>
+                    <input id="stock" type="number" /></Col></Row>
 
                         <Row><button>Add</button></Row>
                        

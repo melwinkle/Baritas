@@ -12,7 +12,8 @@ import UsersPage from "./pages/cashier/orders/process_order.jsx";
 import TablePage from "./pages/cashier/table/table_map.jsx";
 import TakeawayPage from "./pages/cashier/takeaway/takeaway_order.jsx";
 import WaiterPage from "./pages/cashier/waiter/waiter.jsx";
-import MenuPage from "./pages/cashier/menu/menu_main.jsx";
+import MenuMPage from "./pages/cashier/menu/menu.jsx";
+import MenuPage from "./pages/cashier/menu/menu_select/menu_main.jsx";
 import OrderPage from "./pages/cashier/kitchen_view/order_main.jsx";
 import OrderCPage from "./pages/cashier/kitchen_view/kitchen_complete/order_complete.jsx";
 import BarPage from "./pages/bar/bar_main.jsx";
@@ -40,6 +41,8 @@ import ProductionUPage from "./pages/production/update/production_update.jsx";
 import ProductionNPage from "./pages/production/new/production_new.jsx";
 import ProductionAPage from "./pages/production/alert/archive/production_alert_archive.jsx";
 import ProductionALPage from "./pages/production/alert/production_alert.jsx";
+import ProductionTPage from "./pages/production/transact/production_transact.jsx";
+import ProductionIPage from "./pages/production/transact/invoice/production_transact_invoice.jsx";
 class App extends Component {
   render() {
     return (
@@ -50,7 +53,8 @@ class App extends Component {
        <Route exact path="/cashier/table" component={TablePage} />
        <Route exact path="/cashier/takeaway" component={TakeawayPage} />
        <Route exact path="/cashier/waiter" component={WaiterPage} />
-       <Route exact path="/cashier/menu" component={MenuPage} />
+       <Route exact path="/cashier/menu" component={MenuMPage} />
+       <Route exact path="/cashier/menu/menu_select" component={MenuPage} />
        <Route exact path="/cashier/kitchen_view" component={OrderPage} />
        <Route exact path="/cashier/kitchen_view/kitchen_complete" component={OrderCPage} />
        <Route exact path="/bar" component={BarPage} />
@@ -78,6 +82,8 @@ class App extends Component {
        <Route exact path="/production/new" component={ProductionNPage} />
        <Route exact path="/production/alert/archive" component={ProductionAPage} />
        <Route exact path="/production/alert" component={ProductionALPage} />
+       <Route exact path="/production/transact" component={ProductionTPage} />
+       <Route exact path="/production/transact/invoice" component={ProductionIPage} />
    
       </Router>
     );
