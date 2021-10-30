@@ -98,31 +98,6 @@ class InventoryNPage extends React.Component {
                     </Col>
                     <Col>
                     <label>In Stock</label>
-<<<<<<< HEAD
-                    <input type="number" /></Col>
-
-
-                        </Row>
-
-                        <Row>
-                            <Col >
-                    <label>Stock Limit</label>
-                    <input id="stock" type="number" /></Col></Row>
-
-                        <Row><button>Add</button></Row>
-                       
-                    </Container>
-                    
-
-
-                    
-
-                    
-                    
-                    
-
-                    
-=======
                     <input type="number" name="in_stock" onChange={this.onChange}/></Col>
                         </Row>
                         <Row>
@@ -132,7 +107,6 @@ class InventoryNPage extends React.Component {
                             </Row>
                         <Row><button onClick={this.add}>Add</button></Row>   
                     </Container>  
->>>>>>> fcf20bd7f1c22aa4e427d7a826e9874b278ced81
                 </form>
 
             </div>

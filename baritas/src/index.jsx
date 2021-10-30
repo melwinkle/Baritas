@@ -1,68 +1,15 @@
  import './App.css';
 import React from "react";
-<<<<<<< HEAD
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Container, Row, Col } from 'reactstrap';
-=======
 import {PostData} from '../src/services/PostData';
->>>>>>> fcf20bd7f1c22aa4e427d7a826e9874b278ced81
 
 
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
-      username: '',
-      password: ''
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    
-  }
-
-  
-
-  handleChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    });
-  }
-
-  
-  handleSubmit(event) {
-    if(this.state.password=="cashier"){
-      window.location.href="/cashier/orders";
-
-    }else if(this.state.password=="bar"){
-      window.location.href="/bar";
-
-    }
-    else if(this.state.password=="kitchen"){
-      window.location.href="/kitchen";
-
-    }
-    else if(this.state.password=="production"){
-      window.location.href="/production";
-
-    }
-    else if(this.state.password=="store"){
-      window.location.href="/store";
-
-    }
-    else if(this.state.password=="admin"){
-        window.location.href="/administrator";
-    }else{
-      alert("Invalid username and password");
-    }
-    event.preventDefault();
-=======
       user: '',
       pass: '',
       err: '',
@@ -110,7 +57,6 @@ class MainPage extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
->>>>>>> fcf20bd7f1c22aa4e427d7a826e9874b278ced81
   }
 
 
@@ -120,7 +66,7 @@ class MainPage extends React.Component {
        <header className="App-header">
          <div className="FormApp">         
             <h3>BARITAS SIGN IN</h3>    
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.login}>
             <Container>
               <Row id="in">
   <Form.Group className="mb-3 in" controlId="formBasicEmail">
@@ -138,41 +84,13 @@ class MainPage extends React.Component {
   </Form.Group>
   </Row>
   <Row id="in">
-  <Button variant="primary" id="subbut"type="submit">
+  <Button variant="primary" id="subbut" type="submit">
     Submit
   </Button>
   </Row>
   </Container>
 </Form>      
-            {/* <form >
-              <Container>
-            <Row>
-              <label>
-                <input type="text" name="user" placeholder="Username" onChange={this.onChange}/>
-              </label>
-              </Row>
-
-
-              <Row>
-              <label>
-                <input type="password" name="pass" placeholder="Password" onChange={this.onChange} />
-                <p>{this.state.errormessage}</p>
-              </label>
-            </Row>
-
-            <Row>
-             
-<<<<<<< HEAD
-            <button id="subbut" type="submit" >Sign In</button>
-            </Row>
-            </Container>
-           </form> */}
-=======
-            <button class="subbut" type="button" onClick={this.login} >Sign In</button>
-        
-            
-           </form>
->>>>>>> fcf20bd7f1c22aa4e427d7a826e9874b278ced81
+          
         </div>
       </header>
     </div>

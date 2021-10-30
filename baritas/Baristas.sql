@@ -1,5 +1,5 @@
 create schema baritas;
-use baristas;
+use baritas;
 
 create table users (
 user_id int(11) NOT NULL auto_increment,
