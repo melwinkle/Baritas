@@ -66,7 +66,7 @@ class MainPage extends React.Component {
        <header className="App-header">
          <div className="FormApp">         
             <h3>BARITAS SIGN IN</h3>    
-            <Form onSubmit={this.login}>
+            <Form >
             <Container>
               <Row id="in">
   <Form.Group className="mb-3 in" controlId="formBasicEmail">
@@ -84,7 +84,7 @@ class MainPage extends React.Component {
   </Form.Group>
   </Row>
   <Row id="in">
-  <Button variant="primary" id="subbut" type="submit">
+  <Button variant="primary" id="subbut" type="button" onClick={this.login}>
     Submit
   </Button>
   </Row>
