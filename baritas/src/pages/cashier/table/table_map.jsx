@@ -43,24 +43,28 @@ function TablePage (){
 
 <Row>
   
-<Link
-    to={{pathname: `/cashier/waiter/?table=Table 1&process=${query.get("process")}`,
-    }}>
-    Press Me
-</Link>
+
  </Row>
 <Row>
-  <Col><Link to='/cashier/waiter/?table=1'><Button  id="tablenum">Table 1</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/?table=2"><Button  id="tablenum">Table 2</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/?table=3"><Button  id="tablenum">Table 3</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/?table=4"><Button  id="tablenum">Table 4</Button>{' '}</Link></Col>
+  <Col><Link to={{pathname: `/cashier/waiter/?table=Table 1&process=${query.get("process")}`,
+    }}><Button  id="tablenum">Table 1</Button>{' '}</Link></Col>
+<Col><Link to={{pathname: `/cashier/waiter/?table=Table 2&process=${query.get("process")}`,
+    }}><Button  id="tablenum">Table 2</Button>{' '}</Link></Col>
+<Col><Link to={{pathname: `/cashier/waiter/?table=Table 3&process=${query.get("process")}`,
+    }}><Button  id="tablenum">Table 3</Button>{' '}</Link></Col>
+<Col><Link to={{pathname: `/cashier/waiter/?table=Table 4&process=${query.get("process")}`,
+    }}><Button  id="tablenum">Table 4</Button>{' '}</Link></Col>
 </Row>
     
 <Row>
-  <Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 5</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 6</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 7</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 8</Button>{' '}</Link></Col>
+  <Col><Link to={{pathname: `/cashier/waiter/?table=Table 5&process=${query.get("process")}`,
+    }}><Button  id="tablenum">Table 5</Button>{' '}</Link></Col>
+<Col><Link to={{pathname: `/cashier/waiter/?table=Table 6&process=${query.get("process")}`,
+    }}><Button  id="tablenum">Table 6</Button>{' '}</Link></Col>
+<Col><Link to={{pathname: `/cashier/waiter/?table=Table 7&process=${query.get("process")}`,
+    }}><Button  id="tablenum">Table 7</Button>{' '}</Link></Col>
+<Col><Link to={{pathname: `/cashier/waiter/?table=Table 8&process=${query.get("process")}`,
+    }}><Button  id="tablenum">Table 8</Button>{' '}</Link></Col>
 </Row>
 <Row>
   <Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 9</Button>{' '}</Link></Col>

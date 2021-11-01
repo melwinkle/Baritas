@@ -1,5 +1,5 @@
 
-import {React,useState} from "react";
+import React,{useState} from "react";
 import {Link,useLocation} from "react-router-dom";
 import { Container, Row, Col } from 'reactstrap';
 
@@ -20,21 +20,25 @@ import "react-pro-sidebar/dist/css/styles.css";
 import "../../../Header.css";
 import '../../../App.css';
 import {MdDelete} from "react-icons/md";
+import Alert from "react-bootstrap/Alert";
 import Modal from "react-bootstrap/Modal";
+// import Modal from "../menu/modal/Modal.js";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
   }
 
 
-const MenuMPage =()=> {
+function MenuMPage() {
+   let query=useQuery();
 
-    const [show, setShow] = useState(false);
+   const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    let query = useQuery();
-  
+   const handleClose = () => setShow(false);
+   const handleShow = () => setShow(true);
+   const handleCloser=()=>{
+     window.location="/../kitchen_view/";
+   }
 
   return (
       
@@ -367,23 +371,26 @@ const MenuMPage =()=> {
                            <Col >  <h6 id="tb">200.00</h6></Col>
                      </Row>
                 </Card.Text>
-                <Button id="totalb" onClick={handleShow}>TOTAL:GHc 0.00</Button>
+                <Button id="totalb"  type="button" onClick={handleShow}>TOTAL:GHc 0.00</Button>
+                <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Confirm Order#123</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Is this order on an existing bill?</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                   No
+                </Button>
+                <Button variant="primary" onClick={handleCloser}>
+                    Yes
+                </Button>
+                </Modal.Footer>
+            </Modal>
                 </Card.Footer>
             </Card>
-            <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+
+           
+            
         </Container>
 
 

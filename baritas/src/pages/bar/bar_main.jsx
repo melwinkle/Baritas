@@ -45,7 +45,9 @@ const BarPage = () => {
                   <Col><Link to="/bar/bar_complete"><h4 class="com sec" id="rs"><strong>Completed</strong></h4></Link></Col>
                            
                   </Row>
-                  <Row id="logs"><FiLogOut/></Row>  
+                  <Row id="logs"><Col>
+                  <Link to="/"><FiLogOut/></Link>
+                  </Col></Row>  
                 </Container>
              
             </div>

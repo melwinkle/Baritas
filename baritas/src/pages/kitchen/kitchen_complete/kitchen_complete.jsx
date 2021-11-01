@@ -41,7 +41,11 @@ const KitchenCPage = () => {
                       <Col><Link to="/kitchen/"><h4  id="act" class="com"><strong>Open</strong></h4></Link></Col>
                       <Col> <h4 class="active sec" id="rs">Completed</h4></Col>        
                   </Row>
-                  <Row id="logs"><FiLogOut/></Row> 
+                  {/* function to unxet session variables */}
+                  <Row id="logs"><Col>
+                  <Link to="/"><FiLogOut/></Link>
+                  </Col>
+                      </Row> 
                 </Container>
             </div>
 

@@ -43,7 +43,7 @@ class MainPage extends React.Component {
         else if((result.UserData.role)==='4'){
           sessionStorage.setItem('cashierData',result);
           this.setState({redirect:true});
-          window.location='/cashier';
+          window.location='/cashier/orders';
         }
         
         else{

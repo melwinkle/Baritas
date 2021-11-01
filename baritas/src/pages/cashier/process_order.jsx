@@ -1,8 +1,8 @@
 import React from "react";
-import '../../../App.css';
+import '../../App.css';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
-import logo from "../../../images/IMG_8850.JPG";
+import logo from "../../images/IMG_8850.JPG";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -38,14 +38,10 @@ class UsersPage extends React.Component {
 
 
 <Row>
-  <Col><Link to="/cashier/table/?process=dine"><Button  id="porder">DINE IN</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/takeaway/?process=takeaway"><Button  id="porder">TAKEAWAY</Button>{' '}</Link></Col>
+  <Col><Link to={{pathname: `/cashier/table/?process=Dine-In`}}><Button  id="porder">DINE IN</Button>{' '}</Link></Col>
+<Col><Link to={{pathname: `/cashier/takeaway/?process=Takeaway`}}><Button  id="porder">TAKEAWAY</Button>{' '}</Link></Col>
 
-<Link
-    to={{pathname: `/cashier/table/?process=Dine-In`
-    }}>
-    Press Me
-</Link>
+
 
        
                             

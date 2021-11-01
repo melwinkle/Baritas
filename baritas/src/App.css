@@ -1642,8 +1642,17 @@ width:155%;
   text-align: center;
   color:#800020;
 }
+#cancel{
+  float: right;
+  font-size: 12pt;
+  text-decoration: none;
+  color:#800020;
+}
 
-
+#aler{
+  width:50%;
+  margin-left: 11%;
+}
 .orderm{
 
  height:15em;
@@ -1651,6 +1660,10 @@ width:155%;
  overflow-y: scroll;
 }
 
+#added{
+  color: #800020;
+  text-decoration: none;
+}
 .ords{
   margin-bottom:1%;
 }

@@ -40,7 +40,9 @@ const BarCPage = () => {
                   <Col><Link to="/bar/"><h4 class="com" id="act"><strong>Open</strong></h4></Link></Col>
                       <Col> <h4 class="active sec" id="rs">Completed</h4></Col>         
                   </Row>
-                  <Row id="logs"><FiLogOut/></Row>  
+                  <Row id="logs"><Col>
+                  <Link to="/"><FiLogOut/></Link>
+                  </Col></Row>  
                 </Container>
             </div>
 
