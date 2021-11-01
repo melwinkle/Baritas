@@ -41,7 +41,9 @@ const KitchenPage = () => {
                       <Col><h4 class="active" id="act"><strong>Open</strong></h4></Col>
                       <Col> <Link to="/kitchen/kitchen_complete/"><h4 class="com sec" id="rs">Completed</h4></Link></Col>        
                   </Row>
-                  <Row id="logs"><FiLogOut/></Row> 
+                  <Row id="logs"><Col>
+                  <Link to="/"><FiLogOut/></Link>
+                  </Col></Row> 
                 </Container>
             </div>
 
@@ -73,7 +75,8 @@ const KitchenPage = () => {
                                 </Row>
                             
                             </Card.Text>
-                            <Button id="yes" ><FaCheckCircle/></Button>
+                            <Link to="/cashier/kitchen_view/?id=1">  <Button id="yes" ><FaCheckCircle/></Button></Link>
+                          
                         </Card.Body>
                     </Card>
                </Col>

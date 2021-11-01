@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainPage from "./index.jsx";
-import UsersPage from "./pages/cashier/orders/process_order.jsx";
+import UsersPage from "./pages/cashier/process_order.jsx";
 import TablePage from "./pages/cashier/table/table_map.jsx";
 import TakeawayPage from "./pages/cashier/takeaway/takeaway_order.jsx";
 import WaiterPage from "./pages/cashier/waiter/waiter.jsx";

@@ -37,16 +37,14 @@ function WaiterPage () {
 </Navbar>
 
 
-<Link
-    to={{pathname: `/cashier/menu/?waiter=Waiter 1&table=${query.get("table")}&process=${query.get("process")}`
-    }}>
-    Press Me
-</Link>
 
 <Row>
-  <Col><Link to="/cashier/menu/"><Button  id="porder" size="lg">Waiter 1</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/menu/"><Button  id="porder" size="lg">Waiter 2</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/menu/"><Button  id="porder" size="lg">Waiter 3</Button>{' '}</Link></Col>
+  <Col><Link to={{pathname: `/cashier/menu/?waiter=Waiter 1&table=${query.get("table")}&process=${query.get("process")}`
+    }}><Button  id="porder" size="lg">Waiter 1</Button>{' '}</Link></Col>
+<Col><Link to={{pathname: `/cashier/menu/?waiter=Waiter 2&table=${query.get("table")}&process=${query.get("process")}`
+    }}><Button  id="porder" size="lg">Waiter 2</Button>{' '}</Link></Col>
+<Col><Link to={{pathname: `/cashier/menu/?waiter=Waiter 3&table=${query.get("table")}&process=${query.get("process")}`
+    }}><Button  id="porder" size="lg">Waiter 3</Button>{' '}</Link></Col>
  
 
        
