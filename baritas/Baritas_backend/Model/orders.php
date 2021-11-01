@@ -2,33 +2,33 @@
 class orders
 {
     private $conn;
-    private $table = 'orders';
-
-
     public $id;
     public $date;
     public $pay;
     public $waiter;
     public $total_cost;
-    public function __construct($db)
-    {
+    public $stats;
+
+    public function __construct($db){
         $this->conn = $db;
     }
     public function create()
     {
-        $query = "INSERT into orders(`date`, payment_method,waiter,total_cost) VALUES (:d, :pm,:w,:tc)";
+        $query = "INSERT into orders(`date`, payment_method,waiter,total_cost,stats) VALUES (:d, :pm,:w,:tc,:s)";
         $stmt = $this->conn->prepare($query);
 
         $this->date = htmlspecialchars(strip_tags($this->date));
         $this->pay = htmlspecialchars(strip_tags($this->pay));
         $this->waiter = htmlspecialchars(strip_tags($this->waiter));
         $this->total_cost = htmlspecialchars(strip_tags($this->total_cost));
+        $this->stats = htmlspecialchars(strip_tags($this->stats));
 
 
         $stmt->bindParam(':d', $this->date);
         $stmt->bindParam(':pm', $this->pay);
         $stmt->bindParam(':w', $this->waiter);
         $stmt->bindParam(':tc', $this->total_cost);
+        $stmt->bindParam(':s', $this->stats);
 
         if ($stmt->execute()) {
             $this->id = $this->conn->lastInsertId();
@@ -37,6 +37,33 @@ class orders
         printf("Error: %s.\n", $stmt->error);
 
         return false;
-    } 
+    }
+    
+    public function changestatus(){
+        $query="UPDATE orders SET stats=:pn where order_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+        $stmt->bindParam(':pn',$this->stats);
+
+        if($stmt->execute()){
+            return true;
+        }
+        printf("error: %s ./n", $stmt->error);
+        return false;
+    }
+
+    public function allorders(){
+        $query="SELECT * from orders";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    public function oneitem(){
+        $query="SELECT * from orders where order_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+        $stmt->execute();
+        return $stmt;
+    }
 }
 ?>

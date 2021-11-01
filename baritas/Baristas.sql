@@ -35,7 +35,6 @@ product_name varchar(100) NOT NULL,
 category varchar(100) NOT NULL,
 Unit_price varchar(50) NOT NULL,
 in_stock int(11) NOT NULL,
-img varchar(50) NOT NULL,
 Measurement varchar(10) NOT NULL,
 restaurant int(11) NOT NULL,
 in_stock_limit int(11) NOT NULL,
@@ -48,6 +47,7 @@ order_id int(11) NOT NULL auto_increment,
 payment_method varchar(50) NOT NULL,
 waiter varchar(50) NOT NULL,
 total_cost varchar(50) NOT NULL,
+stats varchar(2) NOT NULL,
 primary key(order_id)
 );
 

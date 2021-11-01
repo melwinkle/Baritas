@@ -6,20 +6,16 @@ header('Content-Type: application/json');
 include_once '../../Baritas_backend/database/Database.php';
 include_once '../../Baritas_backend/Model/restaurant.php';
 
-// Instantiate DB & connect
+
 $database = new Database();
 $db = $database->connect();
-
-// Instantiate cat object
 $rest = new restaurant($db);
 
-
-// get the available Cars
 $result = $rest->getallrestaurants();
 
 // Get row count
 $num = $result->rowCount();
-// Check if any categories
+
 if ($num > 0) {
     // Cat array
     $cat_arr = array();

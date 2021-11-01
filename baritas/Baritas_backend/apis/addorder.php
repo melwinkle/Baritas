@@ -5,27 +5,23 @@ header('Access-Control-Allow-Methods:POST');
 header('Access-Control-Allow-Headers:Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization,X-Requested-With');
 
 include_once '../../Baritas_backend/database/Database.php';
-include_once '../../Baritas_backend/Model/inventory.php';
+include_once '../../Baritas_backend/Model/orders.php';
 
 $database = new Database();
 $db = $database->connect();
-
-$invent = new inventory($db);
+$order = new orders($db);
 
 
 $data = json_decode(file_get_contents("php://input"));
 
-$invent->id = $_GET['id'];
-$invent->name=$data->name;
-$invent->unit=$data->unit;
-$invent->stock= $data->inn;
-$invent->measure= $data->Measure;
-$invent->instock_lim=$data->limit;
+$order->date=$data->d;
+$order->pay=$data->pa;
+$order->waiter= $data->wait;
+$order->total_cost= $data->cost;
+$order->stats=$data->stat;
 
-if($invent->updateinventory()){
-    echo true;
+if($order->create()){
+   echo true;
 }
 else{
     echo false;
-}
-?>

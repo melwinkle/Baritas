@@ -21,6 +21,12 @@ function AdminPage (){
       fetchPostList();
     }, [setRest]);
 
+
+  //  function handleClick(event) {
+  //     const id = event.target.id;
+  //     console.log(id);
+  //   }
+
     return (
     <div class="proad">
      
@@ -34,7 +40,7 @@ function AdminPage (){
         <Row>
           {rest.blogs && 
             rest.blogs.map((item)=>(
-              <Col><div class="pstore"><Link to={"/administrator/menu/" +item.token}><button  class="pstall" id={item.id} ><FaStore /><h5>{item.name}</h5></button></Link></div></Col>
+              <Col ><div class="pstore"><Link to="/administrator/menu/"><button class="pstall" id={item.id}><FaStore /><h5>{item.name}</h5></button></Link></div></Col>
             ))}
         </Row>
       </Container>

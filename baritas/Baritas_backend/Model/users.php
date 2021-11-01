@@ -20,7 +20,6 @@ class users
     {
         $query = "INSERT into users(Firstname, lastname, Pass,user_role ,stats,username) VALUES (:fname, :lname,:p,:us,:s,:ney)";
         $stmt = $this->conn->prepare($query);
-
         $this->firstname = htmlspecialchars(strip_tags($this->firstname));
         $this->lastname = htmlspecialchars(strip_tags($this->lastname));
         $this->password = htmlspecialchars(strip_tags($this->password));
