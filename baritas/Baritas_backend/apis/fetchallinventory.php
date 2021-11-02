@@ -26,7 +26,6 @@ if ($num > 0) {
             'category'=>$category,
             'unit'=>$Unit_price,
             'in'=>$in_stock,
-            'img'=>$img,
             'Measure' => $Measurement,
             'rest'=>$restaurant,
             'limit'=>$in_stock_limit

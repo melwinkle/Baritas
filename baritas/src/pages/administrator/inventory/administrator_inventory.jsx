@@ -22,7 +22,6 @@ const AxiosPost = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Image</th>
             <th>Product Name </th>
             <th>Category</th>
             <th>Unit Price</th>
@@ -36,7 +35,6 @@ const AxiosPost = () => {
             posts.blogs.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{item.img}</td>
                 <td>{item.name}</td>
                 <td>{item.category}</td>
                 <td>{item.unit}</td>
