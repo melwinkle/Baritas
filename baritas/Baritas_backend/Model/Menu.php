@@ -2,9 +2,6 @@
 class menu
 {
     private $conn;
-    private $table = 'Menu';
-
-
     public $id;
     public $name;
     public $category;
@@ -47,5 +44,21 @@ class menu
 
         return false;
     } 
+
+    public function updatemenu(){
+        $query="UPDATE Menu SET name_of_the_food=:pn , category=:c , price=:up , img=:iw where menu_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+        $stmt->bindParam(':pn',$this->name);
+        $stmt->bindParam(':c',$this->category);
+        $stmt->bindParam(':up',$this->price);
+        $stmt->bindParam(':iw',$this->img);
+
+        if($stmt->execute()){
+            return true;
+        }
+        printf("error: %s ./n", $stmt->error);
+        return false;
+    }
 }
 ?>

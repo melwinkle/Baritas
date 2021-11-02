@@ -45,3 +45,5 @@ else{
         array('message' => 'inventory does not exist')
     );
 }
+
+?>

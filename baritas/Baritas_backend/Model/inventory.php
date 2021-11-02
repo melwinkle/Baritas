@@ -10,7 +10,6 @@ class inventory
     public $name;
     public $unit;
     public $stock;
-    public $img;
     public $measure;
     public $restaurant;
     public $instock_lim;
@@ -20,14 +19,13 @@ class inventory
     }
     public function create()
     {
-        $query = "INSERT into inventory(product_name,category, Unit_price, in_stock,img,Measurement,restaurant,in_stock_limit) VALUES (:n,:c, :up,:s,:i,:m,:re,:ins)";
+        $query = "INSERT into inventory(product_name,category, Unit_price, in_stock,Measurement,restaurant,in_stock_limit) VALUES (:n,:c, :up,:s,:m,:re,:ins)";
         $stmt = $this->conn->prepare($query);
 
         $this->category = htmlspecialchars(strip_tags($this->category));
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->unit = htmlspecialchars(strip_tags($this->unit));
         $this->stock = htmlspecialchars(strip_tags($this->stock));
-        $this->img = htmlspecialchars(strip_tags($this->img));
         $this->measure = htmlspecialchars(strip_tags($this->measure));
         $this->restaurant = htmlspecialchars(strip_tags($this->restaurant));
 
@@ -37,7 +35,6 @@ class inventory
         $stmt->bindParam(':n', $this->name);
         $stmt->bindParam(':up', $this->unit);
         $stmt->bindParam(':s', $this->stock);
-        $stmt->bindParam(':i', $this->img);
         $stmt->bindParam(':m', $this->measure);
         $stmt->bindParam(':re', $this->restaurant);
         $stmt->bindParam(':ins', $this->instock_lim);

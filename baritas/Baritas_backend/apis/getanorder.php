@@ -5,21 +5,19 @@ header('Access-Control-Allow-Methods:POST');
 header('Access-Control-Allow-Headers:Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization,X-Requested-With');
 
 include_once '../../Baritas_backend/database/Database.php';
-include_once '../../Baritas_backend/Model/users.php';
+include_once '../../Baritas_backend/Model/orders.php';
 
 $database = new Database();
 $db = $database->connect();
 
-$user = new users($db);
+$order = new orders($db);
 
 
 $data = json_decode(file_get_contents("php://input"));
 
-$user->username = $data->user;
-$user->password = $data->pass;
-$result= $user->login();
+$order->id = $_GET['id'];
+$result= $order->oneitem();
 $num = $result->rowCount();
-
 
 if($num >0){
     $cat_arr =array();
@@ -28,17 +26,20 @@ if($num >0){
    while($row =$result->fetch(PDO::FETCH_ASSOC)){
        extract($row);
        $cat_item = array(
-           'firstname'=>$Firstname,
-           'lastname'=>$lastname,
-           'role'=>$user_role,
-           'status'=>$stats
-       );
+        'id' => $order_id,
+        'date'=>$date,
+        'pay'=>$payment_method,
+        'server'=>$waiter,
+        'cost'=>$total_cost,
+        'status'=>$status
+    );
    }
-   echo '{"UserData": ' .json_encode($cat_item).' }';
+   echo '{"order": ' .json_encode($cat_item).' }';
 }
 else{
     echo json_encode(
-        array('message' => 'User does not exist')
+        array('message' => 'order does not exist')
     );
 }
+
 ?>

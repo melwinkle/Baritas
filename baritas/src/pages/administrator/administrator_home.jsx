@@ -21,6 +21,12 @@ function AdminPage (){
       fetchPostList();
     }, [setRest]);
 
+
+  //  function handleClick(event) {
+  //     const id = event.target.id;
+  //     console.log(id);
+  //   }
+
     return (
     <div class="proda">
      
