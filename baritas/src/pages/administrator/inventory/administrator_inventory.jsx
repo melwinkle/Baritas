@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
-
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import {
+  ProSidebar,
+  SidebarHeader,
+  SidebarContent,
+} from "react-pro-sidebar";
+import { FaList,FaStore } from "react-icons/fa";
+import "../../../Header.css";
+import { Link } from 'react-router-dom';
+import {FiLogOut} from "react-icons/fi";
+import { Container, Row, Col } from 'reactstrap';
 const AxiosPost = () => {
   const [posts, setPosts] = useState({ blogs: [] });
 
@@ -17,12 +28,107 @@ const AxiosPost = () => {
   }, [setPosts]);
 
   return (
-    <div class="proda">
-      <ReactBootStrap.Table striped bordered hover>
+    <div class="proad">
+         <div id="header">
+          {/* collapsed props to change menu size using menucollapse state */}
+        <ProSidebar >
+          <SidebarHeader>
+          <div className="logotext">
+              <Row>
+                  <Col><h3>Baritas:Adenta</h3></Col>
+              
+              </Row>
+              
+              
+            </div>
+            
+          </SidebarHeader>
+          <SidebarContent id="menuit">
+              <div class="menuitem">
+              <Link to="/administrator/"> <button><FaList /><div> Home</div>
+             </button></Link>
+             
+              </div>
+
+              <div class="menuitem c">
+              <Link to="/administrator/inventory/"> <button><FaList /><div> Inventory</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/administrator/finances/"> <button><FaList /><div> Finances</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/administrator/orders/"> <button><FaList /><div> Orders</div>
+             </button></Link>
+             
+              </div>
+
+              <div class="menuitem">
+              <Link to="/administrator/mainmenu/"> <button><FaList /><div> Menu</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/administrator/production/"> <button><FaList /><div> Production</div>
+             </button></Link>
+             
+              </div>
+              
+              <div class="menuitem">
+              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
+             </button></Link>
+             
+              </div>
+           
+             
+            
+             
+             
+             
+             
+            
+          </SidebarContent>
+          {/* <SidebarFooter>
+            Baritas (c)
+          </SidebarFooter> */}
+        </ProSidebar>
+      </div>
+
+
+<Container id="invt">
+  <Row>
+    <Link to="/administrator/inventory/new/"><Button id="addnew">Add New +</Button></Link>
+    
+  </Row>
+  <Row>
+
+ 
+    <Form.Group id="forminv">
+<Row>
+<Form.Label>Inventory Item</Form.Label> 
+  <Col>
+
+    <Form.Control type="text" name="inventory"  placeholder="Enter item" /></Col>
+    <Col> <Button id="searchb"> Search</Button></Col>
+</Row>
+    
+   
+
+    </Form.Group>
+
+
+  </Row>
+
+ 
+<Row id="invtt">
+
+      <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Image</th>
             <th>Product Name </th>
             <th>Category</th>
             <th>Unit Price</th>
@@ -36,17 +142,19 @@ const AxiosPost = () => {
             posts.blogs.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{item.img}</td>
                 <td>{item.name}</td>
                 <td>{item.category}</td>
                 <td>{item.unit}</td>
                 <td>{item.in}</td>
                 <td>{item.Measure}</td>
-                <td><button><a href={'/administrator/inventory/view/' + item.id}>Edit</a></button></td>
+                <td><button class="b2"><a href={'/administrator/inventory/update/' + item.id}>Edit</a></button>
+                <button class="b1"><a href={'/administrator/inventory/view/' + item.id}>View</a></button></td>
               </tr>
             ))}
         </tbody>
       </ReactBootStrap.Table>
+      </Row>
+      </Container>
     </div>
   );
 };

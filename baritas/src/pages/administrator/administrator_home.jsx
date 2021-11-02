@@ -22,7 +22,7 @@ function AdminPage (){
     }, [setRest]);
 
     return (
-    <div class="proad">
+    <div class="proda">
      
      <div class="acco">
        <button><FiLogOut />Logout</button>
@@ -34,7 +34,7 @@ function AdminPage (){
         <Row>
           {rest.blogs && 
             rest.blogs.map((item)=>(
-              <Col><div class="pstore"><Link to={"/administrator/menu/" +item.token}><button  class="pstall" id={item.id} ><FaStore /><h5>{item.name}</h5></button></Link></div></Col>
+              <Col><div class="pstore"><Link to={"/administrator/inventory/" +item.token}><button  class="pstall" id={item.id} ><FaStore /><h5>{item.name}</h5></button></Link></div></Col>
             ))}
         </Row>
       </Container>

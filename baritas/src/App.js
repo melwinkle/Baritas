@@ -25,6 +25,7 @@ import AdminMPage from "./pages/administrator/menu/admin_menu.jsx";
 import InventoryPage from "./pages/administrator/inventory/administrator_inventory.jsx";
 import InventoryNPage from "./pages/administrator/inventory/new/admin_inventory_new.jsx";
 import InventoryVPage from "./pages/administrator/inventory/view/admin_inventory_view.jsx";
+import EditInventory from "./pages/administrator/inventory/update/admin_inventory_update.jsx";
 import AdminMenuPage from "./pages/administrator/mainmenu/administrator_menu.jsx";
 import AdminMenuNPage from "./pages/administrator/mainmenu/new/administrator_new.jsx";
 import AdminMenuVPage from "./pages/administrator/mainmenu/view/administrator_menu_view.jsx";
@@ -62,10 +63,11 @@ class App extends Component {
        <Route exact path="/kitchen" component={KitchenPage} />
        <Route exact path="/kitchen/kitchen_complete" component={KitchenCPage} />
        <Route exact path="/administrator" component={AdminPage} />
-       <Route exact path="/administrator/menu/:token" component={AdminMPage} />
-       <Route exact path="/administrator/inventory" component={InventoryPage} />
+       <Route exact path="/administrator/menu/" component={AdminMPage} />
+       <Route exact path="/administrator/inventory/:token" component={InventoryPage} />
        <Route exact path="/administrator/inventory/new" component={InventoryNPage} />
        <Route exact path="/administrator/inventory/view/:id" component={InventoryVPage} />
+       <Route exact path="/administrator/inventory/update/:id" component={EditInventory} />
        <Route exact path="/administrator/mainmenu" component={AdminMenuPage} />
        <Route exact path="/administrator/mainmenu/new" component={AdminMenuNPage} />
        <Route exact path="/administrator/mainmenu/view" component={AdminMenuVPage} />
