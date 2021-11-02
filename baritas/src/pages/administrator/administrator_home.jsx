@@ -40,7 +40,7 @@ function AdminPage (){
         <Row>
           {rest.blogs && 
             rest.blogs.map((item)=>(
-              <Col><div class="pstore"><Link to={"/administrator/inventory/" +item.token}><button  class="pstall" id={item.id} ><FaStore /><h5>{item.name}</h5></button></Link></div></Col>
+              <Col><div class="pstore"><Link to="/administrator/inventory/"><button  class="pstall" id={item.id} ><FaStore /><h5>{item.name}</h5></button></Link></div></Col>
             ))}
         </Row>
       </Container>

@@ -31,7 +31,7 @@ function EditInventory(props) {
 
     const{name,category,unit,inn,Measure,limit}=inventory;
 
-    useEffect( async ()=>{
+    useEffect(async ()=>{
         await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getainventoryitem.php?id='+props.match.params.id)
         .then((response)=>response.json())
         .then((responseJSON)=>{
@@ -40,9 +40,7 @@ function EditInventory(props) {
         }
         );
     },[]);
-
-    return (
-        
+    return ( 
         <div class="proad">
              <div id="header">
           {/* collapsed props to change menu size using menucollapse state */}

@@ -64,7 +64,7 @@ class App extends Component {
        <Route exact path="/kitchen/kitchen_complete" component={KitchenCPage} />
        <Route exact path="/administrator" component={AdminPage} />
        <Route exact path="/administrator/menu/" component={AdminMPage} />
-       <Route exact path="/administrator/inventory/:token" component={InventoryPage} />
+       <Route exact path="/administrator/inventory/" component={InventoryPage} />
        <Route exact path="/administrator/inventory/new" component={InventoryNPage} />
        <Route exact path="/administrator/inventory/view/:id" component={InventoryVPage} />
        <Route exact path="/administrator/inventory/update/:id" component={EditInventory} />
