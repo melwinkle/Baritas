@@ -10,6 +10,7 @@ include_once '../../Baritas_backend/Model/orders.php';
 $database = new Database();
 $db = $database->connect();
 $order = new orders($db);
+$order->restaurant= $_GET['id'];
 
 $result = $order->allorders();
 
@@ -29,7 +30,7 @@ if ($num > 0) {
             'pay'=>$payment_method,
             'server'=>$waiter,
             'cost'=>$total_cost,
-            'status'=>$Status
+            'status'=>$stats
         );
 
         // Push to "data"

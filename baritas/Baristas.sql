@@ -48,6 +48,7 @@ payment_method varchar(50) NOT NULL,
 waiter varchar(50) NOT NULL,
 total_cost varchar(50) NOT NULL,
 stats varchar(2) NOT NULL,
+restaurant int(11) NOT NULL,
 primary key(order_id)
 );
 

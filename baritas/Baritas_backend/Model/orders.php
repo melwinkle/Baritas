@@ -8,13 +8,14 @@ class orders
     public $waiter;
     public $total_cost;
     public $stats;
+    public $restaurant;
 
     public function __construct($db){
         $this->conn = $db;
     }
     public function create()
     {
-        $query = "INSERT into orders(`date`, payment_method,waiter,total_cost,stats) VALUES (:d, :pm,:w,:tc,:s)";
+        $query = "INSERT into orders(`date`, payment_method,waiter,total_cost,stats,restaurant) VALUES (:d, :pm,:w,:tc,:s,:r)";
         $stmt = $this->conn->prepare($query);
 
         $this->date = htmlspecialchars(strip_tags($this->date));
@@ -22,6 +23,8 @@ class orders
         $this->waiter = htmlspecialchars(strip_tags($this->waiter));
         $this->total_cost = htmlspecialchars(strip_tags($this->total_cost));
         $this->stats = htmlspecialchars(strip_tags($this->stats));
+        $this->restaurant = htmlspecialchars(strip_tags($this->restaurant));
+
 
 
         $stmt->bindParam(':d', $this->date);
@@ -29,6 +32,8 @@ class orders
         $stmt->bindParam(':w', $this->waiter);
         $stmt->bindParam(':tc', $this->total_cost);
         $stmt->bindParam(':s', $this->stats);
+        $stmt->bindParam(':r', $this->restaurant);
+
 
         if ($stmt->execute()) {
             $this->id = $this->conn->lastInsertId();
@@ -53,8 +58,9 @@ class orders
     }
 
     public function allorders(){
-        $query="SELECT * from orders";
+        $query="SELECT * from orders where restaurant=:r";
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->restaurant);
         $stmt->execute();
         return $stmt;
     }

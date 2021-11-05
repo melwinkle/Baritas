@@ -51,8 +51,9 @@ class inventory
     }
     
     public function allinventory(){
-        $query="SELECT * from inventory";
+        $query="SELECT * from inventory where restaurant=:r";
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
         return $stmt;
     }

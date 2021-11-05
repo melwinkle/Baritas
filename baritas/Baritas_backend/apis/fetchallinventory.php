@@ -9,7 +9,7 @@ $database = new Database();
 $db = $database->connect();
 $invent = new inventory($db);
 
-
+$invent->restaurant =$_GET['id'];
 $result = $invent->allinventory();
 $num = $result->rowCount();
 
