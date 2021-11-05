@@ -20,7 +20,6 @@ $invent->unit=$data->unitcost;
 $invent->stock= $data->in_stock;
 $invent->measure= $data->unitmeasure;
 $invent->category=$data->category;
-$invent->img=$data->image;
 $invent->restaurant=$data->rest;
 $invent->instock_lim=$data->limit;
 

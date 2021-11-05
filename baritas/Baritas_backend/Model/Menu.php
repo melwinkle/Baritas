@@ -60,5 +60,17 @@ class menu
         printf("error: %s ./n", $stmt->error);
         return false;
     }
+
+    public function getallmenuitems(){
+        $query ="SELECT * from menu where restaurant=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->restaurant);
+
+        if($stmt->execute()){
+            return true;
+        }
+        printf("error: %s ./n", $stmt->error);
+        return false;
+    }
 }
 ?>
