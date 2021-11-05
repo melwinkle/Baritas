@@ -936,7 +936,22 @@ th{
   border-radius:8px;
   
 }
+/* 
+.canvasjs-chart-canvas{
+  margin-left:-2%;
 
+} */
+#mods #order{
+  background-color: #800020;
+  color:white;
+}
+#mods .modal-header{
+  background-color:#800020;
+  color:white;
+}
+#mods .modal-header .close span{
+  color:white;
+}
 .b1{
   background:orange;
   color:white;
@@ -944,6 +959,9 @@ th{
   border-radius:5px;
   margin-left:2%;
   width:45%;
+}
+.ab1{
+  text-decoration: none;
 }
 .b1 a{
   color:white;

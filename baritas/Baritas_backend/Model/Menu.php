@@ -45,6 +45,13 @@ class menu
         return false;
     } 
 
+
+    public function allmenu(){
+        $query="SELECT * from Menu";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
     public function updatemenu(){
         $query="UPDATE Menu SET name_of_the_food=:pn , category=:c , price=:up , img=:iw where menu_id=:i";
         $stmt = $this->conn->prepare($query);
