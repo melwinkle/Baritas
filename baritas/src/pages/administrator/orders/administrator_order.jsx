@@ -161,7 +161,7 @@ const AdminOrderPage =()=> {
                 <td><button class="b1" onClick={handleShow}>View</button>
                 <Modal show={show} onHide={handleClose} id="mods">
                                 <Modal.Header closeButton>
-                                <Modal.Title>Order #{item.id} </Modal.Title>
+                                <Modal.Title>Order #{item.id}-Cash</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body >
                                     <Row>
@@ -182,41 +182,43 @@ const AdminOrderPage =()=> {
                                         </ReactBootStrap.Card>
                                     </Row>
                                     <Row>
-                                        <ReactBootStrap.Card>
-                                            <ReactBootStrap.Card.Text>
-                                                yesss
-
+                                    <ReactBootStrap.Card id="order">
+                                            <ReactBootStrap.Card.Text >
+                                              <Row>
+                                                <Col>1x  Meat Spring Rolls(3)</Col>
+                                            
+                                                <Col> Ghc 15.00</Col>
+                                              </Row>
+                                             
+                                             
                                             </ReactBootStrap.Card.Text>
                                         </ReactBootStrap.Card>
                                     </Row>
                                     
-                                    </Modal.Body>
-                                <Modal.Footer id="fut">
-                                    <Row>
-                                    Payment Method
-                                    </Row>
-                                       <Row>
-                                       <label>{item.pay}</label>
-                                        <input type="radio" checked/>
-                                       </Row>
-                                       
-                                       <Row>
+
+
+                                    <Row id="fut">
+                                      <hr/>
+                                    <Row >
                                            <Col><h6>Sub-Total</h6></Col>
-                                           <Col>400.00</Col>
+                                           <Col id="val">400.00</Col>
                                            
                                        </Row>
                                        <Row>
                                            <Col><h6>VAT(2.5%)</h6></Col>
-                                           <Col>40.00</Col>
+                                           <Col  id="val">40.00</Col>
                                            
                                        </Row>
 
                                        <Row>
                                            <Col><h6>Total</h6></Col>
-                                           <Col>{item.cost}</Col>
+                                           <Col id="val">{item.cost}</Col>
                                            
                                        </Row>
-                                </Modal.Footer>
+
+                                    </Row>
+                                    </Modal.Body>
+                               
                             </Modal>
                     {/* <a href={'/administrator/orders/view/' + item.id}> <button class="b1">View</button></a> */}
                     </td>

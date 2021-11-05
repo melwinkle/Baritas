@@ -944,6 +944,7 @@ th{
 #mods #order{
   background-color: #800020;
   color:white;
+  margin-bottom:1%;
 }
 #mods .modal-header{
   background-color:#800020;
@@ -951,6 +952,9 @@ th{
 }
 #mods .modal-header .close span{
   color:white;
+}
+#mods #fut #val{
+ margin-left:50%;
 }
 .b1{
   background:orange;

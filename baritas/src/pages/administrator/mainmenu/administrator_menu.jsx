@@ -108,10 +108,10 @@ import {
    
       <Form.Group id="forminv">
   <Row>
-  <Form.Label>Order Date</Form.Label> 
+  <Form.Label>Menu Name</Form.Label> 
     <Col>
   
-      <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
+      <Form.Control type="text" name="menu"  placeholder="Enter item" /></Col>
       <Col> <Button id="searchb"> Search</Button></Col>
   </Row>
       
@@ -146,8 +146,8 @@ import {
                   <td>{item.category}</td>
                   <td>{item.size}</td>
                   <td>{item.price}</td>
-                  <td><a href={'/administrator/menu/view/' + item.id}> <button class="b1">View</button></a>
-                  <a href={'/administrator/menu/update/' + item.id}> <button class="b2">Update</button></a></td>
+                  <td>
+                  <a href={'/administrator/mainmenu/view/' + item.id}> <button class="b2">Update</button></a></td>
                 </tr>
               ))}
           </tbody>
