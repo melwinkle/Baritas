@@ -47,8 +47,9 @@ class menu
 
 
     public function allmenu(){
-        $query="SELECT * from Menu";
+        $query="SELECT * from Menu where restaurant=:r";
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
         return $stmt;
     }

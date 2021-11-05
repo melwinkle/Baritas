@@ -18,10 +18,11 @@ import {
  const AdminMenuPage =()=>{
     const [posts, setPosts] = useState({ blogs: [] });
 
+    const id= sessionStorage.getItem("rest");
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallmenu.php'
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallmenu.php?id='+id
         );
         setPosts({ blogs: data.data });
         console.log(data);
