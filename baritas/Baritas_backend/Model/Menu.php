@@ -53,6 +53,14 @@ class menu
         $stmt->execute();
         return $stmt;
     }
+
+    public function oneitem(){
+        $query="SELECT * from Menu where menu_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+        $stmt->execute();
+        return $stmt;
+    }
     public function updatemenu(){
         $query="UPDATE Menu SET name_of_the_food=:pn , category=:c , price=:up , img=:iw where menu_id=:i";
         $stmt = $this->conn->prepare($query);

@@ -70,7 +70,7 @@ class App extends Component {
        <Route exact path="/administrator/inventory/update/:id" component={EditInventory} />
        <Route exact path="/administrator/mainmenu" component={AdminMenuPage} />
        <Route exact path="/administrator/mainmenu/new" component={AdminMenuNPage} />
-       <Route exact path="/administrator/mainmenu/view" component={AdminMenuVPage} />
+       <Route exact path="/administrator/mainmenu/view/:id" component={AdminMenuVPage} />
        <Route exact path="/administrator/orders" component={AdminOrderPage} />
        <Route exact path="/administrator/orders/view" component={AdminOrderVPage} />
        <Route exact path="/administrator/production" component={AdminProductionPage} />

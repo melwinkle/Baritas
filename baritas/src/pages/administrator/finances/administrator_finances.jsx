@@ -148,7 +148,7 @@ const AdminFinancePage =()=>{
    
       <Form.Group id="forminv">
   <Row>
-  <Form.Label>Order Date</Form.Label> 
+  <Form.Label>Sales Date</Form.Label> 
     <Col>
   
       <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
