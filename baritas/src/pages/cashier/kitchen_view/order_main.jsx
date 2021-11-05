@@ -29,12 +29,12 @@ function useQuery() {
   }
 
 
-  function aler(){
-    let query = useQuery();
-      if(query.get("id")=="1"){
-          document.getElementById(aler).style.display="visible";
-      }
-  }
+//   function aler(){
+//     let query = useQuery();
+//       if(query.get("id")=="1"){
+//           document.getElementById(aler).style.display="visible";
+//       }
+//   }
 
   
 function OrderPage(){
