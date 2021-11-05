@@ -147,8 +147,8 @@ const AxiosPost = () => {
                 <td>{item.unit}</td>
                 <td>{item.in}</td>
                 <td>{item.Measure}</td>
-                <td><a href={'/administrator/inventory/update/' + item.id}><button class="b2">Edit</button></a>
-               <a href={'/administrator/inventory/view/' + item.id}> <button class="b1">View</button></a></td>
+                <td><a class="ab1"href={'/administrator/inventory/update/' + item.id}><button class="b2">Edit</button></a>
+               <a class="ab1" href={'/administrator/inventory/view/' + item.id}> <button class="b1">View</button></a></td>
               </tr>
             ))}
         </tbody>

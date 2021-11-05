@@ -29,7 +29,7 @@ if ($num > 0) {
             'pay'=>$payment_method,
             'server'=>$waiter,
             'cost'=>$total_cost,
-            'status'=>$stats
+            'status'=>$Status
         );
 
         // Push to "data"
