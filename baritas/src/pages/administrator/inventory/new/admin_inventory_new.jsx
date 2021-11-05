@@ -26,8 +26,7 @@ class InventoryNPage extends React.Component {
             unitcost:'',
             unitmeasure:'',
             in_stock:'',
-            image:null,
-            rest:'',
+            rest:'1',
             limit:''
         };
         this.add = this.add.bind(this);
@@ -42,11 +41,6 @@ class InventoryNPage extends React.Component {
             console.log(response.data);
         })
         
-    }
-
-    fileSelectedHandler=event =>{
-        this.setState({image:event.target.files[0]["name"]
-        })
     }
 
     onChange(e){
@@ -141,9 +135,6 @@ class InventoryNPage extends React.Component {
                    <Row>
                        <Col><label>Product</label>
                <input type="text" placeholder="Product" name="product" onChange={this.onChange}/></Col>
-
-               <Col><label>Image</label>
-               <input type="file" name="img" onChange={this.fileSelectedHandler}/></Col>
                    </Row>
                    <Row>
                        <Col><label>Category</label>
@@ -164,6 +155,7 @@ class InventoryNPage extends React.Component {
                        <select name="unitmeasure" onChange={this.onChange}>
                            <option value="">--Select a unit of measurement--</option>
                            <option value="kg">Kilograms(Kg)</option>
+                           <option value="g">Grams(g)</option>
                            <option value="lb">Pounds(lb)</option>
                            <option value="ml">Millimetres</option>
                            <option value="bags">bags</option>  

@@ -22,10 +22,9 @@ function AdminPage (){
     }, [setRest]);
 
 
-  //  function handleClick(event) {
-  //     const id = event.target.id;
-  //     console.log(id);
-  //   }
+   function handleClick(btn) {
+    sessionStorage.setItem('rest',btn);
+    }
 
     return (
     <div class="proda">
@@ -40,7 +39,7 @@ function AdminPage (){
         <Row>
           {rest.blogs && 
             rest.blogs.map((item)=>(
-              <Col><div class="pstore"><Link to={"/administrator/inventory/?"+item.token+"&name="+item.name}><button  class="pstall" id={item.id} ><FaStore /><h5>{item.name}</h5></button></Link></div></Col>
+              <Col><div class="pstore"><Link to="/administrator/inventory/"><button onClick={handleClick.bind(this,item.id)} class="pstall" id={item.id} ><FaStore /><h5>{item.name}</h5></button></Link></div></Col>
             ))}
         </Row>
       </Container>
