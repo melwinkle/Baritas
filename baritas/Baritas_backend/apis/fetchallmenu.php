@@ -8,7 +8,7 @@ include_once '../../Baritas_backend/Model/Menu.php';
 $database = new Database();
 $db = $database->connect();
 $invent = new menu($db);
-
+$invent->restaurant = $_GET["id"];
 
 $result = $invent->allmenu();
 $num = $result->rowCount();
