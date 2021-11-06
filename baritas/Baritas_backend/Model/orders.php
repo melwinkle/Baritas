@@ -60,7 +60,7 @@ class orders
     public function allorders(){
         $query="SELECT * from orders where restaurant=:r";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':i',$this->restaurant);
+        $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
         return $stmt;
     }
