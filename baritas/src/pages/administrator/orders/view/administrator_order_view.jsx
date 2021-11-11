@@ -8,11 +8,11 @@ import rooster from "../../../../images/IMG_8850.JPG";
 
 import { Container, Row, Col } from 'reactstrap';
 
- class AdminOrderVPage extends React.Component{
+ function AdminOrderVPage (){
     
           
 
-    render() {
+
        
         return (
           <div class="proda">
@@ -82,7 +82,7 @@ import { Container, Row, Col } from 'reactstrap';
 
           </div>
         );
-    }
+    
 }
 
 export default AdminOrderVPage;
