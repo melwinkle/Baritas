@@ -29,7 +29,7 @@ const AdminFinancePage =()=>{
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/getallorders.php'
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchfinance.php'
         );
         setPosts({ blogs: data.data });
         console.log(data);
@@ -181,9 +181,9 @@ const AdminFinancePage =()=>{
             {posts.blogs &&
               posts.blogs.map((item) => (
                 <tr key={item.id}>
-                  <td>{item.id}</td>
+                  <td>{item.i}</td>
                   <td>{item.date}</td>
-                  <td>{item.cost}</td>
+                  <td>{item.bill}</td>
                   <td>
                   <button class="b1" onClick={handleShow}>View</button>
                   <Modal id="chart" show={show} onHide={handleClose}>

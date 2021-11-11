@@ -16,8 +16,10 @@ import { Container, Row, Col } from 'reactstrap';
 const AxiosPost = () => {
   const [posts, setPosts] = useState({ blogs: [] });
 
+  const [searchTerm,setSearchTerm] = useState('');
+
   const id=sessionStorage.getItem("rest");
-  
+
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
@@ -113,8 +115,8 @@ const AxiosPost = () => {
 <Form.Label>Inventory Item</Form.Label> 
   <Col>
 
-    <Form.Control type="text" name="inventory"  placeholder="Enter item" /></Col>
-    <Col> <Button id="searchb"> Search</Button></Col>
+    <Form.Control type="text" name="inventory"  placeholder="Enter item to search" onChange={event =>{setSearchTerm(event.target.value)}}/></Col>
+    <Col> </Col>
 </Row>
     
    
@@ -141,7 +143,13 @@ const AxiosPost = () => {
         </thead>
         <tbody>
           {posts.blogs &&
-            posts.blogs.map((item) => (
+            posts.blogs.filter((item)=>{
+              if(searchTerm ==""){
+                return item;
+              }else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                  return item;
+              }
+            }).map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
