@@ -83,5 +83,18 @@ class inventory
         printf("error: %s ./n", $stmt->error);
         return false;
     }
+
+    public function searchinventory($keywords)
+    {
+        $query = "SELECT * from inventory where product_name LIKE ?";
+        $stmt = $this->conn->prepare($query);
+        
+        $keywords=htmlspecialchars(strip_tags($keywords));
+        $keywords ="%{$keywords}%";
+        
+        $stmt->bindParam(1,$keywords);
+        $stmt->execute();
+        return $stmt;
+    }
 }
 ?>

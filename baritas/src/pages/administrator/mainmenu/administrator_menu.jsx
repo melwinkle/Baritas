@@ -19,6 +19,7 @@ import {
     const [posts, setPosts] = useState({ blogs: [] });
 
     const id= sessionStorage.getItem("rest");
+    const [searchTerm,setSearchTerm] = useState('');
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
@@ -112,8 +113,8 @@ import {
   <Form.Label>Menu Name</Form.Label> 
     <Col>
   
-      <Form.Control type="text" name="menu"  placeholder="Enter item" /></Col>
-      <Col> <Button id="searchb"> Search</Button></Col>
+      <Form.Control type="text" name="menu"  placeholder="Enter item" onChange={event =>{setSearchTerm(event.target.value)}} /></Col>
+      <Col></Col>
   </Row>
       
      
@@ -140,7 +141,13 @@ import {
           </thead>
           <tbody>
             {posts.blogs &&
-              posts.blogs.map((item) => (
+              posts.blogs.filter((item)=>{
+                if(searchTerm ==""){
+                  return item;
+                }else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                   return item; 
+                }
+              }).map((item) => (
                 <tr key={item.id}>
                   <td>{item.id}</td>
                   <td>{item.name}</td>

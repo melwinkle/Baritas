@@ -71,5 +71,13 @@ class orders
         $stmt->execute();
         return $stmt;
     }
+
+    public function ordertotal(){
+        $query ="SELECT * from orders left join Menu on orders.menu_id= menu.menu_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+
+    }
 }
 ?>

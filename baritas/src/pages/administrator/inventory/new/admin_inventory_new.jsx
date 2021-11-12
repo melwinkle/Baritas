@@ -148,7 +148,7 @@ class InventoryNPage extends React.Component {
                </Col>
                <Col>
                <label>Unit Cost Price</label>
-               <input type="number" name="unitcost" onChange={this.onChange} /></Col>
+               <input type="number" placeholder="Cost Price" name="unitcost" onChange={this.onChange} /></Col>
                    </Row>
                    <Row>
                        <Col><label>Unit of Measurement</label>
@@ -163,12 +163,12 @@ class InventoryNPage extends React.Component {
                </Col>
                <Col>
                <label>In Stock</label>
-               <input type="number" name="in_stock" onChange={this.onChange}/></Col>
+               <input type="number" placeholder="In stock" name="in_stock" onChange={this.onChange}/></Col>
                    </Row>
                    <Row>
                    <Col>
                <label>Stock Limit</label>
-               <input type="number" name="limit" onChange={this.onChange}/></Col>
+               <input type="number" placeholder="Stock limit" name="limit" onChange={this.onChange}/></Col>
                        </Row>
                    <Row><button onClick={this.add}>Add</button></Row>   
                </Container>  
