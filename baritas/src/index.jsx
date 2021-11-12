@@ -45,7 +45,21 @@ class MainPage extends React.Component {
           this.setState({redirect:true});
           window.location='/cashier/orders';
         }
-        
+        else if((result.UserData.role)==='5'){
+          sessionStorage.setItem('generalMData',result);
+          this.setState({redirect:true});
+          window.location='/general_manager';
+        }
+        else if((result.UserData.role)==='6'){
+          sessionStorage.setItem('branchMData',result);
+          this.setState({redirect:true});
+          window.location='/branch_manager/inventory';
+        }
+        else if((result.UserData.role)==='7'){
+          sessionStorage.setItem('branchMData',result);
+          this.setState({redirect:true});
+          window.location='/production';
+        }
         else{
           console.log("login Error");
         }

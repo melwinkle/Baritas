@@ -5,6 +5,17 @@ import { Link } from 'react-router-dom';
 // import {FaHome} from "react-icons/fa";
 import {BiArrowBack} from "react-icons/bi";
 import { Container, Row, Col } from 'reactstrap';
+import {
+    ProSidebar,
+    SidebarHeader,
+    SidebarContent,
+  } from "react-pro-sidebar";
+  import * as ReactBootStrap from "react-bootstrap";
+import axios from "axios";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import {FaHome,FaBell,FaStoreAlt,FaArrowLeft} from "react-icons/fa";
+import {FiLogOut} from "react-icons/fi";
 
  class ProductionNPage extends React.Component{
     
@@ -13,17 +24,63 @@ import { Container, Row, Col } from 'reactstrap';
     render() {
        
         return (
-          <div class="proda">
-            <Container id="prodn">
+          <div class="proad">
+                 <div id="header">
+          {/* collapsed props to change menu size using menucollapse state */}
+        <ProSidebar >
+          <SidebarHeader>
+          <div className="logotext">
+              <Row>
+                  <Col><h2>B</h2></Col>
+              
+              </Row>
+              
+              
+            </div>
+            
+          </SidebarHeader>
+          <SidebarContent id="menuit">
+              <div class="menuitem">
+              <Link to="/production/"> <button><FaHome /><div> Home</div>
+             </button></Link>
+             
+              </div>
 
-                <Row>
-                
-             <Link to="/production/"><button id="pback"><BiArrowBack/>BACK</button></Link> 
-         
-                </Row>
+              <div class="menuitem">
+              <Link to="/production/alert/"> <button><FaBell/><div> Alerts</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem c">
+              <Link to="/production/transact/"> <button><FaStoreAlt/><div> Sales</div>
+             </button></Link>
+             
+              </div>
+           
+              <div class="menuitem">
+              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
+             </button></Link>
+             
+              </div>
+            
+             
+             
+             
+             
+            
+          </SidebarContent>
+          {/* <SidebarFooter>
+            Baritas (c)
+          </SidebarFooter> */}
+        </ProSidebar>
+      </div>
+             <Container id="invt">
+        <Row>
+        <Link to="/production/transact/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+    </Row>
 
-                <Row>
-                <div class="addm c">
+                <Row id="invtr">
+                <div class="addi c">
          
          <h3>Invoice</h3>
          <form>

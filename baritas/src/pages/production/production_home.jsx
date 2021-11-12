@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../../App.css';
+import * as ReactBootStrap from "react-bootstrap";
+import axios from "axios";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import {FaHome,FaBell,FaStoreAlt} from "react-icons/fa";
@@ -14,48 +18,26 @@ import { Container, Row, Col } from 'reactstrap';
 // get data fron the procution folder 
 
 /* We simply can use an array and loop and print each user */
-class ProductionPage extends React.Component {
+function ProductionPage(){
     
-    constructor(props) {
-        super(props);
-        this.state = {
-            columns: [
-              { title: "#", data: "#" },
-              { title: "Product", data: "name" },
-              { title: "Category", data: "category" },
-              { title: "In Stock", data: "price" },
-              { title: "Price", data: "stock" },
-              { title: "Actions", data: "actions" },
-            ],
-            searchValue: '',
-            options: {
-                dom: 'lrtip',
-                // paging: false,
-                // scrollX: true,
-                // scrollY: '100%',
-                // scrollCollapse: false,
-                // autoWidth: false,
-                // info: false,
-            }
-        };
-        this.dataTableRef = React.createRef();
-    }
+  const [posts, setPosts] = useState({ blogs: [] });
 
-    onChangeSearch = (e) => {
-        const { value } = e.target;
-        const searchValue = value;
-        this.setState({ searchValue });
-        this.dataTableRef.current.search(searchValue);
+  const id=sessionStorage.getItem("rest");
+  
+  useEffect(() => {
+    const fetchPostList = async () => {
+      const { data } = await axios(
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallinventory.php?id='+id
+      );
+      setPosts({ blogs: data.data });
+      console.log(data);
     };
-  render() { 
-    const {
-        columns,
-        options,
-        searchValue
-    } = this.state;
+    fetchPostList();
+  }, [setPosts]);
+
     return (
         
-        <div class="proda">
+        <div class="proad">
 
 
 <div id="header">
@@ -107,32 +89,61 @@ class ProductionPage extends React.Component {
           </SidebarFooter> */}
         </ProSidebar>
       </div>
-            <Container id="menur">
-                <Row>
-                <Link to="/production/new/" ><button class="addmenu">Add New +</button></Link>
+      <Container id="invt">
+  <Row>
+    <Link to="/production/add/"><Button id="addnew">Add New +</Button></Link>
+    
+  </Row>
+  <Row>
 
-                </Row>
-                <Row id="menutab">
-            <div class="menutab">
-           
-            <input
-                value={searchValue}
-                onChange={this.onChangeSearch}
-                autoComplete={'off'}
-                type="text"
-                placeholder="Search ..."
-                class="searchbar"
-            />
-            <DataTable
-                ref={this.dataTableRef}
-                data={data}
-                columns={columns}
-                options={options}
-            />
-          </div>
+ 
+    <Form.Group id="forminv">
+<Row>
+<Form.Label>Production Item</Form.Label> 
+  <Col>
 
-                </Row>
-            </Container>
+    <Form.Control type="text" name="productiob"  placeholder="Enter item" /></Col>
+    <Col> <Button id="searchb"> Search</Button></Col>
+</Row>
+    
+   
+
+    </Form.Group>
+
+
+  </Row>
+
+ 
+<Row id="invtt">
+
+      <ReactBootStrap.Table  bordered hover id="invtb">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product Name </th>
+            <th>In Stock</th>
+            <th>Measurement</th>
+            <th>Recipe</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {posts.blogs &&
+            posts.blogs.map((item) => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.name}</td>
+                <td>{item.in}</td>
+                <td>{item.Measure}</td>
+                <td>{item.Measure}</td>
+                <td><a class="ab1"href={'/production/update/' + item.id}><button class="b2">Edit</button></a>
+               <a class="ab1" href={'/production/view/' + item.id}> <button class="b1">View</button></a></td>
+              </tr>
+            ))}
+        </tbody>
+      </ReactBootStrap.Table>
+      </Row>
+      </Container>
         
          
             
@@ -146,7 +157,7 @@ class ProductionPage extends React.Component {
 // next
 
   );
-}
+
 }
 
 export default ProductionPage;

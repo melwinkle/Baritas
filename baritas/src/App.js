@@ -44,6 +44,19 @@ import ProductionAPage from "./pages/production/alert/archive/production_alert_a
 import ProductionALPage from "./pages/production/alert/production_alert.jsx";
 import ProductionTPage from "./pages/production/transact/production_transact.jsx";
 import ProductionIPage from "./pages/production/transact/invoice/production_transact_invoice.jsx";
+import BranchInvent from "./pages/branch_manager/inventory/bmanage_inventory.jsx";
+import BInventoryView from "./pages/branch_manager/inventory/view/bmanager_view.jsx";
+import BranchFinancePage from "./pages/branch_manager/finances/bmanager_finance.jsx";
+import BOrderPage from "./pages/branch_manager/orders/bmanage_order.jsx";
+import BProductionPage from "./pages/branch_manager/production/bmanager_production.jsx";
+import GeneralMPage from "./pages/general_manager/general_home.jsx";
+import GMFinancePage from "./pages/general_manager/finances/gm_finances.jsx";
+import GMInventoryPage from "./pages/general_manager/inventory/gm_inventory.jsx";
+import GMFinanceVPage from "./pages/general_manager/finances/view/gm_finance_view.jsx";
+import GMOrderPage from "./pages/general_manager/orders/gm_order.jsx";
+import GMProductionPage from "./pages/general_manager/production/gm_production.jsx";
+import ProductionANPage from "./pages/production/add/production_add.jsx";
+import ProductionNTPage from "./pages/production/transact/tracking/production_transact_tracking.jsx";
 class App extends Component {
   render() {
     return (
@@ -82,10 +95,23 @@ class App extends Component {
        <Route exact path="/production" component={ProductionPage} />
        <Route exact path="/production/update" component={ProductionUPage} />
        <Route exact path="/production/new" component={ProductionNPage} />
+       <Route exact path="/production/transact/tracking" component={ProductionNTPage} />
        <Route exact path="/production/alert/archive" component={ProductionAPage} />
        <Route exact path="/production/alert" component={ProductionALPage} />
        <Route exact path="/production/transact" component={ProductionTPage} />
        <Route exact path="/production/transact/invoice" component={ProductionIPage} />
+       <Route exact path="/production/add" component={ProductionANPage} />
+       <Route exact path="/branch_manager/inventory" component={BranchInvent} />
+       <Route exact path="/branch_manager/inventory/view/:id" component={BInventoryView} />
+       <Route exact path="/branch_manager/finances" component={BranchFinancePage} />
+       <Route exact path="/branch_manager/orders" component={BOrderPage} />
+       <Route exact path="/branch_manager/production" component={BProductionPage} />
+       <Route exact path="/general_manager" component={GeneralMPage} />
+       <Route exact path="/general_manager/finances" component={GMFinancePage} />
+       <Route exact path="/general_manager/inventory" component={GMInventoryPage} />
+       <Route exact path="/general_manager/finances/view" component={GMFinanceVPage} />
+       <Route exact path="/general_manager/orders" component={GMOrderPage} />
+       <Route exact path="/general_manager/production" component={GMProductionPage} />
    
       </Router>
     );

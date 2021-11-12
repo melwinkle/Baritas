@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../../../App.css';
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
+import * as ReactBootStrap from "react-bootstrap";
+import axios from "axios";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import {FaHome,FaBell,FaStoreAlt} from "react-icons/fa";
 import DataTable from '../component/DataTable';
 import data from '../Table/data';
@@ -14,48 +18,26 @@ import { Container, Row, Col } from 'reactstrap';
 // get data fron the procution folder 
 
 /* We simply can use an array and loop and print each user */
-class ProductionTPage extends React.Component {
-    
-    constructor(props) {
-        super(props);
-        this.state = {
-            columns: [
-              { title: "#", data: "#" },
-              { title: "Date", data: "name" },
-              { title: "Message", data: "category" },
-              { title: "Branch", data: "price" },
-              { title: "Actions", data: "actions" },
+function ProductionTPage () {
+       
+  const [posts, setPosts] = useState({ blogs: [] });
 
-            ],
-            searchValue: '',
-            options: {
-                dom: 'lrtip',
-                // paging: false,
-                // scrollX: true,
-                // scrollY: '100%',
-                // scrollCollapse: false,
-                // autoWidth: false,
-                // info: false,
-            }
-        };
-        this.dataTableRef = React.createRef();
-    }
-
-    onChangeSearch = (e) => {
-        const { value } = e.target;
-        const searchValue = value;
-        this.setState({ searchValue });
-        this.dataTableRef.current.search(searchValue);
+  const id=sessionStorage.getItem("rest");
+  
+  useEffect(() => {
+    const fetchPostList = async () => {
+      const { data } = await axios(
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallinventory.php?id='+id
+      );
+      setPosts({ blogs: data.data });
+      console.log(data);
     };
-  render() { 
-    const {
-        columns,
-        options,
-        searchValue
-    } = this.state;
+    fetchPostList();
+  }, [setPosts]);
+  
     return (
         
-        <div class="proda">
+        <div class="proad">
             <div id="header">
           {/* collapsed props to change menu size using menucollapse state */}
         <ProSidebar >
@@ -106,30 +88,63 @@ class ProductionTPage extends React.Component {
         </ProSidebar>
       </div>
         
-        <Container id="menurr">
-            <Row >
-            <Link to="/production/new/" ><button class="addmenu">New Invoice +</button></Link>
-            </Row>
+      <Container id="invt">
+  <Row>
+    <Link to="/production/new/"><Button id="addnew">New Invoice +</Button></Link>
+    
+  </Row>
+  <Row>
 
-            <Row id="menutab">
-            <div class="menutab">
-            <input
-                value={searchValue}
-                onChange={this.onChangeSearch}
-                autoComplete={'off'}
-                type="text"
-                placeholder="Search ..."
-                class="searchbars"
-            />
-            <DataTable
-                ref={this.dataTableRef}
-                data={data}
-                columns={columns}
-                options={options}
-            />
-          </div>
-            </Row>
-        </Container>
+ 
+    <Form.Group id="forminv">
+<Row>
+<Form.Label>Transaction Date</Form.Label> 
+  <Col>
+
+    <Form.Control type="date" name="production"  placeholder="Enter item" /></Col>
+    <Col> <Button id="searchb"> Search</Button></Col>
+</Row>
+    
+   
+
+    </Form.Group>
+
+
+  </Row>
+
+ 
+<Row id="invtt">
+
+      <ReactBootStrap.Table  bordered hover id="invtb">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date </th>
+            <th>Restaurant</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {posts.blogs &&
+            posts.blogs.map((item) => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.name}</td>
+                <td>{item.in}</td>
+                <td>{item.in}</td>
+                <td>{item.in}</td>
+                <td>{item.Measure}</td>
+                <td><a class="ab1"href={'/production/transact/tracking/' + item.id}><button class="b2">Edit</button></a>
+               <a class="ab1" href={'/production/transact/invoice/' + item.id}> <button class="b1">View</button></a></td>
+              </tr>
+            ))}
+        </tbody>
+      </ReactBootStrap.Table>
+      </Row>
+      </Container>
             
             
   
@@ -143,7 +158,7 @@ class ProductionTPage extends React.Component {
 // next
 
   );
-}
+
 }
 
 export default ProductionTPage;

@@ -2,59 +2,30 @@ import React from "react";
 import '../../../../App.css';
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
-import {FaHome,FaBell,FaStoreAlt} from "react-icons/fa";
-import DataTable from '../../component/DataTable';
-import data from '../../Table/data';
+import {FaHome,FaBell,FaStoreAlt,FaWindowClose,FaRegClock} from "react-icons/fa";
+
 import {
     ProSidebar,
     SidebarHeader,
     SidebarContent,
   } from "react-pro-sidebar";
 import { Container, Row, Col } from 'reactstrap';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 // get data fron the procution folder 
 
 /* We simply can use an array and loop and print each user */
-class ProductionAPage extends React.Component {
+function ProductionAPage (){
     
-    constructor(props) {
-        super(props);
-        this.state = {
-            columns: [
-              { title: "#", data: "#" },
-              { title: "Date", data: "name" },
-              { title: "Message", data: "category" },
-              { title: "Branch", data: "price" },
-            ],
-            searchValue: '',
-            options: {
-                dom: 'lrtip',
-                // paging: false,
-                // scrollX: true,
-                // scrollY: '100%',
-                // scrollCollapse: false,
-                // autoWidth: false,
-                // info: false,
-            }
-        };
-        this.dataTableRef = React.createRef();
-    }
+ 
+  
+   
 
-    onChangeSearch = (e) => {
-        const { value } = e.target;
-        const searchValue = value;
-        this.setState({ searchValue });
-        this.dataTableRef.current.search(searchValue);
-    };
-  render() { 
-    const {
-        columns,
-        options,
-        searchValue
-    } = this.state;
+    
     return (
         
-        <div class="proda">
-            <div id="header">
+        <div class="proad">
+           <div id="header">
           {/* collapsed props to change menu size using menucollapse state */}
         <ProSidebar >
           <SidebarHeader>
@@ -104,36 +75,34 @@ class ProductionAPage extends React.Component {
         </ProSidebar>
       </div>
         
-        <Container id="menurr">
-            <Row >
-            <Col>  <Link to="/production/alert"><button class="o1">GENERAL</button></Link></Col>
-                        <Col> <Link to="/production/alert/archive"><button class="o1 ac">ARCHIVE</button></Link></Col>
-            </Row>
+        <Container  id="ret">
 
-            <Row id="menutab">
-            <div class="menutab">
-            <input
-                value={searchValue}
-                onChange={this.onChangeSearch}
-                autoComplete={'off'}
-                type="text"
-                placeholder="Search ..."
-                class="searchbars"
-            />
-            <DataTable
-                ref={this.dataTableRef}
-                data={data}
-                columns={columns}
-                options={options}
-            />
-          </div>
-            </Row>
+       <Row id="mt">
+                        <Col>  <Link to="/production/alert"><button class="o1">Unread</button></Link></Col>
+                        <Col> <Link to="/production/alert/archive"><button class="o1 ac">Read</button></Link></Col>
+       </Row>
+           
+            
+        <Row id="nt">
+             
+                <Card id="salert">
+                <Card.Header><button id="nclose"><FaWindowClose/></button> Stock Alert <span id="daten"><FaRegClock/>19th October,2021 8:10AM</span></Card.Header>
+                <Card.Body>
+                    <Card.Title></Card.Title>
+                    <Card.Text>
+                    Legon Campus Hub has run low on Jollof Sauce
+                    </Card.Text>
+                    
+                </Card.Body>
+                </Card>
+              
+                
+               
+               
+
+        
+        </Row>
         </Container>
-            
-            
-  
-   
-          
             
         </div>
 
@@ -143,6 +112,6 @@ class ProductionAPage extends React.Component {
 
   );
 }
-}
+
 
 export default ProductionAPage;

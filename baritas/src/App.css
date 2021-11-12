@@ -1353,7 +1353,7 @@ form td:last-child {
   margin-top:-8%;
 }
 
-.addi input,.addi select{
+.addi input,.addi select, .addi textarea{
   border:1px solid #800020;
   border-radius: 5px;
   width:95%;
@@ -1392,6 +1392,7 @@ form td:last-child {
   margin-left: 15%;
   width:100%;
 }
+
 .addi.c{
   width:70%;
   padding: 5%;
@@ -1510,12 +1511,17 @@ form td:last-child {
 }
 #nt{
   margin-top:5%;
+  margin-left:5%;
 }
 
+#daten{
+  float:right;
+}
 
 #salert{
   width:90%;
   margin-bottom:2%;
+  font-size:12pt;
 }
 
 #salert .card-header button{
