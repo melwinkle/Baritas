@@ -22,22 +22,19 @@ class ProductionANPage extends React.Component {
         super(props);
         this.state ={
             product:'',
-            category:'',
-            unitcost:'',
             unitmeasure:'',
             in_stock:'',
-            rest:'1',
-            limit:''
+            limit:'',
+            recipe:''
         };
         this.add = this.add.bind(this);
         this.onChange = this.onChange.bind(this);
     }
 
      add(e){
-         this.setState({rest:'1'});
          console.log(this.state);
         e.preventDefault();
-        axios.post('http://localhost/Baritas/Baritas_backend/apis/addinventory.php',JSON.stringify(this.state)).then(function(response){
+        axios.post('http://localhost/Baritas/Baritas_backend/apis/addproduction.php',JSON.stringify(this.state)).then(function(response){
             console.log(response.data);
         })
         
@@ -120,20 +117,7 @@ class ProductionANPage extends React.Component {
                        <Col><label>Product</label>
                <input type="text" placeholder="Product" name="product" onChange={this.onChange}/></Col>
                    </Row>
-                   {/* <Row>
-                       {/* <Col><label>Category</label>
-                       <select name="category" onChange={this.onChange}>
-                           <option value="">--Select a category--</option>
-                           <option value="Fresh Food">Fresh Food</option>
-                           <option value="Hot/Spicy">Hot&Spicy</option>
-                           <option value="Hot/Spicy">Hot&Spicy</option>
-                           <option value="Hot/Spicy">Hot&Spicy</option>
-                       </select>
-               </Col> 
-                <Col>
-               <label>Unit Cost Price</label>
-               <input type="number" name="unitcost" onChange={this.onChange} /></Col> 
-                   </Row> */}
+                  
                    <Row>
                        <Col><label>Unit of Measurement</label>
                        <select name="unitmeasure" onChange={this.onChange}>
@@ -157,7 +141,7 @@ class ProductionANPage extends React.Component {
                        <Row>
                    <Col>
                <label>Recipe</label>
-               <textarea onChange={this.onChange}></textarea> </Col>
+               <textarea name="recipe" onChange={this.onChange}></textarea> </Col>
                        </Row>
                    <Row><button onClick={this.add}>Add</button></Row>   
                </Container>  

@@ -5,24 +5,33 @@ header('Access-Control-Allow-Methods:POST');
 header('Access-Control-Allow-Headers:Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization,X-Requested-With');
 
 include_once '../../Baritas_backend/database/Database.php';
-include_once '../../Baritas_backend/Model/orders.php';
+include_once '../../Baritas_backend/Model/Production.php';
 
 $database = new Database();
 $db = $database->connect();
-$order = new orders($db);
+
+$product = new production($db);
 
 
 $data = json_decode(file_get_contents("php://input"));
 
-$order->date=$data->d;
-$order->pay=$data->pa;
-$order->waiter= $data->wait;
-$order->total_cost= $data->cost;
-$order->stats=$data->stat;
+$product->name=$data->product;
+$product->stock= $data->in_stock;
+$product->measure= $data->unitmeasure;
+$product->limit=$data->limit;
+$product->recipe=$data->recipe;
 
-if($order->create()){
-   echo true;
+
+
+
+if($product->create()){
+    echo json_encode(
+        array('message' => 'Product Created')
+    );
 }
 else{
-    echo false;
+    echo json_encode(
+        array('message' => ' No product Found')
+    );
 }
+?> 
