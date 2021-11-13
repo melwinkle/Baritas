@@ -4,7 +4,6 @@ class production
     private $conn;
     private $table = 'production';
 
-
     public $id;
     public $name;
     public $unit;
@@ -20,6 +19,7 @@ class production
     public $quantity;
     public $transaction_date;
     public $total;
+
     public function __construct($db)
     {
         $this->conn = $db;

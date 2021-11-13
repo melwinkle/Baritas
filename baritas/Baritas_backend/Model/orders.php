@@ -3,19 +3,25 @@ class orders
 {
     private $conn;
     public $id;
+    public $bill;
     public $date;
     public $pay;
     public $waiter;
     public $total_cost;
     public $stats;
     public $restaurant;
+    public $table;
+    public $dine;
+    public $user_id;
+    public $vat;
+    public $notes;
 
     public function __construct($db){
         $this->conn = $db;
     }
     public function create()
     {
-        $query = "INSERT into orders(`date`, payment_method,waiter,total_cost,stats,restaurant) VALUES (:d, :pm,:w,:tc,:s,:r)";
+        $query = "INSERT into orders(`date`, payment_method,waiter,total_cost,stats,restaurant_id,table_id,`dine-type`,`user_id`,sub_total,special_notes) VALUES (:d, :pm,:w,:tc,:s,:r,:t,:d,:u,:s,:sn)";
         $stmt = $this->conn->prepare($query);
 
         $this->date = htmlspecialchars(strip_tags($this->date));
@@ -24,7 +30,11 @@ class orders
         $this->total_cost = htmlspecialchars(strip_tags($this->total_cost));
         $this->stats = htmlspecialchars(strip_tags($this->stats));
         $this->restaurant = htmlspecialchars(strip_tags($this->restaurant));
-
+        $this->table = htmlspecialchars(strip_tags($this->table));
+        $this->dine = htmlspecialchars(strip_tags($this->dine));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+        $this->vat = htmlspecialchars(strip_tags($this->vat));
+        $this->notes = htmlspecialchars(strip_tags($this->notes));
 
 
         $stmt->bindParam(':d', $this->date);
@@ -33,6 +43,11 @@ class orders
         $stmt->bindParam(':tc', $this->total_cost);
         $stmt->bindParam(':s', $this->stats);
         $stmt->bindParam(':r', $this->restaurant);
+        $stmt->bindParam(':t', $this->table);
+        $stmt->bindParam(':d', $this->dine);
+        $stmt->bindParam(':u', $this->user_id);
+        $stmt->bindParam(':s', $this->vat);
+        $stmt->bindParam(':sn', $this->notes);
 
 
         if ($stmt->execute()) {
@@ -73,8 +88,9 @@ class orders
     }
 
     public function ordertotal(){
-        $query ="SELECT * from orders left join Menu on orders.menu_id= menu.menu_id";
+        $query ="SELECT `date`,sum(total_cost) AS total FROM `orders` where restaurant_id=':i' GROUP BY date;";
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->restaurant);
         $stmt->execute();
         return $stmt;
 
