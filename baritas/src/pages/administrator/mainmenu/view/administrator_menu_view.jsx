@@ -20,10 +20,11 @@ import Button from "react-bootstrap/button";
         name:"",
         category:"",
         price:"",
-        size:""
+        size:"", 
+        catid:""
 });
 
-    const{name,category,price,size}=Menu;
+    const{name,category,price,size,catid}=Menu;
 
     useEffect(async ()=>{
         await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getonemenu.php?id='+props.match.params.id)
@@ -125,7 +126,7 @@ import Button from "react-bootstrap/button";
                         <Row>
                             <Col><label>Category</label>
                             <select>
-                            <option value={category}>{category}</option>
+                            <option value={catid}>{category}</option>
                                 <option value="Hot/Spicy">Hot&Spicy</option>
                                 <option value="Hot/Spicy">Hot&Spicy</option>
                                 <option value="Hot/Spicy">Hot&Spicy</option>

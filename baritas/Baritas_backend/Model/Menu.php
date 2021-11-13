@@ -47,7 +47,7 @@ class menu
 
 
     public function allmenu(){
-        $query="SELECT * from Menu where restaurant=:r";
+        $query="SELECT * from Menu inner join category on Menu.category_id = category.category_id where Menu.restaurant_id=:r";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
@@ -55,7 +55,7 @@ class menu
     }
 
     public function oneitem(){
-        $query="SELECT * from Menu where menu_id=:i";
+        $query="SELECT * from Menu inner join category on Menu.category_id = category.category_id where Menu.menu_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->execute();

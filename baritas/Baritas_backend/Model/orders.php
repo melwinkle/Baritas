@@ -73,7 +73,7 @@ class orders
     }
 
     public function allorders(){
-        $query="SELECT * from orders where restaurant=:r";
+        $query="SELECT o.order_id,o.bill_no,o.date,o.payment_method,o.waiter_name,o.total_cost,o.stats,o.table_id,o.sub_total,o.special_notes,oi.quantity,m.name_of_food,m.price,m.size from orders o inner join order_items as oi on o.order_id = oi.order_id inner join Menu m on m.menu_id =oi.menu_id where o.restaurant_id=:r";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();

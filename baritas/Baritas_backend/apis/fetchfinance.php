@@ -22,7 +22,7 @@ if ($num > 0) {
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $cat_item = array(
-            'date'=>date("d F Y",strtotime($date)),
+            'date'=>$date,
             'bill'=>$total
         );
         array_push($cat_arr["data"], $cat_item);

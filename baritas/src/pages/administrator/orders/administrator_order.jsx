@@ -26,6 +26,7 @@ const AdminOrderPage =()=> {
     const [posts, setPosts] = useState({ blogs: [] });
 
     const id = sessionStorage.getItem("rest");
+
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
@@ -139,10 +140,9 @@ const AdminOrderPage =()=> {
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
-            <th>Order#</th>
             <th>Date </th>
             <th>Waiter</th>
-            <th>Bill</th>
+            <th>Total</th>
             <th>Payment</th>
             <th>Status</th>
             <th>Actions</th>
@@ -153,7 +153,6 @@ const AdminOrderPage =()=> {
           {posts.blogs &&
             posts.blogs.map((item) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
                 <td>{item.date}</td>
                 <td>{item.server}</td>
                 <td>{item.cost}</td>
@@ -162,27 +161,28 @@ const AdminOrderPage =()=> {
                 <td><button class="b1" onClick={handleShow}>View</button>
                 <Modal show={show} onHide={handleClose} id="mods">
                                 <Modal.Header closeButton>
-                                <Modal.Title>Order #{item.id}-Cash</Modal.Title>
+                                <Modal.Title>Bill No.{item.bill}-{item.pay}</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body >
                                     <Row>
                                         <Col>{item.date}</Col>
-                                        <Col>12:03:39pm</Col>
+                                        <Col>Table #{item.table}</Col>
                                     </Row>
                                     <Row>
                                         <ReactBootStrap.Card id="order">
                                             <ReactBootStrap.Card.Text >
+                                              
                                               <Row>
-                                                <Col>1x  Meat Spring Rolls(3)</Col>
+                                                <Col>{item.quant}x {item.name}</Col>
                                             
-                                                <Col> Ghc 15.00</Col>
+                                                <Col>{item.p}</Col>
                                               </Row>
                                              
                                              
                                             </ReactBootStrap.Card.Text>
                                         </ReactBootStrap.Card>
                                     </Row>
-                                    <Row>
+                                    {/* <Row>
                                     <ReactBootStrap.Card id="order">
                                             <ReactBootStrap.Card.Text >
                                               <Row>
@@ -194,7 +194,7 @@ const AdminOrderPage =()=> {
                                              
                                             </ReactBootStrap.Card.Text>
                                         </ReactBootStrap.Card>
-                                    </Row>
+                                    </Row> */}
                                     
 
 
@@ -202,7 +202,7 @@ const AdminOrderPage =()=> {
                                       <hr/>
                                     <Row >
                                            <Col><h6>Sub-Total</h6></Col>
-                                           <Col id="val">400.00</Col>
+                                           <Col id="val">{item.sub}</Col>
                                            
                                        </Row>
                                        <Row>

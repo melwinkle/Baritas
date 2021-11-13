@@ -25,12 +25,20 @@ if ($num > 0) {
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $cat_item = array(
-            'id' => $order_id,
-            'date'=>$date,
+            'id'=>$order_id,
+            'bill' => $bill_no,
+            'date'=>date('d F Y' , strtotime($date)),
             'pay'=>$payment_method,
-            'server'=>$waiter,
+            'server'=>$waiter_name,
             'cost'=>$total_cost,
-            'status'=>$stats
+            'status'=>$stats,
+            'table'=>$table_id,
+            'sub'=>$sub_total,
+            'notes'=>$special_notes,
+            'quant'=>$quantity,
+            'name'=>$name_of_food,
+            'p'=>$price,
+            'si'=>$size
         );
 
         // Push to "data"

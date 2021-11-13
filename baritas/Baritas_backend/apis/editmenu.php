@@ -18,7 +18,7 @@ $data = json_decode(file_get_contents("php://input"));
 $menu->id = $_GET['id'];
 $menu->name=$data->name;
 $menu->price=$data->cost;
-$menu->category= $data->category;
+$menu->category= $data->catid;
 $menu->price= $data->price;
 $menu->img=$data->img;
 

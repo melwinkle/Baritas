@@ -130,7 +130,6 @@ import {
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
             <tr>
-              <th>Menu #</th>
               <th>Menu Name</th>
               <th>Category</th>
               <th>Size</th>
@@ -149,7 +148,6 @@ import {
                 }
               }).map((item) => (
                 <tr key={item.id}>
-                  <td>{item.id}</td>
                   <td>{item.name}</td>
                   <td>{item.category}</td>
                   <td>{item.size}</td>

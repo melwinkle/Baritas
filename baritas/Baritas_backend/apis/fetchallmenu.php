@@ -23,7 +23,8 @@ if ($num > 0) {
         $cat_item = array(
             'id' => $menu_id,
             'name'=>$name_of_food,
-            'category'=>$category,
+            'catid'=>$category_id,
+            'category'=>$category_name,
             'price'=>$price,
             'img'=>$img,
             'size' => $size,
