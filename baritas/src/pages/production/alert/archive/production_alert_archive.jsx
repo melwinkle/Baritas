@@ -83,25 +83,23 @@ function ProductionAPage (){
        </Row>
            
             
-        <Row id="nt">
+       <Row id="nt">
              
-                <Card id="salert">
-                <Card.Header><button id="nclose"><FaWindowClose/></button> Stock Alert <span id="daten"><FaRegClock/>19th October,2021 8:10AM</span></Card.Header>
-                <Card.Body>
-                    <Card.Title></Card.Title>
-                    <Card.Text>
-                    Legon Campus Hub has run low on Jollof Sauce
-                    </Card.Text>
-                    
-                </Card.Body>
-                </Card>
-              
-                
-               
-               
+             <Card id="salert">
+             <Card.Header id="chead"><span id="salt">Stock Alert </span><span id="daten"><FaRegClock/>19th October,2021 8:10AM</span></Card.Header>
+             <Card.Body>
+                 <Card.Title>  Legon Campus Hub has run low on Jollof Sauce</Card.Title>
+                 
+                 
+             </Card.Body>
+             </Card>
+           
+             
+            
+            
 
-        
-        </Row>
+     
+     </Row>
         </Container>
             
         </div>

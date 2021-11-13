@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import "../../../App.css";
 import { Link } from 'react-router-dom';
 // import {FiLogOut} from "react-icons/fi";
@@ -14,14 +14,32 @@ import {
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {FaHome,FaBell,FaStoreAlt,FaArrowLeft} from "react-icons/fa";
+import {FaHome,FaBell,FaStoreAlt,FaArrowLeft,FaPlus} from "react-icons/fa";
+import {MdDelete} from "react-icons/md";
 import {FiLogOut} from "react-icons/fi";
 
- class ProductionNPage extends React.Component{
+function ProductionNPage (){
     
-          
+  const [inputList, setInputList] = useState([{ product: "", quantity: "" }]);
 
-    render() {
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...inputList];
+    list[index][name] = value;
+    setInputList(list);
+  };
+ 
+  // handle click event of the Remove button
+  const handleRemoveClick = index => {
+    const list = [...inputList];
+    list.splice(index, 1);
+    setInputList(list);
+  };
+ 
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    setInputList([...inputList, { product: "", quantity: "" }]);
+  };
        
         return (
           <div class="proad">
@@ -87,7 +105,7 @@ import {FiLogOut} from "react-icons/fi";
              <Container>
                  <Row>
                      <Col><label>Date</label>
-             <input type="text" placeholder="Item name"/></Col>
+             <input type="date" /></Col>
              <Col><label>Branch</label>
                      <select>
                          <option value="Sauces">Adenta</option>
@@ -101,28 +119,44 @@ import {FiLogOut} from "react-icons/fi";
 
              
 
-
-                 <Row>
-                     <Col>
-                     <label>Product</label>
-                     <select>
-                         <option value="Sauces">Adenta</option>
-                         <option value="Hot/Spicy">Madina</option>
-                         <option value="Hot/Spicy">Campus Hub</option>
-                         <option value="Hot/Spicy">Production</option>
-                         
-                     </select>
-             </Col>
-
-             </Row>
-
-
-             <Row>
-             <Col>
-             <label>Quantity</label>
-             <input type="number" /></Col>
+             {inputList.map((x, i) => {
+        return (
+   
+          <Row>
+          <Col>
+          <label>Product</label>
+          <select name="product" value={x.product}
+              onChange={e => handleInputChange(e, i)}>
+              <option value="Jollof Sauce">Jollof Sauce</option>
+              <option value="Chicken Sauce">Chicken Sauce</option>
              
-                 </Row>
+              
+          </select>
+  </Col>
+
+  <Col>
+  <label>Quantity</label>
+  <input type="number"  name="quantity" value={x.quantity}
+              onChange={e => handleInputChange(e, i)}/></Col>
+
+<Col>
+<div className="btn-box">
+          {inputList.length !== 1 && <button
+            className="mr10"
+            onClick={() => handleRemoveClick(i)}><MdDelete/></button>}
+          {inputList.length - 1 === i && <button onClick={handleAddClick}><FaPlus/></button>}
+        </div>
+        </Col>
+  </Row>
+         
+       
+        );
+      })}
+      {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
+               
+
+
+         
 
                  
 
@@ -151,8 +185,8 @@ import {FiLogOut} from "react-icons/fi";
 
           </div>
         );
-    }
-}
+    
+  }
 
 export default ProductionNPage;
 

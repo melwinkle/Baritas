@@ -86,12 +86,10 @@ function ProductionALPage () {
         <Row id="nt">
              
                 <Card id="salert">
-                <Card.Header><button id="nclose"><FaWindowClose/></button> Stock Alert <span id="daten"><FaRegClock/>19th October,2021 8:10AM</span></Card.Header>
+                <Card.Header id="chead"><button id="nclose"><FaWindowClose/></button> <span id="salt">Stock Alert </span><span id="daten"><FaRegClock/>19th October,2021 8:10AM</span></Card.Header>
                 <Card.Body>
-                    <Card.Title></Card.Title>
-                    <Card.Text>
-                    Legon Campus Hub has run low on Jollof Sauce
-                    </Card.Text>
+                    <Card.Title>  Legon Campus Hub has run low on Jollof Sauce</Card.Title>
+                    
                     
                 </Card.Body>
                 </Card>

@@ -82,18 +82,18 @@ function ProductionIPage (){
 
 
                 <Row id="invtr">
-                <div class="addi c">
+                <div class="addi c" id="source-html">
          
          <h3>Invoice#124</h3>
          <Container>
              <Row>
-                 <Col>From:</Col>
-                 <Col><h4>From</h4></Col>
+                 <Col>From:<span>From</span></Col>
+         
                 
              </Row>
              <Row>
-             <Col>To:</Col>
-                 <Col><h4>To</h4></Col>
+             <Col>To:<span>To</span></Col>
+          
 
              </Row>
 
@@ -126,10 +126,11 @@ function ProductionIPage (){
             </Table>
              </Row>
 
-             <Button id="dinv" >Download Invoice</Button>
+           
          </Container>
        
      </div>
+     <Button id="dinv"  onClick={exportHTML} >Download Invoice</Button>
 
      
                 </Row>
@@ -139,12 +140,34 @@ function ProductionIPage (){
 
           
         
-            
+          
+
+
+
+
 
           </div>
         );
     }
 
+
+
+    function exportHTML(){
+      let header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+           "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+           "xmlns='http://www.w3.org/TR/REC-html40'>"+
+           "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><style>body{ text-align:center;}</style><body>";
+      var footer = "</body></html>";
+      var sourceHTML = header+document.getElementById("source-html").innerHTML+footer;
+      
+      var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+      var fileDownload = document.createElement("a");
+      document.body.appendChild(fileDownload);
+      fileDownload.href = source;
+      fileDownload.download = 'document.doc';
+      fileDownload.click();
+      document.body.removeChild(fileDownload);
+   }
 
 export default ProductionIPage;
 

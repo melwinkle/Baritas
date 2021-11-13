@@ -1366,6 +1366,13 @@ form td:last-child {
   width:98%;
 
 }
+
+#salt{
+  background: orange;
+  border-radius: 5px;
+  color:white;
+  font-size:18pt;
+}
 .addi form{
   margin-top:5%;
   width:110%;
@@ -1373,6 +1380,12 @@ form td:last-child {
   font-size:18pt;
 }
 
+#chead{
+  background: none;
+}
+.addi .btn-box{
+  margin-top:20%;
+}
 .addi button{
   width:35%;
   margin-top:5%;
@@ -1522,14 +1535,17 @@ form td:last-child {
   width:90%;
   margin-bottom:2%;
   font-size:12pt;
+  height:7em;
 }
 
 #salert .card-header button{
   background: none;
   border: none;
+
 }
 #salert .card-header button svg{
   color:#800020;
+
 }
 
 #salert .card-header{
