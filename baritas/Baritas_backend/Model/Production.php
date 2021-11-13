@@ -161,7 +161,7 @@ class production
         return $stmt;
     }
     public function oneitem(){
-        $query="SELECT * from production where product_id=:i";
+        $query="SELECT * from production where production_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->execute();

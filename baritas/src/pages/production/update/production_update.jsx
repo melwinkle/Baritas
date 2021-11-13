@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import "../../../App.css";
 import { Link } from 'react-router-dom';
 // import {FiLogOut} from "react-icons/fi";
@@ -13,11 +13,29 @@ import {
     SidebarHeader,
     SidebarContent,
   } from "react-pro-sidebar";
- class ProductionUPage extends React.Component{
+function ProductionUPage(props){
     
-          
+  const[production,setInventory]=useState({
+    production_name:"",
+    stock_limit:"",
+    measurement:"",
+    in_stock:"",
+    recipe:""
+});
 
-    render() {
+const{production_name,stock_limit,measurement,in_stock,recipe}=production;
+
+useEffect(async ()=>{
+    await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getaproduct.php?id='+props.match.params.id)
+    .then((response)=>response.json())
+    .then((responseJSON)=>{
+        setInventory(responseJSON.production);
+        console.log(responseJSON.production);
+    }
+    );
+},[]);
+
+
        
         return (
           <div class="proad">
@@ -88,26 +106,26 @@ import {
 <Container>
  <Row>
      <Col><label>Name</label>
-<input type="text" placeholder="Item name"/></Col>
+<input type="text" placeholder="Item name" value={production_name}/></Col>
 <Col>
 <label>Stock Limit</label>
-<input type="number" /></Col>
+<input type="number" value={stock_limit}/></Col>
 
 </Row>
 
 <Row>
 <Col>
 <label>Measurement</label>
-<input type="text" /></Col>
+<input type="text" value={measurement}/></Col>
 <Col>
 <label>In Stock</label>
-<input type="number" /></Col>
+<input type="number" value={in_stock}/></Col>
  </Row>
 
  <Row>
      <Col>
      <label>Recipe</label>
-     <textarea></textarea>
+     <textarea value={recipe}></textarea>
      </Col>
  </Row>
 
@@ -135,7 +153,7 @@ import {
 
           </div>
         );
-    }
+    
 }
 
 export default ProductionUPage;

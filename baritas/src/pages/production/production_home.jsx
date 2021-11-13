@@ -22,12 +22,12 @@ function ProductionPage(){
     
   const [posts, setPosts] = useState({ blogs: [] });
 
-  const id=sessionStorage.getItem("rest");
+  
   
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallinventory.php?id='+id
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproduction.php'
       );
       setPosts({ blogs: data.data });
       console.log(data);
@@ -130,14 +130,14 @@ function ProductionPage(){
         <tbody>
           {posts.blogs &&
             posts.blogs.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.in}</td>
-                <td>{item.Measure}</td>
-                <td>{item.Measure}</td>
-                <td><a class="ab1"href={'/production/update/' + item.id}><button class="b2">Edit</button></a>
-               <a class="ab1" href={'/production/view/' + item.id}> <button class="b1">View</button></a></td>
+              <tr key={item.production_id}>
+                <td>{item.production_id}</td>
+                <td>{item.product_name}</td>
+                <td>{item.in_stock}</td>
+                <td>{item.measurement}</td>
+                <td>{item.recipe}</td>
+                <td><a class="ab1"href={'/production/update/' + item.production_id}><button class="b2">Edit</button></a>
+         </td>
               </tr>
             ))}
         </tbody>
