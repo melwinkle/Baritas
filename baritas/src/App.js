@@ -93,7 +93,7 @@ class App extends Component {
        <Route exact path="/administrator/finances/inventory" component={AdminFInventoryPage} />
        <Route exact path="/administrator/finances/menu" component={AdminFMenuPage} />
        <Route exact path="/production" component={ProductionPage} />
-       <Route exact path="/production/update" component={ProductionUPage} />
+       <Route exact path="/production/update/:id" component={ProductionUPage} />
        <Route exact path="/production/new" component={ProductionNPage} />
        <Route exact path="/production/transact/tracking" component={ProductionNTPage} />
        <Route exact path="/production/alert/archive" component={ProductionAPage} />
