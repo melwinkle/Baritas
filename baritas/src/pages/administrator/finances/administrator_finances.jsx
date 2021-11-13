@@ -37,13 +37,24 @@ const AdminFinancePage =()=>{
       fetchPostList();
     }, [setPosts]);
   
+    const [searchTerm,setSearchTerm] = useState('');
   
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+   
+    const [points,setPoints]=useState();
 
+ async function doit(btn){
+ const { data } = await axios(
+      'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchpay.php?id='+btn
+    );
+    setPoints(data.data);
+    console.log(data.data);
 
+    setShow(true);
+ 
+}
 
     const options = {
 			exportEnabled: true,
@@ -59,15 +70,7 @@ const AdminFinancePage =()=>{
 				legendText: "{label}",
 				indexLabelFontSize: 16,
 				indexLabel: "{label} - Ghc{y}",
-				dataPoints: [
-					{ y: 18, label: "Cash" },
-					{ y: 49, label: "Mobile Money" },
-					{ y: 9, label: "E-Card" },
-					{ y: 5, label: "Bolt" },
-          { y: 19, label: "Glovo" },
-          { y: 19, label: "Jumia" },
-          { y: 19, label: "In-House Delivery" }
-				]
+				dataPoints: points
 			}]
 		}
           return (
@@ -151,7 +154,7 @@ const AdminFinancePage =()=>{
   <Form.Label>Sales Date</Form.Label> 
     <Col>
   
-      <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
+      <Form.Control type="date" name="inventory"  placeholder="Enter date" onChange={event =>{setSearchTerm(event.target.value)}} /></Col>
       <Col> <Button id="searchb"> Search</Button></Col>
   </Row>
       
@@ -168,7 +171,6 @@ const AdminFinancePage =()=>{
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
             <tr>
-              <th>Transaction#</th>
               <th>Date </th>
               <th>Total Income</th>
               <th>Actions</th>
@@ -178,14 +180,20 @@ const AdminFinancePage =()=>{
             </tr>
           </thead>
           <tbody>
+
             {posts.blogs &&
-              posts.blogs.map((item) => (
+              posts.blogs.filter((item)=>{
+                if(searchTerm == ""){
+                  return item;
+                }else if(item.date.includes(searchTerm)){
+                  return item;
+                }
+              }).map((item) => (
                 <tr key={item.id}>
-                  <td>{item.i}</td>
                   <td>{item.date}</td>
-                  <td>{item.bill}</td>
+                  <td>Ghc {item.bill}</td>
                   <td>
-                  <button class="b1" onClick={handleShow}>View</button>
+                  <button class="b1" onClick={doit.bind(this,item.date)}>View</button>
                   <Modal id="chart" show={show} onHide={handleClose}>
                                 <Modal.Header closeButton>
                                 <Modal.Title>{item.date} Financial Breakdown</Modal.Title>
@@ -194,7 +202,6 @@ const AdminFinancePage =()=>{
                                   <CanvasJSReact.CanvasJSChart  options = {options}/>
                                   </Modal.Body>
                                 <Modal.Footer>
-                               
                                 </Modal.Footer>
                             </Modal>
                       {/* <a href={'/administrator/finances/view/' + item.id}> <button class="b1">View</button></a> */}

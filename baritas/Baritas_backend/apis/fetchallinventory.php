@@ -27,7 +27,7 @@ if ($num > 0) {
             'unit'=>$Unit_price,
             'in'=>$in_stock,
             'Measure' => $Measurement,
-            'rest'=>$restaurant,
+            'rest'=>$restaurant_id,
             'limit'=>$in_stock_limit
         );
         array_push($cat_arr["data"], $cat_item);

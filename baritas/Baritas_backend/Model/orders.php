@@ -88,9 +88,17 @@ class orders
     }
 
     public function ordertotal(){
-        $query ="SELECT `date`,sum(total_cost) AS total FROM `orders` where restaurant_id=':i' GROUP BY date;";
+        $query ="SELECT `date`,sum(total_cost) AS total from orders where restaurant_id=:r GROUP BY `date`";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':i',$this->restaurant);
+        $stmt->bindParam(':r',$this->restaurant);
+        $stmt->execute();
+        return $stmt;
+
+    }
+    public function orderpay(){
+        $query ="SELECT payment_method, total_cost FROM `orders` WHERE date=:d";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':d',$this->date);
         $stmt->execute();
         return $stmt;
 

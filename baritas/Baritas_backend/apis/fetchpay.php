@@ -11,8 +11,8 @@ $database = new Database();
 $db = $database->connect();
 $ord = new orders($db);
 
-$ord->restaurant = $_GET['id'];
-$result = $ord->ordertotal();
+$ord->date = $_GET['id'];
+$result = $ord->orderpay();
 $num = $result->rowCount();
 
 if ($num > 0) {
@@ -22,8 +22,8 @@ if ($num > 0) {
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $cat_item = array(
-            'date'=>date("d F Y",strtotime($date)),
-            'bill'=>$total
+            'label'=>$payment_method,
+            'y'=>$total_cost
         );
         array_push($cat_arr["data"], $cat_item);
     }
