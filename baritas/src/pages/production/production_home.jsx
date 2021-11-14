@@ -119,7 +119,7 @@ function ProductionPage(){
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
-            <th>ID</th>
+            {/* <th>ID</th> */}
             <th>Product Name </th>
             <th>In Stock</th>
             <th>Measurement</th>
@@ -131,7 +131,7 @@ function ProductionPage(){
           {posts.blogs &&
             posts.blogs.map((item) => (
               <tr key={item.production_id}>
-                <td>{item.production_id}</td>
+                {/* <td>{item.production_id}</td> */}
                 <td>{item.product_name}</td>
                 <td>{item.in_stock}</td>
                 <td>{item.measurement}</td>

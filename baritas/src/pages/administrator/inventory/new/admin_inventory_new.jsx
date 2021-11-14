@@ -26,7 +26,7 @@ class InventoryNPage extends React.Component {
             unitcost:'',
             unitmeasure:'',
             in_stock:'',
-            rest:'1',
+            rest:'',
             limit:''
         };
         this.add = this.add.bind(this);
@@ -34,11 +34,11 @@ class InventoryNPage extends React.Component {
     }
 
      add(e){
-         this.setState({rest:'1'});
+         this.setState({rest:sessionStorage.getItem('rest')});
          console.log(this.state);
         e.preventDefault();
-        axios.post('http://localhost/Baritas/Baritas_backend/apis/addinventory.php',JSON.stringify(this.state)).then(function(response){
-            console.log(response.data);
+        axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addinventory.php',JSON.stringify(this.state)).then(function(response){
+            console.log(response);
         })
         
     }

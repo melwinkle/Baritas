@@ -26,7 +26,7 @@ class production
     }
     public function create()
     {
-        $query = "INSERT into production(product_name,in_stock,measurement,recipe,stock_limit) VALUES (:n,:i,:m,:s,:r,:ins)";
+        $query = "INSERT into production(product_name,in_stock,measurement,recipe,stock_limit) VALUES (:n,:i,:m,:r,:ins)";
         $stmt = $this->conn->prepare($query);
 
        

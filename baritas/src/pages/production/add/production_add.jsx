@@ -34,7 +34,7 @@ class ProductionANPage extends React.Component {
      add(e){
          console.log(this.state);
         e.preventDefault();
-        axios.post('http://localhost/Baritas/Baritas_backend/apis/addproduction.php',JSON.stringify(this.state)).then(function(response){
+        axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addproduction.php',JSON.stringify(this.state)).then(function(response){
             console.log(response.data);
         })
         
@@ -45,8 +45,6 @@ class ProductionANPage extends React.Component {
             [e.target.name]: e.target.value
         });
     }
-
-
   render() { 
     return (
         

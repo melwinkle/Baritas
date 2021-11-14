@@ -19,7 +19,7 @@ class inventory
     }
     public function create()
     {
-        $query = "INSERT into inventory(product_name,category, Unit_price, in_stock,Measurement,restaurant,in_stock_limit) VALUES (:n,:c, :up,:s,:m,:re,:ins)";
+        $query = "INSERT into inventory(product_name,category, Unit_price, in_stock,Measurement,restaurant_id,in_stock_limit) VALUES (:n,:c, :up,:s,:m,:re,:ins)";
         $stmt = $this->conn->prepare($query);
 
         $this->category = htmlspecialchars(strip_tags($this->category));
