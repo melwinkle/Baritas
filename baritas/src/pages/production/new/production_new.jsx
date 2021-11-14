@@ -21,6 +21,7 @@ import {FiLogOut} from "react-icons/fi";
 function ProductionNPage (){
     
   const [inputList, setInputList] = useState([{ product: "", quantity: "" }]);
+  const [productnew, setProduct] = useState([{idate:"",branch:"",inputList, quantity:"" }]);
 
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -40,6 +41,18 @@ function ProductionNPage (){
   const handleAddClick = () => {
     setInputList([...inputList, { product: "", quantity: "" }]);
   };
+
+
+  const add =(e)=>{
+    console.log(this.state);
+   e.preventDefault();
+   axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addproduction.php',JSON.stringify(this.state)).then(function(response){
+       console.log(response.data);
+       // if(this.response.  =="Product created"){
+       //     window.location='/production';
+       // }
+   })
+}
        
         return (
           <div class="proad">
@@ -105,9 +118,9 @@ function ProductionNPage (){
              <Container>
                  <Row>
                      <Col><label>Date</label>
-             <input type="date" /></Col>
+             <input type="date" name="idate" /></Col>
              <Col><label>Branch</label>
-                     <select>
+                     <select name="branch">
                          <option value="Sauces">Adenta</option>
                          <option value="Hot/Spicy">Madina</option>
                          <option value="Hot/Spicy">Campus Hub</option>
@@ -160,7 +173,7 @@ function ProductionNPage (){
 
                  
 
-                 <Row><button>Save</button></Row>
+                 <Row><button onClick={this.add}>Save</button></Row>
                 
              </Container>
              

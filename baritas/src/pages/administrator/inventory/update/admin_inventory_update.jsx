@@ -125,11 +125,11 @@ function EditInventory(props) {
                     <Container>
                         <Row>
                             <Col><label>Product</label>
-                    <input type="text" name="name" value={name}/></Col>
+                    <input type="text" name="name" defaultValue={name}/></Col>
 
                     <Col><label>Category</label>
                             <select name="category">
-                                <option value={category}>{category}</option>
+                                <option defaultValue={category}>{category}</option>
                                 <option value="Hot/Spicy">Hot&Spicy</option>
                                 <option value="Hot/Spicy">Hot&Spicy</option>
                                 <option value="Hot/Spicy">Hot&Spicy</option>
@@ -145,7 +145,7 @@ function EditInventory(props) {
                     <Row>
                     <Col>
                     <label>Unit Cost Price</label>
-                    <input type="number" name="unit" value={unit}/></Col>
+                    <input type="number" name="unit" defaultValue={unit}/></Col>
                         
                             <Col><label>Unit of Measurement</label>
                             <select name="Measure">
@@ -161,11 +161,11 @@ function EditInventory(props) {
                     <Row>
                     <Col>
                     <label>In Stock</label>
-                    <input type="number" name="inn" value={inn}/></Col>
+                    <input type="number" name="inn" defaultValue={inn}/></Col>
                     
                     <Col>
                     <label>Stock Limit</label>
-                    <input type="number" name="limit" value={limit}/></Col>
+                    <input type="number" name="limit" defaultValue={limit}/></Col>
                         </Row>
 
                         <Row><button>Update</button></Row>

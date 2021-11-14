@@ -36,7 +36,12 @@ class ProductionANPage extends React.Component {
         e.preventDefault();
         axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addproduction.php',JSON.stringify(this.state)).then(function(response){
             console.log(response.data);
+            // if(this.response.  =="Product created"){
+            //     window.location='/production';
+            // }
         })
+
+       
         
     }
 

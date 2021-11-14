@@ -28,6 +28,7 @@ if($product->create()){
     echo json_encode(
         array('message' => 'Product Created')
     );
+    
 }
 else{
     echo json_encode(

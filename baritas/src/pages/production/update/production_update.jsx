@@ -36,6 +36,9 @@ useEffect(async ()=>{
 },[]);
 
 
+
+
+
        
         return (
           <div class="proad">
@@ -106,26 +109,26 @@ useEffect(async ()=>{
 <Container>
  <Row>
      <Col><label>Name</label>
-<input type="text" placeholder="Item name" value={production_name}/></Col>
+<input type="text" placeholder="Item name" defaultValue={production_name}/></Col>
 <Col>
 <label>Stock Limit</label>
-<input type="number" value={stock_limit}/></Col>
+<input type="number"defaultValue={stock_limit}/></Col>
 
 </Row>
 
 <Row>
 <Col>
 <label>Measurement</label>
-<input type="text" value={measurement}/></Col>
+<input type="text" defaultValue={measurement}/></Col>
 <Col>
 <label>In Stock</label>
-<input type="number" value={in_stock}/></Col>
+<input type="number" defaultValuee={in_stock}/></Col>
  </Row>
 
  <Row>
      <Col>
      <label>Recipe</label>
-     <textarea value={recipe}></textarea>
+     <textarea defaultValue={recipe}></textarea>
      </Col>
  </Row>
 
