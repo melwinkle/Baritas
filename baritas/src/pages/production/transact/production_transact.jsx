@@ -15,6 +15,7 @@ import {
     SidebarContent,
   } from "react-pro-sidebar";
 import { Container, Row, Col } from 'reactstrap';
+import Modal from "react-bootstrap/Modal";
 // get data fron the procution folder 
 
 /* We simply can use an array and loop and print each user */
@@ -23,11 +24,44 @@ function ProductionTPage () {
   const [posts, setPosts] = useState({ blogs: [] });
 
   const id=sessionStorage.getItem("rest");
-  
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
+
+  const ModalContent=(item)=>{
+    handleShow;
+    
+    <Modal show={show} onHide={handleClose} id="mods">
+    <Modal.Header closeButton>
+    <Modal.Title>Transaction No.{id}</Modal.Title>
+    </Modal.Header>
+    <Modal.Body >
+     
+        <Row>
+            <ReactBootStrap.Card id="order">
+                <ReactBootStrap.Card.Text >
+                  
+                  <Row>
+                    <Col>sdfx sdf</Col>
+                
+      
+                  </Row>
+                 
+                 
+                </ReactBootStrap.Card.Text>
+            </ReactBootStrap.Card>
+        </Row>
+        </Modal.Body>
+   
+</Modal>
+  }
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallinventory.php?id='+id
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproduction.php'
       );
       setPosts({ blogs: data.data });
       console.log(data);
@@ -121,8 +155,7 @@ function ProductionTPage () {
             <th>ID</th>
             <th>Date </th>
             <th>Restaurant</th>
-            <th>Product</th>
-            <th>Quantity</th>
+ 
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -130,19 +163,23 @@ function ProductionTPage () {
         <tbody>
           {posts.blogs &&
             posts.blogs.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.in}</td>
-                <td>{item.in}</td>
-                <td>{item.in}</td>
-                <td>{item.Measure}</td>
-                <td><a class="ab1"href={'/production/transact/tracking/' + item.id}><button class="b2">Edit</button></a>
-               <a class="ab1" href={'/production/transact/invoice/' + item.id}> <button class="b1">View</button></a></td>
+              console.log("id:"+item.production_id,"name:"+item.product_name,"stock:"+item.in_stock),
+              <tr key={item.production_id}>
+                <td>{item.production_id}</td>
+                <td>{item.product_name}</td>
+                <td>{item.in_stock}</td>
+         {/*  href={'/production/transact/invoice/' + item.id} */}
+                <td>{item.recipe}</td>
+                <td><a class="ab1"href={'/production/transact/tracking/' + item.production_id}><button class="b2">Edit</button></a>
+               <a class="ab1" onClick={ModalContent(item.production_id)}> <button class="b1">View</button></a></td>
+             
               </tr>
+                 
             ))}
+          
         </tbody>
       </ReactBootStrap.Table>
+
       </Row>
       </Container>
             

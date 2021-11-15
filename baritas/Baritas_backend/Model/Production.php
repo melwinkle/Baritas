@@ -147,14 +147,27 @@ class production
     }
 
 
+    public function allnotice(){
+        $query="SELECT * from production_alert where AlertStatus='0'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    public function allnoticer(){
+        $query="SELECT * from production_alert where AlertStatus='1'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
     public function alltransaction(){
-        $query="SELECT * from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.product_id=product_transact_item";
+        $query="SELECT * from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.production_id=product_transact_item.product_id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
     public function alltransactions(){
-        $query="SELECT * from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.product_id=product_transact_item where production_transaction.restaurant=:r";
+        $query="SELECT * from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.production_id=product_transact_item.product_id where production_transaction.restaurant=:r";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
@@ -188,10 +201,10 @@ class production
 }
 
 public function updatealert(){
-    $query="UPDATE production_alert SET AlertStatus=:s where alert_id=:i";
+    $query="UPDATE production_alert SET AlertStatus='1' where alert_id=:i";
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(':i',$this->id);
-    $stmt->bindParam(':s',$this->alert_status);
+
 
 
 

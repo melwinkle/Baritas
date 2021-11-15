@@ -43,16 +43,16 @@ function ProductionNPage (){
   };
 
 
-  const add =(e)=>{
-    console.log(this.state);
-   e.preventDefault();
-   axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addproduction.php',JSON.stringify(this.state)).then(function(response){
-       console.log(response.data);
-       // if(this.response.  =="Product created"){
-       //     window.location='/production';
-       // }
-   })
-}
+//  const add =(e)=>{
+//     console.log(this.state);
+//    e.preventDefault();
+//    axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addproduction.php',JSON.stringify(this.state)).then(function(response){
+//        console.log(response.data);
+//        // if(this.response.  =="Product created"){
+//        //     window.location='/production';
+//        // }
+//    }) 
+// }
        
         return (
           <div class="proad">
@@ -165,6 +165,7 @@ function ProductionNPage (){
        
         );
       })}
+      {console.log(JSON.stringify(inputList))}
       {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
                
 
@@ -173,7 +174,7 @@ function ProductionNPage (){
 
                  
 
-                 <Row><button onClick={this.add}>Save</button></Row>
+                 <Row><button >Save</button></Row>
                 
              </Container>
              

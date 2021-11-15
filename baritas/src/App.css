@@ -1120,7 +1120,7 @@ form td:last-child {
   margin-top:-5%;
 }
 #mtt{
-  margin-left:5%;
+  margin-left:20%;
 }
 
 
@@ -1529,6 +1529,8 @@ form td:last-child {
 
 #daten{
   float:right;
+  color:#800020;
+  
 }
 
 #salert{
