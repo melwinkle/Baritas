@@ -13,6 +13,7 @@ import {
   } from "react-pro-sidebar";
   import { FaArrowLeft, FaList,FaStore } from "react-icons/fa";
 import Button from "react-bootstrap/button";
+import axios from 'axios';
 
  function AdminMenuVPage(props){
     
@@ -21,7 +22,8 @@ import Button from "react-bootstrap/button";
         category:"",
         price:"",
         size:"", 
-        catid:""
+        catid:"",
+        restaurant:""
 });
 
     const{name,category,price,size,catid}=Menu;
@@ -35,6 +37,19 @@ import Button from "react-bootstrap/button";
         }
         );
     },[]);
+    function onChange(e){
+        const newMenu ={...Menu}
+        newMenu[e.target.name] = e.target.value;
+        setMenu(newMenu);
+    }
+
+    function update(e){
+        console.log(Menu);
+        e.preventDefault();
+        axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatemenu.php' ,JSON.stringify(Menu)).then(function(response){
+        console.log(response.data);
+        })
+    }
         return (
           <div class="proad">
               <div id="header">
@@ -116,7 +131,7 @@ import Button from "react-bootstrap/button";
                     <Container>
                         <Row>
                             <Col><label>Menu Name</label>
-                    <input type="text" placeholder="Menu name" value={name}/></Col>
+                    <input type="text" placeholder="Menu name" name="name" value={name} onChange={(e)=>onChange(e)}/></Col>
                     </Row>
 
 
@@ -125,7 +140,7 @@ import Button from "react-bootstrap/button";
 
                         <Row>
                             <Col><label>Category</label>
-                            <select>
+                            <select name="category" onChange={(e)=>onChange(e)}>
                             <option value={catid}>{category}</option>
                                 <option value="Hot/Spicy">Hot&Spicy</option>
                                 <option value="Hot/Spicy">Hot&Spicy</option>
@@ -141,12 +156,12 @@ import Button from "react-bootstrap/button";
                     <Row>
                     <Col>
                     <label>Price</label>
-                    <input type="number"  value={price}/></Col>
+                    <input type="number"  name ="price" value={price} onChange={(e)=>onChange(e)}/></Col>
                     <Col> <label>Size</label>
-                    <input type="text"  value={size}/></Col>
+                    <input type="text"  name ="size" value={size} onChange={(e)=>onChange(e)}/></Col>
                         </Row>
 
-                        <Row><button>Save</button></Row>
+                        <Row><button onClick={update}>Update</button></Row>
                        
                     </Container>
                     

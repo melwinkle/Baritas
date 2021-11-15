@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
-import {FaHome} from "react-icons/fa";
+import {FaHome, FaIntercom} from "react-icons/fa";
 import DataTable from './component/DataTable';
 import data from './Table/data';
 import Modal from "react-bootstrap/Modal";
@@ -41,6 +41,8 @@ const AdminOrderPage =()=> {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [searchTerm,setSearchTerm] = useState('');
 
         return (
           <div class="proad">
@@ -123,8 +125,8 @@ const AdminOrderPage =()=> {
 <Form.Label>Order Date</Form.Label> 
   <Col>
 
-    <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
-    <Col> <Button id="searchb"> Search</Button></Col>
+    <Form.Control type="date" name="inventory"  placeholder="Enter item" onChange={event =>{setSearchTerm(event.target.value)}}/></Col>
+    <Col></Col>
 </Row>
     
    
@@ -151,7 +153,15 @@ const AdminOrderPage =()=> {
         </thead>
         <tbody>
           {posts.blogs &&
-            posts.blogs.map((item) => (
+            posts.blogs.filter((item)=>{
+              if(searchTerm == ""){
+                return item;
+              }
+              else if(item.date.includes(searchTerm)){
+                return item;
+              }
+
+            }).map((item) => (
               <tr key={item.id}>
                 <td>{item.date}</td>
                 <td>{item.server}</td>

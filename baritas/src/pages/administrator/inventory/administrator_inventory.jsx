@@ -134,7 +134,6 @@ const AxiosPost = () => {
           <tr>
             <th>ID</th>
             <th>Product Name </th>
-            <th>Category</th>
             <th>Unit Price</th>
             <th>In Stock</th>
             <th>Measurement</th>
@@ -153,7 +152,6 @@ const AxiosPost = () => {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
-                <td>{item.category}</td>
                 <td>{item.unit}</td>
                 <td>{item.in}</td>
                 <td>{item.Measure}</td>

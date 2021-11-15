@@ -9,20 +9,18 @@ class production
     public $unit;
     public $stock;
     public $measure;
-    public $restaurant;
     public $limit;
-    public $recipe;
-    public $alert_id;
-    public $alert_date;
-    public $alert_message;
-    public $alert_status;
-    public $quantity;
-    public $transaction_date;
-    public $total;
+    public $restaurant;
 
     public function __construct($db)
     {
         $this->conn = $db;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+        
     }
     public function create()
     {
@@ -44,94 +42,12 @@ class production
         $stmt->bindParam(':m', $this->measure);
         $stmt->bindParam(':r', $this->recipe);
         $stmt->bindParam(':ins', $this->limit);
-        
 
 
 
-        if ($stmt->execute()) {
+    if ($stmt->execute()) {
             $this->id = $this->conn->lastInsertId();
             return true;
-        }
-        printf("Error: %s.\n", $stmt->error);
-
-        return false;
-    }
-    
-    public function createalert()
-    {
-        $query = "INSERT into production_alert(AlertDate,AlertMessage) VALUES (:d,:m)";
-        $stmt = $this->conn->prepare($query);
-
-       
-        $this->alert_date = htmlspecialchars(strip_tags($this->alert_date));
-        $this->alert_message = htmlspecialchars(strip_tags($this->alert_message));
-       
-
-
-
-     
-        $stmt->bindParam(':d', $this->alert_date);
-        $stmt->bindParam(':m', $this->alert_message);
-    
-        
-
-
-
-        if ($stmt->execute()) {
-            $this->id = $this->conn->lastInsertId();
-            return true;
-        }
-        printf("Error: %s.\n", $stmt->error);
-
-        return false;
-    }
-
-
-    public function createinvoice()
-    {
-        $query = "INSERT into production_transaction(Date,restaurant_id,quantity) VALUES (:d,:r,:q)";
-        $stmt = $this->conn->prepare($query);
-
-       
-        $this->transaction_date = htmlspecialchars(strip_tags($this->transaction_date));
-        $this->restaurant = htmlspecialchars(strip_tags($this->restaurant));
-        $this->quantity = htmlspecialchars(strip_tags($this->quantity));
-
-
-
-     
-        $stmt->bindParam(':d', $this->transaction_date);
-        $stmt->bindParam(':r', $this->restaurant);
-        $stmt->bindParam(':q', $this->quantity);
-    
-        
-
-
-
-        if ($stmt->execute()) {
-            $this->id = $this->conn->lastInsertId();
-            $query_1 = "INSERT into production_transaction(product_id,quantity,transaction_id) VALUES (:p,:q,:t)";
-            $stmt_1 = $this->conn->prepare($query_1);
-
-        
-            $this->product_id = htmlspecialchars(strip_tags($this->product_id));
-            $this->quantity = htmlspecialchars(strip_tags($this->quantity));
-        
-            $this->id= htmlspecialchars(strip_tags($this->id));
-
-
-
-        
-            $stmt_1->bindParam(':p', $this->product_id);
-            $stmt_1->bindParam(':q', $this->quantity);
-            $stmt_1->bindParam(':t', $this->id);
-
-
-            if($stmt_1->execute()){
-                return true;
-            }
-
-            
         }
         printf("Error: %s.\n", $stmt->error);
 
@@ -161,13 +77,21 @@ class production
     }
 
     public function alltransaction(){
+<<<<<<< HEAD
         $query="SELECT * from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.production_id=product_transact_item.product_id";
+=======
+        $query="SELECT production_transaction.transaction_id,production_transaction.Date,production.product_name, restaurant.restaurant_name,product_transact_item.quantity, production_transaction.Transaction_Status from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.production_id=product_transact_item.product_id inner join restaurant on restaurant.restaurant_id=production_transaction.restaurant_id";
+>>>>>>> 3afc508fea4bfbda118045554a72fd73fe307768
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
     public function alltransactions(){
+<<<<<<< HEAD
         $query="SELECT * from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.production_id=product_transact_item.product_id where production_transaction.restaurant=:r";
+=======
+        $query="SELECT production_transaction.transaction_id,production_transaction.Date,production.product_name, restaurant.restaurant_name,product_transact_item.quantity, production_transaction.Transaction_Status from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.production_id=product_transact_item.product_id inner join restaurant on restaurant.restaurant_id=production_transaction.restaurant_id where production_transaction.restaurant_id=:r";
+>>>>>>> 3afc508fea4bfbda118045554a72fd73fe307768
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
@@ -199,6 +123,7 @@ class production
         return false;
     
 }
+<<<<<<< HEAD
 
 public function updatealert(){
     $query="UPDATE production_alert SET AlertStatus='1' where alert_id=:i";
@@ -215,5 +140,7 @@ public function updatealert(){
     return false;
 
 }
+=======
+>>>>>>> 3afc508fea4bfbda118045554a72fd73fe307768
 }
 ?>

@@ -27,7 +27,7 @@ if ($num > 0) {
         $cat_item = array(
             'id'=>$order_id,
             'bill' => $bill_no,
-            'date'=>date('d F Y' , strtotime($date)),
+            'date'=>$date,
             'pay'=>$payment_method,
             'server'=>$waiter_name,
             'cost'=>$total_cost,
