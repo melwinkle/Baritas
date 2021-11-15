@@ -15,7 +15,7 @@ class menu
     }
     public function create()
     {
-        $query = "INSERT into Menu(name_of_food, category, price,img,size,restaurant) VALUES (:n, :c,:p,:i,:s,:r)";
+        $query = "INSERT into Menu(name_of_food, category_id, price,img,size,restaurant) VALUES (:n, :c,:p,:i,:s,:r)";
         $stmt = $this->conn->prepare($query);
 
         $this->name = htmlspecialchars(strip_tags($this->name));
@@ -62,13 +62,15 @@ class menu
         return $stmt;
     }
     public function updatemenu(){
-        $query="UPDATE Menu SET name_of_the_food=:pn , category=:c , price=:up , img=:iw where menu_id=:i";
+        $query="UPDATE Menu SET name_of_food=:pn , category_id=:c , price=:up, size=:s where menu_id=:i and restaurant_id=:r";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->bindParam(':pn',$this->name);
         $stmt->bindParam(':c',$this->category);
         $stmt->bindParam(':up',$this->price);
-        $stmt->bindParam(':iw',$this->img);
+        $stmt->bindParam(':r',$this->restaurant);
+        $stmt->bindParam(':s',$this->size);
+  
 
         if($stmt->execute()){
             return true;

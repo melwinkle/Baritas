@@ -14,6 +14,7 @@ import {
   import { FaArrowLeft, FaList,FaStore } from "react-icons/fa";
   import "../../../../Header.css";
   import Button from "react-bootstrap/Button";
+import axios from "axios";
 // import { Container, Row, Col } from 'reactstrap';
 
 
@@ -22,14 +23,13 @@ function EditInventory(props) {
     
     const[inventory,setInventory]=useState({
         name:"",
-        category:"",
         unit:"",
         inn:"",
         Measure:"",
         limit:""
 });
 
-    const{name,category,unit,inn,Measure,limit}=inventory;
+    const{name,unit,inn,Measure,limit}=inventory;
 
     useEffect(async ()=>{
         await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getainventoryitem.php?id='+props.match.params.id)
@@ -40,6 +40,20 @@ function EditInventory(props) {
         }
         );
     },[]);
+     function onChange(e){
+        const newInventory ={...inventory}
+        newInventory[e.target.name]=e.target.value;
+        setInventory(newInventory);
+     }
+
+     function update(e){
+         console.log(inventory); 
+        e.preventDefault();
+         axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updateinventory.php' ,JSON.stringify(inventory)).then(function(response){
+        console.log(response.data);
+        })
+     }
+
     return ( 
         <div class="proad">
              <div id="header">
@@ -95,13 +109,6 @@ function EditInventory(props) {
              </button></Link>
              
               </div>
-           
-             
-            
-             
-             
-             
-             
             
           </SidebarContent>
           {/* <SidebarFooter>
@@ -125,34 +132,25 @@ function EditInventory(props) {
                     <Container>
                         <Row>
                             <Col><label>Product</label>
-                    <input type="text" name="name" defaultValue={name}/></Col>
+                    <input type="text" name="name" defaultValue={name} onChange={(e)=>onChange(e)}/></Col>
 
-                    <Col><label>Category</label>
-                            <select name="category">
-                                <option defaultValue={category}>{category}</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                            </select></Col>
+
 
                     </Row>
-                        
 
-
-                   
 
                     <Row>
                     <Col>
                     <label>Unit Cost Price</label>
-                    <input type="number" name="unit" defaultValue={unit}/></Col>
+                    <input type="number" name="unit" value={unit} onChange={(e)=>onChange(e)}/></Col>
                         
                             <Col><label>Unit of Measurement</label>
-                            <select name="Measure">
+                            <select name="Measure" onChange={(e)=>onChange(e)}>
                                 <option value={Measure}>{Measure}</option>
-                                <option value="lb">Pounds(lb)</option>
-                                <option value="ml">Millimetres</option>
+                                <option value="Pounds(lb)">Pounds(lb)</option>
+                                <option value="Millimetres(ml)">Millimetres</option>
                                 <option value="bags">bags</option>
+                              
                                 
                             </select>
                     </Col>
@@ -161,14 +159,14 @@ function EditInventory(props) {
                     <Row>
                     <Col>
                     <label>In Stock</label>
-                    <input type="number" name="inn" defaultValue={inn}/></Col>
+                    <input type="number" name="inn" value={inn} onChange={(e)=>onChange(e)}/></Col>
                     
                     <Col>
                     <label>Stock Limit</label>
-                    <input type="number" name="limit" defaultValue={limit}/></Col>
+                    <input type="number" name="limit" value={limit} onChange={(e)=>onChange(e)}/></Col>
                         </Row>
 
-                        <Row><button>Update</button></Row>
+                        <Row><button onClick={update}>Update</button></Row>
                        
                     </Container>
                     

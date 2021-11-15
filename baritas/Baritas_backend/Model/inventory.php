@@ -6,7 +6,6 @@ class inventory
 
 
     public $id;
-    public $category;
     public $name;
     public $unit;
     public $stock;
@@ -19,10 +18,10 @@ class inventory
     }
     public function create()
     {
-        $query = "INSERT into inventory(product_name,category, Unit_price, in_stock,Measurement,restaurant_id,in_stock_limit) VALUES (:n,:c, :up,:s,:m,:re,:ins)";
+        $query = "INSERT into inventory(product_name, Unit_price, in_stock,Measurement,restaurant_id,in_stock_limit) VALUES (:n, :up,:s,:m,:re,:ins)";
         $stmt = $this->conn->prepare($query);
 
-        $this->category = htmlspecialchars(strip_tags($this->category));
+        
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->unit = htmlspecialchars(strip_tags($this->unit));
         $this->stock = htmlspecialchars(strip_tags($this->stock));
@@ -31,7 +30,7 @@ class inventory
 
 
 
-        $stmt->bindParam(':c', $this->category);
+   
         $stmt->bindParam(':n', $this->name);
         $stmt->bindParam(':up', $this->unit);
         $stmt->bindParam(':s', $this->stock);
@@ -67,15 +66,16 @@ class inventory
     }
 
     public function updateinventory(){
-        $query="UPDATE inventory SET product_name=:pn , category=:c , Unit_price=:up , in_stock=:iw , Measurement=:m, in_stock_limit=:l where product_id=:i";
+        $query="UPDATE inventory SET product_name=:pn , Unit_price=:up , in_stock=:iw , Measurement=:m, in_stock_limit=:l where product_id=:i and restaurant_id=:r";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->bindParam(':pn',$this->name);
-        $stmt->bindParam(':c',$this->category);
         $stmt->bindParam(':up',$this->unit);
         $stmt->bindParam(':iw',$this->stock);
         $stmt->bindParam(':m',$this->measure);
         $stmt->bindParam(':l',$this->instock_lim);
+        $stmt->bindParam(':r',$this->restaurant);
+
 
         if($stmt->execute()){
             return true;
