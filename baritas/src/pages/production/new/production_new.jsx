@@ -173,7 +173,7 @@ function ProductionNPage (){
 
                  
 
-                 <Row><button onClick={this.add}>Save</button></Row>
+                 <Row><button>Save</button></Row>
                 
              </Container>
              
