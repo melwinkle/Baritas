@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import "../../../../App.css";
 import { Link } from 'react-router-dom';
 // import {FiLogOut} from "react-icons/fi";
@@ -19,29 +19,31 @@ import {FiLogOut} from "react-icons/fi";
 import {MdDelete} from "react-icons/md";
 
 
-function ProductionNTPage (){
+function ProductionNTPage (props){
     
   const [inputList, setInputList] = useState([{ product: "", quantity: "" }]);
   
-  const[product,setInventory]=useState({
-    date:"",
-    restaurant_name:"",
-    inn:"",
-    Measure:"",
-    limit:""
-});
+//   const[products,setInventory]=useState({
+//     Date:"",
+//     restaurant_name:"",
+//     product:"",
+//     quantity:""
+// });
 
-const{name,unit,inn,Measure,limit}=inventory;
+// const{ date,
+// restaurant_name,
+// product,
+// quantity}=products;
 
-useEffect(async ()=>{
-    await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getatransaction.php?id='+props.match.params.id)
-    .then((response)=>response.json())
-    .then((responseJSON)=>{
-        setInventory(responseJSON.inventory);
-        console.log(responseJSON.inventory);
-    }
-    );
-},[]);
+// useEffect(async ()=>{
+//     await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getatransaction.php?id='+props.match.params.id)
+//     .then((response)=>response.json())
+//     .then((responseJSON)=>{
+//         setInventory(responseJSON.product);
+//         console.log(responseJSON.product);
+//     }
+//     );
+// },[]);
 
 
 

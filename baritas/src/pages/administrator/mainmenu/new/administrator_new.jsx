@@ -14,41 +14,44 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
  class AdminMenuNPage extends React.Component{
     
-    state = {
- 
-        // Initially, no file is selected
-        selectedFile: null
-      };
-      
-      // On file select (from the pop up)
-      onFileChange = event => {
-      
-        // Update the state
-        this.setState({ selectedFile: event.target.files[0] });
-      
-      };
-      
-      // On file upload (click the upload button)
-      onFileUpload = () => {
-      
-        // Create an object of formData
-        const formData = new FormData();
-      
-        // Update the formData object
-        formData.append(
-          "myFile",
-          this.state.selectedFile,
-          this.state.selectedFile.name
-        );
-      
-        // Details of the uploaded file
-        console.log(this.state.selectedFile);
-      
-        // Request made to the backend api
-        // Send formData object
-      
-      };
+  constructor(props){
+    super(props);
+    this.state ={
+        name:'',
+        img:'',
+        category:'',
+        price:'',
+        size:'',
+        rest:''
+    };
+    this.add = this.add.bind(this);
+    this.onChange = this.onChange.bind(this);
+   
 
+}
+
+      add(e){
+        this.setState({rest: sessionStorage.getItem('rest')});
+        console.log(this.state);
+       e.preventDefault();
+       axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addmenu.php',JSON.stringify(this.state)).then(function(response){
+           console.log(response.data);
+       })
+       
+   }
+
+   onChange(e){
+       this.setState({
+           [e.target.name]: e.target.value
+       });
+   }
+   onFileChange = event => {
+    
+    // Update the state
+    this.setState({ img: event.target.files[0].name });
+  
+  };
+  
     render() {
        
         return (
@@ -135,29 +138,43 @@ import axios from "axios";
                     <Container>
                         <Row>
                             <Col><label>Menu Name</label>
-                    <input type="text" placeholder="Menu name"/></Col>
+                    <input type="text" name="name" placeholder="Menu name" onChange={this.onChange}/></Col>
 
                     <Col><label>Image</label>
-                    <input type="file" onChange={this.onFileChange}/></Col>
+                    <input type="file" name="img" onChange={this.onFileChange}/></Col>
                         </Row>
 
 
                         <Row>
                             <Col><label>Category</label>
-                            <select>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
-                                <option value="Hot/Spicy">Hot&Spicy</option>
+                            <select name="category" onChange={this.onChange}>
+                              <option>Select a category..</option>
+                                <option value="1">Hot&Spicy</option>
+                                <option value="2">Hot&Spicy</option>
+                                <option value="3">Hot&Spicy</option>
+                                <option value="4">Hot&Spicy</option>
+                                <option value="5">Hot&Spicy</option>
                             </select>
                     </Col>
                     <Col>
                     <label>Price</label>
-                    <input type="number" /></Col>
+                    <input type="number" name="price" onChange={this.onChange}/></Col>
                         </Row>
-
-                        <Row><button>Add</button></Row>
+<Row>
+  <Col>
+  <label>Size</label>
+  <input type="text" name="size" placeholder="N,S,M,L" onChange={this.onChange}/></Col>
+  <Col><label>Restaurant</label>
+  <select name="restaurant_id" onChange={this.onChange}>
+                              <option>Select an option..</option>
+                                <option value="1">All</option>
+                                <option value="2">Adenta&Atomic</option>
+                                <option value="3">Legon Campus Hub</option>
+                             
+                            </select>
+  </Col>
+</Row>
+                        <Row><button onClick={this.add}>Add</button></Row>
                        
                     </Container>
                     

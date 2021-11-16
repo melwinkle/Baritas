@@ -10,7 +10,7 @@ include_once '../../Baritas_backend/Model/Menu.php';
 $database = new Database();
 $db = $database->connect();
 
-$men = new menu($db);
+$menu = new menu($db);
 
 
 $data = json_decode(file_get_contents("php://input"));
@@ -21,9 +21,9 @@ $menu->category= $data->category;
 $menu->price= $data->price;
 $menu->img=$data->img;
 $menu->size=$data->size;
-$menu->restaurant=$data->rest;
+$menu->restaurant_id=$data->rest;
 
-if($order->create()){
+if($menu->create()){
    echo true;
 }
 else{
