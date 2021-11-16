@@ -23,6 +23,7 @@ function ProductionNTPage (props){
     
   const [inputList, setInputList] = useState([{ product: "", quantity: "" }]);
   
+<<<<<<< HEAD
 //   const[products,setInventory]=useState({
 //     Date:"",
 //     restaurant_name:"",
@@ -44,6 +45,25 @@ function ProductionNTPage (props){
 //     }
 //     );
 // },[]);
+=======
+  const[product,setProduct]=useState({
+    date:"",
+    restaurant_name:""
+});
+
+const{date,restaurant_name,}=product;
+
+useEffect(async ()=>{
+    await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getatransaction.php?id='+props.match.params.id)
+    .then((response)=>response.json())
+    .then((responseJSON)=>{
+        setProduct(responseJSON.inventory);
+        setInputList(responseJSON.inventory);
+        console.log(responseJSON.inventory);
+    }
+    );
+},[]);
+>>>>>>> b30a3440b3cb6b07a10574494114fa99aa850da4
 
 
 
