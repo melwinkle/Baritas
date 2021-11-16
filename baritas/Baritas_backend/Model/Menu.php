@@ -15,11 +15,7 @@ class menu
     }
     public function create()
     {
-<<<<<<< HEAD
         $query = "INSERT into Menu(name_of_food,category_id,price,img,size,restaurant_id) VALUES (:n,:c,:p,:i,:s,:r)";
-=======
-        $query = "INSERT into Menu(name_of_food, category_id, price,img,size,restaurant) VALUES (:n,:c,:p,:i,:s,:r)";
->>>>>>> b30a3440b3cb6b07a10574494114fa99aa850da4
         $stmt = $this->conn->prepare($query);
 
         $this->name = htmlspecialchars(strip_tags($this->name));
