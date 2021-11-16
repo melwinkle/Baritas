@@ -77,12 +77,7 @@ function ProductionPage(){
              </button></Link>
              
               </div>
-            
-             
-             
-             
-             
-            
+      
           </SidebarContent>
           {/* <SidebarFooter>
             Baritas (c)

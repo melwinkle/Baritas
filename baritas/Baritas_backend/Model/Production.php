@@ -76,22 +76,28 @@ class production
         return $stmt;
     }
 
+    public function onetransaction(){
+        $query="SELECT transaction_id,Date,restaurant_name from production_transaction inner join restaurant on restaurant.restaurant_id=production_transaction.restaurant_id where production_transaction.transaction_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+        $stmt->execute();
+        return $stmt;
+    }
+    public function onetransactions(){
+        $query="SELECT production_trans_id,product_name,quantity from product_transact_item inner join production on production.production_id=product_transact_item.product_id where product_transact_item.transaction_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+        $stmt->execute();
+        return $stmt;
+    }
     public function alltransaction(){
-<<<<<<< HEAD
-        $query="SELECT * from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.production_id=product_transact_item.product_id";
-=======
-        $query="SELECT production_transaction.transaction_id,production_transaction.Date,production.product_name, restaurant.restaurant_name,product_transact_item.quantity, production_transaction.Transaction_Status from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.production_id=product_transact_item.product_id inner join restaurant on restaurant.restaurant_id=production_transaction.restaurant_id";
->>>>>>> 3afc508fea4bfbda118045554a72fd73fe307768
+        $query="SELECT production_transaction.transaction_id,production_transaction.Date,restaurant.restaurant_name, production_transaction.Transaction_Status from production_transaction inner join restaurant on restaurant.restaurant_id=production_transaction.restaurant_id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
     public function alltransactions(){
-<<<<<<< HEAD
-        $query="SELECT * from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.production_id=product_transact_item.product_id where production_transaction.restaurant=:r";
-=======
         $query="SELECT production_transaction.transaction_id,production_transaction.Date,production.product_name, restaurant.restaurant_name,product_transact_item.quantity, production_transaction.Transaction_Status from production_transaction inner join product_transact_item on product_transact_item.transaction_id=production_transaction.transaction_id inner join production on production.production_id=product_transact_item.product_id inner join restaurant on restaurant.restaurant_id=production_transaction.restaurant_id where production_transaction.restaurant_id=:r";
->>>>>>> 3afc508fea4bfbda118045554a72fd73fe307768
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
@@ -123,7 +129,6 @@ class production
         return false;
     
 }
-<<<<<<< HEAD
 
 public function updatealert(){
     $query="UPDATE production_alert SET AlertStatus='1' where alert_id=:i";
@@ -140,7 +145,5 @@ public function updatealert(){
     return false;
 
 }
-=======
->>>>>>> 3afc508fea4bfbda118045554a72fd73fe307768
 }
 ?>

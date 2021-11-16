@@ -23,45 +23,13 @@ function ProductionTPage () {
        
   const [posts, setPosts] = useState({ blogs: [] });
 
-  const id=sessionStorage.getItem("rest");
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
 
 
-  const ModalContent=(item)=>{
-    handleShow;
-    
-    <Modal show={show} onHide={handleClose} id="mods">
-    <Modal.Header closeButton>
-    <Modal.Title>Transaction No.{id}</Modal.Title>
-    </Modal.Header>
-    <Modal.Body >
-     
-        <Row>
-            <ReactBootStrap.Card id="order">
-                <ReactBootStrap.Card.Text >
-                  
-                  <Row>
-                    <Col>sdfx sdf</Col>
-                
-      
-                  </Row>
-                 
-                 
-                </ReactBootStrap.Card.Text>
-            </ReactBootStrap.Card>
-        </Row>
-        </Modal.Body>
-   
-</Modal>
-  }
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproduction.php'
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproductiont.php'
       );
       setPosts({ blogs: data.data });
       console.log(data);
@@ -163,15 +131,15 @@ function ProductionTPage () {
         <tbody>
           {posts.blogs &&
             posts.blogs.map((item) => (
-              console.log("id:"+item.production_id,"name:"+item.product_name,"stock:"+item.in_stock),
-              <tr key={item.production_id}>
-                <td>{item.production_id}</td>
-                <td>{item.product_name}</td>
-                <td>{item.in_stock}</td>
-         {/*  href={'/production/transact/invoice/' + item.id} */}
-                <td>{item.recipe}</td>
-                <td><a class="ab1"href={'/production/transact/tracking/' + item.production_id}><button class="b2">Edit</button></a>
-               <a class="ab1" onClick={ModalContent(item.production_id)}> <button class="b1">View</button></a></td>
+              <tr key={item.transaction_id}>
+                <td>{item.transaction_id}</td>
+                <td>{item.Date}</td>
+                <td>{item.restaurant_name}</td>
+                <td>{item.Transaction_Status}</td>
+               
+       
+                <td><a class="ab1"href={'/production/transact/tracking/' + item.transaction_id}><button class="b2">Edit</button></a>
+               <a class="ab1" href={'/production/transact/invoice/' + item.transaction_id+'?restaurant='+item.restaurant_name}> <button class="b1">View</button></a></td>
              
               </tr>
                  
@@ -181,8 +149,10 @@ function ProductionTPage () {
       </ReactBootStrap.Table>
 
       </Row>
+   
+     
       </Container>
-            
+     
             
   
    

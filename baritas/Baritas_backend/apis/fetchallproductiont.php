@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 include_once '../../Baritas_backend/database/Database.php';
-include_once '../../Baritas_backend/Model/orders.php';
+include_once '../../Baritas_backend/Model/Production.php';
 
 
 $database = new Database();
@@ -24,12 +24,10 @@ if ($num > 0) {
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $cat_item = array(
-            'id' => $transaction_id,
-            'date'=>$Date,
-            'product'=>$Product,
-            'restaurant'=>$Restaurant,
-            'quantity'=>$Quantity,
-            'measure'=>$Measurement
+            'transaction_id' => $transaction_id,
+            'Date'=>$Date,
+            'restaurant_name'=>$restaurant_name,
+            'Transaction_Status'=>$Transaction_Status
         );
 
         // Push to "data"

@@ -174,11 +174,7 @@ function ProductionNPage (){
 
                  
 
-<<<<<<< HEAD
-                 <Row><button >Save</button></Row>
-=======
                  <Row><button>Save</button></Row>
->>>>>>> 3afc508fea4bfbda118045554a72fd73fe307768
                 
              </Container>
              

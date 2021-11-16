@@ -96,10 +96,10 @@ class App extends Component {
        <Route exact path="/production/update/:id" component={ProductionUPage} />
        <Route exact path="/production/new" component={ProductionNPage} />
        <Route exact path="/production/transact/tracking/:id" component={ProductionNTPage} />
+       <Route exact path="/production/transact/invoice/:id" component={ProductionIPage} />
        <Route exact path="/production/alert/archive" component={ProductionAPage} />
        <Route exact path="/production/alert" component={ProductionALPage} />
        <Route exact path="/production/transact" component={ProductionTPage} />
-       <Route exact path="/production/transact/invoice" component={ProductionIPage} />
        <Route exact path="/production/add" component={ProductionANPage} />
        <Route exact path="/branch_manager/inventory" component={BranchInvent} />
        <Route exact path="/branch_manager/inventory/view/:id" component={BInventoryView} />
