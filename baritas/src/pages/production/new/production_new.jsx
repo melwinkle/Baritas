@@ -21,7 +21,11 @@ import {FiLogOut} from "react-icons/fi";
 function ProductionNPage (){
     
   const [inputList, setInputList] = useState([{ product: "", quantity: "" }]);
-  const [productnew, setProduct] = useState([{idate:"",branch:"",inputList, quantity:"" }]);
+  const [productnew, setProduct] = useState({
+    date:"",
+    branch:"",
+    inputList:""
+  });
 
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -42,16 +46,20 @@ function ProductionNPage (){
     setInputList([...inputList, { product: "", quantity: "" }]);
   };
 
+  // function onChange(e){
+  //   setProduct({[e.target.name]:e.target.value})
+  // }
+
 
   const add =(e)=>{
-    console.log(this.state);
+    console.log(productnew);
    e.preventDefault();
-   axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addproduction.php',JSON.stringify(this.state)).then(function(response){
-       console.log(response.data);
+  //  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createinvoice.php',JSON.stringify(this.state)).then(function(response){
+  //      console.log(response.data);
        // if(this.response.  =="Product created"){
        //     window.location='/production';
        // }
-   })
+  //  })
 }
        
         return (
@@ -118,9 +126,10 @@ function ProductionNPage (){
              <Container>
                  <Row>
                      <Col><label>Date</label>
-             <input type="date" name="idate" /></Col>
+             <input type="date" name="date"/></Col>
+
              <Col><label>Branch</label>
-                     <select name="branch">
+                     <select name="branch" >
                          <option value="Sauces">Adenta</option>
                          <option value="Hot/Spicy">Madina</option>
                          <option value="Hot/Spicy">Campus Hub</option>
@@ -149,8 +158,7 @@ function ProductionNPage (){
 
   <Col>
   <label>Quantity</label>
-  <input type="number"  name="quantity" value={x.quantity}
-              onChange={e => handleInputChange(e, i)}/></Col>
+  <input type="number"  name="quantity" value={x.quantity} onChange={e => handleInputChange(e, i)}/></Col>
 
 <Col>
 <div className="btn-box">
@@ -173,7 +181,7 @@ function ProductionNPage (){
 
                  
 
-                 <Row><button>Save</button></Row>
+                 <Row><button onClick={add}>Save</button></Row>
                 
              </Container>
              

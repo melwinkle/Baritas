@@ -15,7 +15,7 @@ class menu
     }
     public function create()
     {
-        $query = "INSERT into Menu(name_of_food, category_id, price,img,size,restaurant) VALUES (:n, :c,:p,:i,:s,:r)";
+        $query = "INSERT into Menu(name_of_food, category_id, price,img,size,restaurant) VALUES (:n,:c,:p,:i,:s,:r)";
         $stmt = $this->conn->prepare($query);
 
         $this->name = htmlspecialchars(strip_tags($this->name));
@@ -44,7 +44,6 @@ class menu
 
         return false;
     } 
-
 
     public function allmenu(){
         $query="SELECT * from Menu inner join category on Menu.category_id = category.category_id where Menu.restaurant_id=:r";
