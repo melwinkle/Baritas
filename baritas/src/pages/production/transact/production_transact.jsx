@@ -15,6 +15,7 @@ import {
     SidebarContent,
   } from "react-pro-sidebar";
 import { Container, Row, Col } from 'reactstrap';
+import Modal from "react-bootstrap/Modal";
 // get data fron the procution folder 
 
 /* We simply can use an array and loop and print each user */
@@ -22,12 +23,13 @@ function ProductionTPage () {
        
   const [posts, setPosts] = useState({ blogs: [] });
 
-  const id=sessionStorage.getItem("rest");
-  
+
+
+
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallinventory.php?id='+id
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproductiont.php'
       );
       setPosts({ blogs: data.data });
       console.log(data);
@@ -121,8 +123,7 @@ function ProductionTPage () {
             <th>ID</th>
             <th>Date </th>
             <th>Restaurant</th>
-            <th>Product</th>
-            <th>Quantity</th>
+ 
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -130,22 +131,28 @@ function ProductionTPage () {
         <tbody>
           {posts.blogs &&
             posts.blogs.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.in}</td>
-                <td>{item.in}</td>
-                <td>{item.in}</td>
-                <td>{item.Measure}</td>
-                <td><a class="ab1"href={'/production/transact/tracking/' + item.id}><button class="b2">Edit</button></a>
-               <a class="ab1" href={'/production/transact/invoice/' + item.id}> <button class="b1">View</button></a></td>
+              <tr key={item.transaction_id}>
+                <td>{item.transaction_id}</td>
+                <td>{item.Date}</td>
+                <td>{item.restaurant_name}</td>
+                <td>{item.Transaction_Status}</td>
+               
+       
+                <td><a class="ab1"href={'/production/transact/tracking/' + item.transaction_id}><button class="b2">Edit</button></a>
+               <a class="ab1" href={'/production/transact/invoice/' + item.transaction_id+'?restaurant='+item.restaurant_name}> <button class="b1">View</button></a></td>
+             
               </tr>
+                 
             ))}
+          
         </tbody>
       </ReactBootStrap.Table>
+
       </Row>
+   
+     
       </Container>
-            
+     
             
   
    

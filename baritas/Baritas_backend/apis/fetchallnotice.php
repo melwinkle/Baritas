@@ -11,7 +11,7 @@ $database = new Database();
 $db = $database->connect();
 $order = new production($db);
 
-$result = $order->alltransaction();
+$result = $order->allnoticer();
 
 // Get row count
 $num = $result->rowCount();
@@ -24,10 +24,10 @@ if ($num > 0) {
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $cat_item = array(
-            'transaction_id' => $transaction_id,
-            'Date'=>$Date,
-            'restaurant_name'=>$restaurant_name,
-            'Transaction_Status'=>$Transaction_Status
+            'alert_id' => $alert_id,
+            'AlertDate'=>$AlertDate,
+            'AlertMessage'=>$AlertMessage,
+            'AlertStatus'=>$AlertStatus
         );
 
         // Push to "data"
@@ -40,7 +40,7 @@ if ($num > 0) {
 } else {
     // No Categories
     echo json_encode(
-        array('message' => 'No Transaction Found')
+        array('message' => 'No Notification Found')
     );
 }
 ?>

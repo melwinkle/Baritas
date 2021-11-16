@@ -104,7 +104,9 @@ import {
   
             
   <Container id="invt">
-    
+  <Row>
+        <Link to="/administrator/mainmenu/new/"><Button id="addnew">Add New +</Button></Link>
+    </Row>
     <Row>
   
    

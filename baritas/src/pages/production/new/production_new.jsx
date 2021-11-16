@@ -173,6 +173,7 @@ function ProductionNPage (){
        
         );
       })}
+      {console.log(JSON.stringify(inputList))}
       {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
                
 

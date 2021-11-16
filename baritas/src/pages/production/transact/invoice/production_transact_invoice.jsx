@@ -1,6 +1,6 @@
-import React from 'react';
+import React,{useEffect,useState}  from 'react';
 import "../../../../App.css";
-import { Link } from 'react-router-dom';
+import { Link,useLocation } from 'react-router-dom';
 // import {FiLogOut} from "react-icons/fi";
 // import {FaHome} from "react-icons/fa";
 import {BiArrowBack} from "react-icons/bi";
@@ -16,11 +16,27 @@ import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import {FaHome,FaBell,FaStoreAlt,FaArrowLeft} from "react-icons/fa";
-function ProductionIPage (){
-    
-          
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+function ProductionIPage(props){
+  let query = useQuery();
+
+  const [posts, setPosts] = useState({ blogs: [] });
 
   
+  
+  useEffect(() => {
+    const fetchPostList = async () => {
+      const { data } = await axios(
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/getinvoice.php?id='+props.match.params.id
+      );
+      setPosts({ blogs: data.data });
+      console.log(data);
+    };
+    fetchPostList();
+  }, [setPosts]);
        
         return (
           <div class="proad">
@@ -79,20 +95,20 @@ function ProductionIPage (){
             <Row>
         <Link to="/production/transact/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
     </Row>
-
+   
 
                 <Row id="invtr">
                 <div class="addi c" id="source-html">
-         
-         <h3>Invoice#124</h3>
+       
+         <h3>Invoice# {props.match.params.id}</h3>
          <Container>
              <Row>
-                 <Col>From:<span>From</span></Col>
+                 <Col>From:<span>Production</span></Col>
          
                 
              </Row>
              <Row>
-             <Col>To:<span>To</span></Col>
+             <Col>To:<span>{query.get("restaurant")}</span></Col>
           
 
              </Row>
@@ -107,25 +123,23 @@ function ProductionIPage (){
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>500</td>
-                </tr>
-                <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>500</td>
-                </tr>
-                <tr>
-                
-                <td colSpan="2">TOTAL</td>
-                <td>GHC 1000</td>
-                </tr>
+     
+            {posts.blogs &&
+            posts.blogs.map((item) => (
+              <tr key={item.production_trans_id}>
+                <td>{item.production_trans_id}</td>
+                <td>{item.product_name}</td>
+                <td>{item.quantity}</td>
+
+              </tr>
+                 
+                 ))}
+       
+
             </tbody>
             </Table>
              </Row>
-
+             
            
          </Container>
        
