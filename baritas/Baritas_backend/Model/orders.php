@@ -13,7 +13,7 @@ class orders
     public $table;
     public $dine;
     public $user_id;
-    public $vat;
+    public $sub;
     public $notes;
 
     public function __construct($db){
@@ -21,7 +21,7 @@ class orders
     }
     public function create()
     {
-        $query = "INSERT into orders(`date`, payment_method,waiter,total_cost,stats,restaurant_id,table_id,`dine-type`,`user_id`,sub_total,special_notes) VALUES (:d, :pm,:w,:tc,:s,:r,:t,:d,:u,:s,:sn)";
+        $query = "INSERT into orders(`date`, payment_method,waiter_name,total_cost,stats,restaurant_id,table_id,dine_type,`user_id`,sub_total,special_notes) VALUES (:d,:pm,:w,:tc,:s,:r,:t,:di,:u,:su,:sn)";
         $stmt = $this->conn->prepare($query);
 
         $this->date = htmlspecialchars(strip_tags($this->date));
@@ -33,7 +33,7 @@ class orders
         $this->table = htmlspecialchars(strip_tags($this->table));
         $this->dine = htmlspecialchars(strip_tags($this->dine));
         $this->user_id = htmlspecialchars(strip_tags($this->user_id));
-        $this->vat = htmlspecialchars(strip_tags($this->vat));
+        $this->sub = htmlspecialchars(strip_tags($this->sub));
         $this->notes = htmlspecialchars(strip_tags($this->notes));
 
 
@@ -44,9 +44,9 @@ class orders
         $stmt->bindParam(':s', $this->stats);
         $stmt->bindParam(':r', $this->restaurant);
         $stmt->bindParam(':t', $this->table);
-        $stmt->bindParam(':d', $this->dine);
+        $stmt->bindParam(':di', $this->dine);
         $stmt->bindParam(':u', $this->user_id);
-        $stmt->bindParam(':s', $this->vat);
+        $stmt->bindParam(':su', $this->sub);
         $stmt->bindParam(':sn', $this->notes);
 
 
@@ -57,6 +57,10 @@ class orders
         printf("Error: %s.\n", $stmt->error);
 
         return false;
+    }
+
+    public function getId(){
+        return $this->id;
     }
     
     public function changestatus(){
