@@ -31,11 +31,7 @@ import axios from "axios";
 }
 
       add(e){
-<<<<<<< HEAD
-        // this.setState({rest: sessionStorage.getItem('rest')});
-=======
      
->>>>>>> 1c51eaad0a6f0dd15b777d331d459daedc49708f
         console.log(this.state);
        e.preventDefault();
        axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addmenu.php',JSON.stringify(this.state)).then(function(response){
