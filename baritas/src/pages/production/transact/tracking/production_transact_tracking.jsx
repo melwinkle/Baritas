@@ -126,9 +126,10 @@ useEffect(async ()=>{
              <Container>
                  <Row>
                      <Col><label>Date</label>
-             <input type="date" placeholder="Item name"/></Col>
+             <input type="date" placeholder="Item name" value={date}/></Col>
              <Col><label>Branch</label>
                      <select>
+                       <option value={restaurant_name}>{restaurant_name}</option>
                          <option value="Sauces">Adenta</option>
                          <option value="Hot/Spicy">Madina</option>
                          <option value="Hot/Spicy">Campus Hub</option>

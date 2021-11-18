@@ -28,7 +28,7 @@ if ($num > 0) {
             'price'=>$price,
             'img'=>$img,
             'size' => $size,
-            'restaurant'=>$restaurant_id
+            'restaurant'=>$restaurant_view
         );
         array_push($cat_arr["data"], $cat_item);
     }

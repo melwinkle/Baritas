@@ -44,6 +44,60 @@ const AdminOrderPage =()=> {
 
   const [searchTerm,setSearchTerm] = useState('');
 
+  const Modalshow=()=>{
+    handleShow,
+    <Modal show={show} onHide={handleClose} id="mods">
+                                <Modal.Header closeButton>
+                                <Modal.Title>Bill No.bill-bill</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body >
+                                    <Row>
+                                        <Col>bill</Col>
+                                        <Col>Table #bill</Col>
+                                    </Row>
+                                    <Row>
+                                        <ReactBootStrap.Card id="order">
+                                            <ReactBootStrap.Card.Text >
+                                              
+                                              <Row>
+                                                <Col>billx bill</Col>
+                                            
+                                                <Col>bill</Col>
+                                              </Row>
+                                             
+                                             
+                                            </ReactBootStrap.Card.Text>
+                                        </ReactBootStrap.Card>
+                                    </Row>
+                                 
+                                    
+
+
+                                    <Row id="fut">
+                                      <hr/>
+                                    <Row >
+                                           <Col><h6>Sub-Total</h6></Col>
+                                           <Col id="val">bill</Col>
+                                           
+                                       </Row>
+                                       <Row>
+                                           <Col><h6>VAT(2.5%)</h6></Col>
+                                           <Col  id="val">40.00</Col>
+                                           
+                                       </Row>
+
+                                       <Row>
+                                           <Col><h6>Total</h6></Col>
+                                           <Col id="val">bill</Col>
+                                           
+                                       </Row>
+
+                                    </Row>
+                                    </Modal.Body>
+                               
+                            </Modal>
+                 
+  }
         return (
           <div class="proad">
                       <div id="header">
@@ -168,70 +222,8 @@ const AdminOrderPage =()=> {
                 <td>{item.cost}</td>
                 <td>{item.pay}</td>
                 <td>{item.status}</td>
-                <td><button class="b1" onClick={handleShow}>View</button>
-                <Modal show={show} onHide={handleClose} id="mods">
-                                <Modal.Header closeButton>
-                                <Modal.Title>Bill No.{item.bill}-{item.pay}</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body >
-                                    <Row>
-                                        <Col>{item.date}</Col>
-                                        <Col>Table #{item.table}</Col>
-                                    </Row>
-                                    <Row>
-                                        <ReactBootStrap.Card id="order">
-                                            <ReactBootStrap.Card.Text >
-                                              
-                                              <Row>
-                                                <Col>{item.quant}x {item.name}</Col>
-                                            
-                                                <Col>{item.p}</Col>
-                                              </Row>
-                                             
-                                             
-                                            </ReactBootStrap.Card.Text>
-                                        </ReactBootStrap.Card>
-                                    </Row>
-                                    {/* <Row>
-                                    <ReactBootStrap.Card id="order">
-                                            <ReactBootStrap.Card.Text >
-                                              <Row>
-                                                <Col>1x  Meat Spring Rolls(3)</Col>
-                                            
-                                                <Col> Ghc 15.00</Col>
-                                              </Row>
-                                             
-                                             
-                                            </ReactBootStrap.Card.Text>
-                                        </ReactBootStrap.Card>
-                                    </Row> */}
-                                    
-
-
-                                    <Row id="fut">
-                                      <hr/>
-                                    <Row >
-                                           <Col><h6>Sub-Total</h6></Col>
-                                           <Col id="val">{item.sub}</Col>
-                                           
-                                       </Row>
-                                       <Row>
-                                           <Col><h6>VAT(2.5%)</h6></Col>
-                                           <Col  id="val">40.00</Col>
-                                           
-                                       </Row>
-
-                                       <Row>
-                                           <Col><h6>Total</h6></Col>
-                                           <Col id="val">{item.cost}</Col>
-                                           
-                                       </Row>
-
-                                    </Row>
-                                    </Modal.Body>
-                               
-                            </Modal>
-                    {/* <a href={'/administrator/orders/view/' + item.id}> <button class="b1">View</button></a> */}
+                <td><button class="b1" onClick={Modalshow()}>View</button>
+                
                     </td>
               </tr>
             ))}
