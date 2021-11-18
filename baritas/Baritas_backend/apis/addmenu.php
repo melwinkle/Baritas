@@ -21,7 +21,11 @@ $menu->category= $data->category;
 $menu->price= $data->price;
 $menu->img=$data->img;
 $menu->size=$data->size;
+<<<<<<< HEAD
 $menu->restaurant_view=$data->restaurant;
+=======
+$menu->restaurant=$data->restaurant;
+>>>>>>> 1c51eaad0a6f0dd15b777d331d459daedc49708f
 
 if($menu->create()){
    echo true;

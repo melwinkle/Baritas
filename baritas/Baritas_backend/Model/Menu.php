@@ -61,7 +61,7 @@ class menu
         return $stmt;
     }
     public function updatemenu(){
-        $query="UPDATE Menu SET name_of_food=:pn , category_id=:c , price=:up, size=:s where menu_id=:i and restaurant_id=:r";
+        $query="UPDATE Menu SET name_of_food=:pn , category_id=:c , price=:up, size=:s where menu_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->bindParam(':pn',$this->name);
@@ -78,16 +78,16 @@ class menu
         return false;
     }
 
-    public function getallmenuitems(){
-        $query ="SELECT * from menu where restaurant=:i";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':i',$this->restaurant);
+    // public function getallmenuitems(){
+    //     $query ="SELECT * from menu where restaurant=:i";
+    //     $stmt = $this->conn->prepare($query);
+    //     $stmt->bindParam(':i',$this->restaurant);
 
-        if($stmt->execute()){
-            return true;
-        }
-        printf("error: %s ./n", $stmt->error);
-        return false;
-    }
+    //     if($stmt->execute()){
+    //         return true;
+    //     }
+    //     printf("error: %s ./n", $stmt->error);
+    //     return false;
+    // }
 }
 ?>
