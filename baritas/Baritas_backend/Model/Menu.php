@@ -15,7 +15,7 @@ class menu
     }
     public function create()
     {
-        $query = "INSERT into Menu(name_of_food,category_id,price,img,size,restaurant_id) VALUES (:n,:c,:p,:i,:s,:r)";
+        $query = "INSERT into Menu(name_of_food,category_id,price,img,size,restaurant_view) VALUES (:n,:c,:p,:i,:s,:r)";
         $stmt = $this->conn->prepare($query);
 
         $this->name = htmlspecialchars(strip_tags($this->name));
@@ -46,7 +46,7 @@ class menu
     } 
 
     public function allmenu(){
-        $query="SELECT * from Menu inner join category on Menu.category_id = category.category_id where Menu.restaurant_id=:r";
+        $query="SELECT * from Menu inner join category on Menu.category_id = category.category_id where Menu.restaurant_view=:r";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
@@ -61,7 +61,7 @@ class menu
         return $stmt;
     }
     public function updatemenu(){
-        $query="UPDATE Menu SET name_of_food=:pn , category_id=:c , price=:up, size=:s where menu_id=:i and restaurant_id=:r";
+        $query="UPDATE Menu SET name_of_food=:pn , category_id=:c , price=:up, size=:s where menu_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->bindParam(':pn',$this->name);
@@ -78,16 +78,16 @@ class menu
         return false;
     }
 
-    public function getallmenuitems(){
-        $query ="SELECT * from menu where restaurant=:i";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':i',$this->restaurant);
+    // public function getallmenuitems(){
+    //     $query ="SELECT * from menu where restaurant=:i";
+    //     $stmt = $this->conn->prepare($query);
+    //     $stmt->bindParam(':i',$this->restaurant);
 
-        if($stmt->execute()){
-            return true;
-        }
-        printf("error: %s ./n", $stmt->error);
-        return false;
-    }
+    //     if($stmt->execute()){
+    //         return true;
+    //     }
+    //     printf("error: %s ./n", $stmt->error);
+    //     return false;
+    // }
 }
 ?>

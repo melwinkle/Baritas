@@ -22,7 +22,7 @@ import axios from "axios";
         category:'',
         price:'',
         size:'',
-        rest:''
+        restaurant:''
     };
     this.add = this.add.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -31,7 +31,7 @@ import axios from "axios";
 }
 
       add(e){
-        this.setState({rest: sessionStorage.getItem('rest')});
+     
         console.log(this.state);
        e.preventDefault();
        axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addmenu.php',JSON.stringify(this.state)).then(function(response){
@@ -165,7 +165,7 @@ import axios from "axios";
   <label>Size</label>
   <input type="text" name="size" placeholder="N,S,M,L" onChange={this.onChange}/></Col>
   <Col><label>Restaurant</label>
-  <select name="restaurant_id" onChange={this.onChange}>
+  <select name="restaurant" onChange={this.onChange}>
                               <option>Select an option..</option>
                                 <option value="1">All</option>
                                 <option value="2">Adenta&Atomic</option>
