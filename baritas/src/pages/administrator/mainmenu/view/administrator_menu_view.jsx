@@ -26,7 +26,7 @@ import axios from 'axios';
         restaurant:""
 });
 
-    const{name,category,price,size,catid}=Menu;
+    const{name,category,price,size,catid,restaurant}=Menu;
 
     useEffect(async ()=>{
         await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getonemenu.php?id='+props.match.params.id)
@@ -138,9 +138,9 @@ import axios from 'axios';
                     
 
 
-                        <Row>
-                            <Col><label>Category</label>
-                            <select name="category" onChange={(e)=>onChange(e)}>
+                        {/* <Row>
+                            {/* <Col><label>Category</label>
+                            <select name="category" onChange={this.onChange}>
                             <option value={catid}>{category}</option>
                                 <option value="Hot/Spicy">Hot&Spicy</option>
                                 <option value="Hot/Spicy">Hot&Spicy</option>
@@ -148,9 +148,19 @@ import axios from 'axios';
                                 <option value="Hot/Spicy">Hot&Spicy</option>
                                 <option value="Hot/Spicy">Hot&Spicy</option>
                             </select>
-                    </Col>
+                    </Col> */}
+                    {/* <Col><label>Restaurant</label>
+  <select name="restaurant" onChange={this.onChange}>
+  <option value={restaurant}>{restaurant}</option>
+                              <option>Select an option..</option>
+                                <option value="1">All</option>
+                                <option value="2">Adenta&Atomic</option>
+                                <option value="3">Legon Campus Hub</option>
+                             
+                            </select>
+  </Col> 
 
-                    </Row>
+                    </Row> */}
 
 
                     <Row>

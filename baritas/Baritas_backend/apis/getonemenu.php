@@ -33,11 +33,11 @@ if($num >0){
         'category'=>$category_name,
         'price'=>$price,
         'size' => $size,
-        'rest'=>$restaurant
+        'rest'=>$restaurant_view
     );
-    array_push($cat_arr['data'],$cat_item);
+    // array_push($cat_arr['data'],$cat_item);
    }
-  
+   echo '{"Menu": ' .json_encode($cat_item).' }';
 }
 else{
     echo json_encode(
