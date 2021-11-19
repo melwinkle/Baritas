@@ -19,8 +19,8 @@ $menu->id = $data->id;
 $menu->name=$data->name;
 $menu->price=$data->price;
 $menu->size= $data->size;
-$menu->restaurant= $data->rest;
-$menu->category = $data->catid;
+// $menu->restaurant= $data->rest;
+// $menu->category = $data->catid;
 
 if($menu->updatemenu()){
     echo true;

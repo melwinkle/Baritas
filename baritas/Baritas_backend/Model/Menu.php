@@ -23,7 +23,7 @@ class menu
         $this->price = htmlspecialchars(strip_tags($this->price));
         $this->img = htmlspecialchars(strip_tags($this->img));
         $this->size = htmlspecialchars(strip_tags($this->size));
-        $this->restaurant = htmlspecialchars(strip_tags($this->restaurant));
+        $this->restaurant_view = htmlspecialchars(strip_tags($this->restaurant_view));
 
 
 
@@ -32,7 +32,7 @@ class menu
         $stmt->bindParam(':p', $this->price);
         $stmt->bindParam(':i', $this->img);
         $stmt->bindParam(':s', $this->size);
-        $stmt->bindParam(':r', $this->restaurant);
+        $stmt->bindParam(':r', $this->restaurant_view);
 
 
 
@@ -61,13 +61,13 @@ class menu
         return $stmt;
     }
     public function updatemenu(){
-        $query="UPDATE Menu SET name_of_food=:pn , category_id=:c , price=:up, size=:s where menu_id=:i";
+        $query="UPDATE Menu SET name_of_food=:pn , price=:up, size=:s where menu_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->bindParam(':pn',$this->name);
-        $stmt->bindParam(':c',$this->category);
+        // $stmt->bindParam(':c',$this->category);
         $stmt->bindParam(':up',$this->price);
-        $stmt->bindParam(':r',$this->restaurant);
+        // $stmt->bindParam(':r',$this->restaurant);
         $stmt->bindParam(':s',$this->size);
   
 

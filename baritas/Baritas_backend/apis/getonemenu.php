@@ -35,10 +35,9 @@ if($num >0){
         'size' => $size,
         'restaurant' => $restaurant_view
     );
-    array_push($cat_arr['data'],$cat_item);
+    // array_push($cat_arr['data'],$cat_item);
    }
-
-  
+   echo '{"Menu": ' .json_encode($cat_item).' }';
 }
 else{
     echo json_encode(
