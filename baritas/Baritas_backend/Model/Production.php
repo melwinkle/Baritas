@@ -103,6 +103,21 @@ class production
         $stmt->execute();
         return $stmt;
     }
+    public function alltransact(){
+        $query="SELECT production_transaction.transaction_id,production_transaction.Transaction_Status,Date from production_transaction where Date=:d";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':d',$this->date);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    public function alltransacts(){
+        $query="SELECT transaction_id,Date,count(*) as total from production_transaction  inner join restaurant on restaurant.restaurant_id=production_transaction.restaurant_id where production_transaction.restaurant_id=:r group by Date";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':r',$this->restaurant);
+        $stmt->execute();
+        return $stmt;
+    }
     public function oneitem(){
         $query="SELECT * from production where production_id=:i";
         $stmt = $this->conn->prepare($query);

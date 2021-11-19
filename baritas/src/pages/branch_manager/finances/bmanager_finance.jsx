@@ -24,12 +24,12 @@ const BranchFinancePage =()=>{
     
    
     const [posts, setPosts] = useState({ blogs: [] });
-
+    const id=sessionStorage.getItem("rest");
 
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/getallorders.php'
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchfinance.php?id='+id
         );
         setPosts({ blogs: data.data });
         console.log(data);

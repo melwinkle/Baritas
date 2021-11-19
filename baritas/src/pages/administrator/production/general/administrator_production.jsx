@@ -1,5 +1,5 @@
 import React,{ useEffect, useState } from "react";
-import '../../../App.css';
+import '../../../../App.css';
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
@@ -11,16 +11,15 @@ import {
   } from "react-pro-sidebar";
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
-import {FaList} from "react-icons/fa";
-
+import {FaList,FaArrowLeft} from "react-icons/fa";
 
 
 import { Container, Row, Col } from 'reactstrap';
 // get data fron the procution folder 
 
 /* We simply can use an array and loop and print each user */
-const AProductionPage =()=> {
-  const id=sessionStorage.getItem("rest");
+const AdminProductionPage =(props)=> {
+    
   
 
     const [posts, setPosts] = useState({ blogs: [] });
@@ -28,7 +27,7 @@ const AProductionPage =()=> {
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchalltransactions.php?id='+id
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproductiont.php?date='+props.match.params.date
         );
         setPosts({ blogs: data.data });
         console.log(data);
@@ -115,11 +114,7 @@ const AProductionPage =()=> {
    
       <Form.Group id="forminv">
   <Row>
-  <Form.Label>Transaction Date</Form.Label> 
-    <Col>
-  
-      <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
-      <Col> <Button id="searchb"> Search</Button></Col>
+  <Link to="/administrator/production/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
   </Row>
       
      
@@ -135,10 +130,8 @@ const AProductionPage =()=> {
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
             <tr>
-         
-              <th>Date </th>
-             
-              <th>Total Transactions</th>
+              <th>Transaction#</th>
+              <th>Status</th>
               <th>Actions</th>
          
        
@@ -148,11 +141,9 @@ const AProductionPage =()=> {
             {posts.blogs &&
               posts.blogs.map((item) => (
                 <tr key={item.transaction_id}>
-                 
-                  <td>{item.date}</td>
-                
-                  <td>{item.total}</td>
-                  <td><a href={"/administrator/production/general/"+item.date}><button class="b1">View</button></a></td>
+                  <td>{item.transaction_id}</td>
+                  <td>{item.Transaction_Status}</td>
+                  <td><a href={'/administrator/production/invoice/'+item.transaction_id+'?date='+props.match.params.date}><button class="b1">View</button></a></td>
                 
                 </tr>
               ))}
@@ -167,4 +158,4 @@ const AProductionPage =()=> {
           );
 }
 
-export default AProductionPage;
+export default AdminProductionPage;

@@ -19,9 +19,8 @@ $invent->id = $_GET['id'];
 
 
 $result= $invent->onetransactions();
-$result1 = $invent->onetransaction();
 $num = $result->rowCount();
-$num1= $result1->rowCount();
+
 
 
 if($num >0 ){
@@ -30,20 +29,18 @@ if($num >0 ){
     
 
 
-   while($row1 =$result1->fetch(PDO::FETCH_ASSOC)){
+
     while($row=$result->fetch(PDO::FETCH_ASSOC)){
        extract($row);
-       extract($row1);
+
        $cat_item = array(
-        // 'production_trans_id'=>$production_trans_id,
+        'production_trans_id'=>$production_trans_id,
         'product_name'=>$product_name,
         'quantity'=>$quantity,
-        // 'transaction_id'=>$transaction_id,
-        'restaurant_name'=>$restaurant_name,
-        'Date'=>$Date
     );
     array_push($cat_arr['data'],$cat_item);
-   }
+    
+   
 }
 
 

@@ -58,7 +58,7 @@ const GMInventory = () => {
              
               </div>
               <div class="menuitem">
-              <Link to="/general_manager/finances/view/"> <button><FaList /><div> Finances</div>
+              <Link to="/general_manager/finances/"> <button><FaList /><div> Finances</div>
              </button></Link>
              
               </div>

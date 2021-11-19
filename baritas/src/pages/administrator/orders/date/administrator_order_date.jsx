@@ -1,14 +1,14 @@
 import React,{ useEffect, useState } from "react";
-import '../../../App.css';
+import '../../../../App.css';
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
-import {FaHome, FaIntercom} from "react-icons/fa";
-import DataTable from './component/DataTable';
-import data from './Table/data';
+import {FaHome, FaIntercom,FaArrowLeft} from "react-icons/fa";
+import DataTable from '../component/DataTable';
+import data from '../Table/data';
 import Modal from "react-bootstrap/Modal";
 import {
     ProSidebar,
@@ -21,7 +21,7 @@ import {
 
 
 /* We simply can use an array and loop and print each user */
-const OrderMainPage =()=> {
+const AdminOrderPage =()=> {
     
     const [posts, setPosts] = useState({ blogs: [] });
 
@@ -176,11 +176,9 @@ const OrderMainPage =()=> {
  
     <Form.Group id="forminv">
 <Row>
-<Form.Label>Order Date</Form.Label> 
-  <Col>
 
-    <Form.Control type="date" name="inventory"  placeholder="Enter item" onChange={event =>{setSearchTerm(event.target.value)}}/></Col>
-    <Col></Col>
+<Link to="/administrator/orders/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+
 </Row>
     
    
@@ -197,8 +195,10 @@ const OrderMainPage =()=> {
         <thead>
           <tr>
             <th>Date </th>
-            <th>Total Orders</th>
-            <th>Total Income</th>
+            <th>Waiter</th>
+            <th>Total</th>
+            <th>Payment</th>
+            <th>Status</th>
             <th>Actions</th>
      
           </tr>
@@ -216,11 +216,11 @@ const OrderMainPage =()=> {
             }).map((item) => (
               <tr key={item.id}>
                 <td>{item.date}</td>
-                <td>50</td>
+                <td>{item.server}</td>
                 <td>{item.cost}</td>
-          
-        
-                <td><a  href={"/administrator/orders/date/"+item.date}><button class="b1">View</button></a>
+                <td>{item.pay}</td>
+                <td>{item.status}</td>
+                <td><button class="b1" onClick={Modalshow()}>View</button>
                 
                     </td>
               </tr>
@@ -237,4 +237,4 @@ const OrderMainPage =()=> {
     
 }
 
-export default OrderMainPage;
+export default AdminOrderPage;

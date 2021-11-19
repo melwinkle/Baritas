@@ -32,6 +32,7 @@ class MainPage extends React.Component {
         }
         else if((result.UserData.role)==='2'){
           sessionStorage.setItem('kitchenData',result);
+          sessionStorage.setItem('rest',result.UserData.rest);
           this.setState({redirect:true});
           window.location='/kitchen';
         }

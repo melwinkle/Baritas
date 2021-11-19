@@ -29,10 +29,12 @@ import EditInventory from "./pages/administrator/inventory/update/admin_inventor
 import AdminMenuPage from "./pages/administrator/mainmenu/administrator_menu.jsx";
 import AdminMenuNPage from "./pages/administrator/mainmenu/new/administrator_new.jsx";
 import AdminMenuVPage from "./pages/administrator/mainmenu/view/administrator_menu_view.jsx";
-import AdminOrderPage from "./pages/administrator/orders/administrator_order.jsx";
+import AdminOrderPage from "./pages/administrator/orders/date/administrator_order_date.jsx";
+import OrderMainPage from "./pages/administrator/orders/administrator_order.jsx";
 import AdminOrderVPage from "./pages/administrator/orders/view/administrator_order_view.jsx";
-import AdminProductionPage from "./pages/administrator/production/administrator_production.jsx";
-import AdminProductionGPage from "./pages/administrator/production/general/administrator_production_g.jsx";
+import AProductionPage from "./pages/administrator/production/administrator_production.jsx";
+import AIProductionPage from "./pages/administrator/production/invoice/administrator_production.jsx";
+import AdminProductionPage from "./pages/administrator/production/general/administrator_production.jsx";
 import AdminFinancePage from "./pages/administrator/finances/administrator_finances.jsx";
 import AdminFOrderPage from "./pages/administrator/finances/order/administrator_forders.jsx";
 import AdminFInventoryPage from "./pages/administrator/finances/inventory/administrator_finventory.jsx";
@@ -84,10 +86,12 @@ class App extends Component {
        <Route exact path="/administrator/mainmenu" component={AdminMenuPage} />
        <Route exact path="/administrator/mainmenu/new" component={AdminMenuNPage} />
        <Route exact path="/administrator/mainmenu/view/:id" component={AdminMenuVPage} />
-       <Route exact path="/administrator/orders" component={AdminOrderPage} />
+       <Route exact path="/administrator/orders" component={OrderMainPage} />
+       <Route exact path="/administrator/orders/date/:date" component={AdminOrderPage} />
        <Route exact path="/administrator/orders/view" component={AdminOrderVPage} />
-       <Route exact path="/administrator/production" component={AdminProductionPage} />
-       <Route exact path="/administrator/production/general" component={AdminProductionGPage} />
+       <Route exact path="/administrator/production/" component={AProductionPage} />
+       <Route exact path="/administrator/production/general/:date" component={AdminProductionPage} />
+       <Route exact path="/administrator/production/invoice/:id" component={AIProductionPage} />
        <Route exact path="/administrator/finances" component={AdminFinancePage} />
        <Route exact path="/administrator/finances/order" component={AdminFOrderPage}/>
        <Route exact path="/administrator/finances/inventory" component={AdminFInventoryPage} />

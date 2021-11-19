@@ -31,6 +31,7 @@ if($num >0){
            'firstname'=>$Firstname,
            'lastname'=>$lastname,
            'role'=>$user_role,
+           'rest'=>$Restaurant,
            'status'=>$stats
        );
    }

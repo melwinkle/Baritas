@@ -24,12 +24,12 @@ const GMFinancePage =()=>{
     
    
     const [posts, setPosts] = useState({ blogs: [] });
-
-
+    const id=sessionStorage.getItem("rest");
+    const [points,setPoints]=useState();
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/getallorders.php'
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchfinance.php?id='+id
         );
         setPosts({ blogs: data.data });
         console.log(data);
@@ -38,6 +38,16 @@ const GMFinancePage =()=>{
     }, [setPosts]);
   
   
+ async function doit(btn){
+  const { data } = await axios(
+       'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchpay.php?id='+btn
+     );
+     setPoints(data.data);
+     console.log(data.data);
+ 
+     setShow(true);
+  
+ }
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -59,11 +69,7 @@ const GMFinancePage =()=>{
 				legendText: "{label}",
 				indexLabelFontSize: 16,
 				indexLabel: "{label} - Ghc{y}",
-				dataPoints: [
-					{ y: 18, label: "Adenta" },
-					{ y: 49, label: "Atomic" },
-					{ y: 9, label: "Legon Campus" }
-				]
+				dataPoints: points
 			}]
 		}
           return (
@@ -83,37 +89,49 @@ const GMFinancePage =()=>{
               
             </SidebarHeader>
             <SidebarContent id="menuit">
-                <div class="menuitem">
-                <Link to="/general_manager/"> <button><FaList /><div> Home</div>
-               </button></Link>
-               
-                </div>
-  
-            
-                <div class="menuitem c">
-                <Link to="/general_manager/finances/"> <button><FaList /><div> Finances</div>
-               </button></Link>
-               
-                </div>
-            
-  
-              
-               
-                
-                <div class="menuitem">
-                <Link to="/"> <button><FiLogOut/><div> LogOut</div>
-               </button></Link>
-               
-                </div>
+              <div class="menuitem">
+              <Link to="/general_manager/"> <button><FaList /><div> Home</div>
+             </button></Link>
              
-               
+              </div>
+
+              <div class="menuitem">
+              <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem c">
+              <Link to="/general_manager/finances/"> <button><FaList /><div> Finances</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
+             </button></Link>
+             
+              </div>
+
+             
+              <div class="menuitem">
+              <Link to="/general_manager/production/"> <button><FaList /><div> Production</div>
+             </button></Link>
+             
+              </div>
               
-               
-               
-               
-               
-              
-            </SidebarContent>
+              <div class="menuitem">
+              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
+             </button></Link>
+             
+              </div>
+           
+             
+            
+             
+             
+             
+             
+            
+          </SidebarContent>
             {/* <SidebarFooter>
               Baritas (c)
             </SidebarFooter> */}
@@ -148,7 +166,7 @@ const GMFinancePage =()=>{
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
             <tr>
-              <th>Transaction#</th>
+
               <th>Date </th>
               <th>Total Income</th>
               <th>Actions</th>
@@ -161,27 +179,25 @@ const GMFinancePage =()=>{
             {posts.blogs &&
               posts.blogs.map((item) => (
                 <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.date}</td>
-                  <td>{item.cost}</td>
-                  <td>
-                  <button class="b1" onClick={handleShow}>View</button>
-                  <Modal id="chart" show={show} onHide={handleClose}>
-                                <Modal.Header closeButton>
-                                <Modal.Title>{item.date} Financial Breakdown</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                  <CanvasJSReact.CanvasJSChart  options = {options}/>
-                                  </Modal.Body>
-                                <Modal.Footer>
-                               
-                                </Modal.Footer>
-                            </Modal>
-                      {/* <a href={'/administrator/finances/view/' + item.id}> <button class="b1">View</button></a> */}
-                      </td>
-                 
-                
-                </tr>
+                <td>{item.date}</td>
+                <td>Ghc {item.bill}</td>
+                <td>
+                <button class="b1" onClick={doit.bind(this,item.date)}>View</button>
+                <Modal id="chart" show={show} onHide={handleClose}>
+                              <Modal.Header closeButton>
+                              <Modal.Title>{item.date} Financial Breakdown</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <CanvasJSReact.CanvasJSChart  options = {options}/>
+                                </Modal.Body>
+                              <Modal.Footer>
+                              </Modal.Footer>
+                          </Modal>
+                    {/* <a href={'/administrator/finances/view/' + item.id}> <button class="b1">View</button></a> */}
+                    </td>
+               
+              
+              </tr>
               ))}
           </tbody>
         </ReactBootStrap.Table>

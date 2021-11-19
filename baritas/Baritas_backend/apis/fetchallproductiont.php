@@ -11,7 +11,10 @@ $database = new Database();
 $db = $database->connect();
 $order = new production($db);
 
-$result = $order->alltransaction();
+
+$order->date =$_GET['date'];
+$result = $order->alltransact();
+
 
 // Get row count
 $num = $result->rowCount();
@@ -25,13 +28,13 @@ if ($num > 0) {
         extract($row);
         $cat_item = array(
             'transaction_id' => $transaction_id,
-            'Date'=>$Date,
-            'restaurant_name'=>$restaurant_name,
-            'Transaction_Status'=>$Transaction_Status
+            'Transaction_Status'=>$Transaction_Status,
+            'date'=>$Date
         );
 
         // Push to "data"
         array_push($cat_arr["data"], $cat_item);
+       
     }
 
     // Turn to JSON & output

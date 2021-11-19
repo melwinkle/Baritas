@@ -760,25 +760,32 @@ justify-content: center;
   width:20%;
   height: 2em;
 }
-
-
+ #bcard{
+  width: 19rem;
+  margin-bottom: 2%;
+ }
+#lnk a{
+  text-decoration: none;
+}
 #barit{
-  background-color:#800020;
   font-size: 12pt;
-  border-radius:10px;
+  border-radius:5px;
   /* margin-right: 1%; */ 
   color:white;
-  height:4em;
   width:100%;
+  border:none;
   /* margin-top:3%;
   padding:0.5%;
   margin-bottom:10%; */
+  color:#800020;
 }
 
 #barit h6{
-  margin-top:5%;
+  margin-top:8%;
   font-size:90%;
-  margin-left:-25%;
+}
+#barit p{
+  font-size:10pt;
 }
 
 #barit h4{
@@ -790,11 +797,15 @@ justify-content: center;
 }
 
 #barit .imgf{
-  width:70%;
-  height:3.5em;
-  border-radius: 10px;
+
+  border-radius: 50%;
   margin-top:2%;
   margin-left:2%;
+  border: 1px solid #800020;
+
+}
+#bcard .card-footer{
+  background:white;
 }
 
 .optbar{
@@ -811,6 +822,7 @@ justify-content: center;
   background:#098413;
   border:none;
   float:right;
+  border-radius:10pr;
 }
 
 .optbar .no svg{

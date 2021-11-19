@@ -22,7 +22,7 @@ $num = $result->rowCount();
 
 if($num >0){
     $cat_arr =array();
-   
+    $cat_arr['data']=array();
 
    while($row =$result->fetch(PDO::FETCH_ASSOC)){
        extract($row);
@@ -35,8 +35,9 @@ if($num >0){
         'size' => $size,
         'rest'=>$restaurant
     );
+    array_push($cat_arr['data'],$cat_item);
    }
-   echo '{"Menu": ' .json_encode($cat_item).' }';
+  
 }
 else{
     echo json_encode(

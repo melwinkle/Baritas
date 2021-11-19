@@ -107,5 +107,29 @@ class orders
         return $stmt;
 
     }
+    public function kitchen(){
+        $query ="SELECT name_of_food,quantity,Menu.category_id as category from order_items inner join  Menu on Menu.menu_id=order_items.menu_id inner join category on category.category_id=Menu.category_id where order_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+        $stmt->execute();
+        return $stmt;
+
+    }
+    public function kitchens(){
+        $query ="SELECT order_id,special_notes,drink_stats from orders where restaurant_id=:r and stats='pending'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':r',$this->restaurant);
+        $stmt->execute();
+        return $stmt;
+
+    }
+    public function kitchenc(){
+        $query ="SELECT order_id,special_notes,drink_stats from orders where restaurant_id=:r and stats='completed'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':r',$this->restaurant);
+        $stmt->execute();
+        return $stmt;
+
+    }
 }
 ?>
