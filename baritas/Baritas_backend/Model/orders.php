@@ -108,7 +108,7 @@ class orders
 
     }
     public function kitchen(){
-        $query ="SELECT name_of_food,quantity,Menu.category_id as category from order_items inner join  Menu on Menu.menu_id=order_items.menu_id inner join category on category.category_id=Menu.category_id where order_id=:i";
+        $query ="SELECT name_of_food,quantity,menu.category_id as category from order_items inner join  menu on menu.menu_id=order_items.menu_id inner join category on category.category_id=menu.category_id where order_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->execute();

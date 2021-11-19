@@ -54,7 +54,7 @@ class menu
     }
 
     public function oneitem(){
-        $query="SELECT * from Menu inner join category on Menu.category_id = category.category_id where Menu.menu_id=:i";
+        $query="SELECT * from menu inner join category on menu.category_id = category.category_id where menu.menu_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->execute();

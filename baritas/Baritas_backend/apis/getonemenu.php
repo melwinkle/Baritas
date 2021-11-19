@@ -33,10 +33,11 @@ if($num >0){
         'category'=>$category_name,
         'price'=>$price,
         'size' => $size,
-        'rest'=>$restaurant
+        'restaurant' => $restaurant_view
     );
     array_push($cat_arr['data'],$cat_item);
    }
+
   
 }
 else{
