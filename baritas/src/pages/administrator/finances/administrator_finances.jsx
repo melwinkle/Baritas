@@ -69,7 +69,6 @@ const AdminFinancePage =()=>{
 				showInLegend: "true",
 				legendText: "{label}",
 				indexLabelFontSize: 16,
-				indexLabel: "{label} - Ghc{y}",
 				dataPoints: points
 			}]
 		}
