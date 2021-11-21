@@ -54,40 +54,40 @@ const GMProductionPage =()=> {
               
             </SidebarHeader>
             <SidebarContent id="menuit">
-                <div class="menuitem">
-                <Link to="/general_manager/"> <button><FaList /><div> Home</div>
-               </button></Link>
-               
-                </div>
-  
-                <div class="menuitem">
-                <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
-               </button></Link>
-               
-                </div>
-                <div class="menuitem">
-                <Link to="/general_manager/finances/view/"> <button><FaList /><div> Finances</div>
-               </button></Link>
-               
-                </div>
-                <div class="menuitem">
-                <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
-               </button></Link>
-               
-                </div>
-  
+            <div class="menuitem">
+              <Link to="/general_manager/"> <button><FaList /><div> Home</div>
+             </button></Link>
+             
+              </div>
+
+              <div class="menuitem c">
+              <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/general_manager/finances/inventory/"> <button><FaList /><div> Finances</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
+             </button></Link>
+             
+              </div>
+
+             
+              <div class="menuitem">
+              <Link to="/general_manager/production/"> <button><FaList /><div> Production</div>
+             </button></Link>
+             
+              </div>
               
-                <div class="menuitem c">
-                <Link to="/general_manager/production/"> <button><FaList /><div> Production</div>
-               </button></Link>
-               
-                </div>
-                
-                <div class="menuitem">
-                <Link to="/"> <button><FiLogOut/><div> LogOut</div>
-               </button></Link>
-               
-                </div>
+              <div class="menuitem">
+              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
+             </button></Link>
+             
+              </div>
              
                
               

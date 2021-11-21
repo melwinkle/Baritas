@@ -130,7 +130,7 @@ const AdminProductionPage =(props)=> {
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
             <tr>
-              <th>Transaction#</th>
+              <th>Invoice#</th>
               <th>Status</th>
               <th>Actions</th>
          

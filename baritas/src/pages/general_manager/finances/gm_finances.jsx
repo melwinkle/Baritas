@@ -29,7 +29,7 @@ const GMFinancePage =()=>{
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchfinance.php?id='+id
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchfinanceg.php'
         );
         setPosts({ blogs: data.data });
         console.log(data);
@@ -95,28 +95,13 @@ const GMFinancePage =()=>{
              
               </div>
 
-              <div class="menuitem">
-              <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
-             </button></Link>
-             
-              </div>
+
               <div class="menuitem c">
               <Link to="/general_manager/finances/"> <button><FaList /><div> Finances</div>
              </button></Link>
              
               </div>
-              <div class="menuitem">
-              <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
-             </button></Link>
              
-              </div>
-
-             
-              <div class="menuitem">
-              <Link to="/general_manager/production/"> <button><FaList /><div> Production</div>
-             </button></Link>
-             
-              </div>
               
               <div class="menuitem">
               <Link to="/"> <button><FiLogOut/><div> LogOut</div>

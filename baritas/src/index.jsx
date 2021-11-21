@@ -52,17 +52,17 @@ class MainPage extends React.Component {
           window.location='/general_manager';
         }
         else if((result.UserData.role)==='6'){
-          sessionStorage.setItem('branchMData',result);
+          sessionStorage.setItem('branchMData',JSON.stringify(result));
           this.setState({redirect:true});
           window.location='/branch_manager/inventory';
         }
         else if((result.UserData.role)==='7'){
-          sessionStorage.setItem('branchMData',result);
+          sessionStorage.setItem('productionData',result);
           this.setState({redirect:true});
           window.location='/production';
         }
         else{
-          console.log("login Error");
+          alert("Wrong credentials")
         }
       });
     }

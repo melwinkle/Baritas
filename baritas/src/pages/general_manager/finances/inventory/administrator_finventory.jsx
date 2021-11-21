@@ -1,91 +1,213 @@
-import React from "react";
+import React,{ useEffect, useState } from "react";
 import '../../../../App.css';
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
-import {FaHome} from "react-icons/fa";
-import DataTable from '../../orders/component/DataTable';
-import data from '../../orders/Table/data';
+import {FaList} from "react-icons/fa";
+// import DataTable from '../orders/component/DataTable';
+// import data from '../orders/Table/data';
 import { Container, Row, Col } from 'reactstrap';
+import * as ReactBootStrap from "react-bootstrap";
+import axios from "axios";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Modal from "react-bootstrap/Modal";
+import {
+    ProSidebar,
+    SidebarHeader,
+    SidebarContent,
+  } from "react-pro-sidebar";
 
+import CanvasJSReact from "../../../../canvasjs-3.4.5/canvasjs.react";
 
 /* We simply can use an array and loop and print each user */
-class AdminFInventoryPage extends React.Component {
+const GFinancePage =()=>{
     
-    constructor(props) {
-        super(props);
-        this.state = {
-            columns: [
-              { title: "#", data: "#" },
-              { title: "Product", data: "name" },
-              { title: "Category", data: "category" },
-              { title: "Unit Price", data: "price" },
-              { title: "Income/Expense", data: "stock" }
-            ],
-            searchValue: '',
-            options: {
-                dom: 'lrtip',
-                // paging: false,
-                // scrollX: true,
-                // scrollY: '100%',
-                // scrollCollapse: false,
-                // autoWidth: false,
-                // info: false,
-            }
-        };
-        this.dataTableRef = React.createRef();
-    }
-
-    onChangeSearch = (e) => {
-        const { value } = e.target;
-        const searchValue = value;
-        this.setState({ searchValue });
-        this.dataTableRef.current.search(searchValue);
-    };
-
-    render() {
-        const {
-            columns,
-            options,
-            searchValue
-        } = this.state;
-        return (
-          <div class="proda">
-              <div class="accor">
-                 <Link to="/administrator/menu/"><button><FaHome/></button></Link>
-                <button><FiLogOut /></button> 
-            </div>
-
-          
-            <div class="optprod">
-                <Container>
-                    <Row>
-                        <Col>  <Link to="/administrator/finances/"><button class="o1">GENERAL</button></Link></Col>
-                        <Col> <Link to="/administrator/finances/order/"><button class="o1">ORDERS</button></Link></Col>
-                        <Col>  <Link to="/administrator/finances/inventory/"><button class="o1 ac ">INVENTORY</button></Link></Col>
-                        <Col> <Link to="/administrator/finances/menu/"><button class="o1">MENU</button></Link>  </Col>
-                    </Row>
-                </Container>
-            </div>
-          <div class="menutab">
-            <input
-                value={searchValue}
-                onChange={this.onChangeSearch}
-                autoComplete={'off'}
-                type="text"
-                placeholder="Search ..."
-                class="searchbar"
-            />
-            <DataTable
-                ref={this.dataTableRef}
-                data={data}
-                columns={columns}
-                options={options}
-            />
-          </div>
-
-          </div>
+   
+    const [posts, setPosts] = useState({ blogs: [] });
+    const id=sessionStorage.getItem("rest");
+    const [points,setPoints]=useState();
+    useEffect(() => {
+      const fetchPostList = async () => {
+        const { data } = await axios(
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchfinance.php?id='+id
         );
-    }
+        setPosts({ blogs: data.data });
+        console.log(data);
+      };
+      fetchPostList();
+    }, [setPosts]);
+  
+  
+ async function doit(btn){
+  const { data } = await axios(
+       'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchpay.php?id='+btn
+     );
+     setPoints(data.data);
+     console.log(data.data);
+ 
+     setShow(true);
+  
+ }
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+
+
+    const options = {
+			exportEnabled: true,
+			animationEnabled: true,
+			// title: {
+			// 	text: "Financial Breakdown"
+			// },
+			data: [{
+				type: "pie",
+				startAngle: 75,
+				toolTipContent: "<b>{label}</b>: Ghc{y}",
+				showInLegend: "true",
+				legendText: "{label}",
+				indexLabelFontSize: 16,
+				indexLabel: "{label} - Ghc{y}",
+				dataPoints: points
+			}]
+		}
+          return (
+            <div class="proad">
+                        <div id="header">
+            {/* collapsed props to change menu size using menucollapse state */}
+          <ProSidebar >
+            <SidebarHeader>
+            <div className="logotext">
+                <Row>
+                    <Col><h3>Baritas</h3></Col>
+                
+                </Row>
+                
+                
+              </div>
+              
+            </SidebarHeader>
+            <SidebarContent id="menuit">
+            <div class="menuitem">
+              <Link to="/general_manager/"> <button><FaList /><div> Home</div>
+             </button></Link>
+             
+              </div>
+
+              <div class="menuitem c">
+              <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/general_manager/finances/inventory/"> <button><FaList /><div> Finances</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
+             </button></Link>
+             
+              </div>
+
+             
+              <div class="menuitem">
+              <Link to="/general_manager/production/"> <button><FaList /><div> Production</div>
+             </button></Link>
+             
+              </div>
+              
+              <div class="menuitem">
+              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
+             </button></Link>
+             
+              </div>
+           
+             
+            
+             
+             
+             
+             
+            
+          </SidebarContent>
+            {/* <SidebarFooter>
+              Baritas (c)
+            </SidebarFooter> */}
+          </ProSidebar>
+        </div>
+  
+            
+  <Container id="invt">
+    
+    <Row>
+  
+   
+      <Form.Group id="forminv">
+  <Row>
+  <Form.Label>Sales Date</Form.Label> 
+    <Col>
+  
+      <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
+      <Col> <Button id="searchb"> Search</Button></Col>
+  </Row>
+      
+     
+  
+      </Form.Group>
+  
+  
+    </Row>
+  
+   
+  <Row id="invtt">
+  
+        <ReactBootStrap.Table  bordered hover id="invtb">
+          <thead>
+            <tr>
+
+              <th>Date </th>
+              <th>Total Income</th>
+              <th>Actions</th>
+        
+         
+       
+            </tr>
+          </thead>
+          <tbody>
+            {posts.blogs &&
+              posts.blogs.map((item) => (
+                <tr key={item.id}>
+                <td>{item.date}</td>
+                <td>Ghc {item.bill}</td>
+                <td>
+                <button class="b1" onClick={doit.bind(this,item.date)}>View</button>
+                <Modal id="chart" show={show} onHide={handleClose}>
+                              <Modal.Header closeButton>
+                              <Modal.Title>{item.date} Financial Breakdown</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <CanvasJSReact.CanvasJSChart  options = {options}/>
+                                </Modal.Body>
+                              <Modal.Footer>
+                              </Modal.Footer>
+                          </Modal>
+                    {/* <a href={'/administrator/finances/view/' + item.id}> <button class="b1">View</button></a> */}
+                    </td>
+               
+              
+              </tr>
+              ))}
+          </tbody>
+        </ReactBootStrap.Table>
+        </Row>
+        </Container>
+            
+           
+  
+            </div>
+          );
 }
 
-export default AdminFInventoryPage;
+export default GFinancePage;

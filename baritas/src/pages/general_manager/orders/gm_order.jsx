@@ -64,23 +64,23 @@ const GMOrderPage =()=> {
              
               </div>
 
-              <div class="menuitem">
+              <div class="menuitem c">
               <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
              
               </div>
               <div class="menuitem">
-              <Link to="/general_manager/finances/view/"> <button><FaList /><div> Finances</div>
+              <Link to="/general_manager/finances/inventory/"> <button><FaList /><div> Finances</div>
              </button></Link>
              
               </div>
-              <div class="menuitem c">
+              <div class="menuitem">
               <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
              </button></Link>
              
               </div>
 
-              
+             
               <div class="menuitem">
               <Link to="/general_manager/production/"> <button><FaList /><div> Production</div>
              </button></Link>

@@ -12,6 +12,11 @@ import {
   } from "react-pro-sidebar";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
+
  class AdminMenuNPage extends React.Component{
     
   constructor(props){
@@ -35,7 +40,29 @@ import axios from "axios";
         console.log(this.state);
        e.preventDefault();
        axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addmenu.php',JSON.stringify(this.state)).then(function(response){
+
            console.log(response.data);
+
+           if(response.data == 1){
+            MySwal.fire({
+                title: "Menu item Added",
+                text:"Menu Item has been added successfully",
+                icon: "success",
+                button :true
+              }).then(function(){
+                window.location='/administrator/mainmenu';
+              });
+
+        }
+        else{
+            MySwal.fire({
+                title: "Inventory Not added",
+                text:"Error adding inventory",
+                icon: "error",
+                button :true
+              });
+
+        }
        })
        
    }

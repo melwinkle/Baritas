@@ -24,6 +24,9 @@ const BProductionPage =()=> {
 
     const [posts, setPosts] = useState({ blogs: [] });
 
+    const item=JSON.parse(sessionStorage.getItem("branchMData"));
+    const id = item.UserData.rest;
+
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(

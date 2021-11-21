@@ -16,6 +16,12 @@ import {
   import Button from "react-bootstrap/Button";
   import Badge from 'react-bootstrap/Badge';
 
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
+
+
 
 class ProductionANPage extends React.Component {
     constructor(props){
@@ -45,10 +51,29 @@ class ProductionANPage extends React.Component {
          console.log(this.state);
         e.preventDefault();
         axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addproduction.php',JSON.stringify(this.state)).then(function(response){
+        
             console.log(response.data);
-            // if(this.response.  =="Product created"){
-            //     window.location='/production';
-            // }
+          if(response == true){ 
+            MySwal.fire({
+                title: "item added",
+                text:"Menu item has been added succesfully",
+                icon: "success",
+                button :true
+              }).then(function(){
+                window.location='/production/';
+              });
+
+        }
+        else{
+            MySwal.fire({
+                title: "item Not added",
+                text:"Error adding item",
+                icon: "error",
+                button :true
+              });
+
+        }
+            
         })
 
        
