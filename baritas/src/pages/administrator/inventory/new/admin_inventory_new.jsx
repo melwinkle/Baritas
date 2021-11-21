@@ -15,7 +15,7 @@ import {
   import "../../../../Header.css";
   import Button from "react-bootstrap/Button";
   import Swal from 'sweetalert2';
-   import withReactContent from 'sweetalert2-react-content';
+import withReactContent from 'sweetalert2-react-content';
 
    const MySwal = withReactContent(Swal);
 
