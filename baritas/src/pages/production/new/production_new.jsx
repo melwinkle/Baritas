@@ -20,19 +20,28 @@ import {FiLogOut} from "react-icons/fi";
 
 function ProductionNPage (){
     
-  const [inputList, setInputList] = useState([{ product: "", quantity: "" }]);
-  const [productnew, setProduct] = useState({
-    date:"",
+  const [inputList, setInputList] = useState([
+    { product: "", quantity: "" }]
+    );
+
+  const [productnew, setProduct] = useState(
+    {
     branch:"",
-    inputList:""
-  });
+    date:""
+  }
+  );
+
+  const l = {list:inputList}
+  const prod = Object.assign(productnew,l);
 
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
+    
   };
+
  
   // handle click event of the Remove button
   const handleRemoveClick = index => {
@@ -46,20 +55,19 @@ function ProductionNPage (){
     setInputList([...inputList, { product: "", quantity: "" }]);
   };
 
-  // function onChange(e){
-  //   setProduct({[e.target.name]:e.target.value})
-  // }
+  function onChange(e){
+    setProduct({...productnew,
+      [e.target.name]:e.target.value
+    })
+  }
 
 
   const add =(e)=>{
-    console.log(productnew);
+    console.log(prod);
    e.preventDefault();
-  //  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createinvoice.php',JSON.stringify(this.state)).then(function(response){
-  //      console.log(response.data);
-       // if(this.response.  =="Product created"){
-       //     window.location='/production';
-       // }
-  //  })
+   axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createinvoice.php',JSON.stringify(prod)).then(function(response){
+       console.log(response.data);
+   })
 }
        
         return (
@@ -126,10 +134,10 @@ function ProductionNPage (){
              <Container>
                  <Row>
                      <Col><label>Date</label>
-             <input type="date" name="date"/></Col>
+             <input type="date" name="date" value={productnew.date} onChange = {onChange}/></Col>
 
              <Col><label>Branch</label>
-                     <select name="branch" >
+                     <select name="branch" value={productnew.branch} onChange = {onChange}>
                          <option value="Sauces">Adenta</option>
                          <option value="Hot/Spicy">Madina</option>
                          <option value="Hot/Spicy">Campus Hub</option>
@@ -173,28 +181,12 @@ function ProductionNPage (){
        
         );
       })}
-      {console.log(JSON.stringify(inputList))}
+      {/* {console.log(JSON.stringify(inputList))} */}
       {/* <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
-               
-
-
-         
-
-                 
-
                  <Row><button onClick={add}>Save</button></Row>
                 
              </Container>
-             
-
-
-             
-
-             
-             
-             
-
-             
+      
          </form>
 
      </div>
