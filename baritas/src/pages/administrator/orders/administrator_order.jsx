@@ -44,60 +44,60 @@ const OrderMainPage =()=> {
 
   const [searchTerm,setSearchTerm] = useState('');
 
-  const Modalshow=()=>{
-    handleShow,
-    <Modal show={show} onHide={handleClose} id="mods">
-                                <Modal.Header closeButton>
-                                <Modal.Title>Bill No.bill-bill</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body >
-                                    <Row>
-                                        <Col>bill</Col>
-                                        <Col>Table #bill</Col>
-                                    </Row>
-                                    <Row>
-                                        <ReactBootStrap.Card id="order">
-                                            <ReactBootStrap.Card.Text >
+  // const Modalshow=()=>{
+  //   handleShow,
+  //   <Modal show={show} onHide={handleClose} id="mods">
+  //                               <Modal.Header closeButton>
+  //                               <Modal.Title>Bill No.bill-bill</Modal.Title>
+  //                               </Modal.Header>
+  //                               <Modal.Body >
+  //                                   <Row>
+  //                                       <Col>bill</Col>
+  //                                       <Col>Table #bill</Col>
+  //                                   </Row>
+  //                                   <Row>
+  //                                       <ReactBootStrap.Card id="order">
+  //                                           <ReactBootStrap.Card.Text >
                                               
-                                              <Row>
-                                                <Col>billx bill</Col>
+  //                                             <Row>
+  //                                               <Col>billx bill</Col>
                                             
-                                                <Col>bill</Col>
-                                              </Row>
+  //                                               <Col>bill</Col>
+  //                                             </Row>
                                              
                                              
-                                            </ReactBootStrap.Card.Text>
-                                        </ReactBootStrap.Card>
-                                    </Row>
+  //                                           </ReactBootStrap.Card.Text>
+  //                                       </ReactBootStrap.Card>
+  //                                   </Row>
                                  
                                     
 
 
-                                    <Row id="fut">
-                                      <hr/>
-                                    <Row >
-                                           <Col><h6>Sub-Total</h6></Col>
-                                           <Col id="val">bill</Col>
+  //                                   <Row id="fut">
+  //                                     <hr/>
+  //                                   <Row >
+  //                                          <Col><h6>Sub-Total</h6></Col>
+  //                                          <Col id="val">bill</Col>
                                            
-                                       </Row>
-                                       <Row>
-                                           <Col><h6>VAT(2.5%)</h6></Col>
-                                           <Col  id="val">40.00</Col>
+  //                                      </Row>
+  //                                      <Row>
+  //                                          <Col><h6>VAT(2.5%)</h6></Col>
+  //                                          <Col  id="val">40.00</Col>
                                            
-                                       </Row>
+  //                                      </Row>
 
-                                       <Row>
-                                           <Col><h6>Total</h6></Col>
-                                           <Col id="val">bill</Col>
+  //                                      <Row>
+  //                                          <Col><h6>Total</h6></Col>
+  //                                          <Col id="val">bill</Col>
                                            
-                                       </Row>
+  //                                      </Row>
 
-                                    </Row>
-                                    </Modal.Body>
+  //                                   </Row>
+  //                                   </Modal.Body>
                                
-                            </Modal>
+  //                           </Modal>
                  
-  }
+  // }
         return (
           <div class="proad">
                       <div id="header">
