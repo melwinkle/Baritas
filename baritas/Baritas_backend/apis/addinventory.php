@@ -24,13 +24,9 @@ $invent->restaurant=$data->rest;
 $invent->instock_lim=$data->limit;
 
 if($invent->create()){
-    echo json_encode(
-        array('message' => 'No inventory Found')
-    );
+    echo true;;
 }
 else{
-    echo json_encode(
-        array('message' => ' inventory Found')
-    );
+    echo false;
 }
 ?>

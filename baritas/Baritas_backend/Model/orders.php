@@ -99,6 +99,13 @@ class orders
         return $stmt;
 
     }
+    public function ordertotalG(){
+        $query ="SELECT Date,sum(total_cost) as total, count(*) as count from orders GROUP BY Date";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+
+    }
 
 
     public function orderbill(){

@@ -15,6 +15,10 @@ import {
 import Button from "react-bootstrap/button";
 import axios from 'axios';
 import Toast from "react-bootstrap/Toast";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
  function AdminMenuVPage(props){
     
@@ -48,8 +52,31 @@ import Toast from "react-bootstrap/Toast";
         console.log(Menu);
         e.preventDefault();
         axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatemenu.php' ,JSON.stringify(Menu)).then(function(response){
+
         console.log(response.data);
+
+        if(response.data == 1){
+            MySwal.fire({
+                title: "Menu item Updated",
+                text:"Menu item has been updated succesfully",
+                icon: "success",
+                button :true
+              }).then(function(){
+                window.location='/administrator/mainmenu';
+              });
+
+        }
+        else{
+            MySwal.fire({
+                title: "Inventory Not added",
+                text:"Error adding inventory",
+                icon: "error",
+                button :true
+              });
+
+        }
         })
+  
     }
 
     function showToast(){

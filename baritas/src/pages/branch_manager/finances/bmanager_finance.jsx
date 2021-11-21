@@ -24,7 +24,9 @@ const BranchFinancePage =()=>{
     
    
     const [posts, setPosts] = useState({ blogs: [] });
-    const id=sessionStorage.getItem("rest");
+    const item=JSON.parse(sessionStorage.getItem("branchMData"));
+    const id = item.UserData.rest;
+ 
 
     useEffect(() => {
       const fetchPostList = async () => {
@@ -43,6 +45,9 @@ const BranchFinancePage =()=>{
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    function onclick(){
+      console.log(it);
+    }
 
 
     const options = {
@@ -144,8 +149,8 @@ const BranchFinancePage =()=>{
   <Form.Label>Sales Date</Form.Label> 
     <Col>
   
-      <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
-      <Col> <Button id="searchb"> Search</Button></Col>
+      <Form.Control type="text" name="inventory"  placeholder="Enter item" /></Col>
+      <Col> <Button id="searchb" onClick={onclick}> Search</Button></Col>
   </Row>
       
      
@@ -161,7 +166,7 @@ const BranchFinancePage =()=>{
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
             <tr>
-           
+            
               <th>Date </th>
               <th>Total Income</th>
               <th>Actions</th>
@@ -176,7 +181,7 @@ const BranchFinancePage =()=>{
                 <tr key={item.id}>
            
                   <td>{item.date}</td>
-                  <td>{item.cost}</td>
+                  <td>{item.bill}</td>
                   <td>
                   <button class="b1" onClick={handleShow}>View</button>
                   <Modal id="chart" show={show} onHide={handleClose}>
@@ -199,6 +204,7 @@ const BranchFinancePage =()=>{
           </tbody>
         </ReactBootStrap.Table>
         </Row>
+     
         </Container>
             
            

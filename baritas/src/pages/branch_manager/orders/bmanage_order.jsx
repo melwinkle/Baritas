@@ -25,7 +25,9 @@ const BOrderPage =()=> {
     
     const [posts, setPosts] = useState({ blogs: [] });
 
-    const id = sessionStorage.getItem("rest");
+    const item=JSON.parse(sessionStorage.getItem("branchMData"));
+    const id = item.UserData.rest;
+
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(

@@ -54,6 +54,7 @@ import BOrderPage from "./pages/branch_manager/orders/bmanage_order.jsx";
 import BProductionPage from "./pages/branch_manager/production/bmanager_production.jsx";
 import GeneralMPage from "./pages/general_manager/general_home.jsx";
 import GMFinancePage from "./pages/general_manager/finances/gm_finances.jsx";
+import GFinancePage from "./pages/general_manager/finances/inventory/administrator_finventory.jsx";
 import GMInventoryPage from "./pages/general_manager/inventory/gm_inventory.jsx";
 import GMFinanceVPage from "./pages/general_manager/finances/view/gm_finance_view.jsx";
 import GMOrderPage from "./pages/general_manager/orders/gm_order.jsx";
@@ -114,6 +115,7 @@ class App extends Component {
        <Route exact path="/branch_manager/production" component={BProductionPage} />
        <Route exact path="/general_manager" component={GeneralMPage} />
        <Route exact path="/general_manager/finances" component={GMFinancePage} />
+       <Route exact path="/general_manager/finances/inventory/" component={GFinancePage} />
        <Route exact path="/general_manager/inventory" component={GMInventoryPage} />
        <Route exact path="/general_manager/finances/view" component={GMFinanceVPage} />
        <Route exact path="/general_manager/orders" component={GMOrderPage} />

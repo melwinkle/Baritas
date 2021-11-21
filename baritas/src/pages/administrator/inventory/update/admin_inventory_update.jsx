@@ -15,8 +15,11 @@ import {
   import "../../../../Header.css";
   import Button from "react-bootstrap/Button";
 import axios from "axios";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 // import { Container, Row, Col } from 'reactstrap';
 
+const MySwal = withReactContent(Swal);
 
 /* We simply can use an array and loop and print each user */
 function EditInventory(props) {
@@ -50,7 +53,18 @@ function EditInventory(props) {
          console.log(inventory); 
         e.preventDefault();
          axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updateinventory.php' ,JSON.stringify(inventory)).then(function(response){
-        console.log(response.data);
+        console.log(response);
+
+        if(response.status == 200){
+            MySwal.fire({
+                title: "Inventory Update",
+                text:"Inventory has been update successfully",
+                icon: "success",
+                button :true
+              }).then(function(){
+                window.location='/administrator/inventory';
+              }); 
+        }
         })
      }
 
