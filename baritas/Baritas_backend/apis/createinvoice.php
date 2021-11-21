@@ -17,12 +17,12 @@ $item = new production_transaction_item($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$prod->restaurant=$data->rest;
-$prod->date =$data->d;
+$prod->restaurant=$data->branch;
+$prod->date =$data->date;
 $prod->createproductiontransaction();
 
 
-$list = $data->inputList;
+$list = $data->list;
 $i=0;
 foreach($list as $p){
 $item->transaction_id= $prod->getId();    

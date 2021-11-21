@@ -34,6 +34,7 @@ if($num >0){
         'price'=>$price,
         'size' => $size,
         'restaurant' => $restaurant_view
+
     );
     // array_push($cat_arr['data'],$cat_item);
    }
