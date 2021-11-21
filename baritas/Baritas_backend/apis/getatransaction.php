@@ -18,34 +18,55 @@ $data = json_decode(file_get_contents("php://input"));
 $invent->id = $_GET['id'];
 
 
-$result= $invent->onetransactions();
+$result= $invent->onetransaction();
 $num = $result->rowCount();
 
 
 
 if($num >0 ){
-    $cat_arr =array();
-    $cat_arr['data']=array();
+    $cat_arr = array();
+    $cat_arr["data"] = array();
+
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        extract($row);
+        $cat_item=array(
+         'transaction_id' => $transaction_id,
+            'restaurant'=>$restaurant_name,
+            'date'=>$Date
+           
+        );
+        $cat_item["inputList"]=array();
+      
+        $invent->id=$transaction_id;
+        $result1=$invent->onetransactions();
     
+        $num1=$result1->rowCount();
+        
+        while($row1=$result1->fetch(PDO::FETCH_ASSOC)){
+   
+            extract($row1);
 
-
-
-    while($row=$result->fetch(PDO::FETCH_ASSOC)){
-       extract($row);
-
-       $cat_item = array(
+   
+    $cat_sing=array( 
         'production_trans_id'=>$production_trans_id,
         'product_name'=>$product_name,
         'quantity'=>$quantity,
     );
-    array_push($cat_arr['data'],$cat_item);
+
+    array_push($cat_item["inputList"],$cat_sing);
+  
+        }
     
+
+        array_push($cat_arr['data'],$cat_item);
    
-}
+       
+    }
+  
+   
 
+    echo json_encode($cat_arr);
 
-
-   echo json_encode($cat_arr);
 }
 else{
     echo json_encode(

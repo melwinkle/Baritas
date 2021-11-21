@@ -1,38 +1,51 @@
 <?php
+// Headers
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-header('Access-Control-Allow-Methods:POST');
-header('Access-Control-Allow-Headers:Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization,X-Requested-With');
 
 include_once '../../Baritas_backend/database/Database.php';
 include_once '../../Baritas_backend/Model/orders.php';
 
+
 $database = new Database();
 $db = $database->connect();
-$ord = new orders($db);
+$order = new orders($db);
 
-$ord->restaurant = $_GET['id'];
-$result = $ord->ordertotal();
+
+$order->date =$_GET['date'];
+$result = $order->orderbill();
+
+
+// Get row count
 $num = $result->rowCount();
 
 if ($num > 0) {
+    // Cat array
     $cat_arr = array();
     $cat_arr["data"] = array();
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $cat_item = array(
-            'date'=>$Date,
-            'bill'=>$total
+            'id'=>$order_id,
+            'waiter' => $waiter_name,
+            'payment_method'=>$payment_method,
+            'status'=>$stats,
+            'total'=>$total_cost
         );
+
+        // Push to "data"
         array_push($cat_arr["data"], $cat_item);
+       
     }
+
+    // Turn to JSON & output
     echo json_encode($cat_arr);
 
 } else {
+    // No Categories
     echo json_encode(
-        array('message' => 'No transactions Found')
+        array('message' => 'No Transaction Found')
     );
 }
-
 ?>

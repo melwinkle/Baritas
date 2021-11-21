@@ -12,7 +12,7 @@ $db = $database->connect();
 $order = new orders($db);
 $order->restaurant= $_GET['id'];
 
-$result = $order->allorders();
+$result = $order->ordertotal();
 
 // Get row count
 $num = $result->rowCount();
@@ -25,20 +25,10 @@ if ($num > 0) {
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $cat_item = array(
-            'id'=>$order_id,
-            'bill' => $bill_no,
-            'date'=>$date,
-            'pay'=>$payment_method,
-            'server'=>$waiter_name,
-            'cost'=>$total_cost,
-            'status'=>$stats,
-            'table'=>$table_id,
-            'sub'=>$sub_total,
-            'notes'=>$special_notes,
-            'quant'=>$quantity,
-            'name'=>$name_of_food,
-            'p'=>$price,
-            'si'=>$size
+            'date'=>$Date,
+            'total'=>$total,
+            'count'=>$count
+
         );
 
         // Push to "data"

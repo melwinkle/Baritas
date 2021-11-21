@@ -143,13 +143,15 @@ const AIProductionPage =(props)=> {
           <tbody>
             {posts.blogs &&
               posts.blogs.map((item) => (
-                <tr key={item.production_trans_id}>
-                  <td>{item.production_trans_id}</td>
-                  <td>{item.product_name}</td>
-                  <td>{item.quantity}</td>
+                 Object.keys(item.inputList).map((products, i) =>
+                <tr key={item.inputList[products].production_trans_id}>
+                  <td>{item.inputList[products].production_trans_id}</td>
+                  <td>{item.inputList[products].product_name}</td>
+                  <td>{item.inputList[products].quantity}</td>
                 
-                
+               
                 </tr>
+                )
               ))}
           </tbody>
         </ReactBootStrap.Table>

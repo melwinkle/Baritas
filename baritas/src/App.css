@@ -824,7 +824,12 @@ justify-content: center;
   float:right;
   border-radius:10pr;
 }
-
+#tb{
+  color:#800020;
+}
+/* #tbt{
+  display:none;
+} */
 .optbar .no svg{
   fill: #CE1A1A;
 }
@@ -838,7 +843,10 @@ justify-content: center;
   margin-top:10%;
 }
 
-
+#nclose{
+  background:none;
+  
+}
 
 .bars{
   margin-left:2%;

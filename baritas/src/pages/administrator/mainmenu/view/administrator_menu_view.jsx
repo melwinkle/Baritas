@@ -3,7 +3,7 @@ import "../../../../App.css";
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import {FaHome} from "react-icons/fa";
-import {BiArrowBack} from "react-icons/bi";
+import {BiArrowBack, BiShowAlt} from "react-icons/bi";
 import { Container, Row, Col } from 'reactstrap';
 import rooster from "../../../../images/IMG_8850.JPG";
 import {
@@ -14,6 +14,7 @@ import {
   import { FaArrowLeft, FaList,FaStore } from "react-icons/fa";
 import Button from "react-bootstrap/button";
 import axios from 'axios';
+import Toast from "react-bootstrap/Toast";
 
  function AdminMenuVPage(props){
     
@@ -49,6 +50,27 @@ import axios from 'axios';
         axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatemenu.php' ,JSON.stringify(Menu)).then(function(response){
         console.log(response.data);
         })
+    }
+
+    function showToast(){
+        
+            return (
+                <Toast id="tbt">
+                    <Toast.Header>
+                        <strong className="mr-auto">
+                            Order #{props.match.params.id}
+                        </strong>
+                        <small>
+                             READY
+                        </small>
+                    </Toast.Header>
+                    <Toast.Body id="tb" >
+                        Drink is ready!
+                    </Toast.Body>
+              </Toast>
+                   
+                    );
+            
     }
         return (
           <div class="proad">
@@ -124,6 +146,13 @@ import axios from 'axios';
         <Link to="/administrator/mainmenu/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
     </Row>
 
+
+    <Row>
+        {showToast}
+    </Row>
+   
+
+
     <Row id="invtr">
             <div class="addi c">
                 <h3>UPDATE MENU</h3>
@@ -188,7 +217,11 @@ import axios from 'axios';
 
             </div>
             </Row>
+
+           
+    
             </Container>
+    
           </div>
        
         );

@@ -21,7 +21,7 @@ import {
 
 
 /* We simply can use an array and loop and print each user */
-const AdminOrderPage =()=> {
+const AdminOrderPage =(props)=> {
     
     const [posts, setPosts] = useState({ blogs: [] });
 
@@ -30,7 +30,7 @@ const AdminOrderPage =()=> {
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/getallorders.php?id='+id
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/getallorderd.php?date='+props.match.params.date
       );
       setPosts({ blogs: data.data });
       console.log(data);
@@ -177,7 +177,7 @@ const AdminOrderPage =()=> {
     <Form.Group id="forminv">
 <Row>
 
-<Link to="/administrator/orders/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+<Link to={"/administrator/orders/"}><Button id="backh"><FaArrowLeft/>Back</Button></Link>
 
 </Row>
     
@@ -194,7 +194,7 @@ const AdminOrderPage =()=> {
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
-            <th>Date </th>
+          <th>Order#</th>
             <th>Waiter</th>
             <th>Total</th>
             <th>Payment</th>
@@ -215,10 +215,10 @@ const AdminOrderPage =()=> {
 
             }).map((item) => (
               <tr key={item.id}>
-                <td>{item.date}</td>
-                <td>{item.server}</td>
-                <td>{item.cost}</td>
-                <td>{item.pay}</td>
+                    <td>{item.id}</td>
+                <td>{item.waiter}</td>
+                <td>{item.total}</td>
+                <td>{item.payment_method}</td>
                 <td>{item.status}</td>
                 <td><button class="b1" onClick={Modalshow()}>View</button>
                 

@@ -22,24 +22,32 @@ import {MdDelete} from "react-icons/md";
 function ProductionNTPage (props){
     
   const [inputList, setInputList] = useState([{ product: "", quantity: "" }]);
-  
+  // const [posts, setPosts] = useState({ blogs: [] });
   const[product,setProduct]=useState({
     date:"",
-    restaurant_name:""
+    restaurant:"",
+    transaction_id:"",
+    inputList:[]
+
 });
+const{date,restaurant,transaction_id}=product;
 
-const{date,restaurant_name,}=product;
-
-useEffect(async ()=>{
-    await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getatransaction.php?id='+props.match.params.id)
-    .then((response)=>response.json())
-    .then((responseJSON)=>{
-        setProduct(responseJSON.inventory);
-        setInputList(responseJSON.inventory);
-        console.log(responseJSON.inventory);
+//  setInputList([...inputList, { product: "", quantity: "" }]);
+function onChange(e){
+  const newProduct ={...product}
+  newProduct[e.target.name] = e.target.value;
+  setProduct(newProduct);
+}
+useEffect( async () => {
+   await fetch(
+      'http://localhost/Baritas/baritas/Baritas_backend/apis/getatransaction.php?id='+props.match.params.id)
+    .then((response) => response.json())
+    .then((responseJSON) =>{
+      setProduct(responseJSON.data[0]);
+      console.log(responseJSON.data[0]);
     }
     );
-},[]);
+  },[]);
 
 
 
@@ -49,18 +57,11 @@ useEffect(async ()=>{
     list[index][name] = value;
     setInputList(list);
   };
- 
-  // handle click event of the Remove button
-  const handleRemoveClick = index => {
-    const list = [...inputList];
-    list.splice(index, 1);
-    setInputList(list);
-  };
- 
-  // handle click event of the Add button
-  const handleAddClick = () => {
-    setInputList([...inputList, { product: "", quantity: "" }]);
-  };
+  function update(id){
+
+    axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updateproduct.php?id='+id)
+}
+
 
         return (
           <div class="proad">
@@ -113,91 +114,83 @@ useEffect(async ()=>{
           </SidebarFooter> */}
         </ProSidebar>
       </div>
+    
              <Container id="invt">
+           
         <Row>
-        <Link to="/production/transact/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+        <Link to={"/production/transact/view/"+date}><Button id="backh"><FaArrowLeft/>Back</Button></Link>
     </Row>
 
-                <Row id="invtr">
-                <div class="addi c">
-         
-         <h3>Update Invoice</h3>
-         <form>
-             <Container>
-                 <Row>
-                     <Col><label>Date</label>
-             <input type="date" placeholder="Item name" value={date}/></Col>
-             <Col><label>Branch</label>
-                     <select>
-                       <option value={restaurant_name}>{restaurant_name}</option>
-                         <option value="Sauces">Adenta</option>
-                         <option value="Hot/Spicy">Madina</option>
-                         <option value="Hot/Spicy">Campus Hub</option>
-                         
-                         
-                     </select></Col>
-             </Row>
+<Row id="invtr">
+<div class="addi c">
+<h3>Update Invoice#{transaction_id}</h3>
 
-
-             
-
-
-             {inputList.map((x, i) => {
-        return (
-   
+<form>
+      
+      <Container>
           <Row>
-          <Col>
-          <label>Product</label>
-          <select name="product" value={x.product}
-              onChange={e => handleInputChange(e, i)}>
-              <option value="Jollof Sauce">Jollof Sauce</option>
-              <option value="Chicken Sauce">Chicken Sauce</option>
+       
+
+              <Col><label>Date</label>
+      <input type="date" name="date" placeholder="Item name" value={date} onChange={(e)=>onChange(e)}/></Col>
+      <Col><label>Branch</label>
+              <select name="restaurant"  value={restaurant} onChange={(e)=>onChange(e)}>
+           
+                  <option value="Adenta">Adenta</option>
+                  <option value="Atomic">Madina</option>
+                  <option value="Legon">Campus Hub</option>
+                  
+                  
+              </select></Col>
+      </Row>
+
+      </Container>
+      </form>
+      </div>
+  <ReactBootStrap.Table  bordered  id="invtb">
+    <thead>
+      <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Action</th>
+      </tr>
+      
+    </thead>
+    <tbody>
+    { Object.keys(product.inputList).map((products, i) =>
+      <tr>
+        <td>
+        {product.inputList[products].product_name}
+        </td>
+        <td>
+        {product.inputList[products].quantity}
+        </td>
+        <td>
+          <button class="b2"  onClick={update(product.inputList[products].production_trans_id)}>Update</button>
+        </td>
+       
+      </tr>
+       )}
+    </tbody>
+  </ReactBootStrap.Table>
+</Row>
+    {/* / <Col>
+                //         <div className="btn-box">
+                //           {inputList.length !== 1 && <button
+                //             className="mr10"
+                //             onClick={() => handleRemoveClick(i)}><MdDelete/></button>}
+                //           {inputList.length - 1 === i && <button onClick={handleAddClick}><FaPlus/></button>}
+                //         </div>
+                //           </Col>
+               
+                      // );
+                    
+                    // })} */}
              
               
-          </select>
-  </Col>
-
-  <Col>
-  <label>Quantity</label>
-  <input type="number"  name="quantity" value={x.quantity}
-              onChange={e => handleInputChange(e, i)}/></Col>
-
-<Col>
-<div className="btn-box">
-          {inputList.length !== 1 && <button
-            className="mr10"
-            onClick={() => handleRemoveClick(i)}><MdDelete/></button>}
-          {inputList.length - 1 === i && <button onClick={handleAddClick}><FaPlus/></button>}
-        </div>
-        </Col>
-  </Row>
-         
-       
-        );
-      })}
-
-                 
-
-                 <Row><button>Save</button></Row>
-                
-             </Container>
-             
-
-
-             
-
-             
-             
-             
-
-             
-         </form>
-
-     </div>
-                </Row>
             </Container>
 
-          
+
         
             
 

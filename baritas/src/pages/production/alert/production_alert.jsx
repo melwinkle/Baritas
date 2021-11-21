@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import '../../../App.css';
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
-import {FaHome,FaBell,FaStoreAlt,FaWindowClose,FaRegClock} from "react-icons/fa";
+import {FaHome,FaBell,FaStoreAlt,FaWindowClose,FaRegClock, FaCheckCircle} from "react-icons/fa";
 
 import {
     ProSidebar,
@@ -14,6 +14,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 // get data fron the procution folder 
 import axios from "axios";
+import Toast from "react-bootstrap/Toast";
 /* We simply can use an array and loop and print each user */
 function ProductionALPage () {
     
@@ -102,34 +103,34 @@ function ProductionALPage () {
            
             
         <Row id="nt">
-          
+ 
         {posts.blogs &&
       posts.blogs.map((item) => (
     
-
-   
-        <Card id="salert">
-        <Card.Header id="chead"><button id="nclose" onClick={updatealert(item.alert_id)}><FaWindowClose/></button> <span id="salt">Stock Alert </span><span id="daten"><FaRegClock/>{item.AlertDate}</span></Card.Header>
-        <Card.Body>
-            <Card.Title>  {item.AlertMessage}</Card.Title>
-            
-            
-        </Card.Body>
-        </Card>
-      
+        <Col>
+        <Toast id="tbt"  onClose={() => updatealert(item.alert_id)} >
+        <Toast.Header>
+            <strong className="mr-auto">
+                Stock Alert
+            </strong>
+            <small>
+            {item.AlertDate}
+            </small>
+        </Toast.Header>
+        <Toast.Body id="tb" >
+        {item.AlertMessage}
+        </Toast.Body>
+        
+  </Toast>
+       
+       </Col>
       ))}
-                {/* <Card id="salert">
-                <Card.Header id="chead"><button id="nclose"><FaWindowClose/></button> <span id="salt">Stock Alert </span><span id="daten"><FaRegClock/>19th October,2021 8:10AM</span></Card.Header>
-                <Card.Body>
-                    <Card.Title>  Legon Campus Hub has run low on Jollof Sauce</Card.Title>
-                    
-                    
-                </Card.Body>
-                </Card> */}
+               
               
              
+              
                
-
+              
         
         </Row>
         </Container>

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import '../../../App.css';
+import '../../../../App.css';
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {FaHome,FaBell,FaStoreAlt} from "react-icons/fa";
-import DataTable from '../component/DataTable';
-import data from '../Table/data';
+import {FaHome,FaBell,FaStoreAlt,FaArrowLeft} from "react-icons/fa";
+import DataTable from '../../component/DataTable';
+import data from '../../Table/data';
 import {
     ProSidebar,
     SidebarHeader,
@@ -19,7 +19,7 @@ import Modal from "react-bootstrap/Modal";
 // get data fron the procution folder 
 
 /* We simply can use an array and loop and print each user */
-function ProductionTPage () {
+function ProductionTPage (props) {
        
   const [posts, setPosts] = useState({ blogs: [] });
 
@@ -29,7 +29,7 @@ function ProductionTPage () {
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproductiont.php'
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallptransact.php?date='+props.match.params.date
       );
       setPosts({ blogs: data.data });
       console.log(data);
@@ -91,28 +91,9 @@ function ProductionTPage () {
       </div>
         
       <Container id="invt">
-  <Row>
-    <Link to="/production/new/"><Button id="addnew">New Invoice +</Button></Link>
-    
-  </Row>
-  <Row>
-
- 
-    <Form.Group id="forminv">
-<Row>
-<Form.Label>Transaction Date</Form.Label> 
-  <Col>
-
-    <Form.Control type="date" name="production"  placeholder="Enter item" /></Col>
-    <Col> <Button id="searchb"> Search</Button></Col>
-</Row>
-    
-   
-
-    </Form.Group>
-
-
-  </Row>
+      <Row>
+        <Link to="/production/transact/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+    </Row>
 
  
 <Row id="invtt">
@@ -121,7 +102,7 @@ function ProductionTPage () {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Date </th>
+   
             <th>Restaurant</th>
  
             <th>Status</th>
@@ -133,13 +114,12 @@ function ProductionTPage () {
             posts.blogs.map((item) => (
               <tr key={item.transaction_id}>
                 <td>{item.transaction_id}</td>
-                <td>{item.Date}</td>
-                <td>{item.restaurant_name}</td>
+                <td>{item.restaurant}</td>
                 <td>{item.Transaction_Status}</td>
                
        
                 <td><a class="ab1"href={'/production/transact/tracking/' + item.transaction_id}><button class="b2">Edit</button></a>
-               <a class="ab1" href={'/production/transact/invoice/' + item.transaction_id+'?restaurant='+item.restaurant_name}> <button class="b1">View</button></a></td>
+               <a class="ab1" href={'/production/transact/invoice/' + item.transaction_id}> <button class="b1">View</button></a></td>
              
               </tr>
                  

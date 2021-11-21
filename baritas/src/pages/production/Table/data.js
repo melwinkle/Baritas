@@ -4,7 +4,7 @@ const data = [
     "name": "Tiger Nixon",
     "category": "System Architect",
     "price": "$320,800",
-    "actions": " <a href='/production/transact/invoice/'><button class='b1'>View</button></a> <a href='/production/update/'><button class='b2'>Update</button></a>",
+    "actions": " <a href='/production/transact/view/invoice/'><button class='b1'>View</button></a> <a href='/production/update/'><button class='b2'>Update</button></a>",
     "stock": "Edinburgh",
     "extn": "5421"
   },

@@ -44,7 +44,8 @@ import ProductionUPage from "./pages/production/update/production_update.jsx";
 import ProductionNPage from "./pages/production/new/production_new.jsx";
 import ProductionAPage from "./pages/production/alert/archive/production_alert_archive.jsx";
 import ProductionALPage from "./pages/production/alert/production_alert.jsx";
-import ProductionTPage from "./pages/production/transact/production_transact.jsx";
+import ProductionTPage from "./pages/production/transact/view/production_transact.jsx";
+import ProductionHPage from "./pages/production/transact/product_transact.jsx";
 import ProductionIPage from "./pages/production/transact/invoice/production_transact_invoice.jsx";
 import BranchInvent from "./pages/branch_manager/inventory/bmanage_inventory.jsx";
 import BInventoryView from "./pages/branch_manager/inventory/view/bmanager_view.jsx";
@@ -103,7 +104,8 @@ class App extends Component {
        <Route exact path="/production/transact/invoice/:id" component={ProductionIPage} />
        <Route exact path="/production/alert/archive" component={ProductionAPage} />
        <Route exact path="/production/alert" component={ProductionALPage} />
-       <Route exact path="/production/transact" component={ProductionTPage} />
+       <Route exact path="/production/transact/view/:date" component={ProductionTPage} />
+       <Route exact path="/production/transact/" component={ProductionHPage} />
        <Route exact path="/production/add" component={ProductionANPage} />
        <Route exact path="/branch_manager/inventory" component={BranchInvent} />
        <Route exact path="/branch_manager/inventory/view/:id" component={BInventoryView} />

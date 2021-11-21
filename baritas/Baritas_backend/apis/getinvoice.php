@@ -18,19 +18,31 @@ $data = json_decode(file_get_contents("php://input"));
 $invent->id = $_GET['id'];
 
 
-$result= $invent->onetransactions();
+
 $result1 = $invent->onetransaction();
-$num = $result->rowCount();
+
 $num1= $result1->rowCount();
 
 
-if($num >0 ){
+if($num1 >0 ){
     $cat_arr =array();
     $cat_arr['data']=array();
     
+    while($row1=$result1->fetch(PDO::FETCH_ASSOC)){
+        extract($row1);
+        $invent->id = $transaction_id;
 
 
-//    while($row1 =$result1->fetch(PDO::FETCH_ASSOC)){
+        $result= $invent->onetransactions();
+        $num = $result->rowCount();
+        $cat_sing = array(
+         'transaction_id'=>$transaction_id,
+         'restaurant'=>$restaurant_name,
+         'Date'=>$Date
+     );
+    
+
+    $cat_sing['product']=array();
     while($row=$result->fetch(PDO::FETCH_ASSOC)){
        extract($row);
 
@@ -38,14 +50,12 @@ if($num >0 ){
         'production_trans_id'=>$production_trans_id,
         'product_name'=>$product_name,
         'quantity'=>$quantity
-        // 'transaction_id'=>$transaction_id,
-        // 'restaurant_name'=>$restaurant_name,
-        // 'Date'=>$Date
+     
     );
-    array_push($cat_arr['data'],$cat_item);
+    array_push($cat_sing['product'],$cat_item);
    }
-   
-
+   array_push($cat_arr['data'],$cat_sing);
+}
 
 
    echo json_encode($cat_arr);

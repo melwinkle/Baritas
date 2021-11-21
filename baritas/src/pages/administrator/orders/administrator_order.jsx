@@ -216,8 +216,8 @@ const OrderMainPage =()=> {
             }).map((item) => (
               <tr key={item.id}>
                 <td>{item.date}</td>
-                <td>50</td>
-                <td>{item.cost}</td>
+                <td>{item.count}</td>
+                <td>{item.total}</td>
           
         
                 <td><a  href={"/administrator/orders/date/"+item.date}><button class="b1">View</button></a>

@@ -1,6 +1,6 @@
 import React,{useEffect,useState}  from 'react';
 import "../../../../App.css";
-import { Link,useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import {FiLogOut} from "react-icons/fi";
 // import {FaHome} from "react-icons/fa";
 import {BiArrowBack} from "react-icons/bi";
@@ -16,12 +16,11 @@ import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import {FaHome,FaBell,FaStoreAlt,FaArrowLeft} from "react-icons/fa";
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+
+
 
 function ProductionIPage(props){
-  let query = useQuery();
+ 
 
   const [posts, setPosts] = useState({ blogs: [] });
 
@@ -89,11 +88,12 @@ function ProductionIPage(props){
           </SidebarFooter> */}
         </ProSidebar>
       </div>
-
+      {posts.blogs &&
+            posts.blogs.map((item) => (
             <Container id="invt">
-
+         
             <Row>
-        <Link to="/production/transact/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+        <Link to={"/production/transact/view/"+item.Date}><Button id="backh"><FaArrowLeft/>Back</Button></Link>
     </Row>
    
 
@@ -101,6 +101,7 @@ function ProductionIPage(props){
                 <div class="addi c" id="source-html">
        
          <h3>Invoice# {props.match.params.id}</h3>
+         <h3>Date: {item.Date}</h3>
          <Container>
              <Row>
                  <Col>From:<span>Production</span></Col>
@@ -108,7 +109,7 @@ function ProductionIPage(props){
                 
              </Row>
              <Row>
-             <Col>To:<span>{query.get("restaurant")}</span></Col>
+        <Col>To:<span>{item.restaurant}</span></Col>
           
 
              </Row>
@@ -124,16 +125,19 @@ function ProductionIPage(props){
             </thead>
             <tbody>
      
-            {posts.blogs &&
-            posts.blogs.map((item) => (
-              <tr key={item.production_trans_id}>
-                <td>{item.production_trans_id}</td>
-                <td>{item.product_name}</td>
-                <td>{item.quantity}</td>
+            {Object.keys(item.product).map((product, i) =>
+            
+            <tr key={item.product[product].production_trans_id}>
+                <td>{item.product[product].production_trans_id}</td>
+                <td>{item.product[product].product_name}</td>
+                <td>{item.product[product].quantity}</td>
 
               </tr>
+            
+            )}
+              
                  
-                 ))}
+            
        
 
             </tbody>
@@ -148,12 +152,12 @@ function ProductionIPage(props){
 
      
                 </Row>
-
+  
                 
             </Container>
 
           
-        
+))}
           
 
 
