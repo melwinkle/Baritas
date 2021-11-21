@@ -14,7 +14,7 @@ import {
   import { FaArrowLeft, FaList,FaStore } from "react-icons/fa";
   import "../../../Header.css";
   import Button from "react-bootstrap/Button";
-
+  import Badge from 'react-bootstrap/Badge';
 
 
 class ProductionANPage extends React.Component {
@@ -25,11 +25,21 @@ class ProductionANPage extends React.Component {
             unitmeasure:'',
             in_stock:'',
             limit:'',
-            recipe:''
+            recipe:'',
+            alert_num:''
         };
         this.add = this.add.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.alertnum=this.alertnum.bind(this);
+     
+ 
     }
+
+    componentDidMount(){
+        this.alertnum();
+    }
+
+  
 
      add(e){
          console.log(this.state);
@@ -50,6 +60,27 @@ class ProductionANPage extends React.Component {
             [e.target.name]: e.target.value
         });
     }
+    alertnum(){
+        // console.log(this.alert);
+        // e.preventDefault();
+        // fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php',JSON.stringify(this.alert)).then(function(response){
+        //     console.log(response.alert);
+        //     // if(this.response.  =="Product created"){
+        //     //     window.location='/production';
+        //     // }
+        // })
+
+       
+        fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php')
+          .then((response)=>response.json())
+          .then((responseJSON)=>{
+              console.log(responseJSON.alert);
+              this.setState({
+                  alert_num:responseJSON.alert_num
+              });
+          }
+          );
+      }
   render() { 
     return (
         
@@ -60,7 +91,7 @@ class ProductionANPage extends React.Component {
           <SidebarHeader>
           <div className="logotext">
               <Row>
-                  <Col><h3>Baritas:Adenta</h3></Col>
+                  <Col><h3>Baritas:Production</h3></Col>
               
               </Row>
               
@@ -78,7 +109,7 @@ class ProductionANPage extends React.Component {
               <div class="menuitem">
               <Link to="/production/alert/"> <button><FaBell/><div> Alerts</div>
              </button></Link>
-             
+    <Badge bg="secondary">{this.state.alert_num}</Badge>
               </div>
               <div class="menuitem">
               <Link to="/production/transact/"> <button><FaStoreAlt/><div> Sales</div>

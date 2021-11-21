@@ -16,14 +16,18 @@ import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import {FaHome,FaBell,FaStoreAlt,FaArrowLeft} from "react-icons/fa";
-
+import Badge from 'react-bootstrap/Badge';
 
 
 function ProductionIPage(props){
  
 
   const [posts, setPosts] = useState({ blogs: [] });
+  const[alert,setAlert]=useState({
+    alert_num:""
+  });
 
+  const{alert_num}=alert;
   
   
   useEffect(() => {
@@ -35,8 +39,17 @@ function ProductionIPage(props){
       console.log(data);
     };
     fetchPostList();
+    alertnum();
   }, [setPosts]);
-       
+  const alertnum=()=>{
+    fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php')
+      .then((response)=>response.json())
+      .then((responseJSON)=>{
+          setAlert(responseJSON.alert);
+          console.log(responseJSON.alert);
+      }
+      );
+  }
         return (
           <div class="proad">
            <div id="header">
@@ -45,7 +58,7 @@ function ProductionIPage(props){
           <SidebarHeader>
           <div className="logotext">
               <Row>
-                  <Col><h2>B</h2></Col>
+                  <Col><h3>Baritas:Production</h3></Col>
               
               </Row>
               
@@ -63,7 +76,7 @@ function ProductionIPage(props){
               <div class="menuitem">
               <Link to="/production/alert/"> <button><FaBell/><div> Alerts</div>
              </button></Link>
-             
+             <Badge bg="secondary">{alert_num}</Badge>
               </div>
               <div class="menuitem c">
               <Link to="/production/transact/"> <button><FaStoreAlt/><div> Sales</div>

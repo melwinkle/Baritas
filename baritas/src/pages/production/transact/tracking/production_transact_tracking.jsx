@@ -18,9 +18,13 @@ import {FaHome,FaBell,FaStoreAlt,FaArrowLeft,FaPlus} from "react-icons/fa";
 import {FiLogOut} from "react-icons/fi";
 import {MdDelete} from "react-icons/md";
 
-
+import Badge from 'react-bootstrap/Badge';
 function ProductionNTPage (props){
-    
+  const[alert,setAlert]=useState({
+    alert_num:""
+  });
+
+  const{alert_num}=alert;
   const [inputList, setInputList] = useState([{ product: "", quantity: "" }]);
   // const [posts, setPosts] = useState({ blogs: [] });
   const[product,setProduct]=useState({
@@ -38,7 +42,16 @@ function onChange(e){
   newProduct[e.target.name] = e.target.value;
   setProduct(newProduct);
 }
+
+const [data, setData] = useState([]);
+const INVENTORY_API_URL = `http://localhost/Baritas/baritas/Baritas_backend/apis/updateproduct.php`;
+const fetchInventory = () => {
+          fetch(`${INVENTORY_API_URL}`)
+              .then(res => res.json())
+              .then(json => setData(json));
+      }
 useEffect( async () => {
+  fetchInventory();
    await fetch(
       'http://localhost/Baritas/baritas/Baritas_backend/apis/getatransaction.php?id='+props.match.params.id)
     .then((response) => response.json())
@@ -47,19 +60,65 @@ useEffect( async () => {
       console.log(responseJSON.data[0]);
     }
     );
+    alertnum();
   },[]);
 
 
+  const alertnum=()=>{
+    fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php')
+      .then((response)=>response.json())
+      .then((responseJSON)=>{
+          setAlert(responseJSON.alert);
+          console.log(responseJSON.alert);
+      }
+      );
+  }
 
-  const handleInputChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...inputList];
-    list[index][name] = value;
-    setInputList(list);
-  };
-  function update(id){
+const [inEditMode, setInEditMode] = useState({
+         status: false,
+        rowKey: null
+     });
+ 
+    const [unitPrice, setUnitPrice] = useState(null);
 
-    axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updateproduct.php?id='+id)
+   
+     const onEdit = ({id, currentUnitPrice}) => {
+          setInEditMode({
+           status: true,
+              rowKey: id
+       })
+        setUnitPrice(currentUnitPrice);
+     }
+    
+     const onSave = ({id, newUnitPrice}) => {
+              update({id, newUnitPrice});
+          }
+      
+          const onCancel = () => {
+              // reset the inEditMode state value
+              setInEditMode({
+                  status: false,
+                  rowKey: null
+              })
+              // reset the unit price state value
+              setUnitPrice(null);
+          }
+          const update=({id,newUnitPrice})=>{
+    axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updateproduct.php?id='+id+"&q="+newUnitPrice
+    )
+    
+ console.log("id:"+id +",quantity:"+newUnitPrice
+ );
+        // reset inEditMode and unit price state values
+        onCancel();
+
+       
+
+    
+
+    // JSON.stringify(invoice)).then(function(response){
+    //   console.log(response.data);
+    //   }
 }
 
 
@@ -71,7 +130,7 @@ useEffect( async () => {
           <SidebarHeader>
           <div className="logotext">
               <Row>
-                  <Col><h2>B</h2></Col>
+                  <Col><h3>Baritas:Production</h3></Col>
               
               </Row>
               
@@ -89,7 +148,7 @@ useEffect( async () => {
               <div class="menuitem">
               <Link to="/production/alert/"> <button><FaBell/><div> Alerts</div>
              </button></Link>
-             
+             <Badge bg="secondary">{alert_num}</Badge>
               </div>
               <div class="menuitem c">
               <Link to="/production/transact/"> <button><FaStoreAlt/><div> Sales</div>
@@ -122,7 +181,7 @@ useEffect( async () => {
     </Row>
 
 <Row id="invtr">
-<div class="addi c">
+<div class="addi c p">
 <h3>Update Invoice#{transaction_id}</h3>
 
 <form>
@@ -158,16 +217,55 @@ useEffect( async () => {
     </thead>
     <tbody>
     { Object.keys(product.inputList).map((products, i) =>
-      <tr>
+      <tr key={product.inputList[products].production_trans_id}>
         <td>
         {product.inputList[products].product_name}
         </td>
-        <td>
+        {/* <td>
         {product.inputList[products].quantity}
-        </td>
+        </td> */}
         <td>
+                               {
+                                  inEditMode.status && inEditMode.rowKey === product.inputList[products].production_trans_id ? (
+                                        <input value={unitPrice}
+                                               onChange={(event) => setUnitPrice(event.target.value)}
+                                        />
+                                    ) : (
+                                      product.inputList[products].quantity
+                                    )                                }
+                            </td>
+                            <td>
+                                {
+                                    inEditMode.status && inEditMode.rowKey === product.inputList[products].production_trans_id ? (
+                                        <React.Fragment>
+                                            <button
+                                               class="b2"
+                                                onClick={() => onSave({id: product.inputList[products].production_trans_id,newUnitPrice: unitPrice})}
+                                            >
+                                                Save
+                                            </button>
+
+                                            <button
+                                               class="b3"
+                                                style={{marginLeft: 8}}
+                                                onClick={() => onCancel()}
+                                            >
+                                                Cancel
+                                            </button>
+                                        </React.Fragment>
+                                    ) : (
+                                        <button
+                                        class="b1"
+                                            onClick={() => onEdit({id: product.inputList[products].production_trans_id, currentUnitPrice: product.inputList[products].quantity})}
+                                        >
+                                            Edit
+                                        </button>
+                                    )
+                                }
+                            </td>
+        {/* <td>
           <button class="b2"  onClick={update(product.inputList[products].production_trans_id)}>Update</button>
-        </td>
+        </td> */}
        
       </tr>
        )}

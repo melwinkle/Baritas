@@ -12,7 +12,7 @@ import {
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import {FaHome,FaBell,FaStoreAlt,FaArrowLeft} from "react-icons/fa";
-
+import Badge from 'react-bootstrap/Badge';
 
 
 import { Container, Row, Col } from 'reactstrap';
@@ -24,7 +24,11 @@ const ProductionHPage =()=> {
   
 
     const [posts, setPosts] = useState({ blogs: [] });
-
+    const[alert,setAlert]=useState({
+      alert_num:""
+    });
+  
+    const{alert_num}=alert;
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
@@ -34,8 +38,17 @@ const ProductionHPage =()=> {
         console.log(data);
       };
       fetchPostList();
+      alertnum();
     }, [setPosts]);
-  
+    const alertnum=()=>{
+      fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php')
+        .then((response)=>response.json())
+        .then((responseJSON)=>{
+            setAlert(responseJSON.alert);
+            console.log(responseJSON.alert);
+        }
+        );
+    }
   
           return (
             <div class="proad">
@@ -45,7 +58,7 @@ const ProductionHPage =()=> {
             <SidebarHeader>
             <div className="logotext">
                 <Row>
-                    <Col><h3>Baritas:Adenta</h3></Col>
+                    <Col><h3>Baritas:Production</h3></Col>
                 
                 </Row>
                 
@@ -63,7 +76,7 @@ const ProductionHPage =()=> {
               <div class="menuitem">
               <Link to="/production/alert/"> <button><FaBell/><div> Alerts</div>
              </button></Link>
-             
+             <Badge bg="secondary">{alert_num}</Badge>
               </div>
               <div class="menuitem c">
               <Link to="/production/transact/"> <button><FaStoreAlt/><div> Sales</div>

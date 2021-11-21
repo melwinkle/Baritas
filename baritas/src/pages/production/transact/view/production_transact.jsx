@@ -17,14 +17,18 @@ import {
 import { Container, Row, Col } from 'reactstrap';
 import Modal from "react-bootstrap/Modal";
 // get data fron the procution folder 
-
+import Badge from 'react-bootstrap/Badge';
 /* We simply can use an array and loop and print each user */
 function ProductionTPage (props) {
        
   const [posts, setPosts] = useState({ blogs: [] });
 
 
+  const[alert,setAlert]=useState({
+    alert_num:""
+  });
 
+  const{alert_num}=alert;
 
   useEffect(() => {
     const fetchPostList = async () => {
@@ -35,8 +39,19 @@ function ProductionTPage (props) {
       console.log(data);
     };
     fetchPostList();
+    alertnum();
   }, [setPosts]);
   
+
+  const alertnum=()=>{
+    fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php')
+      .then((response)=>response.json())
+      .then((responseJSON)=>{
+          setAlert(responseJSON.alert);
+          console.log(responseJSON.alert);
+      }
+      );
+  }
     return (
         
         <div class="proad">
@@ -46,7 +61,7 @@ function ProductionTPage (props) {
           <SidebarHeader>
           <div className="logotext">
               <Row>
-                  <Col><h2>B</h2></Col>
+                  <Col><h3>Baritas:Production</h3></Col>
               
               </Row>
               
@@ -64,7 +79,7 @@ function ProductionTPage (props) {
               <div class="menuitem">
               <Link to="/production/alert/"> <button><FaBell/><div> Alerts</div>
              </button></Link>
-             
+             <Badge bg="secondary">{alert_num}</Badge>
               </div>
               <div class="menuitem c">
               <Link to="/production/transact/"> <button><FaStoreAlt/><div> Sales</div>

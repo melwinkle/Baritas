@@ -1036,6 +1036,15 @@ th{
 
   width:45%;
 }
+
+.b3{
+  background:grey;
+  color:white;
+  border:none;
+  border-radius:5px;
+
+  width:45%;
+}
 .app-container {
   display: flex;
   flex-direction: column;
@@ -1386,7 +1395,15 @@ form td:last-child {
   width:98%;
 
 }
+.menuitem .badge{
+  background:#800020;
+  border-radius:50%;
+}
 
+.menuitem.c .badge{
+  background:#800020;
+  border-radius:50%;
+}
 #salt{
   background: orange;
   border-radius: 5px;
@@ -1422,7 +1439,7 @@ form td:last-child {
   width:120%;
 }
 #invtr{
-  margin-left: 15%;
+  margin-left: 12%;
   width:100%;
 }
 
@@ -1431,8 +1448,19 @@ form td:last-child {
   padding: 5%;
 }
 
+.addi.c.p{
+  margin-left:10%
+}
 .addi.c h3{
   margin-top: 2%;
+}
+
+.menuitem .al{
+  background:#800020;
+  border-radius: 50%;
+  width: 12%;
+  margin-top: -40%;
+  margin-left:50%;
 }
 .addi img{
   border-radius: 60%;

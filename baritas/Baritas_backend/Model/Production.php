@@ -141,16 +141,22 @@ class production
         $stmt->execute();
         return $stmt;
     }
+    public function alertnum(){
+        $query="SELECT count(*) as total from production_alert where AlertStatus='0'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 
     public function updateproduction(){
-        $query="UPDATE production SET product_name=:pn , in_stock=:c , measurement=:m , recipe=:r , stock_limit=:m where production_id=:i";
+        $query="UPDATE production SET product_name=:pn , in_stock=:c , measurement=:m , recipe=:r , stock_limit=:s where production_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
-        $stmt->bindParam(':pn',$this->name);
+        $stmt->bindParam(':pn',$this->product_name);
         $stmt->bindParam(':c',$this->in_stock);
         $stmt->bindParam(':m',$this->measurement);
         $stmt->bindParam(':r',$this->recipe);
-        $stmt->bindParam(':m',$this->stock_limit);
+        $stmt->bindParam(':s',$this->stock_limit);
    
 
         if($stmt->execute()){
@@ -164,6 +170,22 @@ class production
 public function updatealert(){
     $query="UPDATE production_alert SET AlertStatus='1' where alert_id=:i";
     $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':i',$this->id);
+
+
+
+
+    if($stmt->execute()){
+        return true;
+    }
+    printf("error: %s ./n", $stmt->error);
+    return false;
+
+}
+public function updateprodt(){
+    $query="UPDATE product_transact_item SET quantity=:q where production_trans_id=:i";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':q',$this->quantity);
     $stmt->bindParam(':i',$this->id);
 
 

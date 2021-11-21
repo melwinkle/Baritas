@@ -13,8 +13,13 @@ import {
     SidebarHeader,
     SidebarContent,
   } from "react-pro-sidebar";
+  import Badge from 'react-bootstrap/Badge';
+  import axios from "axios";
 function ProductionUPage(props){
-    
+  
+    const[alert,setAlert]=useState({
+      alert_num:""
+    });
   const[production,setInventory]=useState({
     production_name:"",
     stock_limit:"",
@@ -22,18 +27,46 @@ function ProductionUPage(props){
     in_stock:"",
     recipe:""
 });
-
+const{alert_num}=alert;
 const{production_name,stock_limit,measurement,in_stock,recipe}=production;
 
 useEffect(async ()=>{
-    await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getaproduct.php?id='+props.match.params.id)
+ produp();
+ alertnum();
+},[]);
+
+function onChange(e){
+  const newproduction ={...production}
+  newproduction[e.target.name]=e.target.value;
+  setInventory(newproduction);
+}
+
+function update(e){
+  console.log(production); 
+ e.preventDefault();
+  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updateproduction.php' ,JSON.stringify(production)).then(function(response){
+ console.log(response.data);
+ })
+}
+const produp=()=>{
+   fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getaproduct.php?id='+props.match.params.id)
     .then((response)=>response.json())
     .then((responseJSON)=>{
         setInventory(responseJSON.production);
         console.log(responseJSON.production);
     }
     );
-},[]);
+
+}
+const alertnum=()=>{
+  fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php')
+    .then((response)=>response.json())
+    .then((responseJSON)=>{
+        setAlert(responseJSON.alert);
+        console.log(responseJSON.alert);
+    }
+    );
+}
 
 
 
@@ -50,7 +83,7 @@ useEffect(async ()=>{
           <SidebarHeader>
           <div className="logotext">
               <Row>
-                  <Col><h2>B</h2></Col>
+                  <Col><h3>Baritas:Production</h3></Col>
               
               </Row>
               
@@ -68,7 +101,7 @@ useEffect(async ()=>{
               <div class="menuitem">
               <Link to="/production/alert/"> <button><FaBell/><div> Alerts</div>
              </button></Link>
-             
+             <Badge bg="secondary">{alert_num}</Badge>
               </div>
               <div class="menuitem">
               <Link to="/production/transact/"> <button><FaStoreAlt/><div> Sales</div>
@@ -109,32 +142,32 @@ useEffect(async ()=>{
 <Container>
  <Row>
      <Col><label>Name</label>
-<input type="text" placeholder="Item name" defaultValue={production_name}/></Col>
+<input type="text" placeholder="Item name" value={production_name} name="production_name" onChange={(e)=>onChange(e)}/></Col>
 <Col>
 <label>Stock Limit</label>
-<input type="number"defaultValue={stock_limit}/></Col>
+<input type="number"value={stock_limit} name="stock_limit" onChange={(e)=>onChange(e)}/></Col>
 
 </Row>
 
 <Row>
 <Col>
 <label>Measurement</label>
-<input type="text" defaultValue={measurement}/></Col>
+<input type="text" value={measurement} name="measurement" onChange={(e)=>onChange(e)}/></Col>
 <Col>
 <label>In Stock</label>
-<input type="number" defaultValuee={in_stock}/></Col>
+<input type="number" value={in_stock} name="in_stock" onChange={(e)=>onChange(e)}/></Col>
  </Row>
 
  <Row>
      <Col>
      <label>Recipe</label>
-     <textarea defaultValue={recipe}></textarea>
+     <textarea value={recipe} name="recipe" onChange={(e)=>onChange(e)}></textarea>
      </Col>
  </Row>
 
  
 
- <Row><button>Save</button></Row>
+ <Row><button onClick={update}>Save</button></Row>
 
 </Container>
 

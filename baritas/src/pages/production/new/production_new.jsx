@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import "../../../App.css";
 import { Link } from 'react-router-dom';
 // import {FiLogOut} from "react-icons/fi";
@@ -17,7 +17,7 @@ import Button from 'react-bootstrap/Button';
 import {FaHome,FaBell,FaStoreAlt,FaArrowLeft,FaPlus} from "react-icons/fa";
 import {MdDelete} from "react-icons/md";
 import {FiLogOut} from "react-icons/fi";
-
+import Badge from 'react-bootstrap/Badge';
 function ProductionNPage (){
     
   const [inputList, setInputList] = useState([
@@ -30,6 +30,11 @@ function ProductionNPage (){
     date:""
   }
   );
+  const[alert,setAlert]=useState({
+    alert_num:""
+  });
+
+  const{alert_num}=alert;
 
   const l = {list:inputList}
   const prod = Object.assign(productnew,l);
@@ -42,7 +47,19 @@ function ProductionNPage (){
     
   };
 
- 
+  useEffect(()=>{
+    alertnum();
+  });
+  const alertnum=()=>{
+    fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php')
+      .then((response)=>response.json())
+      .then((responseJSON)=>{
+          setAlert(responseJSON.alert);
+          console.log(responseJSON.alert);
+      }
+      );
+      
+  }
   // handle click event of the Remove button
   const handleRemoveClick = index => {
     const list = [...inputList];
@@ -78,7 +95,7 @@ function ProductionNPage (){
           <SidebarHeader>
           <div className="logotext">
               <Row>
-                  <Col><h2>B</h2></Col>
+                  <Col><h3>Baritas:Production</h3></Col>
               
               </Row>
               
@@ -96,7 +113,7 @@ function ProductionNPage (){
               <div class="menuitem">
               <Link to="/production/alert/"> <button><FaBell/><div> Alerts</div>
              </button></Link>
-             
+             <Badge bg="secondary">{alert_num}</Badge>
               </div>
               <div class="menuitem c">
               <Link to="/production/transact/"> <button><FaStoreAlt/><div> Sales</div>

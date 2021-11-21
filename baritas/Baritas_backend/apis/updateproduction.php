@@ -10,19 +10,22 @@ include_once '../../Baritas_backend/Model/Production.php';
 $database = new Database();
 $db = $database->connect();
 
-$menu = new production($db);
+$invent = new production($db);
 
 
 $data = json_decode(file_get_contents("php://input"));
 
-$menu->id = $_GET['id'];
-$menu->quantity = $_GET['q'];
+$invent->id = $data->production_id;
+$invent->product_name=$data->production_name;
+$invent->in_stock= $data->in_stock;
+$invent->measurement= $data->measurement;
+$invent->recipe=$data->recipe;
+$invent->stock_limit = $data->stock_limit;
 
-if($menu->updateprodt()){
+if($invent->updateproduction()){
     echo true;
 }
 else{
     echo false;
 }
-
 ?>
