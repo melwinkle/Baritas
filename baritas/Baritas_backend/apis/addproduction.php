@@ -25,14 +25,10 @@ $product->recipe=$data->recipe;
 
 
 if($product->create()){
-    echo json_encode(
-        array('message' => 'Product Created')
-    );
+    echo true;
     
 }
 else{
-    echo json_encode(
-        array('message' => ' No product Found')
-    );
+    echo false;
 }
 ?> 
