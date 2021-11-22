@@ -1,10 +1,9 @@
 import React,{ useEffect, useState } from 'react';
-import "../../../App.css";
-import DataTable from './component/DataTable';
-import data from './Table/data';
+import "../../../../App.css";
+
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
-import {FaList} from "react-icons/fa";
+import {FaList,FaArrowLeft} from "react-icons/fa";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
@@ -15,7 +14,7 @@ import {
     SidebarHeader,
     SidebarContent,
   } from "react-pro-sidebar";
- const AdminMenuPage =()=>{
+ const CategoryView =()=>{
     const [posts, setPosts] = useState({ blogs: [] });
 
     const id= sessionStorage.getItem("rest");
@@ -23,7 +22,7 @@ import {
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallmenu.php?id='+id
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallcategory.php?id='+id
         );
         setPosts({ blogs: data.data });
         console.log(data);
@@ -105,9 +104,9 @@ import {
             
   <Container id="invt">
   <Row>
-    <Col id="adds"> <Link to="/administrator/mainmenu/new/"><Button id="addnew">Add New +</Button></Link></Col>
+    <Col id="adds">       <Link to="/administrator/mainmenu/"><Button id="backh"><FaArrowLeft/>Back</Button></Link></Col>
        
-        <Col  id="adds"> <Link to="/administrator/category/view"><Button id="addnew">View Menu Categories</Button></Link></Col>
+        <Col  id="adds"> <Link to="/administrator/category/"><Button id="addnew">Add New +</Button></Link></Col>
     </Row>
     <Row>
   
@@ -134,10 +133,8 @@ import {
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
             <tr>
-              <th>Menu Name</th>
+
               <th>Category</th>
-              <th>Size</th>
-              <th>Price</th>
               <th>Actions</th>
        
             </tr>
@@ -152,12 +149,11 @@ import {
                 }
               }).map((item) => (
                 <tr key={item.id}>
-                  <td>{item.name}</td>
+  
                   <td>{item.category}</td>
-                  <td>{item.size}</td>
-                  <td>{item.price}</td>
+
                   <td>
-                  <a href={'/administrator/mainmenu/view/' + item.id}> <button class="b2">Update</button></a></td>
+                  <a href={'/administrator/category/update/' + item.id}> <button class="b2">Update</button></a></td>
                 </tr>
               ))}
           </tbody>
@@ -171,7 +167,7 @@ import {
           );
 }
 
-export default AdminMenuPage;
+export default CategoryView;
 
 
 

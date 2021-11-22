@@ -1379,7 +1379,9 @@ form td:last-child {
 }
 
 
-
+#adds button{
+  width:90%;
+}
 
 #payo{
   /* float:right; */

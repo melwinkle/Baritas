@@ -37,6 +37,9 @@ import AIProductionPage from "./pages/administrator/production/invoice/administr
 import AdminProductionPage from "./pages/administrator/production/general/administrator_production.jsx";
 import AdminFinancePage from "./pages/administrator/finances/administrator_finances.jsx";
 import AdminFOrderPage from "./pages/administrator/finances/order/administrator_forders.jsx";
+import CategoryView from "./pages/administrator/category/view/category_view.jsx";
+import CategoryNew from "./pages/administrator/category/category_add.jsx";
+import EditCategory from "./pages/administrator/category/update/category_update.jsx";
 import AdminFInventoryPage from "./pages/administrator/finances/inventory/administrator_finventory.jsx";
 import AdminFMenuPage from "./pages/administrator/finances/menu/administrator_fmenu.jsx";
 import ProductionPage from "./pages/production/production_home.jsx";
@@ -104,6 +107,9 @@ class App extends Component {
        <Route exact path="/administrator/production/general/:date" component={AdminProductionPage} />
        <Route exact path="/administrator/production/invoice/:id" component={AIProductionPage} />
        <Route exact path="/administrator/finances" component={AdminFinancePage} />
+       <Route exact path="/administrator/category/view" component={CategoryView} />
+       <Route exact path="/administrator/category/update/:id" component={EditCategory} />
+       <Route exact path="/administrator/category/" component={CategoryNew} />
        <Route exact path="/administrator/finances/order" component={AdminFOrderPage}/>
        <Route exact path="/administrator/finances/inventory" component={AdminFInventoryPage} />
        <Route exact path="/administrator/finances/menu" component={AdminFMenuPage} />
