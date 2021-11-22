@@ -1377,9 +1377,24 @@ form td:last-child {
   color:#800020;
   padding:6%;
 }
+
+
+
+
+#payo{
+  /* float:right; */
+  margin-left:-25%;
+
+}
+#cash{
+  float:right;
+}
 .addi h3{
   text-align:center;
   margin-top:-8%;
+}
+.addi h5{
+  text-align:center;
 }
 
 .addi input,.addi select, .addi textarea{

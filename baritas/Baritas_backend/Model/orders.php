@@ -109,9 +109,10 @@ class orders
 
 
     public function orderbill(){
-        $query ="SELECT order_id,waiter_name,total_cost,payment_method,stats from orders where Date=:d ";
+        $query ="SELECT order_id,waiter_name,total_cost,payment_method,stats from orders where Date=:d and restaurant_id=:i ";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':d',$this->date);
+        $stmt->bindParam(':i',$this->restaurant);
         $stmt->execute();
         return $stmt;
 
@@ -125,15 +126,31 @@ class orders
 
     }
     public function orderpay(){
-        $query ="SELECT payment_method, total_cost FROM `orders` WHERE date=:d";
+        $query ="SELECT payment_method,date, sum(total_cost) as total_cost FROM `orders` WHERE date=:d group by payment_method ";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':d',$this->date);
         $stmt->execute();
         return $stmt;
 
     }
+    public function oneorders(){
+        $query ="SELECT item_id,name_of_food,quantity,amount,menu.category_id as category from order_items inner join  menu on menu.menu_id=order_items.menu_id inner join category on category.category_id=menu.category_id where order_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+        $stmt->execute();
+        return $stmt;
+
+    }
+    public function oneorder(){
+        $query ="SELECT order_id,special_notes,payment_method,Date,restaurant_name,drink_stats,waiter_name,table_id,dine_type,total_cost,sub_total,(2.5/100*total_cost) as vat from orders inner join restaurant on restaurant.restaurant_id=orders.restaurant_id where order_id=:i ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+        $stmt->execute();
+        return $stmt;
+
+    }
     public function kitchen(){
-        $query ="SELECT name_of_food,quantity,menu.category_id as category from order_items inner join  menu on menu.menu_id=order_items.menu_id inner join category on category.category_id=menu.category_id where order_id=:i";
+        $query ="SELECT item_id,ready_stats,name_of_food,quantity,menu.category_id as category from order_items inner join  menu on menu.menu_id=order_items.menu_id inner join category on category.category_id=menu.category_id where order_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->execute();
@@ -141,7 +158,7 @@ class orders
 
     }
     public function kitchens(){
-        $query ="SELECT order_id,special_notes,drink_stats from orders where restaurant_id=:r and stats='pending'";
+        $query ="SELECT order_id,special_notes,drink_stats,stats from orders where restaurant_id=:r and stats='pending'";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
@@ -149,12 +166,27 @@ class orders
 
     }
     public function kitchenc(){
-        $query ="SELECT order_id,special_notes,drink_stats from orders where restaurant_id=:r and stats='completed'";
+        $query ="SELECT order_id,special_notes,drink_stats,stats from orders where restaurant_id=:r and stats='completed'";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
         return $stmt;
 
+    }
+    public function updatekitchen(){
+        $query="UPDATE order_items SET ready_stats='1' where order_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+    
+    
+    
+    
+        if($stmt->execute()){
+            return true;
+        }
+        printf("error: %s ./n", $stmt->error);
+        return false;
+    
     }
 }
 ?>

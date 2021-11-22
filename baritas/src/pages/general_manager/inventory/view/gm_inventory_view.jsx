@@ -16,13 +16,13 @@ import "../../../../Header.css";
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import { Container, Row, Col } from 'reactstrap';
-const GMInventoryView = () => {
+const GMInventoryView = (props) => {
   const [posts, setPosts] = useState({ blogs: [] });
 
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallinventory.php'
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallreduction.php?id='+props.match.params.id
       );
       setPosts({ blogs: data.data });
       console.log(data);
@@ -47,31 +47,31 @@ const GMInventoryView = () => {
             
           </SidebarHeader>
           <SidebarContent id="menuit">
-              <div class="menuitem">
-              <Link to="/administrator/"> <button><FaList /><div> Home</div>
+          <div class="menuitem">
+              <Link to="/general_manager/"> <button><FaList /><div> Home</div>
              </button></Link>
              
               </div>
 
               <div class="menuitem c">
-              <Link to="/administrator/inventory/"> <button><FaList /><div> Inventory</div>
+              <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
              
               </div>
               <div class="menuitem">
-              <Link to="/administrator/finances/view/"> <button><FaList /><div> Finances</div>
+              <Link to="/general_manager/finances/inventory/"> <button><FaList /><div> Finances</div>
              </button></Link>
              
               </div>
               <div class="menuitem">
-              <Link to="/administrator/orders/"> <button><FaList /><div> Orders</div>
+              <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
              </button></Link>
              
               </div>
 
-            
+             
               <div class="menuitem">
-              <Link to="/administrator/production/"> <button><FaList /><div> Production</div>
+              <Link to="/general_manager/production/"> <button><FaList /><div> Production</div>
              </button></Link>
              
               </div>
@@ -81,6 +81,7 @@ const GMInventoryView = () => {
              </button></Link>
              
               </div>
+           
            
              
             
@@ -99,7 +100,7 @@ const GMInventoryView = () => {
 
 <Container id="invt">
     <Row>
-        <Link to="/administrator/inventory/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+        <Link to="/general_manager/inventory/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
     </Row>
 <Row>
 
@@ -107,10 +108,9 @@ const GMInventoryView = () => {
 <Form.Group id="forminv">
 
 <Row>
-    <Col><Form.Label>Date From</Form.Label>
+    <Col><Form.Label>Date</Form.Label>
 <Form.Control type="date" name="datefrom"  placeholder="Enter item" /></Col>
-<Col><Form.Label>Date To</Form.Label>
-<Form.Control type="date" name="dateto"  placeholder="Enter item" /></Col>
+
 </Row>
 
 
@@ -129,12 +129,9 @@ const GMInventoryView = () => {
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Product Name </th>
-            <th>Category</th>
-            <th>Unit Price</th>
-            <th>In Stock</th>
-            <th>Measurement</th>
+            <th>Date</th>
+            <th>Total Reduction </th>
+          
 
           </tr>
         </thead>
@@ -142,12 +139,10 @@ const GMInventoryView = () => {
           {posts.blogs &&
             posts.blogs.map((item) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.category}</td>
-                <td>{item.unit}</td>
-                <td>{item.in}</td>
-                <td>{item.Measure}</td>
+           
+                <td>{item.date}</td>
+                <td>{item.total}</td>
+             
                
               </tr>
             ))}

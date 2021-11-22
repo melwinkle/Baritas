@@ -96,5 +96,16 @@ class inventory
         $stmt->execute();
         return $stmt;
     }
+
+    public function reduction()
+    {
+        $query = "SELECT reduction_id,date,reduction as total from inventory_reduction where inventory_id=:i group by date";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+      
+ 
+        $stmt->execute();
+        return $stmt;
+    }
 }
 ?>

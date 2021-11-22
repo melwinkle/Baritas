@@ -1,98 +1,153 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import '../../../../App.css';
+import * as ReactBootStrap from "react-bootstrap";
+import axios from "axios";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import {
+    ProSidebar,
+    SidebarHeader,
+    SidebarContent,
+  } from "react-pro-sidebar";
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
-import {FaHome} from "react-icons/fa";
-import DataTable from '../component/DataTable';
-import data from '../Table/data';
+import {FaList,FaArrowLeft} from "react-icons/fa";
+
+
 import { Container, Row, Col } from 'reactstrap';
 
 
 /* We simply can use an array and loop and print each user */
-class AdminProductionGPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            columns: [
-              { title: "#", data: "#" },
-              { title: "Date", data: "name" },
-              { title: "Product", data: "category" },
-              { title: "Restaurant", data: "price" },
-              { title: "Quantity", data: "stock" },
-              { title: "Actions", data: "actions" },
-            ],
-            searchValue: '',
-            options: {
-                dom: 'lrtip',
-                // paging: false,
-                // scrollX: true,
-                // scrollY: '100%',
-                // scrollCollapse: false,
-                // autoWidth: false,
-                // info: false,
-            }
-        };
-        this.dataTableRef = React.createRef();
-    }
+function GProductPage (props){
+    const [posts, setPosts] = useState({ blogs: [] });
+    const id=sessionStorage.getItem("rest");
+    useEffect(() => {
+      const fetchPostList = async () => {
+        const { data } = await axios(
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproductiont.php?id='+id+'&date='+props.match.params.date
+        );
+        setPosts({ blogs: data.data });
+        console.log(data);
+      };
+      fetchPostList();
+    }, [setPosts]);
+  
+  
+          return (
+            <div class="proad">
+                        <div id="header">
+            {/* collapsed props to change menu size using menucollapse state */}
+          <ProSidebar >
+            <SidebarHeader>
+            <div className="logotext">
+                <Row>
+                    <Col><h3>Baritas:Adenta</h3></Col>
+                
+                </Row>
+                
+                
+              </div>
+              
+            </SidebarHeader>
+            <SidebarContent id="menuit">
+            <div class="menuitem">
+              <Link to="/general_manager/"> <button><FaList /><div> Home</div>
+             </button></Link>
+             
+              </div>
 
-    onChangeSearch = (e) => {
-        const { value } = e.target;
-        const searchValue = value;
-        this.setState({ searchValue });
-        this.dataTableRef.current.search(searchValue);
-    };
-  render() { 
-    const {
-        columns,
-        options,
-        searchValue
-    } = this.state;
-    return (
-        
-        <div class="proda">
-            <div class="accor">
-            <Link to="/administrator/menu/"> <Link to="/administrator/menu/"><button><FaHome/></button></Link></Link>
-                <button><FiLogOut /></button> 
-            </div>
-        
-            <div class="optprods">
-            <Container>
-                    <Row>
-                        <Col> <Link to="/administrator/production/"><button class="o1">STOCK</button></Link></Col>
-                        <Col> <Link to="/administrator/production/general"><button class="o1 ac">GENERAL</button></Link></Col>
+              <div class="menuitem">
+              <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/general_manager/finances/inventory/"> <button><FaList /><div> Finances</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
+             </button></Link>
+             
+              </div>
 
-                    </Row>
-                </Container>
-                    
-            </div>
+             
+              <div class="menuitem c">
+              <Link to="/general_manager/production/"> <button><FaList /><div> Production</div>
+             </button></Link>
+             
+              </div>
+              
+              <div class="menuitem">
+              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
+             </button></Link>
+             
+              </div>
+             
+               
+              
+               
+               
+               
+               
+              
+            </SidebarContent>
+            {/* <SidebarFooter>
+              Baritas (c)
+            </SidebarFooter> */}
+          </ProSidebar>
+        </div>
+  
             
+  <Container id="invt">
+    
+    <Row>
   
    
-            <div class="menutab">
-            <input
-                value={searchValue}
-                onChange={this.onChangeSearch}
-                autoComplete={'off'}
-                type="text"
-                placeholder="Search ..."
-                class="searchbar"
-            />
-            <DataTable
-                ref={this.dataTableRef}
-                data={data}
-                columns={columns}
-                options={options}
-            />
-          </div>
-            
-        </div>
-
+      <Form.Group id="forminv">
+  <Row>
+  <Link to="/general_manager/production/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+  </Row>
+      
+     
   
+      </Form.Group>
+  
+  
+    </Row>
+  
+   
+  <Row id="invtt">
+  
+        <ReactBootStrap.Table  bordered hover id="invtb">
+          <thead>
+            <tr>
+              <th>Invoice#</th>
+              <th>Status</th>
+              <th>Actions</th>
+         
+       
+            </tr>
+          </thead>
+          <tbody>
+            {posts.blogs &&
+              posts.blogs.map((item) => (
+                <tr key={item.transaction_id}>
+                  <td>{item.transaction_id}</td>
+                  <td>{item.Transaction_Status}</td>
+                  <td><a href={'/general_manager/production/invoice/'+item.transaction_id+'?date='+props.match.params.date}><button class="b1">View</button></a></td>
+                
+                </tr>
+              ))}
+          </tbody>
+        </ReactBootStrap.Table>
+        </Row>
+        </Container>
 
-// next
 
-  );
+        </div>
+          )
 }
-}
 
-export default AdminProductionGPage;
+export default GProductPage;

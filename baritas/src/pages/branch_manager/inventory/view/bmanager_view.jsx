@@ -16,13 +16,13 @@ import "../../../../Header.css";
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import { Container, Row, Col } from 'reactstrap';
-const BInventoryView = () => {
+const BInventoryView = (props) => {
   const [posts, setPosts] = useState({ blogs: [] });
 
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallinventory.php'
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallreduction.php?id='+props.match.params.id
       );
       setPosts({ blogs: data.data });
       console.log(data);
@@ -47,9 +47,7 @@ const BInventoryView = () => {
             
           </SidebarHeader>
           <SidebarContent id="menuit">
-              
-
-              <div class="menuitem c">
+          <div class="menuitem c">
               <Link to="/branch_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
              
@@ -64,8 +62,8 @@ const BInventoryView = () => {
              </button></Link>
              
               </div>
-
-              {/* <div class="menuitem">
+{/* 
+              <div class="menuitem">
               <Link to="/branch_manager/mainmenu/"> <button><FaList /><div> Menu</div>
              </button></Link>
              
@@ -75,13 +73,11 @@ const BInventoryView = () => {
              </button></Link>
              
               </div>
-              
               <div class="menuitem">
               <Link to="/"> <button><FiLogOut/><div> LogOut</div>
              </button></Link>
              
               </div>
-           
              
             
              
@@ -107,10 +103,9 @@ const BInventoryView = () => {
 <Form.Group id="forminv">
 
 <Row>
-    <Col><Form.Label>Date From</Form.Label>
+    <Col><Form.Label>Date</Form.Label>
 <Form.Control type="date" name="datefrom"  placeholder="Enter item" /></Col>
-<Col><Form.Label>Date To</Form.Label>
-<Form.Control type="date" name="dateto"  placeholder="Enter item" /></Col>
+
 </Row>
 
 
@@ -129,11 +124,9 @@ const BInventoryView = () => {
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
-         
-         <th>ID</th>
             <th>Date</th>
-            <th>Stock Reduction</th>
-         
+            <th>Total Reduction </th>
+          
 
           </tr>
         </thead>
@@ -141,10 +134,10 @@ const BInventoryView = () => {
           {posts.blogs &&
             posts.blogs.map((item) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.in}</td>
            
+                <td>{item.date}</td>
+                <td>{item.total}</td>
+             
                
               </tr>
             ))}

@@ -146,7 +146,7 @@ const GMInventory = () => {
                 <td>{item.in}</td>
                 <td>{item.Measure}</td>
                 <td>
-               <a class="ab1" href={'/administrator/inventory/view/' + item.id}> <button class="b1">View</button></a></td>
+               <a class="ab1" href={'/general_manager/inventory/view/'+item.id}> <button class="b1">View</button></a></td>
               </tr>
             ))}
         </tbody>

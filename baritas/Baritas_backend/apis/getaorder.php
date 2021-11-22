@@ -9,8 +9,8 @@ $database = new Database();
 $db = $database->connect();
 $invent = new orders($db);
 
-$invent->restaurant =$_GET['id'];
-$result = $invent->kitchenc();
+$invent->id =$_GET['id'];
+$result = $invent->oneorder();
 $num = $result->rowCount();
 
 if ($num > 0) {
@@ -21,17 +21,22 @@ if ($num > 0) {
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
-
         $cat_item=array(
          'order_id' => $order_id,
-            'special_notes'=>$special_notes
-           
+            'special_notes'=>$special_notes,
+            'total'=>$total_cost,
+            'sub'=>$sub_total,
+            'vat'=>$vat,
+            'date'=>$Date,
+            'table'=>$table_id,
+            'dine'=>$dine_type,
+            'restaurant'=>$restaurant_name,
+            'cashier'=>$waiter_name,
+            'pay'=>$payment_method     
         );
-        $cat_item["food"]=array();
-        $cat_item["foodc"]=array();
-        $cat_item["drink"]=array();
+        $cat_item["order"]=array();
         $invent->id=$order_id;
-        $result1=$invent->kitchen();
+        $result1=$invent->oneorders();
     
         $num1=$result1->rowCount();
         
@@ -39,38 +44,17 @@ if ($num > 0) {
    
             extract($row1);
 
-   if(($category!="3")&&($ready_stats=="0")){
+
     $cat_sing=array( 
+        'item_id'=>$item_id,
         'name_of_food'=>$name_of_food,
         'quantity'=>$quantity,
-        'category'=>$category,
-        'drinks'=>$drink_stats
+        'amount'=>$quantity,
     );
 
-    array_push($cat_item["food"],$cat_sing);
-   }
-   else if(($category!="3") &&($ready_stats=="1")){
-    $cat_sing=array( 
-        'name_of_food'=>$name_of_food,
-        'quantity'=>$quantity,
-        'category'=>$category,
-        'drinks'=>$drink_stats
-    );
-    array_push($cat_item["foodc"],$cat_sing);
-   }
-   else if(($drink_stats=="1")&&($ready_stats=="1")){
-       
-    $cat_sing=array(
-        'item_id'=>$item_id, 
-        'name_of_food'=>$name_of_food,
-        'quantity'=>$quantity,
-        'category'=>$category,
-        'drinks'=>$drink_stats
-    );
-
-    array_push($cat_item["drink"],$cat_sing);
-   }
-        
+    array_push($cat_item["order"],$cat_sing);
+   
+    
        
         }
     
@@ -78,8 +62,8 @@ if ($num > 0) {
         array_push($cat_arr['data'],$cat_item);
    
        
-    
-}
+    }
+  
    
     echo json_encode($cat_arr);
 

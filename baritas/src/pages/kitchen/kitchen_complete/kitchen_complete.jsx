@@ -80,11 +80,11 @@ const KitchenCPage = () => {
                         <Card.Body>
                            
                             <Card.Text id="barit">  
-                            {Object.keys(item.food).map((food, index) =>
+                            {Object.keys(item.foodc).map((food, index) =>
                               <Row>
                                                             
-                                                            <Col><h6>{item.food[food].name_of_food}</h6></Col>
-                                                            <Col><h4>x{item.food[food].quantity}</h4></Col>
+                                                            <Col><h6>{item.foodc[food].name_of_food}</h6></Col>
+                                                            <Col><h4>x{item.foodc[food].quantity}</h4></Col>
                                                         </Row>
 )}
                               

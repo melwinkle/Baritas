@@ -1,91 +1,174 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import "../../../../App.css";
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import {FaHome} from "react-icons/fa";
 import {BiArrowBack} from "react-icons/bi";
 import rooster from "../../../../images/IMG_8850.JPG";
-
+import {
+    ProSidebar,
+    SidebarHeader,
+    SidebarContent,
+  } from "react-pro-sidebar";
+  import * as ReactBootStrap from "react-bootstrap";
+import axios from "axios";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { Container, Row, Col } from 'reactstrap';
+import { FaList,FaStore,FaArrowLeft } from "react-icons/fa";
 
- function AdminOrderVPage (){
+ function BOrderVPage (props){
     
           
+    const [posts, setPosts] = useState({ blogs: [] });
 
+    const item=JSON.parse(sessionStorage.getItem("branchMData"));
+    const id = item.UserData.rest;
+    const [searchTerm,setSearchTerm] = useState('');
+  useEffect(() => {
+    const fetchPostList = async () => {
+      const { data } = await axios(
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/getallorderd.php?id='+id+'&date='+props.match.params.date
+      );
+      setPosts({ blogs: data.data });
+      console.log(data);
+    };
+    fetchPostList();
+  }, [setPosts]);
 
        
         return (
-          <div class="proda">
-              <div class="accorr c">
-                 <Link to="/administrator/menu/"><button><FaHome/></button></Link>
-                <button><FiLogOut /></button> 
+          <div class="proad">
+              <div id="header">
+          {/* collapsed props to change menu size using menucollapse state */}
+        <ProSidebar >
+          <SidebarHeader>
+          <div className="logotext">
+              <Row>
+                  <Col><h3>Baritas:Adenta</h3></Col>
+              
+              </Row>
+              
+              
             </div>
+            
+          </SidebarHeader>
+          <SidebarContent id="menuit">
+          <div class="menuitem">
+              <Link to="/branch_manager/inventory/"> <button><FaList /><div> Inventory</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/branch_manager/finances/"> <button><FaList /><div> Finances</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem c">
+              <Link to="/branch_manager/orders/"> <button><FaList /><div> Orders</div>
+             </button></Link>
+             
+              </div>
+{/* 
+              <div class="menuitem">
+              <Link to="/branch_manager/mainmenu/"> <button><FaList /><div> Menu</div>
+             </button></Link>
+             
+              </div> */}
+              <div class="menuitem">
+              <Link to="/branch_manager/production/"> <button><FaList /><div> Production</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
+             </button></Link>
+             
+              </div>
+           
+             
+            
+             
+             
+             
+             
+            
+          </SidebarContent>
+          {/* <SidebarFooter>
+            Baritas (c)
+          </SidebarFooter> */}
+        </ProSidebar>
+      </div>
 
           
-          <div class="back">
-             <Link to="/administrator/orders/"><button><BiArrowBack/>BACK</button></Link> 
-          </div>
+      <Container id="invt">
+  
+  <Row>
+
+ 
+    <Form.Group id="forminv">
+<Row>
+
+<Link to={"/branch_manager/orders/"}><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+
+</Row>
+    
+   
+
+    </Form.Group>
 
 
-          <div class="head">
-                <h2>ORDER#123</h2>
-                <h4>TB-S4 DINE-IN</h4>
-                </div>
-            <div class="addm c">
+  </Row>
+
+ 
+<Row id="invtt">
+
+      <ReactBootStrap.Table  bordered hover id="invtb">
+        <thead>
+          <tr>
+          <th>Order#</th>
+            <th>Waiter</th>
+            <th>Total</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Actions</th>
+     
+          </tr>
+        </thead>
+        <tbody>
+          {posts.blogs &&
+            posts.blogs.filter((item)=>{
+              if(searchTerm == ""){
+                return item;
+              }
+              else if(item.date.includes(searchTerm)){
+                return item;
+              }
+
+            }).map((item) => (
+              <tr key={item.id}>
+                    <td>{item.id}</td>
+                <td>{item.waiter}</td>
+                <td>{item.total}</td>
+                <td>{item.payment_method}</td>
+                <td>{item.status}</td>
+                <td><a href={"/branch_manager/orders/single/"+item.id}><button class="b1" >View</button></a>
                 
-
-                <div class="dt">
-                    <Container>
-                        <Row>
-                            <Col><h6 id="date">01/09/2021</h6></Col>
-                            <Col><h6 id="time">12:30:39PM</h6></Col>
-                        </Row>
-                    </Container>
-                    
-                    
-
-                </div>
-                
-                <div class="menus">
-                    <button>
-                        <Container>
-                            <Row>
-                                <Col><img src={rooster} alt="product"/></Col>
-                                <Col> <h5 id="product">Meat Spring Rolls(3)</h5>
-                    <h6 id="number">x1</h6>
-                    <h5 id="price">Ghc 15</h5></Col>
-                            </Row>
-
-
-
-                            <Row>
-                                <Col>
-                                <h6 id="paym">Payment Mode</h6>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                <label><input id="paymod" type="radio" />Cash</label>
-                                
-                                </Col>
-                            </Row>
-                        </Container>
-
-                    
-
-                   
-
-                    </button>
-
-                </div>
-            </div>
+                    </td>
+              </tr>
+            ))}
+        </tbody>
+      </ReactBootStrap.Table>
+      </Row>
+      </Container>
+          
 
           </div>
         );
     
 }
 
-export default AdminOrderVPage;
+export default BOrderVPage;
 
 
 

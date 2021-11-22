@@ -39,7 +39,7 @@ const BOrderPage =()=> {
     fetchPostList();
   }, [setPosts]);
   const [show, setShow] = useState(false);
-
+  const [searchTerm,setSearchTerm] = useState('');
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -117,7 +117,7 @@ const BOrderPage =()=> {
 <Form.Label>Order Date</Form.Label> 
   <Col>
 
-    <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
+    <Form.Control type="date" name="inventory"  placeholder="Enter item" onChange={event =>{setSearchTerm(event.target.value)}} /></Col>
     <Col> <Button id="searchb"> Search</Button></Col>
 </Row>
     
@@ -131,92 +131,35 @@ const BOrderPage =()=> {
  
 <Row id="invtt">
 
-      <ReactBootStrap.Table  bordered hover id="invtb">
+<ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
-            <th>Order#</th>
             <th>Date </th>
-            <th>Waiter</th>
-            <th>Bill</th>
-            <th>Payment</th>
-            <th>Status</th>
+            <th>Total Orders</th>
+            <th>Total Income</th>
             <th>Actions</th>
      
           </tr>
         </thead>
         <tbody>
           {posts.blogs &&
-            posts.blogs.map((item) => (
+            posts.blogs.filter((item)=>{
+              if(searchTerm == ""){
+                return item;
+              }
+              else if(item.date.includes(searchTerm)){
+                return item;
+              }
+
+            }).map((item) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
                 <td>{item.date}</td>
-                <td>{item.server}</td>
-                <td>{item.cost}</td>
-                <td>{item.pay}</td>
-                <td>{item.status}</td>
-                <td><button class="b1" onClick={handleShow}>View</button>
-                <Modal show={show} onHide={handleClose} id="mods">
-                                <Modal.Header closeButton>
-                                <Modal.Title>Order #{item.id}-Cash</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body >
-                                    <Row>
-                                        <Col>{item.date}</Col>
-                                        <Col>12:03:39pm</Col>
-                                    </Row>
-                                    <Row>
-                                        <ReactBootStrap.Card id="order">
-                                            <ReactBootStrap.Card.Text >
-                                              <Row>
-                                                <Col>1x  Meat Spring Rolls(3)</Col>
-                                            
-                                                <Col> Ghc 15.00</Col>
-                                              </Row>
-                                             
-                                             
-                                            </ReactBootStrap.Card.Text>
-                                        </ReactBootStrap.Card>
-                                    </Row>
-                                    <Row>
-                                    <ReactBootStrap.Card id="order">
-                                            <ReactBootStrap.Card.Text >
-                                              <Row>
-                                                <Col>1x  Meat Spring Rolls(3)</Col>
-                                            
-                                                <Col> Ghc 15.00</Col>
-                                              </Row>
-                                             
-                                             
-                                            </ReactBootStrap.Card.Text>
-                                        </ReactBootStrap.Card>
-                                    </Row>
-                                    
-
-
-                                    <Row id="fut">
-                                      <hr/>
-                                    <Row >
-                                           <Col><h6>Sub-Total</h6></Col>
-                                           <Col id="val">400.00</Col>
-                                           
-                                       </Row>
-                                       <Row>
-                                           <Col><h6>VAT(2.5%)</h6></Col>
-                                           <Col  id="val">40.00</Col>
-                                           
-                                       </Row>
-
-                                       <Row>
-                                           <Col><h6>Total</h6></Col>
-                                           <Col id="val">{item.cost}</Col>
-                                           
-                                       </Row>
-
-                                    </Row>
-                                    </Modal.Body>
-                               
-                            </Modal>
-                    {/* <a href={'/administrator/orders/view/' + item.id}> <button class="b1">View</button></a> */}
+                <td>{item.count}</td>
+                <td>{item.total}</td>
+          
+        
+                <td><a  href={"/branch_manager/orders/view/"+item.date}><button class="b1">View</button></a>
+                
                     </td>
               </tr>
             ))}

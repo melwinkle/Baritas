@@ -64,7 +64,7 @@ const GMOrderPage =()=> {
              
               </div>
 
-              <div class="menuitem c">
+              <div class="menuitem">
               <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
              
@@ -74,7 +74,7 @@ const GMOrderPage =()=> {
              </button></Link>
              
               </div>
-              <div class="menuitem">
+              <div class="menuitem c">
               <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
              </button></Link>
              
@@ -135,12 +135,10 @@ const GMOrderPage =()=> {
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
-            <th>Order#</th>
+          
             <th>Date </th>
-            <th>Waiter</th>
-            <th>Bill</th>
-            <th>Payment</th>
-            <th>Status</th>
+           <th>Total Orders</th>
+           <th>Total Income</th>
             <th>Actions</th>
      
           </tr>
@@ -148,76 +146,14 @@ const GMOrderPage =()=> {
         <tbody>
           {posts.blogs &&
             posts.blogs.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
+              <tr key={item.date}>
+              
                 <td>{item.date}</td>
-                <td>{item.server}</td>
-                <td>{item.cost}</td>
-                <td>{item.pay}</td>
-                <td>{item.status}</td>
-                <td><button class="b1" onClick={handleShow}>View</button>
-                <Modal show={show} onHide={handleClose} id="mods">
-                                <Modal.Header closeButton>
-                                <Modal.Title>Order #{item.id}-Cash</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body >
-                                    <Row>
-                                        <Col>{item.date}</Col>
-                                        <Col>12:03:39pm</Col>
-                                    </Row>
-                                    <Row>
-                                        <ReactBootStrap.Card id="order">
-                                            <ReactBootStrap.Card.Text >
-                                              <Row>
-                                                <Col>1x  Meat Spring Rolls(3)</Col>
-                                            
-                                                <Col> Ghc 15.00</Col>
-                                              </Row>
-                                             
-                                             
-                                            </ReactBootStrap.Card.Text>
-                                        </ReactBootStrap.Card>
-                                    </Row>
-                                    <Row>
-                                    <ReactBootStrap.Card id="order">
-                                            <ReactBootStrap.Card.Text >
-                                              <Row>
-                                                <Col>1x  Meat Spring Rolls(3)</Col>
-                                            
-                                                <Col> Ghc 15.00</Col>
-                                              </Row>
-                                             
-                                             
-                                            </ReactBootStrap.Card.Text>
-                                        </ReactBootStrap.Card>
-                                    </Row>
-                                    
-
-
-                                    <Row id="fut">
-                                      <hr/>
-                                    <Row >
-                                           <Col><h6>Sub-Total</h6></Col>
-                                           <Col id="val">400.00</Col>
-                                           
-                                       </Row>
-                                       <Row>
-                                           <Col><h6>VAT(2.5%)</h6></Col>
-                                           <Col  id="val">40.00</Col>
-                                           
-                                       </Row>
-
-                                       <Row>
-                                           <Col><h6>Total</h6></Col>
-                                           <Col id="val">{item.cost}</Col>
-                                           
-                                       </Row>
-
-                                    </Row>
-                                    </Modal.Body>
-                               
-                            </Modal>
-                    {/* <a href={'/administrator/orders/view/' + item.id}> <button class="b1">View</button></a> */}
+               <td>{item.count}</td>
+               <td>{item.total}</td>
+                <td>
+              
+                    <a href={'/general_manager/orders/view/' + item.date}> <button class="b1">View</button></a>
                     </td>
               </tr>
             ))}

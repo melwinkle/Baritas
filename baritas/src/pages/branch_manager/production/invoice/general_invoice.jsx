@@ -1,37 +1,35 @@
 import React,{ useEffect, useState } from "react";
-import '../../../App.css';
-import { Link } from 'react-router-dom';
-import {FiLogOut} from "react-icons/fi";
-import {FaList} from "react-icons/fa";
-import DataTable from '../orders/component/DataTable';
-import data from '../orders/Table/data';
-import { Container, Row, Col } from 'reactstrap';
+import '../../../../App.css';
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Modal from "react-bootstrap/Modal";
 import {
     ProSidebar,
     SidebarHeader,
     SidebarContent,
   } from "react-pro-sidebar";
+import { Link,useLocation } from 'react-router-dom';
+import {FiLogOut} from "react-icons/fi";
+import {FaList,FaArrowLeft} from "react-icons/fa";
 
-import CanvasJSReact from "../../../canvasjs-3.4.5/canvasjs.react";
 
+import { Container, Row, Col } from 'reactstrap';
+// get data fron the procution folder 
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 /* We simply can use an array and loop and print each user */
-const BranchFinancePage =()=>{
+const BInvoicePage =(props)=> {
     
-   
+  let query = useQuery();
+
     const [posts, setPosts] = useState({ blogs: [] });
-    const item=JSON.parse(sessionStorage.getItem("branchMData"));
-    const id = item.UserData.rest;
-    const [points,setPoints]=useState();
 
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchfinance.php?id='+id
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/getatransaction.php?id='+props.match.params.id
         );
         setPosts({ blogs: data.data });
         console.log(data);
@@ -40,42 +38,6 @@ const BranchFinancePage =()=>{
     }, [setPosts]);
   
   
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    function onclick(){
-      console.log(it);
-    }
-    async function doit(btn){
-      const { data } = await axios(
-           'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchpay.php?id='+btn
-         );
-         setPoints(data.data);
-         console.log(data.data);
-     
-         setShow(true);
-      
-     }
-
-    const options = {
-			exportEnabled: true,
-			animationEnabled: true,
-			// title: {
-			// 	text: "Financial Breakdown"
-			// },
-			data: [{
-				type: "pie",
-				startAngle: 75,
-				toolTipContent: "<b>{label}</b>: Ghc{y}",
-				showInLegend: "true",
-				legendText: "{label}",
-				indexLabelFontSize: 16,
-				indexLabel: "{label} - Ghc{y}",
-				dataPoints: points
-			}]
-		}
           return (
             <div class="proad">
                         <div id="header">
@@ -98,12 +60,12 @@ const BranchFinancePage =()=>{
              </button></Link>
              
               </div>
-              <div class="menuitem c">
+              <div class="menuitem">
               <Link to="/branch_manager/finances/"> <button><FaList /><div> Finances</div>
              </button></Link>
              
               </div>
-              <div class="menuitem">
+              <div class="menuitem c">
               <Link to="/branch_manager/orders/"> <button><FaList /><div> Orders</div>
              </button></Link>
              
@@ -124,6 +86,7 @@ const BranchFinancePage =()=>{
              </button></Link>
              
               </div>
+           
              
                
               
@@ -147,11 +110,7 @@ const BranchFinancePage =()=>{
    
       <Form.Group id="forminv">
   <Row>
-  <Form.Label>Sales Date</Form.Label> 
-    <Col>
-  
-      <Form.Control type="text" name="inventory"  placeholder="Enter item" /></Col>
-      <Col> <Button id="searchb" onClick={onclick}> Search</Button></Col>
+  <Link to={"/branch_manager/production/general/"+query.get("date")}><Button id="backh"><FaArrowLeft/>Back</Button></Link>
   </Row>
       
      
@@ -167,11 +126,10 @@ const BranchFinancePage =()=>{
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
             <tr>
-            
-              <th>Date </th>
-              <th>Total Income</th>
-              <th>Actions</th>
-        
+              <th>ID#</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              
          
        
             </tr>
@@ -179,33 +137,19 @@ const BranchFinancePage =()=>{
           <tbody>
             {posts.blogs &&
               posts.blogs.map((item) => (
-                <tr key={item.id}>
-           
-                  <td>{item.date}</td>
-                  <td>{item.bill}</td>
-                  <td>
-                  <button class="b1" onClick={doit.bind(this,item.date)}>View</button>
-                  <Modal id="chart" show={show} onHide={handleClose}>
-                                <Modal.Header closeButton>
-                                <Modal.Title>{item.date} Financial Breakdown</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                  <CanvasJSReact.CanvasJSChart  options = {options}/>
-                                  </Modal.Body>
-                                <Modal.Footer>
-                               
-                                </Modal.Footer>
-                            </Modal>
-                      {/* <a href={'/administrator/finances/view/' + item.id}> <button class="b1">View</button></a> */}
-                      </td>
-                 
+                 Object.keys(item.inputList).map((products, i) =>
+                <tr key={item.inputList[products].production_trans_id}>
+                  <td>{item.inputList[products].production_trans_id}</td>
+                  <td>{item.inputList[products].product_name}</td>
+                  <td>{item.inputList[products].quantity}</td>
                 
+               
                 </tr>
+                )
               ))}
           </tbody>
         </ReactBootStrap.Table>
         </Row>
-     
         </Container>
             
            
@@ -214,4 +158,4 @@ const BranchFinancePage =()=>{
           );
 }
 
-export default BranchFinancePage;
+export default BInvoicePage;

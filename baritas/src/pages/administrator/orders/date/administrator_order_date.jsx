@@ -30,7 +30,7 @@ const AdminOrderPage =(props)=> {
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/getallorderd.php?date='+props.match.params.date
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/getallorderd.php?id='+id+'&date='+props.match.params.date
       );
       setPosts({ blogs: data.data });
       console.log(data);
@@ -220,7 +220,7 @@ const AdminOrderPage =(props)=> {
                 <td>{item.total}</td>
                 <td>{item.payment_method}</td>
                 <td>{item.status}</td>
-                <td><button class="b1" >View</button>
+                <td><a href={"/administrator/orders/view/"+item.id}><button class="b1" >View</button></a>
                 
                     </td>
               </tr>

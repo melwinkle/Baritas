@@ -112,9 +112,10 @@ class production
     }
 
     public function allptransact(){
-        $query="SELECT production_transaction.transaction_id,production_transaction.Transaction_Status,Date,restaurant_name from production_transaction inner join restaurant on restaurant.restaurant_id=production_transaction.restaurant_id where Date=:d";
+        $query="SELECT production_transaction.transaction_id,production_transaction.Transaction_Status,Date,restaurant_name from production_transaction inner join restaurant on restaurant.restaurant_id=production_transaction.restaurant_id where Date=:d and restaurant_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':d',$this->date);
+        $stmt->bindParam(':i',$this->restaurant);
         $stmt->execute();
         return $stmt;
     }

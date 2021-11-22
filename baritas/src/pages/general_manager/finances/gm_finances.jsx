@@ -59,7 +59,7 @@ const GMFinancePage =()=>{
 			exportEnabled: true,
 			animationEnabled: true,
 			// title: {
-			// 	text: "Financial Breakdown"
+			// 	text: " Financial Breakdown"
 			// },
 			data: [{
 				type: "pie",
@@ -67,7 +67,7 @@ const GMFinancePage =()=>{
 				toolTipContent: "<b>{label}</b>: Ghc{y}",
 				showInLegend: "true",
 				legendText: "{label}",
-				indexLabelFontSize: 16,
+				indexLabelFontSize: 14,
 				indexLabel: "{label} - Ghc{y}",
 				dataPoints: points
 			}]

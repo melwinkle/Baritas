@@ -19,7 +19,7 @@ import {FaHome,FaBell,FaStoreAlt,FaArrowLeft,FaList} from "react-icons/fa";
 import Badge from 'react-bootstrap/Badge';
 
 
-function AOrderViewPage(props){
+function GOrderViewPage(props){
  
 
   const [posts, setPosts] = useState({ blogs: [] });
@@ -58,34 +58,30 @@ function AOrderViewPage(props){
           </SidebarHeader>
           <SidebarContent id="menuit">
           <div class="menuitem">
-              <Link to="/administrator/"> <button><FaList /><div> Home</div>
+              <Link to="/general_manager/"> <button><FaList /><div> Home</div>
              </button></Link>
              
               </div>
 
               <div class="menuitem">
-              <Link to="/administrator/inventory/"> <button><FaList /><div> Inventory</div>
+              <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
              
               </div>
               <div class="menuitem">
-              <Link to="/administrator/finances/"> <button><FaList /><div> Finances</div>
+              <Link to="/general_manager/finances/inventory/"> <button><FaList /><div> Finances</div>
              </button></Link>
              
               </div>
               <div class="menuitem c">
-              <Link to="/administrator/orders/"> <button><FaList /><div> Orders</div>
+              <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
              </button></Link>
              
               </div>
 
-              <div class="menuitem">
-              <Link to="/administrator/mainmenu/"> <button><FaList /><div> Menu</div>
-             </button></Link>
              
-              </div>
               <div class="menuitem">
-              <Link to="/administrator/production/"> <button><FaList /><div> Production</div>
+              <Link to="/general_manager/production/"> <button><FaList /><div> Production</div>
              </button></Link>
              
               </div>
@@ -95,6 +91,10 @@ function AOrderViewPage(props){
              </button></Link>
              
               </div>
+             
+            
+             
+             
              
              
             
@@ -109,7 +109,7 @@ function AOrderViewPage(props){
             <Container id="invt">
          
             <Row>
-        <Link to={"/administrator/orders/date/"+item.date}><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+        <Link to={"/general_manager/orders/view/"+item.date}><Button id="backh"><FaArrowLeft/>Back</Button></Link>
     </Row>
    
 
@@ -225,7 +225,7 @@ function AOrderViewPage(props){
       document.body.removeChild(fileDownload);
    }
 
-export default AOrderViewPage;
+export default GOrderViewPage;
 
 
 

@@ -21,13 +21,13 @@ import { Container, Row, Col } from 'reactstrap';
 const AdminProductionPage =(props)=> {
     
   
-
+  const id=sessionStorage.getItem("rest");
     const [posts, setPosts] = useState({ blogs: [] });
 
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproductiont.php?date='+props.match.params.date
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproductiont.php?id='+id+'&date='+props.match.params.date
         );
         setPosts({ blogs: data.data });
         console.log(data);

@@ -19,7 +19,7 @@ import {FaHome,FaBell,FaStoreAlt,FaArrowLeft,FaList} from "react-icons/fa";
 import Badge from 'react-bootstrap/Badge';
 
 
-function AOrderViewPage(props){
+function BOrderViewPage(props){
  
 
   const [posts, setPosts] = useState({ blogs: [] });
@@ -58,43 +58,41 @@ function AOrderViewPage(props){
           </SidebarHeader>
           <SidebarContent id="menuit">
           <div class="menuitem">
-              <Link to="/administrator/"> <button><FaList /><div> Home</div>
-             </button></Link>
-             
-              </div>
-
-              <div class="menuitem">
-              <Link to="/administrator/inventory/"> <button><FaList /><div> Inventory</div>
+              <Link to="/branch_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
              
               </div>
               <div class="menuitem">
-              <Link to="/administrator/finances/"> <button><FaList /><div> Finances</div>
+              <Link to="/branch_manager/finances/"> <button><FaList /><div> Finances</div>
              </button></Link>
              
               </div>
               <div class="menuitem c">
-              <Link to="/administrator/orders/"> <button><FaList /><div> Orders</div>
+              <Link to="/branch_manager/orders/"> <button><FaList /><div> Orders</div>
              </button></Link>
              
               </div>
-
+{/* 
               <div class="menuitem">
-              <Link to="/administrator/mainmenu/"> <button><FaList /><div> Menu</div>
+              <Link to="/branch_manager/mainmenu/"> <button><FaList /><div> Menu</div>
              </button></Link>
              
-              </div>
+              </div> */}
               <div class="menuitem">
-              <Link to="/administrator/production/"> <button><FaList /><div> Production</div>
+              <Link to="/branch_manager/production/"> <button><FaList /><div> Production</div>
              </button></Link>
              
               </div>
-              
               <div class="menuitem">
               <Link to="/"> <button><FiLogOut/><div> LogOut</div>
              </button></Link>
              
               </div>
+           
+             
+            
+             
+             
              
              
             
@@ -109,13 +107,13 @@ function AOrderViewPage(props){
             <Container id="invt">
          
             <Row>
-        <Link to={"/administrator/orders/date/"+item.date}><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+        <Link to={"/branch_manager/orders/view/"+item.date}><Button id="backh"><FaArrowLeft/>Back</Button></Link>
     </Row>
    
 
                 <Row id="invtr">
                 <div class="addi c" id="source-html">
-                <h3>Baritas {item.restaurant}</h3>
+                {/* <h3>Baritas {item.restaurant}</h3> */}
          <h3>#{item.order_id}</h3>
     
          <Container>
@@ -225,7 +223,7 @@ function AOrderViewPage(props){
       document.body.removeChild(fileDownload);
    }
 
-export default AOrderViewPage;
+export default BOrderViewPage;
 
 
 

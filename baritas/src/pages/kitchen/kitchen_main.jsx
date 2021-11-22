@@ -37,7 +37,9 @@ const KitchenPage = () => {
   
 
    
- 
+ const update_order=(it)=>{
+  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatekitchen.php?id='+it)
+ }
 
   return (
       <div class="order">
@@ -94,11 +96,12 @@ const KitchenPage = () => {
                                
                                <p>{item.special_notes}</p>
                            </Card.Text>
+                           
 
                            <Row>
                                 
                               
-                                <Link to="/cashier/kitchen_view/">  <Button id="yes" ><FaCheckCircle/></Button></Link>
+                                <Link><Button id="yes"  ><FaCheckCircle/></Button></Link>
                                 </Row>
                         </Card.Body>
                         

@@ -16,13 +16,13 @@ import "../../../../Header.css";
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import { Container, Row, Col } from 'reactstrap';
-const InventoryView = () => {
+const InventoryView = (props) => {
   const [posts, setPosts] = useState({ blogs: [] });
 
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallinventory.php'
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallreduction.php?id='+props.match.params.id
       );
       setPosts({ blogs: data.data });
       console.log(data);
@@ -59,7 +59,7 @@ const InventoryView = () => {
              
               </div>
               <div class="menuitem">
-              <Link to="/administrator/finances/"> <button><FaList /><div> Finances</div>
+              <Link to="/administrator/finances/view/"> <button><FaList /><div> Finances</div>
              </button></Link>
              
               </div>
@@ -69,11 +69,7 @@ const InventoryView = () => {
              
               </div>
 
-              <div class="menuitem">
-              <Link to="/administrator/mainmenu/"> <button><FaList /><div> Menu</div>
-             </button></Link>
-             
-              </div>
+            
               <div class="menuitem">
               <Link to="/administrator/production/"> <button><FaList /><div> Production</div>
              </button></Link>
@@ -111,10 +107,9 @@ const InventoryView = () => {
 <Form.Group id="forminv">
 
 <Row>
-    <Col><Form.Label>Date From</Form.Label>
+    <Col><Form.Label>Date</Form.Label>
 <Form.Control type="date" name="datefrom"  placeholder="Enter item" /></Col>
-<Col><Form.Label>Date To</Form.Label>
-<Form.Control type="date" name="dateto"  placeholder="Enter item" /></Col>
+
 </Row>
 
 
@@ -133,12 +128,9 @@ const InventoryView = () => {
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Product Name </th>
-            <th>Category</th>
-            <th>Unit Price</th>
-            <th>In Stock</th>
-            <th>Measurement</th>
+            <th>Date</th>
+            <th>Total Reduction </th>
+          
 
           </tr>
         </thead>
@@ -146,12 +138,10 @@ const InventoryView = () => {
           {posts.blogs &&
             posts.blogs.map((item) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.category}</td>
-                <td>{item.unit}</td>
-                <td>{item.in}</td>
-                <td>{item.Measure}</td>
+           
+                <td>{item.date}</td>
+                <td>{item.total}</td>
+             
                
               </tr>
             ))}

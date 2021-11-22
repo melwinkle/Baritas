@@ -13,6 +13,7 @@ $order = new production($db);
 
 
 $order->date =$_GET['date'];
+$order->restaurant =$_GET['id'];
 $result = $order->alltransact();
 
 

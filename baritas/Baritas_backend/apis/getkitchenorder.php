@@ -37,19 +37,31 @@ if ($num > 0) {
    
             extract($row1);
 
-   if($category!="3"){
+   if(($category!="3")&&(($ready_stats=="0")||($ready_stats=="1"))){
     $cat_sing=array( 
         'name_of_food'=>$name_of_food,
         'quantity'=>$quantity,
         'category'=>$category,
-        'drinks'=>$drink_stats
+        'drinks'=>$drink_stats,
+        'ready'=>$ready_stats
     );
 
     array_push($cat_item["food"],$cat_sing);
    }
-   else if($drink_stats=="0"){
-       
+   else if(($category!="3") &&($ready_stats=="1")){
     $cat_sing=array( 
+        'name_of_food'=>$name_of_food,
+        'quantity'=>$quantity,
+        'category'=>$category,
+        'drinks'=>$drink_stats,
+        'ready'=>$ready_stats
+    );
+    array_push($cat_item["foodc"],$cat_sing);
+   }
+   else if(($drink_stats=="0") && ($ready_stats=="0")){
+       
+    $cat_sing=array(
+        'item_id'=>$item_id, 
         'name_of_food'=>$name_of_food,
         'quantity'=>$quantity,
         'category'=>$category,

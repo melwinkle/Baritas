@@ -30,7 +30,7 @@ const BProductionPage =()=> {
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/getallorders.php'
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchalltransactions.php?id='+id
         );
         setPosts({ blogs: data.data });
         console.log(data);
@@ -127,13 +127,13 @@ const BProductionPage =()=> {
   <Row id="invtt">
   
         <ReactBootStrap.Table  bordered hover id="invtb">
-          <thead>
+        <thead>
             <tr>
-              <th>Transaction#</th>
-              <th>Date </th>
-              <th>Product</th>
-              <th>Quantity</th>
-              <th>Status</th>
+             
+            <th>Date </th>
+             
+             <th>Total Transactions</th>
+             <th>Actions</th>
          
        
             </tr>
@@ -141,14 +141,14 @@ const BProductionPage =()=> {
           <tbody>
             {posts.blogs &&
               posts.blogs.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.id}</td>
-                  <td>{item.date}</td>
-                  <td>{item.server}</td>
-                  <td>{item.cost}</td>
-                  <td>{item.status}</td>
-                
-                </tr>
+                <tr key={item.transaction_id}>
+                 
+                <td>{item.date}</td>
+              
+                <td>{item.total}</td>
+                <td><a href={"/branch_manager/production/general/"+item.date}><button class="b1">View</button></a></td>
+              
+              </tr>
               ))}
           </tbody>
         </ReactBootStrap.Table>
