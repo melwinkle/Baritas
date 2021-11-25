@@ -38,6 +38,7 @@ import AdminProductionPage from "./pages/administrator/production/general/admini
 import AdminFinancePage from "./pages/administrator/finances/administrator_finances.jsx";
 import AdminFOrderPage from "./pages/administrator/finances/order/administrator_forders.jsx";
 import CategoryView from "./pages/administrator/category/view/category_view.jsx";
+import Employee from "./pages/administrator/employee/admin_employee.jsx";
 import CategoryNew from "./pages/administrator/category/category_add.jsx";
 import EditCategory from "./pages/administrator/category/update/category_update.jsx";
 import AdminFInventoryPage from "./pages/administrator/finances/inventory/administrator_finventory.jsx";
@@ -113,6 +114,7 @@ class App extends Component {
        <Route exact path="/administrator/finances/order" component={AdminFOrderPage}/>
        <Route exact path="/administrator/finances/inventory" component={AdminFInventoryPage} />
        <Route exact path="/administrator/finances/menu" component={AdminFMenuPage} />
+       <Route exact path="/administrator/employee/" component={Employee} />
        <Route exact path="/production" component={ProductionPage} />
        <Route exact path="/production/update/:id" component={ProductionUPage} />
        <Route exact path="/production/new" component={ProductionNPage} />
