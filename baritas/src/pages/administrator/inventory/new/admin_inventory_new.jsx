@@ -96,7 +96,11 @@ class InventoryNPage extends React.Component {
              </button></Link>
              
               </div>
-
+              <div class="menuitem">
+              <Link to="/administrator/employee/"> <button><FaList /><div> Employee</div>
+             </button></Link>
+             
+              </div>
               <div class="menuitem c">
               <Link to="/administrator/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
@@ -159,21 +163,11 @@ class InventoryNPage extends React.Component {
                <input type="text" placeholder="Product" name="product" onChange={this.onChange}/></Col>
                    </Row>
                    <Row>
-                       <Col><label>Category</label>
-                       <select name="category" onChange={this.onChange}>
-                           <option value="">--Select a category--</option>
-                           <option value="Fresh Food">Fresh Food</option>
-                           <option value="Hot/Spicy">Hot&Spicy</option>
-                           <option value="Hot/Spicy">Hot&Spicy</option>
-                           <option value="Hot/Spicy">Hot&Spicy</option>
-                       </select>
-               </Col>
+                     
                <Col>
                <label>Unit Cost Price</label>
                <input type="number" placeholder="Cost Price" name="unitcost" onChange={this.onChange} /></Col>
-                   </Row>
-                   <Row>
-                       <Col><label>Unit of Measurement</label>
+               <Col><label>Unit of Measurement</label>
                        <select name="unitmeasure" onChange={this.onChange}>
                            <option value="">--Select a unit of measurement--</option>
                            <option value="kg">Kilograms(Kg)</option>
@@ -183,15 +177,17 @@ class InventoryNPage extends React.Component {
                            <option value="bags">bags</option>  
                        </select>
                </Col>
+                   </Row>
+                   <Row>
+                     
                <Col>
                <label>In Stock</label>
                <input type="number" placeholder="In stock" name="in_stock" onChange={this.onChange}/></Col>
-                   </Row>
-                   <Row>
-                   <Col>
+               <Col>
                <label>Stock Limit</label>
                <input type="number" placeholder="Stock limit" name="limit" onChange={this.onChange}/></Col>
-                       </Row>
+                   </Row>
+                  
                    <Row><button onClick={this.add}>Add</button></Row>   
                </Container>  
            </form>

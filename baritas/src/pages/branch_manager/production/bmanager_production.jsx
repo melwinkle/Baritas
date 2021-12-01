@@ -38,7 +38,8 @@ const BProductionPage =()=> {
       fetchPostList();
     }, [setPosts]);
   
-  
+    
+     
           return (
             <div class="proad">
                         <div id="header">
@@ -56,6 +57,11 @@ const BProductionPage =()=> {
               
             </SidebarHeader>
             <SidebarContent id="menuit">
+            <div class="menuitem">
+              <Link to="/branch_manager/employee/"> <button><FaList /><div> Employee</div>
+             </button></Link>
+             
+              </div>
             <div class="menuitem">
               <Link to="/branch_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
@@ -146,7 +152,8 @@ const BProductionPage =()=> {
                 <td>{item.date}</td>
               
                 <td>{item.total}</td>
-                <td><a href={"/branch_manager/production/general/"+item.date}><button class="b1">View</button></a></td>
+                <td><a href={"/branch_manager/production/general/"+item.date}><button class="b1">View</button></a>
+             </td>
               
               </tr>
               ))}

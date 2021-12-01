@@ -104,7 +104,24 @@ justify-content: center;
 #nab{
   width:111.6%;
   margin-left:-6%;
+  height:2.2em;
 }
+
+
+#opc{
+  height:25em;
+  width:80%;
+  background:white;
+  border-radius:5px;
+  color:#800020;
+
+}
+
+
+#odc{
+  margin-left:3%;
+}
+
 
 .proad{
   background-color: #9A4258;
@@ -857,7 +874,92 @@ justify-content: center;
   border-radius:10px;
 
 }
+#bare{
+  margin-top:3%;
+  margin-left: 20%;
+}
 
+#rbare #bcard{
+  width:70%;
+}
+#cashier{
+  margin-top:3%;
+ 
+}
+#cashier #backh{
+  width:30%;
+  height:3em;
+  margin-left:-1%;
+
+}
+#activ{
+  background:#800020;
+  border-radius: 5px 0px 0px 5px;
+  text-align:center;
+}
+#activ a{
+  text-decoration: none;
+  color:white;
+}
+
+#activs{
+  background:grey;
+  border-radius: 5px 0px 0px 5px;
+  text-align:center;
+}
+#activs a{
+  text-decoration: none;
+  color:white;
+}
+#complit{
+  background:grey;
+  border-radius: 0px 5px 5px 0px;
+  text-align:center;
+}
+#complit a{
+  text-decoration: none;
+  color:white;
+}
+#complits{
+  background:#800020;
+  border-radius: 0px 5px 5px 0px;
+  text-align:center;
+  color:white;
+}
+#complits a{
+  text-decoration: none;
+ 
+}
+#opct{
+  margin-left: -0.2%;
+  margin-top:1%;
+  margin-bottom:2%;
+  width:100%;
+}
+#opc #order{
+  width:100%;
+  background-color:white;
+  border:1px solid #800020;
+  color:#800020;
+}
+#opc #orderi{
+  float:left;
+margin-left:-5%;
+}
+#opc #orderd{
+  float:right;
+  margin-left:45%;
+}
+#rbare button{
+  background-color:#098413;
+  margin-left: 40%;
+  color: white;
+  border-radius:5px;
+  border:none;
+  width:30%;
+  height:4em;
+
+}
 #bar{
   margin-top:3%;
 }
@@ -883,8 +985,56 @@ justify-content: center;
   fill: #069337;
 }
 
+#details{
+  text-align: center;
+  margin-bottom:1%;
+}
+
+#tableod{
+  width:100%;
+  margin-left: -0.5%;
+}
+#tableod table{
+  border:none;
+  height:4em;
+  overflow-y: scroll;
+}
+
+#tableod td{
+  color:#800020;
+}
 
 
+#odc input{
+  border:1px solid #800020;
+  width:90%;
+  margin-left:2%;
+  border-radius: 5px;
+  margin-bottom:2%;
+}
+#odc .card-header,#odc .card-footer{
+  background:none;
+  color:#800020;
+}
+#co{
+  margin-bottom:2%;
+}
+#odcf button{
+  width:80%;
+  height:3em;
+  border:none;
+  margin-right: 10%;
+  margin-top:1%;
+}
+#odcf #b1{
+  background:#800020;
+}
+#odcf #b2{
+  background:orange;
+}
+#odcf #b3{
+  background:#098413;
+}
 .pstore{
   width: 100%;
   padding:5%;
@@ -961,6 +1111,12 @@ th{
   margin-left:-2%;
 
 } */
+
+#tableod .tod th{
+  background-color: white;
+  color:#800020;
+
+}
 #mods #order{
   background-color: #800020;
   color:white;
@@ -986,6 +1142,7 @@ th{
 }
 .ab1{
   text-decoration: none;
+  margin-left:1%;
 }
 .b1 a{
   color:white;
@@ -1378,6 +1535,13 @@ form td:last-child {
   padding:6%;
 }
 
+.b4{
+  background:green;
+  border-radius: 5px;
+  border:none;
+  color:white;
+}
+
 
 #adds button{
   width:90%;
@@ -1504,6 +1668,14 @@ form td:last-child {
   width:70%;
   background-color:#800020;
   border:none;
+}
+
+#dinvs{
+  width:50%;
+  background-color:#098413;
+  border:none;
+  margin-left: 20%;
+  height:4em;
 }
 .addm img{
   border-radius: 60%;

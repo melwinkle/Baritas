@@ -48,6 +48,11 @@ const BInventoryView = (props) => {
           </SidebarHeader>
           <SidebarContent id="menuit">
           <div class="menuitem c">
+          <div class="menuitem c">
+              <Link to="/branch_manager/employee/"> <button><FaList /><div> Employee</div>
+             </button></Link>
+             
+              </div>
               <Link to="/branch_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
              

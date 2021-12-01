@@ -23,7 +23,6 @@ if ($num > 0) {
         $cat_item = array(
             'id' => $product_id,
             'name'=>$product_name,
-            'category'=>$category,
             'unit'=>$Unit_price,
             'in'=>$in_stock,
             'Measure' => $Measurement,

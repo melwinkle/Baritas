@@ -8,7 +8,10 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainPage from "./index.jsx";
-import UsersPage from "./pages/cashier/process_order.jsx";
+import CashierOrders from "./pages/cashier/order_main/cashier_main.jsx";
+import CashierOrdersC from "./pages/cashier/order_complete/cashier_complete.jsx";
+import CashierNew from "./pages/cashier/new/cashier_new.jsx";
+import UsersPage from "./pages/cashier/orders/process_order.jsx";
 import TablePage from "./pages/cashier/table/table_map.jsx";
 import TakeawayPage from "./pages/cashier/takeaway/takeaway_order.jsx";
 import WaiterPage from "./pages/cashier/waiter/waiter.jsx";
@@ -17,8 +20,10 @@ import MenuPage from "./pages/cashier/menu/menu_select/menu_main.jsx";
 import OrderPage from "./pages/cashier/kitchen_view/order_main.jsx";
 import OrderCPage from "./pages/cashier/kitchen_view/kitchen_complete/order_complete.jsx";
 import BarPage from "./pages/bar/bar_main.jsx";
+import BarVPage from "./pages/bar/view/bar_single.jsx";
 import BarCPage from "./pages/bar/bar_complete/bar_complete.jsx";
 import KitchenPage from "./pages/kitchen/kitchen_main.jsx";
+import KitchenVPage from "./pages/kitchen/single/kitchen_view.jsx";
 import KitchenCPage from "./pages/kitchen/kitchen_complete/kitchen_complete.jsx";
 import AdminPage from "./pages/administrator/administrator_home.jsx";
 import AdminMPage from "./pages/administrator/menu/admin_menu.jsx";
@@ -39,6 +44,9 @@ import AdminFinancePage from "./pages/administrator/finances/administrator_finan
 import AdminFOrderPage from "./pages/administrator/finances/order/administrator_forders.jsx";
 import CategoryView from "./pages/administrator/category/view/category_view.jsx";
 import Employee from "./pages/administrator/employee/admin_employee.jsx";
+import EmployeeNew from "./pages/administrator/employee/add/admin_employee_add.jsx";
+import EmployeeUpdate from "./pages/administrator/employee/update/admin_employee_update.jsx";
+import EmployeeWUpdate from "./pages/administrator/employee/waiter/admin_employee-update.jsx";
 import CategoryNew from "./pages/administrator/category/category_add.jsx";
 import EditCategory from "./pages/administrator/category/update/category_update.jsx";
 import AdminFInventoryPage from "./pages/administrator/finances/inventory/administrator_finventory.jsx";
@@ -58,6 +66,7 @@ import BOrderPage from "./pages/branch_manager/orders/bmanage_order.jsx";
 import BOrderViewPage from "./pages/branch_manager/orders/single/border_view.jsx";
 import BProductionPage from "./pages/branch_manager/production/bmanager_production.jsx";
 import BProductPage from "./pages/branch_manager/production/general/administrator_production_g.jsx";
+import BEmployee from "./pages/branch_manager/employee/admin_employee.jsx";
 import BInvoicePage from "./pages/branch_manager/production/invoice/general_invoice.jsx";
 import GeneralMPage from "./pages/general_manager/general_home.jsx";
 import GMFinancePage from "./pages/general_manager/finances/gm_finances.jsx";
@@ -71,6 +80,7 @@ import GOrderVPage from "./pages/general_manager/orders/view/administrator_order
 import BOrderVPage from "./pages/branch_manager/orders/view/administrator_order_view.jsx";
 import GMProductionPage from "./pages/general_manager/production/gm_production.jsx";
 import GProductPage from "./pages/general_manager/production/general/administrator_production_g.jsx";
+import GEmployee from "./pages/general_manager/employee/admin_employee.jsx";
 import GInvoicePage from "./pages/general_manager/production/invoice/general_invoice.jsx";
 import ProductionANPage from "./pages/production/add/production_add.jsx";
 import ProductionNTPage from "./pages/production/transact/tracking/production_transact_tracking.jsx";
@@ -80,6 +90,9 @@ class App extends Component {
       <Router>
        {/*All our Routes goes here!*/}
        <Route exact path="/" component={MainPage} />
+       <Route exact path="/cashier/order_main" component={CashierOrders} />
+       <Route exact path="/cashier/order_complete" component={CashierOrdersC} />
+       <Route exact path="/cashier/new" component={CashierNew} />
        <Route exact path="/cashier/orders" component={UsersPage} />
        <Route exact path="/cashier/table" component={TablePage} />
        <Route exact path="/cashier/takeaway" component={TakeawayPage} />
@@ -89,8 +102,10 @@ class App extends Component {
        <Route exact path="/cashier/kitchen_view" component={OrderPage} />
        <Route exact path="/cashier/kitchen_view/kitchen_complete" component={OrderCPage} />
        <Route exact path="/bar" component={BarPage} />
+       <Route exact path="/bar/view/:id" component={BarVPage} />
        <Route exact path="/bar/bar_complete" component={BarCPage} />
        <Route exact path="/kitchen" component={KitchenPage} />
+       <Route exact path="/kitchen/single/:id" component={KitchenVPage} />
        <Route exact path="/kitchen/kitchen_complete" component={KitchenCPage} />
        <Route exact path="/administrator" component={AdminPage} />
        <Route exact path="/administrator/menu/" component={AdminMPage} />
@@ -115,6 +130,9 @@ class App extends Component {
        <Route exact path="/administrator/finances/inventory" component={AdminFInventoryPage} />
        <Route exact path="/administrator/finances/menu" component={AdminFMenuPage} />
        <Route exact path="/administrator/employee/" component={Employee} />
+       <Route exact path="/administrator/employee/add/" component={EmployeeNew} />
+       <Route exact path="/administrator/employee/update/:id" component={EmployeeUpdate} />
+       <Route exact path="/administrator/employee/waiter/:id" component={EmployeeWUpdate} />
        <Route exact path="/production" component={ProductionPage} />
        <Route exact path="/production/update/:id" component={ProductionUPage} />
        <Route exact path="/production/new" component={ProductionNPage} />
@@ -129,6 +147,7 @@ class App extends Component {
        <Route exact path="/branch_manager/inventory/view/:id" component={BInventoryView} />
        <Route exact path="/branch_manager/finances" component={BranchFinancePage} />
        <Route exact path="/branch_manager/orders" component={BOrderPage} />
+       <Route exact path="/branch_manager/employee" component={BEmployee} />
        <Route exact path="/branch_manager/orders/view/:date" component={BOrderVPage} />
        <Route exact path="/branch_manager/orders/single/:id" component={BOrderViewPage} />
        <Route exact path="/branch_manager/production" component={BProductionPage} />
@@ -141,6 +160,7 @@ class App extends Component {
        <Route exact path="/general_manager/inventory/view/:id" component={GMInventoryView} />
        <Route exact path="/general_manager/finances/view" component={GMFinanceVPage} />
        <Route exact path="/general_manager/orders/" component={GMOrderPage} />
+       <Route exact path="/general_manager/employee/" component={GEmployee} />
        <Route exact path="/general_manager/orders/view/:date" component={GOrderVPage} />
        <Route exact path="/general_manager/orders/single/:id" component={GOrderViewPage} />
        <Route exact path="/general_manager/production" component={GMProductionPage} />

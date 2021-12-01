@@ -150,7 +150,7 @@ class orders
 
     }
     public function kitchen(){
-        $query ="SELECT item_id,ready_stats,name_of_food,quantity,menu.category_id as category from order_items inner join  menu on menu.menu_id=order_items.menu_id inner join category on category.category_id=menu.category_id where order_id=:i";
+        $query ="SELECT item_id,name_of_food,quantity,menu.category_id as category from order_items inner join  menu on menu.menu_id=order_items.menu_id inner join category on category.category_id=menu.category_id where order_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->execute();
@@ -158,23 +158,57 @@ class orders
 
     }
     public function kitchens(){
-        $query ="SELECT order_id,special_notes,drink_stats,stats from orders where restaurant_id=:r and stats='pending'";
+        $query ="SELECT order_id,special_notes,drink_stats,stats,drink_stat,food_stats,food_stat from orders where restaurant_id=:r and food_stat='1'";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
         return $stmt;
 
     }
+
+    public function cashier(){
+        $query ="SELECT * from orders where restaurant_id=:r";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':r',$this->restaurant);
+        $stmt->execute();
+        return $stmt;
+
+    }
+    
     public function kitchenc(){
-        $query ="SELECT order_id,special_notes,drink_stats,stats from orders where restaurant_id=:r and stats='completed'";
+        $query ="SELECT order_id,special_notes,drink_stats,stats,drink_stat,food_stats,food_stat from orders where restaurant_id=:r and food_stats='1'  ";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
         return $stmt;
 
     }
+    public function bar(){
+        $query ="SELECT order_id,special_notes,drink_stats,stats,drink_stat,food_stats,food_stat from orders where restaurant_id=:r and drink_stats='1'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':r',$this->restaurant);
+        $stmt->execute();
+        return $stmt;
+
+    }
+    
     public function updatekitchen(){
-        $query="UPDATE order_items SET ready_stats='1' where order_id=:i";
+        $query="UPDATE orders SET food_stats='1' where order_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+    
+    
+    
+    
+        if($stmt->execute()){
+            return true;
+        }
+        printf("error: %s ./n", $stmt->error);
+        return false;
+    
+    }
+    public function updatebar(){
+        $query="UPDATE orders SET drink_stat='1' where order_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
     

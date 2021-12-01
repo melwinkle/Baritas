@@ -51,35 +51,36 @@ import Button from "react-bootstrap/button";
             
           </SidebarHeader>
           <SidebarContent id="menuit">
-              <div class="menuitem">
-              <Link to="/administrator/"> <button><FaList /><div> Home</div>
-             </button></Link>
-             
-              </div>
-
-              <div class="menuitem">
-              <Link to="/administrator/inventory/"> <button><FaList /><div> Inventory</div>
+          <div class="menuitem">
+              <Link to="/general_manager/"> <button><FaList /><div> Home</div>
              </button></Link>
              
               </div>
               <div class="menuitem">
-              <Link to="/administrator/finances/"> <button><FaList /><div> Finances</div>
-             </button></Link>
-             
-              </div>
-              <div class="menuitem">
-              <Link to="/administrator/orders/"> <button><FaList /><div> Orders</div>
+              <Link to="/general_manager/employee/"> <button><FaList /><div> Employee</div>
              </button></Link>
              
               </div>
 
               <div class="menuitem c">
-              <Link to="/administrator/mainmenu/"> <button><FaList /><div> Menu</div>
+              <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
              
               </div>
               <div class="menuitem">
-              <Link to="/administrator/production/"> <button><FaList /><div> Production</div>
+              <Link to="/general_manager/finances/inventory/"> <button><FaList /><div> Finances</div>
+             </button></Link>
+             
+              </div>
+              <div class="menuitem">
+              <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
+             </button></Link>
+             
+              </div>
+
+             
+              <div class="menuitem">
+              <Link to="/general_manager/production/"> <button><FaList /><div> Production</div>
              </button></Link>
              
               </div>

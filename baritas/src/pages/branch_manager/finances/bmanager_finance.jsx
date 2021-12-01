@@ -94,6 +94,11 @@ const BranchFinancePage =()=>{
             </SidebarHeader>
             <SidebarContent id="menuit">
             <div class="menuitem">
+              <Link to="/branch_manager/employee/"> <button><FaList /><div> Employee</div>
+             </button></Link>
+             
+              </div>
+            <div class="menuitem">
               <Link to="/branch_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
              

@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
-import {FaHome, FaIntercom} from "react-icons/fa";
+import {FaHome, FaIntercom,FaArrowLeft} from "react-icons/fa";
 import DataTable from './component/DataTable';
 import data from './Table/data';
 import Modal from "react-bootstrap/Modal";
@@ -120,7 +120,17 @@ const OrderMainPage =()=> {
              </button></Link>
              
               </div>
+              <div class="menuitem">
+              <Link to="/administrator/employee/"> <button><FaList /><div> Employee</div>
+             </button></Link>
+             
+              </div>
 
+              <div class="menuitem">
+              <Link to="/administrator/employee/"> <button><FaList /><div> Employee</div>
+             </button></Link>
+             
+              </div>
               <div class="menuitem">
               <Link to="/administrator/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
@@ -175,6 +185,7 @@ const OrderMainPage =()=> {
 
  
     <Form.Group id="forminv">
+  
 <Row>
 <Form.Label>Order Date</Form.Label> 
   <Col>

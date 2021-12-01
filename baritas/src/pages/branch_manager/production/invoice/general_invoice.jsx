@@ -37,7 +37,11 @@ const BInvoicePage =(props)=> {
       fetchPostList();
     }, [setPosts]);
   
-  
+  const confirm=(id)=>{
+    axios(
+      'http://localhost/Baritas/baritas/Baritas_backend/apis/confirminvoice.php?id='+id
+    );
+  }
           return (
             <div class="proad">
                         <div id="header">
@@ -55,6 +59,11 @@ const BInvoicePage =(props)=> {
               
             </SidebarHeader>
             <SidebarContent id="menuit">
+            <div class="menuitem">
+              <Link to="/branch_manager/employee/"> <button><FaList /><div> Employee</div>
+             </button></Link>
+             
+              </div>
             <div class="menuitem">
               <Link to="/branch_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
@@ -120,9 +129,10 @@ const BInvoicePage =(props)=> {
   
     </Row>
   
-   
+    {posts.blogs &&
+              posts.blogs.map((item) => (
   <Row id="invtt">
-  
+
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
             <tr>
@@ -135,9 +145,8 @@ const BInvoicePage =(props)=> {
             </tr>
           </thead>
           <tbody>
-            {posts.blogs &&
-              posts.blogs.map((item) => (
-                 Object.keys(item.inputList).map((products, i) =>
+            
+                 {Object.keys(item.inputList).map((products, i) =>
                 <tr key={item.inputList[products].production_trans_id}>
                   <td>{item.inputList[products].production_trans_id}</td>
                   <td>{item.inputList[products].product_name}</td>
@@ -145,11 +154,18 @@ const BInvoicePage =(props)=> {
                 
                
                 </tr>
-                )
-              ))}
+                )}
+           
           </tbody>
         </ReactBootStrap.Table>
+<Row>
+  <Button id="dinvs" onClick={confirm(props.match.params.id)}>CONFIRM PACKAGE</Button>
+</Row>
+        
+
         </Row>
+
+))}
         </Container>
             
            

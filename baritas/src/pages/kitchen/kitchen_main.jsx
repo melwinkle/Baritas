@@ -37,9 +37,9 @@ const KitchenPage = () => {
   
 
    
- const update_order=(it)=>{
-  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatekitchen.php?id='+it)
- }
+//  const update_order=(it)=>{
+//   axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatekitchen.php?id='+it)
+//  }
 
   return (
       <div class="order">
@@ -101,7 +101,7 @@ const KitchenPage = () => {
                            <Row>
                                 
                               
-                                <Link><Button id="yes"  ><FaCheckCircle/></Button></Link>
+                                <a href={'/kitchen/single/'+item.order_id}><Button id="yes"  ><FaCheckCircle/></Button></a>
                                 </Row>
                         </Card.Body>
                         

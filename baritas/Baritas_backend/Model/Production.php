@@ -112,10 +112,9 @@ class production
     }
 
     public function allptransact(){
-        $query="SELECT production_transaction.transaction_id,production_transaction.Transaction_Status,Date,restaurant_name from production_transaction inner join restaurant on restaurant.restaurant_id=production_transaction.restaurant_id where Date=:d and restaurant_id=:i";
+        $query="SELECT production_transaction.transaction_id,production_transaction.Transaction_Status,Date,restaurant_name from production_transaction inner join restaurant on restaurant.restaurant_id=production_transaction.restaurant_id where Date=:d ";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':d',$this->date);
-        $stmt->bindParam(':i',$this->restaurant);
         $stmt->execute();
         return $stmt;
     }
@@ -170,6 +169,22 @@ class production
 
 public function updatealert(){
     $query="UPDATE production_alert SET AlertStatus='1' where alert_id=:i";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':i',$this->id);
+
+
+
+
+    if($stmt->execute()){
+        return true;
+    }
+    printf("error: %s ./n", $stmt->error);
+    return false;
+
+}
+
+public function updateinvoice(){
+    $query="UPDATE production_transaction SET Transaction_Status='Completed' where transaction_id=:i";
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(':i',$this->id);
 

@@ -96,6 +96,11 @@ const AdminFinancePage =()=>{
                 </div>
   
                 <div class="menuitem">
+              <Link to="/administrator/employee/"> <button><FaList /><div> Employee</div>
+             </button></Link>
+             
+              </div>
+                <div class="menuitem">
                 <Link to="/administrator/inventory/"> <button><FaList /><div> Inventory</div>
                </button></Link>
                

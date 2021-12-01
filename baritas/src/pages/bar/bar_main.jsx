@@ -27,7 +27,7 @@ const BarPage = () => {
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/getkitchenorder.php?id='+id
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/getbarorder.php?id='+id
         );
         setPosts({ blogs: data.data });
         console.log(data.data);
@@ -95,7 +95,7 @@ const BarPage = () => {
                            <Row>
                                 
                               
-                                <Link to="/cashier/kitchen_view/">  <Button id="yes" ><FaCheckCircle/></Button></Link>
+                                <Link to={"/bar/view/"+item.order_id}>  <Button id="yes" ><FaCheckCircle/></Button></Link>
                                 </Row>
                         </Card.Body>
                         

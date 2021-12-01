@@ -33,7 +33,11 @@ function BProductPage (props){
       fetchPostList();
     }, [setPosts]);
   
-  
+    // const confirm=(id)=>{
+    //   axios(
+    //     'http://localhost/Baritas/baritas/Baritas_backend/apis/confirminvoice.php?id='+id
+    //   );
+    // }
           return (
             <div class="proad">
                         <div id="header">
@@ -52,6 +56,11 @@ function BProductPage (props){
             </SidebarHeader>
             <SidebarContent id="menuit">
             <div class="menuitem">
+              <Link to="/branch_manager/employee/"> <button><FaList /><div> Employee</div>
+             </button></Link>
+             
+              </div>
+            <div class="menuitem">
               <Link to="/branch_manager/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
              
@@ -61,7 +70,7 @@ function BProductPage (props){
              </button></Link>
              
               </div>
-              <div class="menuitem c">
+              <div class="menuitem">
               <Link to="/branch_manager/orders/"> <button><FaList /><div> Orders</div>
              </button></Link>
              
@@ -72,7 +81,7 @@ function BProductPage (props){
              </button></Link>
              
               </div> */}
-              <div class="menuitem">
+              <div class="menuitem c">
               <Link to="/branch_manager/production/"> <button><FaList /><div> Production</div>
              </button></Link>
              
@@ -134,7 +143,8 @@ function BProductPage (props){
                 <tr key={item.transaction_id}>
                   <td>{item.transaction_id}</td>
                   <td>{item.Transaction_Status}</td>
-                  <td><a href={'/branch_manager/production/invoice/'+item.transaction_id+'?date='+props.match.params.date}><button class="b1">View</button></a></td>
+                  <td><a class='ab1' href={'/branch_manager/production/invoice/'+item.transaction_id+'?date='+props.match.params.date}><button class="b1">View</button></a>
+             </td>
                 
                 </tr>
               ))}

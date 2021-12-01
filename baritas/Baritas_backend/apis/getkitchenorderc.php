@@ -22,14 +22,15 @@ if ($num > 0) {
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
 
+if($food_stats=='1'){
         $cat_item=array(
          'order_id' => $order_id,
             'special_notes'=>$special_notes
            
         );
-        $cat_item["food"]=array();
+    
         $cat_item["foodc"]=array();
-        $cat_item["drink"]=array();
+
         $invent->id=$order_id;
         $result1=$invent->kitchen();
     
@@ -39,37 +40,18 @@ if ($num > 0) {
    
             extract($row1);
 
-   if(($category!="3")&&($ready_stats=="0")){
+   if($category!="3"){
     $cat_sing=array( 
         'name_of_food'=>$name_of_food,
         'quantity'=>$quantity,
         'category'=>$category,
-        'drinks'=>$drink_stats
+        'food_stats'=>$food_stats
     );
 
-    array_push($cat_item["food"],$cat_sing);
-   }
-   else if(($category!="3") &&($ready_stats=="1")){
-    $cat_sing=array( 
-        'name_of_food'=>$name_of_food,
-        'quantity'=>$quantity,
-        'category'=>$category,
-        'drinks'=>$drink_stats
-    );
     array_push($cat_item["foodc"],$cat_sing);
    }
-   else if(($drink_stats=="1")&&($ready_stats=="1")){
-       
-    $cat_sing=array(
-        'item_id'=>$item_id, 
-        'name_of_food'=>$name_of_food,
-        'quantity'=>$quantity,
-        'category'=>$category,
-        'drinks'=>$drink_stats
-    );
+   
 
-    array_push($cat_item["drink"],$cat_sing);
-   }
         
        
         }
@@ -77,9 +59,9 @@ if ($num > 0) {
 
         array_push($cat_arr['data'],$cat_item);
    
-       
-    
-}
+    }
+    }
+  
    
     echo json_encode($cat_arr);
 

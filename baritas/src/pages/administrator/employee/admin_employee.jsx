@@ -13,9 +13,14 @@ import "../../../Header.css";
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import { Container, Row, Col } from 'reactstrap';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 const Employee = () => {
-  const [posts, setPosts] = useState({ blogs: [] });
 
+  // const MySwal = withReactContent(Swal);
+
+  const [posts, setPosts] = useState({ blogs: [] });
+  const [post, setPost] = useState({ blog: [] });
   const [searchTerm,setSearchTerm] = useState('');
 
   const id=sessionStorage.getItem("rest");
@@ -26,11 +31,25 @@ const Employee = () => {
         'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallemployee.php?id='+id
       );
       setPosts({ blogs: data.data });
+      setPost({blog: data.waiter})
       console.log(data);
     };
     fetchPostList();
   }, [setPosts]);
 
+
+  const wterminate=(id)=>{
+    // MySwal.fire({
+    //   title: "Employee Update",
+    //   text:"Are sure you want to terminate ?",
+    //   icon: "success",
+    //   button :true
+    // }).then(function(){
+      axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/terminatewaiter.php?id='+id );
+    // }); 
+  
+
+}
   return (
     <div class="proad">
          <div id="header">
@@ -59,6 +78,7 @@ const Employee = () => {
              
               </div>
 
+        
               <div class="menuitem">
               <Link to="/administrator/inventory/"> <button><FaList /><div> Inventory</div>
              </button></Link>
@@ -109,7 +129,7 @@ const Employee = () => {
 
 <Container id="invt">
   <Row>
-    <Link to="/administrator/employee/new/"><Button id="addnew">Add New +</Button></Link>
+    <Link to="/administrator/employee/add/"><Button id="addnew">Add New +</Button></Link>
     
   </Row>
   <Row>
@@ -120,9 +140,12 @@ const Employee = () => {
 
   </Row>
 
- 
+
+
+              <Container>
 <Row id="invtt">
 
+          <h3>GENERAL</h3>
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
@@ -137,28 +160,61 @@ const Employee = () => {
           </tr>
         </thead>
         <tbody>
-          {posts.blogs &&
-            posts.blogs.filter((item)=>{
-              if(searchTerm ==""){
-                return item;
-              }else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
-                  return item;
-              }
-            }).map((item) => (
+        {posts.blogs && posts.blogs.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.first}</td>
                 <td>{item.last}</td>
-                <td>{item.role}</td>
+                <td>{item.rolename}</td>
                 <td>{item.user}</td>
                 <td>{item.pass}</td>
-                <td>{item.stats}</td>
-                <td><a class="ab1"href={'/administrator/employee/update/' + item.id}><button class="b2">Edit</button></a></td>
+                <td><button class="b4" disabled>{item.stat}</button></td>
+                <td><a class="ab1"href={'/administrator/employee/update/' + item.id}><button class="b1">Edit</button></a></td>
               </tr>
             ))}
         </tbody>
       </ReactBootStrap.Table>
       </Row>
+
+
+       
+<Row id="invtt">
+<h3>WAITERS</h3>
+<ReactBootStrap.Table  bordered hover id="invtb">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Full Name</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+  {post.blog && post.blog.map((item) => (
+   
+            
+
+             
+             <tr key={item.wid}>
+          <td>{item.wid}</td>
+          <td>{item.wfirst}</td>
+          <td><button class="b4" disabled>{item.wstat}</button></td>
+          <td><a class="ab1"href={'/administrator/employee/waiter/' + item.wid}><button class="b1">Edit</button></a>
+         </td>
+        </tr>
+         
+        
+         
+        
+          ))}
+  </tbody>
+</ReactBootStrap.Table>
+</Row>
+  
+  </Container>
+
+
       </Container>
     </div>
   );
