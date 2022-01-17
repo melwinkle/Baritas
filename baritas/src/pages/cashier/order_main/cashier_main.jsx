@@ -9,29 +9,19 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import {FaPlus} from "react-icons/fa";
+import {FiLogOut} from "react-icons/fi";
 import Card from 'react-bootstrap/Card';
-
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
 /* We simply can use an array and loop and print each user */
 const CashierOrders =()=>{
  
     const [posts, setPosts] = useState({ blogs: [] });
     const id=sessionStorage.getItem("rest");
-    const [post, setPost] = useState({
-        order_id:'',
-        waiter_name:'',
-        table:'',
-        date:'',
-        sub:'',
-        stats:'',
-        special_notes:'',
-        pay:'',
-        vat:'',
-        total:'',
-        order:[]
+    const [post, setPost] = useState({ blogs: [] });
 
-    });
-
-    const{order_id,waiter_name,table,date,sub,stats,special_notes,pay,vat,total,order}=post;
+    // const{order_id,waiter_name,table,date,sub,stats,special_notes,pay,vat,total,order}=post;
 
     useEffect(() => {
       const fetchPostList = async () => {
@@ -44,21 +34,36 @@ const CashierOrders =()=>{
       
       fetchPostList();
       getinfo();
-    }, [setPosts],[setPost]);
+      getcomplete();
+    }, [setPosts],[setPost])
 
      const getinfo=async(order)=>{
-      const datas=  await axios.get(
+      const {data}=  await axios.get(
           'http://localhost/Baritas/baritas/Baritas_backend/apis/getcashierorder.php?sid='+order
         ); 
-        setPost(datas.data[0]);
-        console.log(datas.data[0]);
+        setPost({blogs: data.data});
+        console.log(data);
 
       }
+
+
+      const getcomplete=async(order)=>{
+      
+     
+      
+        
+           axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/changeorderstatus.php?id='+order);
+           
+           
+           
+       
+  
+        }
 
    
     return (
     <div class="process">
-   <Navbar  id="nab" expand="lg" bg="light" fixed="top">
+   <Navbar  id="nab" expand="lg"  fixed="top">
   <Container>
   <Navbar.Brand href="#home">Baritas</Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -70,8 +75,9 @@ const CashierOrders =()=>{
     </Nav>
     <Nav>
       <Nav.Link href="#deets">Cashier 1</Nav.Link>
-      <Nav.Link eventKey={2} href="#memes">
-        Logout
+      <Nav.Link eventKey={2} href="/">
+      <FiLogOut/> <span>  Logout</span>
+     
       </Nav.Link>
     </Nav>
   </Navbar.Collapse>
@@ -91,34 +97,34 @@ const CashierOrders =()=>{
 
 
 
-<Row>
-    {/* open and completed */}
+{/* <Row>
+   
    
     <Col id="opc">
 
-    <Row id="opct">
-        <Col id="activ"><Link>Active</Link></Col>
-        <Col id="complit"><Link to={'/cashier/order_complete/'}>Completed</Link></Col>
-    </Row>
+        <Row id="opct">
+            <Col id="activ"><Link>Active</Link></Col>
+            <Col id="complit"><Link to={'/cashier/order_complete/'}>Completed</Link></Col>
+        </Row>
 
 
-    {posts.blogs &&
-              posts.blogs.map((item)=>(
-    <Row id="co">
-        <Col>
-            <Button onClick={() =>getinfo(item.order_id)} id="order">
-                <Row >
-                    <Col id="orderi" >#Order{item.order_id}</Col>
-                    <Col id="orderd">{item.stats}</Col>
-                </Row>
-                <Row >
-                    <Col id="orderi">{item.table}</Col>
-                    <Col id="orderd">Ghc {item.total}</Col>
-                </Row>
-            </Button>
-        </Col>
-    </Row>
-              ))}
+        {posts.blogs &&
+                posts.blogs.map((item)=>(
+        <Row id="co">
+            <Col>
+                <Button onClick={() =>getinfo(item.order_id)} id="order">
+                    <Row >
+                        <Col id="orderi" >#Order{item.order_id}</Col>
+                        <Col id="orderd">{item.stats}</Col>
+                    </Row>
+                    <Row >
+                        <Col id="orderi">{item.table}</Col>
+                        <Col id="orderd">Ghc {item.total}</Col>
+                    </Row>
+                </Button>
+            </Col>
+        </Row>
+                
     </Col>
 
 
@@ -132,11 +138,11 @@ const CashierOrders =()=>{
                 {JSON.stringify(post)}
 
          
-              <h4>#Order{order_id}</h4>
+              <h4>#Order</h4>
            
                 </Row>
                 <Row>
-                    <h6>Adjoa Mansa</h6>
+                    <h6>Adjoa</h6>
                 </Row>
                 <Row>
                     <h6>Dine-In:Table 1</h6>
@@ -159,13 +165,13 @@ const CashierOrders =()=>{
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* {Object.keys(post.order).map((products, i) => */}
+                                /* {Object.keys(post.order).map((products, i) => 
                                 <tr>
                                     <td>JR</td>
                                     <td>2</td>
                                     <td>20.00</td>
                                 </tr>
-                                {/* )} */}
+                          
                                
                                 
                                
@@ -201,6 +207,120 @@ const CashierOrders =()=>{
             </Card.Footer>
         </Card>
            
+    </Col>
+</Row> */}
+<Row>
+    {/* open and completed */}
+   
+    <Col id="opc">
+
+    <Row id="opct">
+        <Col id="activ"><Link to={'/cashier/order_main/'}>Active</Link></Col>
+        <Col id="complit"><Link to={'/cashier/order_complete/'}>Completed</Link></Col>
+    </Row>
+    {posts.blogs &&
+                posts.blogs.map((item)=>(
+        <Row id="co">
+            <Col>
+                <Button onClick={() =>getinfo(item.order_id)} id="order">
+                    <Row >
+                        <Col id="orderi" >#Order{item.order_id}</Col>
+                        <Col id="orderd">{item.stats}</Col>
+                    </Row>
+                    <Row >
+                        <Col id="orderi">{item.table}</Col>
+                        <Col id="orderd">Ghc {item.total}</Col>
+                    </Row>
+                </Button>
+            </Col>
+        </Row>
+                ))}
+    </Col>
+
+
+    {/* order  */}
+    <Col id="odc">
+  
+    <Card>
+    {post.blogs &&
+                post.blogs.map((items)=>(
+        <Container>
+        <Card.Header>
+        
+        {/* // {JSON.stringify(post)} */}
+            <Row id="details">
+        
+                <Row >
+                    <h4>#Order{items.order_id}</h4>
+                </Row>
+                <Row>
+                    <h6>{items.waiter}</h6>
+                </Row>
+                <Row>
+                    <h6>{items.table}</h6>
+                </Row>
+                <Row>
+                    <h6>{items.date}</h6>
+                </Row>
+            </Row>
+            </Card.Header>
+        <Card.Body>
+                <Card.Text>
+                    <Row id="tableod">
+                        <table class="tod">
+                            <thead>
+                                <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {Object.keys(items.order).map((order, i) =>
+                                    <tr key={items.order[order].item_id}>
+                                    <td>{items.order[order].name_of_food}</td>
+                                    <td>{items.order[order].quantity}</td>
+                                    <td>{items.order[order].price}.00</td>
+                                </tr>
+                            )}
+                                
+                            
+                             
+                            
+                            </tbody>
+                        </table>
+                    </Row>
+                </Card.Text>
+            </Card.Body>
+            <Card.Footer id="odcf">
+            <Row>
+                <h6>Notes</h6>
+                <input type="text" value={items.special_notes} readonly/>
+            </Row>
+            <Row>
+                <Col><h6>SubTotal</h6></Col>
+                <Col id="amts"><h6>{items.sub}</h6></Col>
+            </Row>
+            <Row>
+                <Col><h6>VAT</h6></Col>
+                <Col id="amt"><h6>{items.vat}</h6></Col>
+            </Row>
+            <Row>
+                <Col><h6>TOTAL</h6></Col>
+                <Col id="amt"><h6>{items.total}</h6></Col>
+            </Row>
+            <Row>
+                <Col><Button id="b1">CANCEL</Button></Col>
+                <Col><Button id="b2">EDIT</Button></Col>
+                <Col><Button id="b3" onClick={() =>getcomplete(items.order_id)}>COMPLETE</Button></Col>
+            </Row>
+          
+            </Card.Footer>
+
+            </Container>
+            ))}
+        </Card>
+       
     </Col>
 </Row>
     

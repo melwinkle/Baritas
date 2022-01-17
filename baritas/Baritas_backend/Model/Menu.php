@@ -80,6 +80,15 @@ class menu
         return $stmt;
     }
 
+
+    public function allcategories(){
+        $query="SELECT * from Menu inner join category on Menu.category_id = category.category_id where Menu.category_id=:c";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':c',$this->category);
+        $stmt->execute();
+        return $stmt;
+    }
+
     public function oneitem(){
         $query="SELECT * from menu inner join category on menu.category_id = category.category_id where menu.menu_id=:i";
         $stmt = $this->conn->prepare($query);

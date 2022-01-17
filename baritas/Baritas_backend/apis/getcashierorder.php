@@ -83,7 +83,7 @@ else{
 
         
             $cat_arrs = array();
-            $car_arrs['datas']=array();
+            $cat_arrs['data']=array();
 
             while ($row1 = $result1->fetch(PDO::FETCH_ASSOC)) {
                     extract($row1);
@@ -123,13 +123,15 @@ else{
                             'name_of_food'=>$name_of_food,
                             'quantity'=>$quantity,
                             'category'=>$category,
-                            'order_id'=>$order_id
+                            'order_id'=>$order_id,
+                            'item_id'=>$item_id,
+                            'price'=>$fprice
                         );
                 
                         array_push($cat_items['order'],$cat_sing);
                     }
                 
-                    array_push($cat_arrs,$cat_items);
+                    array_push($cat_arrs['data'],$cat_items);
             
         
                    
