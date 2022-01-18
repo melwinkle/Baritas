@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React from "react";
 import '../../../App.css';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
@@ -13,34 +13,10 @@ import Card from 'react-bootstrap/Card';
 import {GiForkKnifeSpoon} from 'react-icons/gi';
 import { QuantityPicker } from 'react-qty-picker';
 import logo from "../../../images/IMG_8850.JPG";
-import axios from 'axios';
 /* We simply can use an array and loop and print each user */
 const CashierNew =()=>{
-
-  const [posts, setPosts] = useState({ blogs: [] });
-  const [post, setPost] = useState({ blogs: [] });
-  const id=sessionStorage.getItem("rest");
-  useEffect(() => {
-    const fetchPostList = async () => {
-      const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/getallcategories.php?id='+id
-      );
-      setPosts({ blogs: data.data });
-      console.log(data);
-    };
-    fetchPostList();
-    getinfo();
-  }, [setPosts],[setPost]);
  
 
-  const getinfo=async(categ)=>{
-    const {data}=  await axios.get(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/getcategorymenu.php?id='+categ
-      ); 
-      setPost({blogs: data.data});
-      console.log(data.data);
-
-    }
     return (
     <div class="process">
       <Container>
@@ -74,12 +50,10 @@ const CashierNew =()=>{
             <Row id="menucat"  >
               
               <Col id="scrcat" > 
-              {posts.blogs &&
-                posts.blogs.map((item)=>(
-              <Button id="catmec" onClick={() =>getinfo(item.category_id)} >{item.category_name}</Button>
+              <Button id="catme" >Starters</Button>
             
              
-                ))}
+              
              
 
               {/* <Button id="catmec" >Starters</Button>
@@ -116,17 +90,13 @@ const CashierNew =()=>{
             <Row id="mens">
               <h6>OrderMenu</h6>
               <Row id='fodc' overflow>
-              {post.blogs &&
-                post.blogs.map((item)=>(
-
-
                 <Col id='foodc'><Button id='fod'>
                   <Image src={logo}></Image>
-                  <h6>{item.name}</h6>
-                  <p>Ghc {item.price}</p>
+                  <h6>Pineapple Juice</h6>
+                  <p>Ghc 10.00</p>
                   </Button></Col>
                
-                ))}
+
                 
 
                 

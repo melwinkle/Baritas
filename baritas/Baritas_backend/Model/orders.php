@@ -64,10 +64,10 @@ class orders
     }
     
     public function changestatus(){
-        $query="UPDATE orders SET stats=:pn where order_id=:i";
+        $query="UPDATE orders SET stats='Completed' where order_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
-        $stmt->bindParam(':pn',$this->stats);
+   
 
         if($stmt->execute()){
             return true;
@@ -150,7 +150,7 @@ class orders
 
     }
     public function kitchen(){
-        $query ="SELECT item_id,name_of_food,quantity,menu.category_id as category from order_items inner join  menu on menu.menu_id=order_items.menu_id inner join category on category.category_id=menu.category_id where order_id=:i";
+        $query ="SELECT item_id,name_of_food,(quantity*price) as fprice,quantity,menu.category_id as category from order_items inner join  menu on menu.menu_id=order_items.menu_id inner join category on category.category_id=menu.category_id where order_id=:i";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':i',$this->id);
         $stmt->execute();

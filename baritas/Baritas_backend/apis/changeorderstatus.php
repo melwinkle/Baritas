@@ -11,8 +11,8 @@ $database = new Database();
 $db = $database->connect();
 $order = new orders($db);
 
-$data = json_decode(file_get_contents("php://input"));
-$order->stats=$data->stat;
+
+$order->id=$_GET['id'];
 
 if($order->changestatus()){
    echo true;
