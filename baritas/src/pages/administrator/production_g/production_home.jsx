@@ -1,59 +1,62 @@
 import React, { useEffect, useState } from "react";
+import '../../../App.css';
 import * as ReactBootStrap from "react-bootstrap";
-import {MDBBtn} from 'mdb-react-ui-kit';
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {
-  ProSidebar,
-  SidebarHeader,
-  SidebarContent,
-} from "react-pro-sidebar";
-import { FaList,FaStore } from "react-icons/fa";
-import "../../../Header.css";
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
+import {FaHome,FaBell,FaStoreAlt} from "react-icons/fa";
+import DataTable from './component/DataTable';
+import data from './Table/data';
+import {
+    ProSidebar,
+    SidebarHeader,
+    SidebarContent,
+  } from "react-pro-sidebar";
 import { Container, Row, Col } from 'reactstrap';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-const Employee = () => {
-
-  // const MySwal = withReactContent(Swal);
-
+import Badge from 'react-bootstrap/Badge';
+// get data fron the procution folder 
+import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
+/* We simply can use an array and loop and print each user */
+function ProductionGPage(){
+    
   const [posts, setPosts] = useState({ blogs: [] });
-  const [post, setPost] = useState({ blog: [] });
-  const [searchTerm,setSearchTerm] = useState('');
 
-  const id=sessionStorage.getItem("rest");
+  const[alert,setAlert]=useState({
+    alert_num:""
+  });
 
+  const{alert_num}=alert;
+  
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallemployee.php?id='+id
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproduction.php'
       );
       setPosts({ blogs: data.data });
-      setPost({blog: data.waiter})
       console.log(data);
     };
     fetchPostList();
+
+    alertnum();
   }, [setPosts]);
 
+  const alertnum=()=>{
+    fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php')
+      .then((response)=>response.json())
+      .then((responseJSON)=>{
+          setAlert(responseJSON.alert);
+          console.log(responseJSON.alert);
+      }
+      );
+  }
+    return (
+        
+        <div class="proad">
 
-  const wterminate=(id)=>{
-    // MySwal.fire({
-    //   title: "Employee Update",
-    //   text:"Are sure you want to terminate ?",
-    //   icon: "success",
-    //   button :true
-    // }).then(function(){
-      axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/terminatewaiter.php?id='+id );
-    // }); 
-  
 
-}
-  return (
-    <div class="proad">
-          <nav
+<nav
               id="sidenav-1"
               class="sidenav"
               data-mdb-hidden="false"
@@ -71,13 +74,13 @@ const Employee = () => {
                   <a href="/administrator/" class="sidenav-link" >
                   <MDBBtn outline><i class="fas fa-home fa-fw me-3"></i><span>Home</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item active">
+                <li class="sidenav-item">
                   <a href="/administrator/employee/" class="sidenav-link"
                     ><MDBBtn outline><i class="fas fa-user-friends me-3"></i><span>Employee</span></MDBBtn></a>
                 </li>
                 <li class="sidenav-item ">
                   <a href="/administrator/inventory/" class="sidenav-link"
-                    ><MDBBtn outline ><i class="fas fa-boxes me-3"></i><span>Inventory</span></MDBBtn></a>
+                    ><MDBBtn outline><i class="fas fa-boxes me-3"></i><span>Inventory</span></MDBBtn></a>
                 </li>
                 <li class="sidenav-item">
                   <a href="/administrator/finances/" class="sidenav-link"
@@ -95,7 +98,7 @@ const Employee = () => {
                   <a href="/administrator/reports/" class="sidenav-link"
                     ><MDBBtn outline><i class="fas fa-clipboard me-3"></i><span>Reports</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item">
+                <li class="sidenav-item active">
                   <a href="/administrator/production/" class="sidenav-link"
                     ><MDBBtn outline ><i class="fas fa-file-invoice me-3"></i><span>Production</span></MDBBtn></a>
                 </li>
@@ -105,99 +108,75 @@ const Employee = () => {
                 <FiLogOut/> Log Out
               </div>
             </nav>
-
-
-<Container id="invt">
+      <Container id="invt">
   <Row>
-    <Link to="/administrator/employee/add/"><Button id="addnew">Add New +</Button></Link>
+    <Link to="/production/add/"><Button id="addnew">Add New +</Button></Link>
     
   </Row>
   <Row>
 
  
+    <Form.Group id="forminv">
+<Row>
+<Form.Label>Production Item</Form.Label> 
+  <Col>
+
+    <Form.Control type="text" name="productiob"  placeholder="Enter item" /></Col>
+    <Col> <Button id="searchb"> Search</Button></Col>
+</Row>
+    
    
+
+    </Form.Group>
 
 
   </Row>
 
-
-
-              <Container>
+ 
 <Row id="invtt">
 
-          <h3>GENERAL</h3>
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>User Role</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Status</th>
+            {/* <th>ID</th> */}
+            <th>Product Name </th>
+            <th>In Stock</th>
+            <th>Measurement</th>
+            <th>Recipe</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-        {posts.blogs && posts.blogs.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.first}</td>
-                <td>{item.last}</td>
-                <td>{item.rolename}</td>
-                <td>{item.user}</td>
-                <td>{item.pass}</td>
-                <td><button class="b4" disabled>{item.stat}</button></td>
-                <td><a class="ab1"href={'/administrator/employee/update/' + item.id}><button class="b1">Edit</button></a></td>
+          {posts.blogs &&
+            posts.blogs.map((item) => (
+              <tr key={item.production_id}>
+                {/* <td>{item.production_id}</td> */}
+                <td>{item.product_name}</td>
+                <td>{item.in_stock}</td>
+                <td>{item.measurement}</td>
+                <td>{item.recipe}</td>
+                <td><a class="ab1"href={'/production/update/' + item.production_id}><button class="b2">Edit</button></a>
+         </td>
               </tr>
             ))}
         </tbody>
       </ReactBootStrap.Table>
       </Row>
-
-
-       
-<Row id="invtt">
-<h3>WAITERS</h3>
-<ReactBootStrap.Table  bordered hover id="invtb">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Full Name</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    
-  {post.blog && post.blog.map((item) => (
+      </Container>
+        
+         
+            
+  
    
             
+        </div>
 
-             
-             <tr key={item.wid}>
-          <td>{item.wid}</td>
-          <td>{item.wfirst}</td>
-          <td><button class="b4" disabled>{item.wstat}</button></td>
-          <td><a class="ab1"href={'/administrator/employee/waiter/' + item.wid}><button class="b1">Edit</button></a>
-         </td>
-        </tr>
-         
-        
-         
-        
-          ))}
-  </tbody>
-</ReactBootStrap.Table>
-</Row>
   
-  </Container>
 
+// next
 
-      </Container>
-    </div>
   );
-};
 
-export default Employee;
+}
+
+export default ProductionGPage;

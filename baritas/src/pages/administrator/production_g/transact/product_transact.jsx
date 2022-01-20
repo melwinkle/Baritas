@@ -1,39 +1,58 @@
-import React,{ useEffect, useState } from 'react';
-import "../../../../App.css";
-import {MDBBtn} from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
-import {FiLogOut} from "react-icons/fi";
-import {FaList,FaArrowLeft} from "react-icons/fa";
+import React,{ useEffect, useState } from "react";
+import '../../../../App.css';
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Container, Row, Col } from 'reactstrap';
 import {
     ProSidebar,
     SidebarHeader,
     SidebarContent,
   } from "react-pro-sidebar";
- const CategoryView =()=>{
-    const [posts, setPosts] = useState({ blogs: [] });
+import { Link } from 'react-router-dom';
+import {FiLogOut} from "react-icons/fi";
+import {FaHome,FaBell,FaStoreAlt,FaArrowLeft} from "react-icons/fa";
+import Badge from 'react-bootstrap/Badge';
+import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
 
-    const id= sessionStorage.getItem("rest");
-    const [searchTerm,setSearchTerm] = useState('');
+import { Container, Row, Col } from 'reactstrap';
+// get data fron the procution folder 
+
+/* We simply can use an array and loop and print each user */
+const ProductionGHPage =()=> {
+
+  
+
+    const [posts, setPosts] = useState({ blogs: [] });
+    const[alert,setAlert]=useState({
+      alert_num:""
+    });
+  
+    const{alert_num}=alert;
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
-          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallcategory.php?id='+id
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallptransactions.php'
         );
         setPosts({ blogs: data.data });
         console.log(data);
       };
       fetchPostList();
+      alertnum();
     }, [setPosts]);
-  
+    const alertnum=()=>{
+      fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php')
+        .then((response)=>response.json())
+        .then((responseJSON)=>{
+            setAlert(responseJSON.alert);
+            console.log(responseJSON.alert);
+        }
+        );
+    }
   
           return (
             <div class="proad">
-                         <nav
+                       <nav
               id="sidenav-1"
               class="sidenav"
               data-mdb-hidden="false"
@@ -55,19 +74,19 @@ import {
                   <a href="/administrator/employee/" class="sidenav-link"
                     ><MDBBtn outline><i class="fas fa-user-friends me-3"></i><span>Employee</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item">
+                <li class="sidenav-item ">
                   <a href="/administrator/inventory/" class="sidenav-link"
-                    ><MDBBtn outline  ><i class="fas fa-boxes me-3"></i><span>Inventory</span></MDBBtn></a>
+                    ><MDBBtn outline><i class="fas fa-boxes me-3"></i><span>Inventory</span></MDBBtn></a>
                 </li>
                 <li class="sidenav-item">
                   <a href="/administrator/finances/" class="sidenav-link"
                     ><MDBBtn outline><i class="fas fa-piggy-bank me-3"></i><span>Finances</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item">
+                <li class="sidenav-item active">
                   <a href="/administrator/orders/" class="sidenav-link"
                     ><MDBBtn outline><i class="fas fa-concierge-bell me-3"></i><span>Orders</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item active">
+                <li class="sidenav-item">
                   <a href="/administrator/mainmenu/" class="sidenav-link"
                     ><MDBBtn outline><i class="fas fa-utensils me-3"></i><span>Menu</span></MDBBtn></a>
                 </li>
@@ -88,29 +107,29 @@ import {
   
             
   <Container id="invt">
+    
   <Row>
-    <Col id="adds">       <Link to="/administrator/mainmenu/"><Button id="backh"><FaArrowLeft/>Back</Button></Link></Col>
-       
-        <Col  id="adds"> <Link to="/administrator/category/"><Button id="addnew">Add New +</Button></Link></Col>
-    </Row>
-    <Row>
-  
-   
-      <Form.Group id="forminv">
-  <Row>
-  <Form.Label>Menu Name</Form.Label> 
-    <Col>
-  
-      <Form.Control type="text" name="menu"  placeholder="Enter item" onChange={event =>{setSearchTerm(event.target.value)}} /></Col>
-      <Col></Col>
+    <Link to="/production/new/"><Button id="addnew">New Invoice +</Button></Link>
+    
   </Row>
-      
-     
-  
-      </Form.Group>
-  
-  
-    </Row>
+  <Row>
+
+ 
+    <Form.Group id="forminv">
+<Row>
+<Form.Label>Transaction Date</Form.Label> 
+  <Col>
+
+    <Form.Control type="date" name="production"  placeholder="Enter item" /></Col>
+    <Col> <Button id="searchb"> Search</Button></Col>
+</Row>
+    
+   
+
+    </Form.Group>
+
+
+  </Row>
   
    
   <Row id="invtt">
@@ -118,27 +137,25 @@ import {
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
             <tr>
-
-              <th>Category</th>
+         
+              <th>Date </th>
+             
+              <th>Total Transactions</th>
               <th>Actions</th>
+         
        
             </tr>
           </thead>
           <tbody>
             {posts.blogs &&
-              posts.blogs.filter((item)=>{
-                if(searchTerm ==""){
-                  return item;
-                }else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
-                   return item; 
-                }
-              }).map((item) => (
-                <tr key={item.id}>
-  
-                  <td>{item.category}</td>
-
-                  <td>
-                  <a href={'/administrator/category/update/' + item.id}> <button class="b2">Update</button></a></td>
+              posts.blogs.map((item) => (
+                <tr key={item.transaction_id}>
+                 
+                  <td>{item.date}</td>
+                
+                  <td>{item.total}</td>
+                  <td><a href={"/production/transact/view/"+item.date}><button class="b1">View</button></a></td>
+                
                 </tr>
               ))}
           </tbody>
@@ -152,8 +169,4 @@ import {
           );
 }
 
-export default CategoryView;
-
-
-
-
+export default ProductionGHPage;

@@ -84,6 +84,12 @@ import GEmployee from "./pages/general_manager/employee/admin_employee.jsx";
 import GInvoicePage from "./pages/general_manager/production/invoice/general_invoice.jsx";
 import ProductionANPage from "./pages/production/add/production_add.jsx";
 import ProductionNTPage from "./pages/production/transact/tracking/production_transact_tracking.jsx";
+
+import ProductionGPage from "./pages/administrator/production_g/production_home.jsx";
+import ProductionGTPage from "./pages/administrator/production_g/transact/view/production_transact.jsx";
+import ProductionGHPage from "./pages/administrator/production_g/transact/product_transact.jsx";
+import ProductionGIPage from "./pages/administrator/production_g/transact/invoice/production_transact_invoice.jsx";
+import ProductionGNTPage from "./pages/administrator/production_g/transact/tracking/production_transact_tracking.jsx";
 class App extends Component {
   render() {
     return (
@@ -92,7 +98,7 @@ class App extends Component {
        <Route exact path="/" component={MainPage} />
        <Route exact path="/cashier/order_main" component={CashierOrders} />
        <Route exact path="/cashier/order_complete" component={CashierOrdersC} />
-       <Route exact path="/cashier/new" component={CashierNew} />
+       <Route exact path="/cashier/new/:id" component={CashierNew} />
        <Route exact path="/cashier/orders" component={UsersPage} />
        <Route exact path="/cashier/table" component={TablePage} />
        <Route exact path="/cashier/takeaway" component={TakeawayPage} />
@@ -166,6 +172,11 @@ class App extends Component {
        <Route exact path="/general_manager/production" component={GMProductionPage} />
        <Route exact path="/general_manager/production/general/:date" component={GProductPage} />
        <Route exact path="/general_manager/production/invoice/:id" component={GInvoicePage} />
+       <Route exact path="/administrator/production_g" component={ProductionGPage} />
+       <Route exact path="/administrator/production_g/transact/tracking/:id" component={ProductionGNTPage} />
+       <Route exact path="/administrator/production_g/transact/invoice/:id" component={ProductionGIPage} />
+       <Route exact path="/administrator/production_g/transact/view/:date" component={ProductionGTPage} />
+       <Route exact path="/administrator/production_g/transact/" component={ProductionGHPage} />
    
       </Router>
     );
