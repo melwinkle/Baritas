@@ -31,7 +31,7 @@ function EmployeeUpdate(props) {
         lname:'',
         pass:'',
         role:'',
-        user:'',
+        user:'', 
         rolename:'',
         stat:'',
         stats:''
@@ -180,16 +180,9 @@ function EmployeeUpdate(props) {
   <option value={stats}>{stat}</option>
   <option>Select an option..</option>
                                 <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                             
-                             
-                          
-                          
-                   
-                             
+                                <option value="0">Inactive</option> 
                             </select>
   </Col>
-  
 </Row>
                         <Row><button onClick={update}>Update</button></Row>
                        
