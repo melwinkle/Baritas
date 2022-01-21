@@ -28,7 +28,7 @@ if($num>0){
     while ($row = $result->fetch(PDO::FETCH_ASSOC)){
         extract($row);
         $cat_item =array(
-            'food'=> $name_of_the_food,
+            'food'=> $name_of_food,
             "quant"=>$quantity,
             "amt"=> $amount,
             "cat_id"=>$category_id
