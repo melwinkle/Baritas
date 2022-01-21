@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import "../../../../App.css";
+import "../../../../../App.css";
 import { Link } from 'react-router-dom';
 // import {FiLogOut} from "react-icons/fi";
 // import {FaHome} from "react-icons/fa";
@@ -17,10 +17,9 @@ import Button from 'react-bootstrap/Button';
 import {FaHome,FaBell,FaStoreAlt,FaArrowLeft,FaPlus} from "react-icons/fa";
 import {FiLogOut} from "react-icons/fi";
 import {MdDelete} from "react-icons/md";
-
-import Badge from 'react-bootstrap/Badge';
 import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
-function ProductionNTPage (props){
+import Badge from 'react-bootstrap/Badge';
+function ProductionGNTPage (props){
   const[alert,setAlert]=useState({
     alert_num:""
   });
@@ -301,7 +300,7 @@ const [inEditMode, setInEditMode] = useState({
     }
 
 
-export default ProductionNTPage;
+export default ProductionGNTPage;
 
 
 

@@ -140,18 +140,53 @@ justify-content: center;
   margin-left:3%;
 }
 
+.sidenav{
+  background-color:white;
+  min-height: 100vh;
+  color:#800020;
+  width:20rem;
+
+}
+
+.sidenav ul{
+  list-style: none;
+}
+
+
+
+.sidenav .sidenav-menu .sidenav-item button{
+  color:rgb(180, 179, 179);
+  font-size: 12pt;
+  width:15rem;
+  text-align: left;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+.sidenav .sidenav-menu .sidenav-item.active button{
+  color:white;
+  background-color:#800020;
+}
+.sidenav .logout{
+  margin-top:28%;
+  text-align: center;
+  position:fixed;
+}
 
 .proad{
-  background-color: #9A4258;
-  min-height: 100vh;
+  background-color: #f5e9eb;
+
+  font-size: calc(10px + 2vmin);
   display: flex;
   flex-direction: row;
-  font-size: calc(10px + 2vmin);
 }
 
 
 .proda{
-  background-color: #9A4258;
+  background-color: #f5e9eb;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -1036,6 +1071,12 @@ margin-left:-5%;
 }
 #co{
   margin-bottom:2%;
+  
+}
+
+#cop{
+  overflow-y: scroll;
+  height:22em;
 }
 #odcf button{
   width:80%;
@@ -1057,6 +1098,10 @@ margin-left:-5%;
   width: 100%;
   padding:5%;
   background: none;
+}
+
+.pstore a{
+  text-decoration:none;
 }
 .pstall{
   color:#800020;
@@ -1285,28 +1330,43 @@ margin-left:-5%;
   height:12em;
 
 }
-#formdine #food #fod{
-  width:180%;
+#formdine #food .fod{
+  width:75%;
   background-color: #550015;
   border-radius: 10px;
   margin-right:2%;
   border:none;
   /* height:4em; */
   margin-bottom:5%;
+  color:white;
+  margin-left:2%;
 }
 
-#formdine #food #fod p{
-  margin-left:-40%;
-  font-size:10pt;
+#formdine #food .fodp{
+  font-size:15pt;
+  float:right;
 }
-#formdine #food #fod h6{
-  margin-top:10%;
+#formdine #food .fodh{
+  /* margin-top:10%; */
+  font-size:15pt;
+  float:left;
 }
-#formdine #trash{
+
+#formdine #food .fodq{
+  margin-top:-5%;
+  font-size:15pt;
+}
+#formdine .trash{
   background:none;
   border:none;
   color:#CC5F51;
-  margin-left:80%;
+  width:15%;
+  font-size: 15pt;
+  margin-top:-5%;
+  /* margin-left:80%; */
+}
+#formdine .trashy{
+  font-size:12pt;
 }
 #formdine #trash svg{
   width:1.5em;
@@ -1389,6 +1449,7 @@ margin-left:-5%;
 .pstall h5{
   color:white;
   font-size:20pt;
+  text-align:center;
 }
 
 .itable{
@@ -2198,16 +2259,14 @@ form td:last-child {
 #invt{
   justify-content:center;
   align-items:center;
-  margin-left:22%;
-  width:65%;
+  width:55%;
   margin-top:2%;
   min-height: 100vh;
   color:white;
+  
 }
 #invtb{
-  border-radius: 10px;
-  border-color:#800020;
-  margin-top:2%;
+ border:none;
 }
 #invtb thead{
   background-color: #800020;

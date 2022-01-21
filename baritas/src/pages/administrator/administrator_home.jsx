@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaStore } from "react-icons/fa";
 import {FiLogOut} from "react-icons/fi";
 import { Container, Row, Col } from 'reactstrap';
+import { MDBContainer, MDBRow, MDBCol,MDBBtn } from 'mdb-react-ui-kit';
 import axios from "axios";
 /* We simply can use an array and loop and print each user */
 function AdminPage (){
@@ -34,17 +35,23 @@ function AdminPage (){
      
      </div>
 
-      
-      <Container>
-        <Row>
-          {rest.blogs && 
-            rest.blogs.map((item)=>(
-              <Col><div class="pstore"><Link to="/administrator/inventory/"><button onClick={handleClick.bind(this,item.id)} class="pstall" id={item.id} ><FaStore /><h5>{item.name}</h5></button></Link></div></Col>
-            ))}
-        </Row>
-      </Container>
+    
         
-
+      <MDBContainer>
+      <MDBRow>
+      {rest.blogs && 
+            rest.blogs.map((item)=>(
+              <MDBCol size='6' sm='3' className='col-example '>
+                <div class="pstore">
+                <MDBBtn href="/administrator/inventory/" class="pstall" onClick={handleClick.bind(this,item.id)} key={item.id}><FaStore /><h5>{item.name}</h5></MDBBtn></div>
+              </MDBCol>
+        ))}
+        <MDBCol size='6' sm='3' className='col-example '>
+                <div class="pstore">
+                <MDBBtn href="/administrator/production_g/" class="pstall" ><FaStore /><h5>Production</h5></MDBBtn></div>
+              </MDBCol>
+      </MDBRow>
+    </MDBContainer>
         
           
 

@@ -1,59 +1,62 @@
 import React, { useEffect, useState } from "react";
+import '../../../../../App.css';
+import { Link } from 'react-router-dom';
+import {FiLogOut} from "react-icons/fi";
 import * as ReactBootStrap from "react-bootstrap";
-import {MDBBtn} from 'mdb-react-ui-kit';
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import {FaHome,FaBell,FaStoreAlt,FaArrowLeft} from "react-icons/fa";
+import DataTable from '../../component/DataTable';
+import data from '../../Table/data';
 import {
-  ProSidebar,
-  SidebarHeader,
-  SidebarContent,
-} from "react-pro-sidebar";
-import { FaList,FaStore } from "react-icons/fa";
-import "../../../Header.css";
-import { Link } from 'react-router-dom';
-import {FiLogOut} from "react-icons/fi";
+    ProSidebar,
+    SidebarHeader,
+    SidebarContent,
+  } from "react-pro-sidebar";
 import { Container, Row, Col } from 'reactstrap';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-const Employee = () => {
-
-  // const MySwal = withReactContent(Swal);
-
+import Modal from "react-bootstrap/Modal";
+// get data fron the procution folder 
+import Badge from 'react-bootstrap/Badge';
+import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
+/* We simply can use an array and loop and print each user */
+function ProductionGTPage (props) {
+       
   const [posts, setPosts] = useState({ blogs: [] });
-  const [post, setPost] = useState({ blog: [] });
-  const [searchTerm,setSearchTerm] = useState('');
 
-  const id=sessionStorage.getItem("rest");
+
+  const[alert,setAlert]=useState({
+    alert_num:""
+  });
+
+  const{alert_num}=alert;
 
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallemployee.php?id='+id
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallptransact.php?date='+props.match.params.date
       );
       setPosts({ blogs: data.data });
-      setPost({blog: data.waiter})
       console.log(data);
     };
     fetchPostList();
+    alertnum();
   }, [setPosts]);
-
-
-  const wterminate=(id)=>{
-    // MySwal.fire({
-    //   title: "Employee Update",
-    //   text:"Are sure you want to terminate ?",
-    //   icon: "success",
-    //   button :true
-    // }).then(function(){
-      axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/terminatewaiter.php?id='+id );
-    // }); 
   
 
-}
-  return (
-    <div class="proad">
-          <nav
+  const alertnum=()=>{
+    fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php')
+      .then((response)=>response.json())
+      .then((responseJSON)=>{
+          setAlert(responseJSON.alert);
+          console.log(responseJSON.alert);
+      }
+      );
+  }
+    return (
+        
+        <div class="proad">
+            <nav
               id="sidenav-1"
               class="sidenav"
               data-mdb-hidden="false"
@@ -71,19 +74,19 @@ const Employee = () => {
                   <a href="/administrator/" class="sidenav-link" >
                   <MDBBtn outline><i class="fas fa-home fa-fw me-3"></i><span>Home</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item active">
+                <li class="sidenav-item">
                   <a href="/administrator/employee/" class="sidenav-link"
                     ><MDBBtn outline><i class="fas fa-user-friends me-3"></i><span>Employee</span></MDBBtn></a>
                 </li>
                 <li class="sidenav-item ">
                   <a href="/administrator/inventory/" class="sidenav-link"
-                    ><MDBBtn outline ><i class="fas fa-boxes me-3"></i><span>Inventory</span></MDBBtn></a>
+                    ><MDBBtn outline><i class="fas fa-boxes me-3"></i><span>Inventory</span></MDBBtn></a>
                 </li>
                 <li class="sidenav-item">
                   <a href="/administrator/finances/" class="sidenav-link"
                     ><MDBBtn outline><i class="fas fa-piggy-bank me-3"></i><span>Finances</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item">
+                <li class="sidenav-item active">
                   <a href="/administrator/orders/" class="sidenav-link"
                     ><MDBBtn outline><i class="fas fa-concierge-bell me-3"></i><span>Orders</span></MDBBtn></a>
                 </li>
@@ -105,99 +108,63 @@ const Employee = () => {
                 <FiLogOut/> Log Out
               </div>
             </nav>
-
-
-<Container id="invt">
-  <Row>
-    <Link to="/administrator/employee/add/"><Button id="addnew">Add New +</Button></Link>
-    
-  </Row>
-  <Row>
+        
+      <Container id="invt">
+      <Row>
+        <Link to="/production/transact/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+    </Row>
 
  
-   
-
-
-  </Row>
-
-
-
-              <Container>
 <Row id="invtt">
 
-          <h3>GENERAL</h3>
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
             <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>User Role</th>
-            <th>Username</th>
-            <th>Password</th>
+   
+            <th>Restaurant</th>
+ 
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-        {posts.blogs && posts.blogs.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.first}</td>
-                <td>{item.last}</td>
-                <td>{item.rolename}</td>
-                <td>{item.user}</td>
-                <td>{item.pass}</td>
-                <td><button class="b4" disabled>{item.stat}</button></td>
-                <td><a class="ab1"href={'/administrator/employee/update/' + item.id}><button class="b1">Edit</button></a></td>
+          {posts.blogs &&
+            posts.blogs.map((item) => (
+              <tr key={item.transaction_id}>
+                <td>{item.transaction_id}</td>
+                <td>{item.restaurant}</td>
+                <td>{item.Transaction_Status}</td>
+               
+       
+                <td><a class="ab1"href={'/production/transact/tracking/' + item.transaction_id}><button class="b2">Edit</button></a>
+               <a class="ab1" href={'/production/transact/invoice/' + item.transaction_id}> <button class="b1">View</button></a></td>
+             
               </tr>
+                 
             ))}
+          
         </tbody>
       </ReactBootStrap.Table>
+
       </Row>
-
-
-       
-<Row id="invtt">
-<h3>WAITERS</h3>
-<ReactBootStrap.Table  bordered hover id="invtb">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Full Name</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    
-  {post.blog && post.blog.map((item) => (
    
-            
-
-             
-             <tr key={item.wid}>
-          <td>{item.wid}</td>
-          <td>{item.wfirst}</td>
-          <td><button class="b4" disabled>{item.wstat}</button></td>
-          <td><a class="ab1"href={'/administrator/employee/waiter/' + item.wid}><button class="b1">Edit</button></a>
-         </td>
-        </tr>
-         
-        
-         
-        
-          ))}
-  </tbody>
-</ReactBootStrap.Table>
-</Row>
-  
-  </Container>
-
-
+     
       </Container>
-    </div>
-  );
-};
+     
+            
+  
+   
+          
+            
+        </div>
 
-export default Employee;
+  
+
+// next
+
+  );
+
+}
+
+export default ProductionGTPage;

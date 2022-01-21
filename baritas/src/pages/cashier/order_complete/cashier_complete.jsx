@@ -19,6 +19,7 @@ const CashierOrdersC =()=>{
  
     const [posts, setPosts] = useState({ blogs: [] });
     const id=sessionStorage.getItem("rest");
+    const ud=sessionStorage.getItem("id");
     const [post, setPost] = useState({ blogs: [] });
 
     // const{order_id,waiter_name,table,date,sub,stats,special_notes,pay,vat,total,order}=post;
@@ -60,6 +61,16 @@ const CashierOrdersC =()=>{
   
         }
 
+        const neworder=()=>{
+            axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createorder.php?id='+id+'&ud='+ud,JSON.stringify(ud,id)).then(function(response){
+                console.log(response.data);
+                if(response.data.length!=0){
+                    window.location='/cashier/new/'+response.data.substring(0,2);
+                }
+        });
+
+
+        }
    
     return (
     <div class="process">
@@ -91,7 +102,7 @@ const CashierOrdersC =()=>{
 {/* body */}
 <Container id="cashier">
 <Row>
-    <Link to={'/cashier/new/'}> <Button id="backh">New Order <FaPlus/></Button></Link>
+    <Link > <Button id="backh" onClick={()=>neworder()}>New Order <FaPlus/></Button></Link>
    
 </Row>
 
@@ -105,6 +116,7 @@ const CashierOrdersC =()=>{
         <Col id="activs"><Link to={'/cashier/order_main/'}>Active</Link></Col>
         <Col id="complits">Completed</Col>
     </Row>
+    <Row id="cop" overflow>
     {posts.blogs &&
                 posts.blogs.map((item)=>(
         <Row id="co">
@@ -122,6 +134,7 @@ const CashierOrdersC =()=>{
             </Col>
         </Row>
                 ))}
+                </Row>
     </Col>
 
 

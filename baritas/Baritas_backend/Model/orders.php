@@ -18,40 +18,73 @@ class orders
 
     public function __construct($db){
         $this->conn = $db;
+      
+    }
+
+
+    public function last(){
+        $this->id = $this->conn->lastInsertId();
+        return $this->id;
+    }
+    public function createnew()
+    {
+        $query = "INSERT into orders(restaurant_id,user_id) VALUES (:r,:u)";
+        $stmt = $this->conn->prepare($query);
+
+  
+        $this->restaurant = htmlspecialchars(strip_tags($this->restaurant));
+        $this->cashier = htmlspecialchars(strip_tags($this->cashier));
+ 
+
+
+
+
+        $stmt->bindParam(':r', $this->restaurant);
+        $stmt->bindParam(':u', $this->cashier);
+
+
+
+        if ($stmt->execute()) {
+            $this->id = $this->conn->lastInsertId();
+            echo $this->id.",";
+            return true;
+        }
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
     }
     public function create()
     {
-        $query = "INSERT into orders(`date`, payment_method,waiter_name,total_cost,stats,restaurant_id,table_id,dine_type,`user_id`,sub_total,special_notes) VALUES (:d,:pm,:w,:tc,:s,:r,:t,:di,:u,:su,:sn)";
+        $query = "INSERT into orders(bill_no,payment_method,waiter_name,total_cost,stats,table_id,dine_type,`user_id`,sub_total,special_notes) VALUES (:b,:pm,:w,:tc,:s,:t,:di,:u,:su,:sn) where order_id=:i";
         $stmt = $this->conn->prepare($query);
 
-        $this->date = htmlspecialchars(strip_tags($this->date));
+  
+        $this->bill = htmlspecialchars(strip_tags($this->bill));
         $this->pay = htmlspecialchars(strip_tags($this->pay));
         $this->waiter = htmlspecialchars(strip_tags($this->waiter));
         $this->total_cost = htmlspecialchars(strip_tags($this->total_cost));
         $this->stats = htmlspecialchars(strip_tags($this->stats));
-        $this->restaurant = htmlspecialchars(strip_tags($this->restaurant));
         $this->table = htmlspecialchars(strip_tags($this->table));
         $this->dine = htmlspecialchars(strip_tags($this->dine));
-        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         $this->sub = htmlspecialchars(strip_tags($this->sub));
         $this->notes = htmlspecialchars(strip_tags($this->notes));
 
 
-        $stmt->bindParam(':d', $this->date);
+        $stmt->bindParam(':i', $this->id);
+        $stmt->bindParam(':b', $this->bill);
         $stmt->bindParam(':pm', $this->pay);
         $stmt->bindParam(':w', $this->waiter);
         $stmt->bindParam(':tc', $this->total_cost);
         $stmt->bindParam(':s', $this->stats);
-        $stmt->bindParam(':r', $this->restaurant);
         $stmt->bindParam(':t', $this->table);
         $stmt->bindParam(':di', $this->dine);
-        $stmt->bindParam(':u', $this->user_id);
         $stmt->bindParam(':su', $this->sub);
         $stmt->bindParam(':sn', $this->notes);
 
 
         if ($stmt->execute()) {
             $this->id = $this->conn->lastInsertId();
+            $_SESSION['order_id']=$this->id;
             return true;
         }
         printf("Error: %s.\n", $stmt->error);

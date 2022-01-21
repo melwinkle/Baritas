@@ -5,42 +5,50 @@ header('Access-Control-Allow-Methods:POST');
 header('Access-Control-Allow-Headers:Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization,X-Requested-With');
 
 include_once '../../Baritas_backend/database/Database.php';
-include_once '../../Baritas_backend/Model/users.php';
+include_once '../../Baritas_backend/Model/employee.php';
 
 $database = new Database();
 $db = $database->connect();
 
-$user = new users($db);
+$invent = new employee($db);
 
 
 $data = json_decode(file_get_contents("php://input"));
 
-$user->username = $data->user;
-$user->password = $data->pass;
-$result= $user->login();
-$num = $result->rowCount();
 
+$invent->restaurant = $_GET["id"];
+
+$result = $invent->allwaiters();
+$num = $result->rowCount();
 
 if($num >0){
     $cat_arr =array();
+    $cat_arr["data"]=array();
    
 
    while($row =$result->fetch(PDO::FETCH_ASSOC)){
        extract($row);
-       $cat_item = array(
-           'firstname'=>$Firstname,
-           'lastname'=>$lastname,
-           'role'=>$user_role,
-           'rest'=>$Restaurant,
-           'status'=>$stats,
-           'id'=>$user_id
-       );
+
+       if($stats=='1'){
+            $cat_item = array(
+            'id' => $waiter_id,
+            'fname'=>$waiter_name,
+            'stats'=>$stats
+        );
+
+        array_push($cat_arr["data"], $cat_item);
+           
+          }       
+       
    }
-   echo '{"UserData": ' .json_encode($cat_item).' }';
+   echo json_encode($cat_arr);
 }
 else{
     echo json_encode(
-        array('message' => 'User does not exist')
+        array('message' => 'no waiters')
     );
 }
+
+
+
 ?>

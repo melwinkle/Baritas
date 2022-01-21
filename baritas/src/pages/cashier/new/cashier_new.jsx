@@ -15,11 +15,38 @@ import { QuantityPicker } from 'react-qty-picker';
 import logo from "../../../images/IMG_8850.JPG";
 import axios from 'axios';
 /* We simply can use an array and loop and print each user */
-const CashierNew =()=>{
+const CashierNew =(props)=>{
 
   const [posts, setPosts] = useState({ blogs: [] });
   const [post, setPost] = useState({ blogs: [] });
+  const [waiter, setWaiter] = useState({ blogs: [] });
+  const [last, setLast] = useState({ blogs: [] });
   const id=sessionStorage.getItem("rest");
+
+  const [tempbasket, setTemp] = useState([
+    { id: "", quantity: "" ,price:""}]
+    ); 
+
+
+
+    const [ordernew, setOrder] = useState(
+      {
+      waiter:"",
+      table:"",
+      notes:"",
+      payment:"",
+      dine:"",
+      total:"",
+      sub:"",
+      vat:""
+    }
+    );
+
+    const l = {list:tempbasket};
+    const prod = Object.assign(ordernew,l);
+
+   
+
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
@@ -28,7 +55,19 @@ const CashierNew =()=>{
       setPosts({ blogs: data.data });
       console.log(data);
     };
+    const getwaiters=async()=>{
+      const {data}=  await axios.get(
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/getallwaiter.php?id='+id
+        ); 
+        setWaiter({blogs: data.data});
+        console.log(data);
+  
+      }
+
+      
+      
     fetchPostList();
+    getwaiters();
     getinfo();
   }, [setPosts],[setPost]);
  
@@ -41,6 +80,109 @@ const CashierNew =()=>{
       console.log(data.data);
 
     }
+
+
+    
+
+    const tempbas=(oid,name,prices)=>{
+      const tempb=document.getElementById('food');
+      const ordert=document.createElement('button');
+      const trash=document.createElement('button');
+      const orders=document.createElement('span');
+      const n=document.createElement('span');
+      const q=document.createElement('span');
+      const trashy=document.createElement('span');
+      orders.className='fodp';
+      ordert.className='fod';
+      n.className='fodh';
+      q.className='fodq';
+      const ordern=document.createTextNode(name);
+      const orderq=document.createTextNode('x'+'1');
+      const orderp=document.createTextNode('Ghc'+prices);
+      const trashp=document.createTextNode('X');
+      const trashh=document.createTextNode('Remove');
+
+      trash.className='trash';
+      trashy.className='trashy';
+  
+
+
+      trashy.appendChild(trashh);
+      n.appendChild(ordern);
+      q.appendChild(orderq);
+      orders.appendChild(orderp);
+      ordert.appendChild(n);
+      ordert.appendChild(q);
+      ordert.appendChild(orders);
+      trash.appendChild(trashy);
+      trash.appendChild(trashp);
+      
+      tempb.appendChild(ordert);
+      tempb.appendChild(trash);
+
+
+
+      
+
+
+      // const tot=document.getElementById("total");
+      // tot.innerText=tempbasket.length;
+      // const tots=document.createElement('span');
+      // const total=document.createTextNode(tempbasket.length);
+
+      // tots.appendChild(total);
+      // tot.appendChild(tots);
+
+      
+
+      
+    }
+
+
+    const total=()=>{
+      // let totals=0;
+      // tempbasket.forEach(element => {
+      //   const tot=element.price*element.quantity;
+      //   totals=tot+totals;
+
+      // });
+      
+      const tot=document.getElementById("total");
+      const sub=document.getElementById("sub");
+      const vat=document.getElementById("vat");
+      const totals = tempbasket.reduce(function(tot, price) {
+        return tot + +price.price
+      }, 0)
+      // const totals=tempbasket.reduce((a,v) =>  a + v.price , 0 );
+      tot.innerText=totals;
+      const vate=totals*0.025;
+
+      vat.innerText=vate;
+      sub.innerText=totals-vate;
+    }
+
+
+    const additem=(oid, prices)=>{
+      if(prices.length>0){
+        setTemp([...tempbasket, { id: oid, quantity: "", price: prices }]);
+      }
+    }
+
+    const removeitem = index => {
+      const list = [...tempbasket];
+      list.splice(index, 1);
+      setTemp(list);
+    };
+
+
+
+    const add =(e)=>{
+      console.log(prod);
+     e.preventDefault();
+     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createorder.php',JSON.stringify(prod)).then(function(response){
+         console.log(response.data);
+     })
+  }
     return (
     <div class="process">
       <Container>
@@ -82,30 +224,7 @@ const CashierNew =()=>{
                 ))}
              
 
-              {/* <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button> */}
+              
               
            
               </Col>
@@ -120,7 +239,7 @@ const CashierNew =()=>{
                 post.blogs.map((item)=>(
 
 
-                <Col id='foodc'><Button id='fod'>
+                <Col id='foodc'><Button id='fod' key={item.id} onClick={()=>{tempbas(item.id,item.name,item.price); total(); additem(item.id, item.price);}}>
                   <Image src={logo}></Image>
                   <h6>{item.name}</h6>
                   <p>Ghc {item.price}</p>
@@ -154,14 +273,16 @@ const CashierNew =()=>{
                     </Row>
 
                     <Row>
-                      <h3>#Order124</h3>
+                      <h3>Order#{props.match.params.id}</h3>
                     </Row>
 
                     <Row>
                       <Col><select name="waiter">
-                      <option value="Waiter 1">Waiter 1</option>
-                      <option value="Ama">Amam</option>
-                      <option value="Pearl">Pearl</option>
+                      {waiter.blogs &&
+                waiter.blogs.map((item)=>(
+                  <option key={item.id} value={item.id}>{item.fname}</option>
+                ))}
+
                   </select></Col>
 
                   <Col>
@@ -178,8 +299,8 @@ const CashierNew =()=>{
 
 
 {/* one */}
-                      {/* <Row>
-                        <Col>
+                      <Row id="orderlist" >
+                        {/* <Col>
                         <Button id="fod">
                           <Row>
                             <Col><h6>Pineapple Juice</h6></Col>
@@ -194,8 +315,8 @@ const CashierNew =()=>{
                         </Col>
                         <Col>
                         <Button id="trash"><FaTrash/></Button>
-                        </Col>
-                      </Row> */}
+                        </Col> */}
+                      </Row>
 
 
                    
@@ -212,7 +333,7 @@ const CashierNew =()=>{
                   <Row id="dinefoot">
                   <Row> 
                     <h6>Notes</h6>
-                    <textarea name="note"></textarea>
+                    <textarea name="notes"></textarea>
                     </Row>
                   <Row>
                     <h6>Payment Method</h6>
@@ -228,15 +349,15 @@ const CashierNew =()=>{
 
                   <Row>
                       <Col><h6>SubTotal</h6></Col>
-                      <Col id="amts"><h6 id="sub">0.00</h6></Col>
+                      <Col id="amts"><h6 id="sub"></h6></Col>
                   </Row>
                   <Row>
                       <Col><h6>VAT</h6></Col>
-                      <Col id="amt"><h6 id="vat">0.00</h6></Col>
+                      <Col id="amt"><h6 id="vat"></h6></Col>
                   </Row>
                   <Row>
                       <Col><h6>Total</h6></Col>
-                      <Col id="amt"><h6 id="total">0.00</h6></Col>
+                      <Col id="amt"><h6 id="total"></h6></Col>
                   </Row>
 
                     <Row>
