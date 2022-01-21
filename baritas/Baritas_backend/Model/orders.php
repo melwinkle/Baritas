@@ -15,6 +15,8 @@ class orders
     public $user_id;
     public $sub;
     public $notes;
+    public $sdate;
+    public $edate;
 
     public function __construct($db){
         $this->conn = $db;
@@ -259,8 +261,8 @@ class orders
     public function getByCategories(){
         $query = "SELECT m.name_of_food, i.quantity,i.amount,c.category_id from orders o inner join order_items i on o.order_id = i.order_id inner join menu m on m.menu_id = i.menu_id inner join category c on c.category_id = m.category_id where (o.date BETWEEN :startd and :endd ) and o.restaurant_id = :r and o.dine_type = :d GROUP BY m.name_of_food;";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":startd",$this->date);
-        $stmt->bindParam(":endd",$this->date);
+        $stmt->bindParam(":startd",$this->sdate);
+        $stmt->bindParam(":endd",$this->edate);
         $stmt->bindParam(":r",$this->restaurant);
         $stmt->bindParam(":d",$this->dine);
 

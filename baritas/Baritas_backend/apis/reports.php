@@ -12,8 +12,8 @@ $order = new orders($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$order->date = $data->startDate;
-$order->date = $data->endDate;
+$order->sdate = $data->startDate;
+$order->edate = $data->endDate;
 $order->restaurant =$data->rest;
 $order->dine = $data->dine_type;
 
