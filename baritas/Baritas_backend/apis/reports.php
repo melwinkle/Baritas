@@ -7,7 +7,7 @@ include_once '../../Baritas_backend/database/Database.php';
 include_once '../../Baritas_backend/Model/orders.php';
 
 $database = new Database();
-$db->$database->connect();
+$db=$database->connect();
 $order = new orders($db);
 
 $data = json_decode(file_get_contents("php://input"));
@@ -15,7 +15,7 @@ $data = json_decode(file_get_contents("php://input"));
 $order->date = $data->startDate;
 $order->date = $data->endDate;
 $order->restaurant =$data->rest;
-$order->dine = $date->dine_type;
+$order->dine = $data->dine_type;
 
 $result = $order->getByCategories();
 
