@@ -90,6 +90,9 @@ import ProductionGTPage from "./pages/administrator/production_g/transact/view/p
 import ProductionGHPage from "./pages/administrator/production_g/transact/product_transact.jsx";
 import ProductionGIPage from "./pages/administrator/production_g/transact/invoice/production_transact_invoice.jsx";
 import ProductionGNTPage from "./pages/administrator/production_g/transact/tracking/production_transact_tracking.jsx";
+
+
+import Reports from "./pages/administrator/reports/reports.jsx";
 class App extends Component {
   render() {
     return (
@@ -177,6 +180,8 @@ class App extends Component {
        <Route exact path="/administrator/production_g/transact/invoice/:id" component={ProductionGIPage} />
        <Route exact path="/administrator/production_g/transact/view/:date" component={ProductionGTPage} />
        <Route exact path="/administrator/production_g/transact/" component={ProductionGHPage} />
+
+       <Route exact path="/administrator/reports/" component={Reports} />
    
       </Router>
     );

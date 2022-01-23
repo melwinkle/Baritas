@@ -1550,6 +1550,31 @@ th{
 #forminv{
   margin-left:-1%;
 }
+
+#forminv .search{
+  background:#800020;
+  color:white;
+  border:none;
+  border-radius:5px;
+  margin-top: 2%;
+  font-size:15pt;
+
+}
+#forminv select{
+  margin-left:1.4%;
+  border-color: rgb(212, 211, 211);
+  border-radius: 4px;
+  width:98%;
+}
+
+#invtt #repo th{
+  color:black;
+}
+#invtt .card .card-title{
+  color:black;
+  margin-top: 2%;
+}
+
 #addnew{
   width:30%;
   padding:1%;
@@ -2263,6 +2288,7 @@ form td:last-child {
   margin-top:2%;
   min-height: 100vh;
   color:white;
+  margin-left:5%;
   
 }
 #invtb{
