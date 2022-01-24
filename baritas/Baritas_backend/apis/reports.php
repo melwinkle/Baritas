@@ -2,7 +2,6 @@
 
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-
 include_once '../../Baritas_backend/database/Database.php';
 include_once '../../Baritas_backend/Model/orders.php';
 
