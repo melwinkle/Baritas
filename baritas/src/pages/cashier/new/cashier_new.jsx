@@ -23,9 +23,7 @@ const CashierNew =(props)=>{
   const [last, setLast] = useState({ blogs: [] });
   const id=sessionStorage.getItem("rest");
 
-  const [tempbasket, setTemp] = useState([
-    { id: "", quantity: "" ,price:""}]
-    ); 
+  const [tempbasket, setTemp] = useState([]); 
 
 
 
@@ -123,6 +121,7 @@ const CashierNew =(props)=>{
 
 
       
+      
 
 
       // const tot=document.getElementById("total");
@@ -134,7 +133,7 @@ const CashierNew =(props)=>{
       // tot.appendChild(tots);
 
       
-
+console.log(tempbasket);
       
     }
 
@@ -159,6 +158,9 @@ const CashierNew =(props)=>{
 
       vat.innerText=vate;
       sub.innerText=totals-vate;
+
+
+      console.log(totals);
     }
 
 
