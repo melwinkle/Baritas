@@ -37,6 +37,7 @@ if ($num > 0 ) {
         else if($user_role=='4'){
             $role_name="Cashier";
         }
+        
         else{
             $role_name="Branch Manager";
         }

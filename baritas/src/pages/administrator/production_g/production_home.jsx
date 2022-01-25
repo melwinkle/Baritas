@@ -63,45 +63,22 @@ function ProductionGPage(){
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas Adenta</h3></Col>
+                  <Col><h3>Baritas</h3></Col>
               
               </Row>
               
               
             </div>
               <ul class="sidenav-menu">
-                <li class="sidenav-item">
-                  <a href="/administrator/" class="sidenav-link" >
+                <li class="sidenav-item active">
+                  <a href="/administrator/production_g/" class="sidenav-link" >
                   <MDBBtn outline><i class="fas fa-home fa-fw me-3"></i><span>Home</span></MDBBtn></a>
                 </li>
                 <li class="sidenav-item">
-                  <a href="/administrator/employee/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-user-friends me-3"></i><span>Employee</span></MDBBtn></a>
+                  <a href="/administrator/production_g/transact/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-user-friends me-3"></i><span>Transactions</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item ">
-                  <a href="/administrator/inventory/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-boxes me-3"></i><span>Inventory</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item">
-                  <a href="/administrator/finances/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-piggy-bank me-3"></i><span>Finances</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item">
-                  <a href="/administrator/orders/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-concierge-bell me-3"></i><span>Orders</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item">
-                  <a href="/administrator/mainmenu/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-utensils me-3"></i><span>Menu</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item">
-                  <a href="/administrator/reports/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-clipboard me-3"></i><span>Reports</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item active">
-                  <a href="/administrator/production/" class="sidenav-link"
-                    ><MDBBtn outline ><i class="fas fa-file-invoice me-3"></i><span>Production</span></MDBBtn></a>
-                </li>
+              
               </ul>
 
               <div class='logout'>
@@ -109,10 +86,7 @@ function ProductionGPage(){
               </div>
             </nav>
       <Container id="invt">
-  <Row>
-    <Link to="/production/add/"><Button id="addnew">Add New +</Button></Link>
-    
-  </Row>
+
   <Row>
 
  
@@ -143,7 +117,6 @@ function ProductionGPage(){
             <th>In Stock</th>
             <th>Measurement</th>
             <th>Recipe</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -155,8 +128,8 @@ function ProductionGPage(){
                 <td>{item.in_stock}</td>
                 <td>{item.measurement}</td>
                 <td>{item.recipe}</td>
-                <td><a class="ab1"href={'/production/update/' + item.production_id}><button class="b2">Edit</button></a>
-         </td>
+              
+
               </tr>
             ))}
         </tbody>

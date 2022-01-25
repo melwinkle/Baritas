@@ -24,15 +24,13 @@ const MySwal = withReactContent(Swal);
 
 
 
-class ProductionANPage extends React.Component {
+class StoreNPage extends React.Component {
     constructor(props){
         super(props);
         this.state ={
             product:'',
-            unitmeasure:'',
             in_stock:'',
             limit:'',
-            recipe:'',
             alert_num:''
         };
         this.add = this.add.bind(this);
@@ -51,17 +49,17 @@ class ProductionANPage extends React.Component {
      add(e){
          console.log(this.state);
         e.preventDefault();
-        axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addproduction.php',JSON.stringify(this.state)).then(function(response){
+        axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addstore.php',JSON.stringify(this.state)).then(function(response){
         
             console.log(response.data);
-          if(response == true){ 
+          if(response === 1){ 
             MySwal.fire({
                 title: "item added",
                 text:"Menu item has been added succesfully",
                 icon: "success",
                 button :true
               }).then(function(){
-                window.location='/production/';
+                window.location='/store/';
               });
 
         }
@@ -126,17 +124,11 @@ class ProductionANPage extends React.Component {
             </div>
               <ul class="sidenav-menu">
                 <li class="sidenav-item active">
-                  <a href="/production/" class="sidenav-link" >
+                  <a href="/store/" class="sidenav-link" >
                   <MDBBtn outline><i class="fas fa-home fa-fw me-3"></i><span>Home</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item">
-                  <a href="/production/alert/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-bell me-3"></i><span>Alerts</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item">
-                  <a href="/production/transact" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-boxes me-3"></i><span>Transactions</span></MDBBtn></a>
-                </li>
+               
+               
                 
               </ul>
 
@@ -146,7 +138,7 @@ class ProductionANPage extends React.Component {
             </nav>
         <Container id="invt">
         <Row>
-        <Link to="/production/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+        <Link to="/store/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
     </Row>
 
 
@@ -162,16 +154,7 @@ class ProductionANPage extends React.Component {
                    </Row>
                   
                    <Row>
-                       <Col><label>Unit of Measurement</label>
-                       <select name="unitmeasure" onChange={this.onChange}>
-                           <option value="">--Select a unit of measurement--</option>
-                           <option value="kg">Kilograms(Kg)</option>
-                           <option value="g">Grams(g)</option>
-                           <option value="lb">Pounds(lb)</option>
-                           <option value="ml">Millimetres</option>
-                           <option value="bags">bags</option>  
-                       </select>
-               </Col>
+                      
                <Col>
                <label>In Stock</label>
                <input type="number" name="in_stock" onChange={this.onChange}/></Col>
@@ -181,11 +164,7 @@ class ProductionANPage extends React.Component {
                <label>Stock Limit</label>
                <input type="number" name="limit" onChange={this.onChange}/></Col>
                        </Row>
-                       <Row>
-                   <Col>
-               <label>Recipe</label>
-               <textarea name="recipe" onChange={this.onChange}></textarea> </Col>
-                       </Row>
+                      
                    <Row><button onClick={this.add}>Add</button></Row>   
                </Container>  
            </form>
@@ -204,4 +183,4 @@ class ProductionANPage extends React.Component {
 }
 }
 
-export default ProductionANPage;
+export default StoreNPage;
