@@ -19,7 +19,7 @@ import { Container, Row, Col } from 'reactstrap';
 const Reports = () => {
 
 
-  const [posts, setPosts] = useState({ blogs: [] });
+  const [posts,setPosts] = useState({ blogs: [] });
 
 
   const id=sessionStorage.getItem("rest");
@@ -44,7 +44,8 @@ const Reports = () => {
     
     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/reports.php' ,JSON.stringify(searchTerm)).then(function(response){
   //  console.log(response.data);
-   setPosts({blogs: response.data.data});
+   setPosts({ blogs: response.data.data});
+  //  posts.push(response.data.data);
         console.log(response.data.data);
 
    })
@@ -55,12 +56,21 @@ const Reports = () => {
     setSearchTerm(newInventory);
  }
 
- const imeiIndex = posts.blogs.reduce((acc,obj)=>{
-   acc[obj.cat_name] =obj;
-   return acc;
- },{});
+ const imeiIndex =(key,arr)=>arr.reduce(
+   (cache,product)=>{
+     const property = product[key]
+    if(property in cache){
+      return {...cache,[property] : cache[property].concat(product)
+      }
+    }
+    return {...cache, [property]:[product]}
+    
+    },{}
+ )
 
- console.log(imeiIndex);
+const newImg =[imeiIndex('cat_name',posts.blogs)];
+ console.log(newImg);
+
   return (
     <div class="proad">
             <nav
@@ -152,15 +162,14 @@ const Reports = () => {
  
 <Row id="invtt" >
   <Row id="cat" overflow>
-    {/* {posts.blogs &&
-                posts.blogs.map((item)=>( */}
+    {Object.keys(newImg[0]).map((index)=>(
                   
 
           
 
    
   <MDBCard>
-       <MDBCardTitle>item[0]</MDBCardTitle>
+       <MDBCardTitle>{index}</MDBCardTitle>
        <MDBCardBody>
            <MDBCardText>
            <MDBTable  id="repo">
@@ -173,17 +182,16 @@ const Reports = () => {
           </tr>
         </MDBTableHead>
         <MDBTableBody>
-          {/* {posts.blogs &&
-                posts.blogs.map((item)=> ( */}
-              <tr key="">
-                <td>""</td>
-                <td>"</td>
-                <td>"item.unit"</td>
-                <td>"item.in"</td>
+          {newImg[0][index].map((item)=> (
+              <tr key={item.cat_id}>
+                <td>{item.cat_id}</td>
+                <td>{item.food}</td>
+                <td>{item.quant}</td>
+                <td>{item.amt}</td>
   
               
               </tr>
-            {/* ))} */}
+             ))}
         </MDBTableBody>
       </MDBTable>
 
@@ -191,7 +199,7 @@ const Reports = () => {
        </MDBCardBody>
    </MDBCard>
 
-               {/* ))}   */}
+             ))}  
 
   
   </Row>
