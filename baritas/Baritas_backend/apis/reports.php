@@ -33,12 +33,9 @@ if($num>0){
             "cat_id"=>$category_id,
             "cat_name"=>$category_name
         );  
-       
         array_push($cat_arr["data"], $cat_item);   
     }
   
-
-
     echo json_encode($cat_arr);
 }else{
     echo json_encode(

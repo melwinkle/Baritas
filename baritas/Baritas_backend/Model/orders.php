@@ -273,11 +273,7 @@ class orders
     }
 
     public function getByCategories(){
-<<<<<<< HEAD
         $query = "SELECT c.category_name, m.name_of_food, i.quantity,i.amount,c.category_id from orders o inner join order_items i on o.order_id = i.order_id inner join menu m on m.menu_id = i.menu_id inner join category c on c.category_id = m.category_id where (o.date BETWEEN :startd and :endd ) and o.restaurant_id = :r and o.dine_type = :d;";
-=======
-        $query = "SELECT m.name_of_food, i.quantity,i.amount,c.category_id,c.category_name from orders o inner join order_items i on o.order_id = i.order_id inner join menu m on m.menu_id = i.menu_id inner join category c on c.category_id = m.category_id where (o.date BETWEEN :startd and :endd ) and o.restaurant_id = :r and o.dine_type = :d GROUP BY m.name_of_food;";
->>>>>>> 2768a0e7cb0132f3a430d823b350568c528ee97f
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":startd",$this->sdate);
         $stmt->bindParam(":endd",$this->edate);
