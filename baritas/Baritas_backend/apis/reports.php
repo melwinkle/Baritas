@@ -30,10 +30,11 @@ if($num>0){
             'food'=> $name_of_food,
             "quant"=>$quantity,
             "amt"=> $amount,
-            "cat_id"=>$category_id
-        );
-
-        array_push($cat_arr["data"], $cat_item);
+            "cat_id"=>$category_id,
+            "cat_name"=>$category_name
+        );  
+       
+        array_push($cat_arr["data"], $cat_item);   
     }
 
     echo json_encode($cat_arr);
