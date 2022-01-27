@@ -44,8 +44,8 @@ const Reports = () => {
     
     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/reports.php' ,JSON.stringify(searchTerm)).then(function(response){
   //  console.log(response.data);
-   setPosts({blogs: response.data[0]});
-        console.log(response.data[0]);
+   setPosts({blogs: response.data.data});
+        console.log(response.data.data);
 
    })
 }
@@ -54,6 +54,13 @@ const Reports = () => {
     newInventory[e.target.name]=e.target.value;
     setSearchTerm(newInventory);
  }
+
+ const imeiIndex = posts.blogs.reduce((acc,obj)=>{
+   acc[obj.cat_name] =obj;
+   return acc;
+ },{});
+
+ console.log(imeiIndex);
   return (
     <div class="proad">
             <nav

@@ -23,10 +23,10 @@ const CashierNew =(props)=>{
   const [last, setLast] = useState({ blogs: [] });
   const id=sessionStorage.getItem("rest");
 
-  const [tempbasket, setTemp] = useState([]); 
+  const [tempbasket, setTemp] = useState([{ id: '', price: '' }]); 
 
 
-
+  // const temps=[];
     const [ordernew, setOrder] = useState(
       {
       waiter:"",
@@ -80,9 +80,12 @@ const CashierNew =(props)=>{
     }
 
 
-    
-
+  
     const tempbas=(oid,name,prices)=>{
+      // temps.push({id:oid,price:prices});
+      // console.log(temps);
+      // console.log(temps.length);
+
       const tempb=document.getElementById('food');
       const ordert=document.createElement('button');
       const trash=document.createElement('button');
@@ -120,8 +123,7 @@ const CashierNew =(props)=>{
 
 
 
-      
-      
+     
 
 
       // const tot=document.getElementById("total");
@@ -133,7 +135,7 @@ const CashierNew =(props)=>{
       // tot.appendChild(tots);
 
       
-console.log(tempbasket);
+
       
     }
 
@@ -165,9 +167,13 @@ console.log(tempbasket);
 
 
     const additem=(oid, prices)=>{
-      if(prices.length>0){
-        setTemp([...tempbasket, { id: oid, quantity: "", price: prices }]);
-      }
+
+      console.log("Back length:"+tempbasket.length);
+      
+      setTemp([...tempbasket, { id: oid, price: prices }]);
+      
+      console.log("Back:"+tempbasket);
+      
     }
 
     const removeitem = index => {
@@ -241,7 +247,7 @@ console.log(tempbasket);
                 post.blogs.map((item)=>(
 
 
-                <Col id='foodc'><Button id='fod' key={item.id} onClick={()=>{tempbas(item.id,item.name,item.price); total(); additem(item.id, item.price);}}>
+                <Col id='foodc'><Button id='fod' key={item.id} onClick={()=>{tempbas(item.id,item.name,item.price); total(); additem(item.id, item.price)}}>
                   <Image src={logo}></Image>
                   <h6>{item.name}</h6>
                   <p>Ghc {item.price}</p>

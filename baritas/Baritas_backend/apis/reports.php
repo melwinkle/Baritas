@@ -22,21 +22,21 @@ $num = $result->rowCount();
 
 if($num>0){
     $cat_arr = array();
-    // $cat_arr["data"] = array();
+    $cat_arr["data"] = array();
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)){
         extract($row);
-        $cat_item[$category_name] =array(
+        $cat_item =array(
             'food'=> $name_of_food,
             "quant"=>$quantity,
             "amt"=> $amount,
             "cat_id"=>$category_id,
             "cat_name"=>$category_name
         );
-
+        array_push($cat_arr['data'], $cat_item);
        
     }
-    array_push($cat_arr, $cat_item);
+  
 
 
     echo json_encode($cat_arr);
