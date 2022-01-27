@@ -21,21 +21,46 @@ const Reports = () => {
 
   const [posts, setPosts] = useState({ blogs: [] });
 
-  const [searchTerm,setSearchTerm] = useState('');
 
   const id=sessionStorage.getItem("rest");
+  const[searchTerm,setSearchTerm] = useState(
+    {endDate:"",
+    startDate:"",
+    dine_type:"",
+  rest:id}
+  );
+
+
 
   useEffect(() => {
-    const fetchPostList = async () => {
-      const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallinventory.php?id='+id
-      );
-      setPosts({ blogs: data.data });
-      console.log(data);
-    };
-    fetchPostList();
-  }, [setPosts]);
+   
 
+
+
+  },[setPosts]);
+
+  const update=()=>{
+    console.log(searchTerm); 
+    
+    axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/reports.php' ,JSON.stringify(searchTerm)).then(function(response){
+  //  console.log(response.data);
+   setPosts({blogs: response.data.data});
+        console.log(response.data.data);
+
+   })
+}
+  function onChange(e){
+    const newInventory ={...searchTerm}
+    newInventory[e.target.name]=e.target.value;
+    setSearchTerm(newInventory);
+ }
+
+ const imeiIndex = posts.blogs.reduce((acc,obj)=>{
+   acc[obj.cat_name] =obj;
+   return acc;
+ },{});
+
+ console.log(imeiIndex);
   return (
     <div class="proad">
             <nav
@@ -96,22 +121,23 @@ const Reports = () => {
   <Row>
 
  
-    <Form.Group id="forminv">
+    <Form.Group id="forminv" >
 
         <Row>
         <Form.Label>Restaurant type</Form.Label>
-            <select class="select ">
-                <option>Dine-In</option>
-                <option>Takeaway</option>
+            <select name="dine_type"class="select " onChange={(e)=>onChange(e)}>
+            <option >Select Dine type</option>
+                <option value="Dine-In">Dine-In</option>
+                <option value="Takeaway">Takeaway</option>
             </select>
         </Row>
         <Row>
-            <Col>  <Form.Label>Date To</Form.Label> <Form.Control type="date" placeholder="Normal text" /></Col>
-            <Col>  <Form.Label>Date From</Form.Label> <Form.Control type="date" placeholder="Normal text" /></Col>
+            <Col>  <Form.Label>Date To</Form.Label> <Form.Control name="startDate" type="date" placeholder="Normal text" onChange={(e)=>onChange(e)}/></Col>
+            <Col>  <Form.Label>Date From</Form.Label> <Form.Control name="endDate" type="date" placeholder="Normal text" onChange={(e)=>onChange(e)}/></Col>
         </Row>
         
         <Row>
-            <Col><MDBBtn  class="search">SEARCH</MDBBtn></Col>
+            <Col><MDBBtn name="submit" class="search" onClick={update}>SEARCH</MDBBtn></Col>
             
         </Row>
 
@@ -124,10 +150,17 @@ const Reports = () => {
   </Row>
 
  
-<Row id="invtt">
-  
-   <MDBCard>
-       <MDBCardTitle>Starters</MDBCardTitle>
+<Row id="invtt" >
+  <Row id="cat" overflow>
+    {/* {posts.blogs &&
+                posts.blogs.map((item)=>( */}
+                  
+
+          
+
+   
+  <MDBCard>
+       <MDBCardTitle>item[0]</MDBCardTitle>
        <MDBCardBody>
            <MDBCardText>
            <MDBTable  id="repo">
@@ -140,31 +173,29 @@ const Reports = () => {
           </tr>
         </MDBTableHead>
         <MDBTableBody>
-          {posts.blogs &&
-            posts.blogs.filter((item)=>{
-              if(searchTerm ==""){
-                return item;
-              }else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
-                  return item;
-              }
-            }).map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.unit}</td>
-                <td>{item.in}</td>
+          {/* {posts.blogs &&
+                posts.blogs.map((item)=> ( */}
+              <tr key="">
+                <td>""</td>
+                <td>"</td>
+                <td>"item.unit"</td>
+                <td>"item.in"</td>
   
               
               </tr>
-            ))}
+            {/* ))} */}
         </MDBTableBody>
       </MDBTable>
 
            </MDBCardText>
        </MDBCardBody>
    </MDBCard>
-    
 
+               {/* ))}   */}
+
+  
+  </Row>
+   
 
       
       </Row>

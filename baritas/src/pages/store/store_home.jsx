@@ -7,19 +7,13 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import {FaHome,FaBell,FaStoreAlt} from "react-icons/fa";
-import DataTable from './component/DataTable';
-import data from './Table/data';
-import {
-    ProSidebar,
-    SidebarHeader,
-    SidebarContent,
-  } from "react-pro-sidebar";
+
 import { Container, Row, Col } from 'reactstrap';
 import Badge from 'react-bootstrap/Badge';
 // get data fron the procution folder 
 import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
 /* We simply can use an array and loop and print each user */
-function ProductionPage(){
+function StorePage(){
     
   const [posts, setPosts] = useState({ blogs: [] });
 
@@ -32,7 +26,7 @@ function ProductionPage(){
   useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
-        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallproduction.php'
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallstore.php'
       );
       setPosts({ blogs: data.data });
       console.log(data);
@@ -71,17 +65,11 @@ function ProductionPage(){
             </div>
               <ul class="sidenav-menu">
                 <li class="sidenav-item active">
-                  <a href="/production/" class="sidenav-link" >
+                  <a href="/store/" class="sidenav-link" >
                   <MDBBtn outline><i class="fas fa-home fa-fw me-3"></i><span>Home</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item">
-                  <a href="/production/alert/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-bell me-3"></i><span>Alerts</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item ">
-                  <a href="/production/transact" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-boxes me-3"></i><span>Transactions</span></MDBBtn></a>
-                </li>
+               
+             
                 
               </ul>
 
@@ -91,7 +79,7 @@ function ProductionPage(){
             </nav>
       <Container id="invt">
   <Row>
-    <Link to="/production/add/"><Button id="addnew">Add New +</Button></Link>
+    <Link to="/store/add/"><Button id="addnew">Add New +</Button></Link>
     
   </Row>
   <Row>
@@ -99,7 +87,7 @@ function ProductionPage(){
  
     <Form.Group id="forminv">
 <Row>
-<Form.Label>Production Item</Form.Label> 
+<Form.Label>Store Item</Form.Label> 
   <Col>
 
     <Form.Control type="text" name="productiob"  placeholder="Enter item" /></Col>
@@ -122,21 +110,17 @@ function ProductionPage(){
             {/* <th>ID</th> */}
             <th>Product Name </th>
             <th>In Stock</th>
-            <th>Measurement</th>
-            <th>Recipe</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {posts.blogs &&
             posts.blogs.map((item) => (
-              <tr key={item.production_id}>
+              <tr key={item.store_id}>
                 {/* <td>{item.production_id}</td> */}
                 <td>{item.product_name}</td>
                 <td>{item.in_stock}</td>
-                <td>{item.measurement}</td>
-                <td>{item.recipe}</td>
-                <td><a class="ab1"href={'/production/update/' + item.production_id}><button class="b2">Edit</button></a>
+                <td><a class="ab1"href={'/store/update/' + item.store_id}><button class="b2">Edit</button></a>
          </td>
               </tr>
             ))}
@@ -160,4 +144,4 @@ function ProductionPage(){
 
 }
 
-export default ProductionPage;
+export default StorePage;

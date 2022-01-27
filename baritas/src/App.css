@@ -15,7 +15,7 @@
 
 .App-header {
   /* background-color: #B2A9A3; */
-  background-color:#caab90;
+  background-color:#f5e9eb;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@
   background-color:white;
   width:60%;
   border-radius:5px;
-  border:1px solid #550015;
+  border:1px solid #dda702;
   
 
 }
@@ -58,7 +58,7 @@
   width:70%;
   padding:3%;
   margin-bottom: 5%;
-  border:1.5px solid #550015;
+  border:1.5px solid#dda702;
   border-radius:5px;
   font-size:15pt;
   color: #550015;
@@ -144,7 +144,7 @@ justify-content: center;
   background-color:white;
   min-height: 100vh;
   color:#800020;
-  width:20rem;
+  width:18rem;
 
 }
 
@@ -215,11 +215,11 @@ justify-content: center;
 .acco svg{
   width:2em;
   height:2em;
-  color:white;
+  color:#800020;
 }
 .acco button{
   background:none;
-  color:white;
+  color:#800020;
   border:none;
 }
 
@@ -1447,9 +1447,10 @@ margin-left:-5%;
 
 
 .pstall h5{
-  color:white;
+  color:#800020;
   font-size:20pt;
   text-align:center;
+  margin-left:8%;
 }
 
 .itable{
@@ -1573,6 +1574,15 @@ th{
 #invtt .card .card-title{
   color:black;
   margin-top: 2%;
+}
+#cat{
+  height: 40rem;
+  overflow-y:scroll;
+
+}
+#cat .card{
+  margin-top:2%;
+
 }
 
 #addnew{
@@ -2293,6 +2303,7 @@ form td:last-child {
 }
 #invtb{
  border:none;
+ margin-top:2%;
 }
 #invtb thead{
   background-color: #800020;

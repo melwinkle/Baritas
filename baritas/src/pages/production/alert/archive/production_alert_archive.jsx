@@ -14,6 +14,7 @@ import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 // get data fron the procution folder 
 import Badge from 'react-bootstrap/Badge';
+import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
 /* We simply can use an array and loop and print each user */
 function ProductionAPage (){
     
@@ -47,55 +48,39 @@ function ProductionAPage (){
     return (
         
         <div class="proad">
-           <div id="header">
-          {/* collapsed props to change menu size using menucollapse state */}
-        <ProSidebar >
-          <SidebarHeader>
-          <div className="logotext">
+          <nav
+              id="sidenav-1"
+              class="sidenav"
+              data-mdb-hidden="false"
+            >
+              <div className="logotext">
               <Row>
-                  <Col><h3>Baritas:Production</h3></Col>
+                  <Col><h3>Baritas</h3></Col>
               
               </Row>
               
               
             </div>
-            
-          </SidebarHeader>
-          <SidebarContent id="menuit">
-              <div class="menuitem">
-              <Link to="/production/"> <button><FaHome /><div> Home</div>
-             </button></Link>
-             
-              </div>
+              <ul class="sidenav-menu">
+                <li class="sidenav-item">
+                  <a href="/production/" class="sidenav-link" >
+                  <MDBBtn outline><i class="fas fa-home fa-fw me-3"></i><span>Home</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item active">
+                  <a href="/production/alert/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-bell me-3"></i><span>Alerts</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item">
+                  <a href="/production/transact" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-boxes me-3"></i><span>Transactions</span></MDBBtn></a>
+                </li>
+                
+              </ul>
 
-              <div class="menuitem c">
-              <Link to="/production/alert/"> <button><FaBell/><div> Alerts</div>
-             </button></Link>
-             <Badge bg="secondary">{alert_num}</Badge>
+              <div class='logout'>
+                <FiLogOut/> Log Out
               </div>
-              <div class="menuitem">
-              <Link to="/production/transact/"> <button><FaStoreAlt/><div> Sales</div>
-             </button></Link>
-             
-              </div>
-           
-              <div class="menuitem">
-              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
-             </button></Link>
-             
-              </div>
-            
-             
-             
-             
-             
-            
-          </SidebarContent>
-          {/* <SidebarFooter>
-            Baritas (c)
-          </SidebarFooter> */}
-        </ProSidebar>
-      </div>
+            </nav>
         
         <Container  id="invt">
 

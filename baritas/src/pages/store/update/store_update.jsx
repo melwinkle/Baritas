@@ -16,20 +16,18 @@ import {
   import Badge from 'react-bootstrap/Badge';
   import axios from "axios";
   import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
-function ProductionUPage(props){
+function StoreUPage(props){
   
     const[alert,setAlert]=useState({
       alert_num:""
     });
   const[production,setInventory]=useState({
-    production_name:"",
+    product_name:"",
     stock_limit:"",
-    measurement:"",
-    in_stock:"",
-    recipe:""
+    in_stock:""
 });
 const{alert_num}=alert;
-const{production_name,stock_limit,measurement,in_stock,recipe}=production;
+const{product_name,stock_limit,in_stock}=production;
 
 useEffect(async ()=>{
  produp();
@@ -45,16 +43,16 @@ function onChange(e){
 function update(e){
   console.log(production); 
  e.preventDefault();
-  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updateproduction.php' ,JSON.stringify(production)).then(function(response){
+  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatestore.php' ,JSON.stringify(production)).then(function(response){
  console.log(response.data);
  })
 }
 const produp=()=>{
-   fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getaproduct.php?id='+props.match.params.id)
+   fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getaproducts.php?id='+props.match.params.id)
     .then((response)=>response.json())
     .then((responseJSON)=>{
-        setInventory(responseJSON.production);
-        console.log(responseJSON.production);
+        setInventory(responseJSON.store);
+        console.log(responseJSON.store);
     }
     );
 
@@ -77,7 +75,6 @@ const alertnum=()=>{
         return (
           <div class="proad">
              
-
              <nav
               id="sidenav-1"
               class="sidenav"
@@ -93,17 +90,11 @@ const alertnum=()=>{
             </div>
               <ul class="sidenav-menu">
                 <li class="sidenav-item active">
-                  <a href="/production/" class="sidenav-link" >
+                  <a href="/store/" class="sidenav-link" >
                   <MDBBtn outline><i class="fas fa-home fa-fw me-3"></i><span>Home</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item">
-                  <a href="/production/alert/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-bell me-3"></i><span>Alerts</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item ">
-                  <a href="/production/transact" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-boxes me-3"></i><span>Transactions</span></MDBBtn></a>
-                </li>
+                
+                
                 
               </ul>
 
@@ -115,7 +106,7 @@ const alertnum=()=>{
              <Container id="invt">
 
              <Row>
-        <Link to="/production/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+        <Link to="/store/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
     </Row>
 
 
@@ -126,7 +117,7 @@ const alertnum=()=>{
 <Container>
  <Row>
      <Col><label>Name</label>
-<input type="text" placeholder="Item name" value={production_name} name="production_name" onChange={(e)=>onChange(e)}/></Col>
+<input type="text" placeholder="Item name" value={product_name} name="production_name" onChange={(e)=>onChange(e)}/></Col>
 <Col>
 <label>Stock Limit</label>
 <input type="number"value={stock_limit} name="stock_limit" onChange={(e)=>onChange(e)}/></Col>
@@ -134,20 +125,13 @@ const alertnum=()=>{
 </Row>
 
 <Row>
-<Col>
-<label>Measurement</label>
-<input type="text" value={measurement} name="measurement" onChange={(e)=>onChange(e)}/></Col>
+
 <Col>
 <label>In Stock</label>
 <input type="number" value={in_stock} name="in_stock" onChange={(e)=>onChange(e)}/></Col>
  </Row>
 
- <Row>
-     <Col>
-     <label>Recipe</label>
-     <textarea value={recipe} name="recipe" onChange={(e)=>onChange(e)}></textarea>
-     </Col>
- </Row>
+
 
  
 
@@ -176,7 +160,7 @@ const alertnum=()=>{
     
 }
 
-export default ProductionUPage;
+export default StoreUPage;
 
 
 

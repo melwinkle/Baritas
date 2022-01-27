@@ -36,6 +36,8 @@ if($num>0){
        
         array_push($cat_arr["data"], $cat_item);   
     }
+  
+
 
     echo json_encode($cat_arr);
 }else{

@@ -89,7 +89,11 @@ import ProductionGPage from "./pages/administrator/production_g/production_home.
 import ProductionGTPage from "./pages/administrator/production_g/transact/view/production_transact.jsx";
 import ProductionGHPage from "./pages/administrator/production_g/transact/product_transact.jsx";
 import ProductionGIPage from "./pages/administrator/production_g/transact/invoice/production_transact_invoice.jsx";
-import ProductionGNTPage from "./pages/administrator/production_g/transact/tracking/production_transact_tracking.jsx";
+
+
+import StorePage from "./pages/store/store_home.jsx";
+import StoreNPage from "./pages/store/add/store_add.jsx";
+import StoreUPage from "./pages/store/update/store_update.jsx";
 
 
 import Reports from "./pages/administrator/reports/reports.jsx";
@@ -176,12 +180,16 @@ class App extends Component {
        <Route exact path="/general_manager/production/general/:date" component={GProductPage} />
        <Route exact path="/general_manager/production/invoice/:id" component={GInvoicePage} />
        <Route exact path="/administrator/production_g" component={ProductionGPage} />
-       <Route exact path="/administrator/production_g/transact/tracking/:id" component={ProductionGNTPage} />
+
        <Route exact path="/administrator/production_g/transact/invoice/:id" component={ProductionGIPage} />
        <Route exact path="/administrator/production_g/transact/view/:date" component={ProductionGTPage} />
        <Route exact path="/administrator/production_g/transact/" component={ProductionGHPage} />
 
+
        <Route exact path="/administrator/reports/" component={Reports} />
+       <Route exact path="/store/" component={StorePage} />
+       <Route exact path="/store/add/" component={StoreNPage} />
+       <Route exact path="/store/update/:id" component={StoreUPage} />
    
       </Router>
     );

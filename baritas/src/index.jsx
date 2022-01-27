@@ -63,6 +63,11 @@ class MainPage extends React.Component {
           this.setState({redirect:true});
           window.location='/production';
         }
+        else if((result.UserData.role)==='8'){
+          sessionStorage.setItem('storeData',result);
+          this.setState({redirect:true});
+          window.location='/store';
+        }
         else{
           alert("Wrong credentials")
         }

@@ -35,7 +35,7 @@ const CashierOrders =()=>{
       
       fetchPostList();
       getinfo();
-      getcomplete();
+  
     }, [setPosts],[setPost])
 
      const getinfo=async(order)=>{
@@ -51,9 +51,51 @@ const CashierOrders =()=>{
       const getcomplete=async(order)=>{
       
      
-      
+
+            Swal.fire({
+                title: 'Complete Order#'+order,
+                text: "Are you sure you want to complete this order",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes,Complete!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/changeorderstatus.php?id='+order);
+
+                }
+              })
         
-           axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/changeorderstatus.php?id='+order);
+        //    
+           
+           
+           
+       
+  
+        }
+
+
+        const getcancel=async(order)=>{
+      
+     
+
+            Swal.fire({
+                title: 'Cancel Order#'+order,
+                text: "Are you sure you want to cancel this order",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes,Cancel!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/changeordercancel.php?id='+order);
+
+                }
+              })
+        
+        //    
            
            
            
@@ -324,7 +366,7 @@ const CashierOrders =()=>{
                 <Col id="amt"><h6>{items.total}</h6></Col>
             </Row>
             <Row>
-                <Col><Button id="b1">CANCEL</Button></Col>
+                <Col><Button id="b1" onClick={() =>getcancel(items.order_id)}>CANCEL</Button></Col>
                 <Col><Button id="b2">EDIT</Button></Col>
                 <Col><Button id="b3" onClick={() =>getcomplete(items.order_id)}>COMPLETE</Button></Col>
             </Row>

@@ -63,7 +63,7 @@ function ProductionGTPage (props) {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas Adenta</h3></Col>
+                  <Col><h3>Baritas</h3></Col>
               
               </Row>
               
@@ -71,37 +71,14 @@ function ProductionGTPage (props) {
             </div>
               <ul class="sidenav-menu">
                 <li class="sidenav-item">
-                  <a href="/administrator/" class="sidenav-link" >
+                  <a href="/administrator/production_g/" class="sidenav-link" >
                   <MDBBtn outline><i class="fas fa-home fa-fw me-3"></i><span>Home</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item">
-                  <a href="/administrator/employee/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-user-friends me-3"></i><span>Employee</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item ">
-                  <a href="/administrator/inventory/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-boxes me-3"></i><span>Inventory</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item">
-                  <a href="/administrator/finances/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-piggy-bank me-3"></i><span>Finances</span></MDBBtn></a>
-                </li>
                 <li class="sidenav-item active">
-                  <a href="/administrator/orders/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-concierge-bell me-3"></i><span>Orders</span></MDBBtn></a>
+                  <a href="/administrator/production_g/transact/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-user-friends me-3"></i><span>Transactions</span></MDBBtn></a>
                 </li>
-                <li class="sidenav-item">
-                  <a href="/administrator/mainmenu/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-utensils me-3"></i><span>Menu</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item">
-                  <a href="/administrator/reports/" class="sidenav-link"
-                    ><MDBBtn outline><i class="fas fa-clipboard me-3"></i><span>Reports</span></MDBBtn></a>
-                </li>
-                <li class="sidenav-item">
-                  <a href="/administrator/production/" class="sidenav-link"
-                    ><MDBBtn outline ><i class="fas fa-file-invoice me-3"></i><span>Production</span></MDBBtn></a>
-                </li>
+              
               </ul>
 
               <div class='logout'>
@@ -111,7 +88,7 @@ function ProductionGTPage (props) {
         
       <Container id="invt">
       <Row>
-        <Link to="/production/transact/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+        <Link to="/administrator/production_g/transact/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
     </Row>
 
  
@@ -137,8 +114,8 @@ function ProductionGTPage (props) {
                 <td>{item.Transaction_Status}</td>
                
        
-                <td><a class="ab1"href={'/production/transact/tracking/' + item.transaction_id}><button class="b2">Edit</button></a>
-               <a class="ab1" href={'/production/transact/invoice/' + item.transaction_id}> <button class="b1">View</button></a></td>
+                <td>
+               <a class="ab1" href={'/administrator/production_g/transact/invoice/' + item.transaction_id}> <button class="b1">View</button></a></td>
              
               </tr>
                  
