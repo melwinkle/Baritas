@@ -61,9 +61,6 @@ const CashierNew =(props)=>{
         console.log(data);
   
       }
-
-      
-      
     fetchPostList();
     getwaiters();
     getinfo();
@@ -117,7 +114,6 @@ const CashierNew =(props)=>{
       ordert.appendChild(orders);
       trash.appendChild(trashy);
       trash.appendChild(trashp);
-      
       tempb.appendChild(ordert);
       tempb.appendChild(trash);
 
@@ -133,10 +129,6 @@ const CashierNew =(props)=>{
 
       // tots.appendChild(total);
       // tot.appendChild(tots);
-
-      
-
-      
     }
 
 
@@ -184,7 +176,7 @@ const CashierNew =(props)=>{
 
 
 
-    const add =(e)=>{
+    function add(e){
       console.log(prod);
      e.preventDefault();
      axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createorder.php',JSON.stringify(prod)).then(function(response){
