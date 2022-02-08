@@ -30,7 +30,11 @@ class orders
     }
     public function createnew()
     {
+<<<<<<< HEAD
         $query = "INSERT into orders(restaurant_id,user_id,table_id) VALUES (:r,:u,:t)";
+=======
+        $query = "INSERT into orders(restaurant_id,`user_id`) VALUES (:r,:u)";
+>>>>>>> d459e4dfd09e002fe23cb5a0b7cb6443b53bc114
         $stmt = $this->conn->prepare($query);
 
   
@@ -44,10 +48,13 @@ class orders
 
         $stmt->bindParam(':r', $this->restaurant);
         $stmt->bindParam(':u', $this->cashier);
+<<<<<<< HEAD
         $stmt->bindParam(':t', $this->table);
 
 
 
+=======
+>>>>>>> d459e4dfd09e002fe23cb5a0b7cb6443b53bc114
         if ($stmt->execute()) {
             $this->id = $this->conn->lastInsertId();
             echo $this->id;
@@ -329,7 +336,7 @@ class orders
     }
 
     public function getByCategories(){
-        $query = "SELECT c.category_name, m.name_of_food, sum(i.quantity) as quantity,sum(i.amount) as amount,c.category_id from orders o inner join order_items i on o.order_id = i.order_id inner join menu m on m.menu_id = i.menu_id inner join category c on c.category_id = m.category_id where (o.date BETWEEN :startd and :endd ) and o.restaurant_id = :r and o.dine_type = :d group by m.name_of_food;";
+        $query = "SELECT c.category_name, m.name_of_food, i.quantity,i.amount,c.category_id from orders o inner join order_items i on o.order_id = i.order_id inner join menu m on m.menu_id = i.menu_id inner join category c on c.category_id = m.category_id where (o.date BETWEEN :startd and :endd ) and o.restaurant_id = :r and o.dine_type = :d;";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":startd",$this->sdate);
         $stmt->bindParam(":endd",$this->edate);

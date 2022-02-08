@@ -94,8 +94,7 @@ const CashierOrders =()=>{
 
                 }
               })
-        
-        //    
+            
            
            
            
