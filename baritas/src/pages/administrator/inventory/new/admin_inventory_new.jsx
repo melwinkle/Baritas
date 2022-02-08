@@ -16,6 +16,7 @@ import {
   import Button from "react-bootstrap/Button";
   import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
 
    const MySwal = withReactContent(Swal);
 
@@ -76,76 +77,58 @@ class InventoryNPage extends React.Component {
     return (
         
         <div class="proad">
-             <div id="header">
-          {/* collapsed props to change menu size using menucollapse state */}
-        <ProSidebar >
-          <SidebarHeader>
-          <div className="logotext">
+            <nav
+              id="sidenav-1"
+              class="sidenav"
+              data-mdb-hidden="false"
+            >
+              <div className="logotext">
               <Row>
-                  <Col><h3>Baritas:Adenta</h3></Col>
+                  <Col><h3>Baritas Adenta</h3></Col>
               
               </Row>
               
               
             </div>
-            
-          </SidebarHeader>
-          <SidebarContent id="menuit">
-              <div class="menuitem">
-              <Link to="/administrator/"> <button><FaList /><div> Home</div>
-             </button></Link>
-             
-              </div>
-              <div class="menuitem">
-              <Link to="/administrator/employee/"> <button><FaList /><div> Employee</div>
-             </button></Link>
-             
-              </div>
-              <div class="menuitem c">
-              <Link to="/administrator/inventory/"> <button><FaList /><div> Inventory</div>
-             </button></Link>
-             
-              </div>
-              <div class="menuitem">
-              <Link to="/administrator/finances/"> <button><FaList /><div> Finances</div>
-             </button></Link>
-             
-              </div>
-              <div class="menuitem">
-              <Link to="/administrator/orders/"> <button><FaList /><div> Orders</div>
-             </button></Link>
-             
-              </div>
+              <ul class="sidenav-menu">
+                <li class="sidenav-item">
+                  <a href="/administrator/" class="sidenav-link" >
+                  <MDBBtn outline><i class="fas fa-home fa-fw me-3"></i><span>Home</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item">
+                  <a href="/administrator/employee/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-user-friends me-3"></i><span>Employee</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item active">
+                  <a href="/administrator/inventory/" class="sidenav-link"
+                    ><MDBBtn ><i class="fas fa-boxes me-3"></i><span>Inventory</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item">
+                  <a href="/administrator/finances/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-piggy-bank me-3"></i><span>Finances</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item">
+                  <a href="/administrator/orders/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-concierge-bell me-3"></i><span>Orders</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item">
+                  <a href="/administrator/mainmenu/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-utensils me-3"></i><span>Menu</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item">
+                  <a href="/administrator/reports/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-clipboard me-3"></i><span>Reports</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item">
+                  <a href="/administrator/production/" class="sidenav-link"
+                    ><MDBBtn outline ><i class="fas fa-file-invoice me-3"></i><span>Production</span></MDBBtn></a>
+                </li>
+              </ul>
 
-              <div class="menuitem">
-              <Link to="/administrator/mainmenu/"> <button><FaList /><div> Menu</div>
-             </button></Link>
-             
+              <div class='logout'>
+                <FiLogOut/> Log Out
               </div>
-              <div class="menuitem">
-              <Link to="/administrator/production/"> <button><FaList /><div> Production</div>
-             </button></Link>
-             
-              </div>
-              
-              <div class="menuitem">
-              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
-             </button></Link>
-             
-              </div>
-           
-            <div class="accor">
-                 <Link to="/administrator/menu/"><button><FaHome/></button></Link>
-                <button><FiLogOut /></button> 
-            </div>
-            
-     
-            </SidebarContent>
-          {/* <SidebarFooter>
-            Baritas (c)
-          </SidebarFooter> */}
-        </ProSidebar>
-      </div>
+            </nav>
         <Container id="invt">
         <Row>
         <Link to="/administrator/inventory/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>

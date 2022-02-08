@@ -104,12 +104,13 @@ const CashierOrders =()=>{
         }
 
         const neworder=()=>{
-            axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createorder.php?id='+id+'&ud='+ud,JSON.stringify(ud,id)).then(function(response){
-                console.log(response.data);
-                if(response.data.length!=0){
-                    window.location='/cashier/new/'+response.data.substring(0,2);
-                }
-        });
+            window.location='/cashier/table/';
+        //     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createorder.php?id='+id+'&ud='+ud,JSON.stringify(ud,id)).then(function(response){
+        //         console.log(response.data);
+        //         if(response.data.length!=0){
+        //             window.location='/cashier/new/'+response.data.substring(0,2);
+        //         }
+        // });
 
 
         }
@@ -123,7 +124,7 @@ const CashierOrders =()=>{
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
       <Nav.Link href="/cashier/order_main/">Orders</Nav.Link>
-      <Nav.Link href="/cashier/new/">Pending</Nav.Link>
+      <Nav.Link href="/cashier/table/">Pending</Nav.Link>
       
     </Nav>
     <Nav>

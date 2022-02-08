@@ -203,7 +203,7 @@ const CashierNew =(props)=>{
                         <Navbar.Collapse id="responsive-navbar-nav">
                           <Nav className="me-auto">
                             <Nav.Link href="/cashier/order_main/">Orders</Nav.Link>
-                            <Nav.Link href="/cashier/new/">Pending</Nav.Link>
+                            <Nav.Link href="/cashier/table/">Pending</Nav.Link>
                             
                           </Nav>
                           <Nav>
@@ -295,10 +295,8 @@ const CashierNew =(props)=>{
 
                   <Col>
                   <select name="table">
-                      <option value="Table 1">Table 1</option>
-                      <option value="Table 1">Table 1</option>
-                      <option value="Table 1">Table 1</option>
-                      <option value="Table 1">Table 1</option>
+                      <option value="Table 1">{props.match.params.table}</option>
+                      
                   </select></Col>
                   </Row>
 

@@ -1,108 +1,169 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import '../../../App.css';
-import { Link,useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
-import logo from "../../../images/IMG_8850.JPG";
+import Form from 'react-bootstrap/Form';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
+import {FaPlus,FaTrash} from "react-icons/fa";
+import Card from 'react-bootstrap/Card';
+import {GiForkKnifeSpoon} from 'react-icons/gi';
+import { QuantityPicker } from 'react-qty-picker';
+import logo from "../../../images/IMG_8850.JPG";
+import axios from 'axios';
+import Draggable from "react-draggable";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
 /* We simply can use an array and loop and print each user */
+const CashierTable =(props)=>{
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
+
+  const id=sessionStorage.getItem("rest");
+  const ud=sessionStorage.getItem("id");
+
+  const [posts, setPosts] = useState({ blogs: [] });
+
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  function trackPos (data,id) {
+    // setPosition({ });
+    // alert("x="+data.x+"&y="+data.y);
+    axios.post("http://localhost/Baritas/baritas/Baritas_backend/apis/tablemapup.php?id="+id+"&x="+data.x+"&y=-"+data.y);
+ };
+
+ 
+ const updatePos = (data,id) => {
+  
+
+  axios.get("http://localhost/Baritas/baritas/Baritas_backend/apis/tablemapup.php?id="+id+"&x="+data.x+"&y="+data.y);
+
+};
+
+ useEffect(() => {
+  const fetchPostList = async () => {
+    const { data } = await axios(
+      'http://localhost/Baritas/baritas/Baritas_backend/apis/tablemap.php?id='+id
+    );
+    setPosts({ blogs: data.data });
+    console.log(data);
+  };
+  fetchPostList();
+
+
+},[setPosts]);
+  
+ 
+const addtab=()=>{
+
+
+  // const { value: text } =  MySwal.fire({
+  //   title: 'Enter new Table name',
+  //   input: 'textarea',
+  //   inputAttributes: {
+  //     'aria-label': 'Type table name'
+  //   },
+  //   showCancelButton: true
+  // })
+  
+  // if (text) {
+  //   console.log(`${text}`);
+  //   // axios.post("http://localhost/Baritas/baritas/Baritas_backend/apis/tablemapadd.php?id="+id+"&name="+text);
+  // }
+
+
+  const { value: email } = MySwal.fire({
+    title: 'Input email address',
+    input: 'email',
+    inputLabel: 'Your email address',
+    inputPlaceholder: 'Enter your email address'
+  })
+  
+  if (email) {
+    MySwal.fire(`Entered email: ${email}`)
+  }
 }
 
 
-function TablePage (){
-  let query = useQuery();
+const neworder=(name)=>{
+  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createorder.php?id='+id+'&ud='+ud+'&table='+name,JSON.stringify(ud,id)).then(function(response){
+      console.log(response.data);
+      if(response.data.length!=0){
+        
+          window.location='/cashier/new/'+response.data+'/'+name;
+      }
+});
+
+
+}
+
+    
 
     return (
-        <div class="process">
-<Container id="nas"> 
-      <Navbar id="nab" bg="light" fixed="top">
-  <Container>
-    <Navbar.Brand href="#home">Baritas</Navbar.Brand>
-    <Navbar.Toggle />
-    <Nav className="me-auto">
-        <Nav.Link href="#home">Adenta Branch</Nav.Link>
-       
-      </Nav>
-    <Navbar.Collapse className="justify-content-end">
-      <Navbar.Text>
-       Cashier 1 
-     
-      </Navbar.Text>
-  
-    </Navbar.Collapse>
-  </Container>
-</Navbar>
-
-<Row id="mapr">
-
-<Row>
-  
-
- </Row>
-<Row>
-  <Col><Link to={{pathname: `/cashier/waiter/?table=Table 1&process=${query.get("process")}`,
-    }}><Button  id="tablenum">Table 1</Button>{' '}</Link></Col>
-<Col><Link to={{pathname: `/cashier/waiter/?table=Table 2&process=${query.get("process")}`,
-    }}><Button  id="tablenum">Table 2</Button>{' '}</Link></Col>
-<Col><Link to={{pathname: `/cashier/waiter/?table=Table 3&process=${query.get("process")}`,
-    }}><Button  id="tablenum">Table 3</Button>{' '}</Link></Col>
-<Col><Link to={{pathname: `/cashier/waiter/?table=Table 4&process=${query.get("process")}`,
-    }}><Button  id="tablenum">Table 4</Button>{' '}</Link></Col>
-</Row>
+    <div class="process">
+      <Container>
     
-<Row>
-  <Col><Link to={{pathname: `/cashier/waiter/?table=Table 5&process=${query.get("process")}`,
-    }}><Button  id="tablenum">Table 5</Button>{' '}</Link></Col>
-<Col><Link to={{pathname: `/cashier/waiter/?table=Table 6&process=${query.get("process")}`,
-    }}><Button  id="tablenum">Table 6</Button>{' '}</Link></Col>
-<Col><Link to={{pathname: `/cashier/waiter/?table=Table 7&process=${query.get("process")}`,
-    }}><Button  id="tablenum">Table 7</Button>{' '}</Link></Col>
-<Col><Link to={{pathname: `/cashier/waiter/?table=Table 8&process=${query.get("process")}`,
-    }}><Button  id="tablenum">Table 8</Button>{' '}</Link></Col>
-</Row>
-<Row>
-  <Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 9</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 10</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 11</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 12</Button>{' '}</Link></Col>
-</Row>
-<Row>
-  <Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 13</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 14</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 15</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 16</Button>{' '}</Link></Col>
-</Row>
-    
-<Row>
-  <Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 17</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 18</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 19</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 20</Button>{' '}</Link></Col>
-</Row>
+          <Col id="newnab">
+            <Navbar  id="nabc" expand="lg"  fixed="top">
+                    <Container>
+                        <Navbar.Brand href="#home">Baritas</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                          <Nav className="me-auto">
+                            <Nav.Link href="/cashier/order_main/">Orders</Nav.Link>
+                            <Nav.Link href="/cashier/new/">Pending</Nav.Link>
+                            
+                          </Nav>
+                          <Nav>
+                            <Nav.Link href="#deets">Cashier 1</Nav.Link>
+                            <Nav.Link eventKey={2} href="#memes">
+                              Logout
+                            </Nav.Link>
+                          </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
 
-<Row>
-  <Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 21</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 22</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 23</Button>{' '}</Link></Col>
-<Col><Link to="/cashier/waiter/"><Button  id="tablenum">Table 24</Button>{' '}</Link></Col>
-</Row>
-</Row>
-</Container>
+</Col>
 
+
+       </Container>
+
+
+       <Container>
+         <div id="dragb">
+         <Button onClick={()=>addtab()}>Add new Table</Button>
+         </div>
+         
+
+
+       {posts.blogs && posts.blogs.map((item, index) => 
+          <Draggable
+          key={item.id}
+          defaultPosition={{x:item.x,y:item.y}}
+          onStop={(data)=>trackPos(data,item.id)}
+        >
+          <Button  className="boxb"  onClick={()=>neworder(item.name)}>
+            {item.name}
+           
+          </Button>
+          
+        </Draggable>
+       )}
+
+
+
+       </Container>
         
-
+        
+      
     </div>
-
-// next
-
   );
 
 }
 
-export default TablePage;
+export default CashierTable;
+
+

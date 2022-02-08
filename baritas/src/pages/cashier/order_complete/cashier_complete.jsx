@@ -81,7 +81,7 @@ const CashierOrdersC =()=>{
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
       <Nav.Link href="/cashier/order_main/">Orders</Nav.Link>
-      <Nav.Link href="/cashier/new/">Pending</Nav.Link>
+      <Nav.Link href="/cashier/table/">Pending</Nav.Link>
       
     </Nav>
     <Nav>

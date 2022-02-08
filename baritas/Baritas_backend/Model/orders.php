@@ -30,12 +30,13 @@ class orders
     }
     public function createnew()
     {
-        $query = "INSERT into orders(restaurant_id,user_id) VALUES (:r,:u)";
+        $query = "INSERT into orders(restaurant_id,user_id,table_id) VALUES (:r,:u,:t)";
         $stmt = $this->conn->prepare($query);
 
   
         $this->restaurant = htmlspecialchars(strip_tags($this->restaurant));
         $this->cashier = htmlspecialchars(strip_tags($this->cashier));
+        $this->table = htmlspecialchars(strip_tags($this->table));
  
 
 
@@ -43,12 +44,13 @@ class orders
 
         $stmt->bindParam(':r', $this->restaurant);
         $stmt->bindParam(':u', $this->cashier);
+        $stmt->bindParam(':t', $this->table);
 
 
 
         if ($stmt->execute()) {
             $this->id = $this->conn->lastInsertId();
-            echo $this->id.",";
+            echo $this->id;
             return true;
         }
         printf("Error: %s.\n", $stmt->error);
@@ -94,6 +96,33 @@ class orders
         return false;
     }
 
+    public function createtable()
+    {
+        $query = "INSERT into tablemap(table_name,restaurant_id) VALUES (:u,:r)";
+        $stmt = $this->conn->prepare($query);
+
+  
+        $this->restaurant = htmlspecialchars(strip_tags($this->restaurant));
+        $this->name = htmlspecialchars(strip_tags($this->name));
+ 
+
+
+
+
+        $stmt->bindParam(':r', $this->restaurant);
+        $stmt->bindParam(':u', $this->name);
+
+
+
+        if ($stmt->execute()) {
+            $this->id = $this->conn->lastInsertId();
+            echo $this->id.",";
+            return true;
+        }
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
     public function getId(){
         return $this->id;
     }
@@ -239,6 +268,33 @@ class orders
         $stmt->execute();
         return $stmt;
 
+    }
+
+    public function getTable(){
+        $query ="SELECT * from tablemap where restaurant_id=:r ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':r',$this->restaurant);
+        $stmt->execute();
+        return $stmt;
+
+    }
+
+    public function updatemap(){
+        $query="UPDATE tablemap SET x_cod=:x, y_cod=:y where map_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':i',$this->id);
+        $stmt->bindParam(':x',$this->x);
+        $stmt->bindParam(':y',$this->y);
+    
+    
+    
+    
+        if($stmt->execute()){
+            return true;
+        }
+        printf("error: %s ./n", $stmt->error);
+        return false;
+    
     }
     
     public function updatekitchen(){

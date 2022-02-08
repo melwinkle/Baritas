@@ -7,25 +7,26 @@ header('Access-Control-Allow-Headers:Access-Control-Allow-Headers, Content-Type,
 include_once '../../Baritas_backend/database/Database.php';
 include_once '../../Baritas_backend/Model/orders.php';
 
-
 $database = new Database();
 $db = $database->connect();
 
-$order = new orders($db);
+$menu = new orders($db);
 
 
 $data = json_decode(file_get_contents("php://input"));
 
 
+$menu->restaurant=$_GET['id'];
 
 
-$order->restaurant=$_GET['id'];
-$order->cashier=$_GET['ud'];
-$order->table=$_GET['table'];
+$menu->name=$_GET['name'];
 
 
 
-$order->createnew();
-
-
+if($menu->createtable()){
+   echo true;
+}
+else{
+  echo false;
+}
 ?>

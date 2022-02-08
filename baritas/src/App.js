@@ -11,6 +11,7 @@ import MainPage from "./index.jsx";
 import CashierOrders from "./pages/cashier/order_main/cashier_main.jsx";
 import CashierOrdersC from "./pages/cashier/order_complete/cashier_complete.jsx";
 import CashierNew from "./pages/cashier/new/cashier_new.jsx";
+import CashierTable from "./pages/cashier/table/table_map.jsx";
 import UsersPage from "./pages/cashier/orders/process_order.jsx";
 import TablePage from "./pages/cashier/table/table_map.jsx";
 import TakeawayPage from "./pages/cashier/takeaway/takeaway_order.jsx";
@@ -105,9 +106,9 @@ class App extends Component {
        <Route exact path="/" component={MainPage} />
        <Route exact path="/cashier/order_main" component={CashierOrders} />
        <Route exact path="/cashier/order_complete" component={CashierOrdersC} />
-       <Route exact path="/cashier/new/:id" component={CashierNew} />
+       <Route exact path="/cashier/new/:id/:table" component={CashierNew} />
        <Route exact path="/cashier/orders" component={UsersPage} />
-       <Route exact path="/cashier/table" component={TablePage} />
+       <Route exact path="/cashier/table" component={CashierTable} />
        <Route exact path="/cashier/takeaway" component={TakeawayPage} />
        <Route exact path="/cashier/waiter" component={WaiterPage} />
        <Route exact path="/cashier/menu" component={MenuMPage} />

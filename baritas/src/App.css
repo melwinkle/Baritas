@@ -1242,6 +1242,15 @@ margin-left:-5%;
   margin-left:0%;
 }
 
+
+#newnab #nabc{
+  width:100%;
+  margin-left:0%;
+}
+
+.boxb{
+  cursor:move;
+}
 #orderdine{
   margin-top: -15.3%;
   margin-left:53%;
@@ -1258,7 +1267,10 @@ margin-left:-5%;
   margin-top:-15%;
 }
 
-
+#dragb{
+  margin-left:-100%;
+  margin-top:-50%;
+}
 
 #newnab #menucat{
   margin-left:-2%;
