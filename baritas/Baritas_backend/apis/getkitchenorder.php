@@ -13,6 +13,8 @@ $invent->restaurant =$_GET['id'];
 $result = $invent->kitchens();
 $num = $result->rowCount();
 
+// food_stats is for when food is ready
+// |food_stat is when food exist
 if ($num > 0) {
 
   

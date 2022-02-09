@@ -14,6 +14,10 @@ import {GiForkKnifeSpoon} from 'react-icons/gi';
 import { QuantityPicker } from 'react-qty-picker';
 import logo from "../../../images/IMG_8850.JPG";
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 /* We simply can use an array and loop and print each user */
 const CashierNew =(props)=>{
 
@@ -23,20 +27,22 @@ const CashierNew =(props)=>{
   const [last, setLast] = useState({ blogs: [] });
   const id=sessionStorage.getItem("rest");
 
-  const [tempbasket, setTemp] = useState([{ id: '', price: '' }]); 
-
+  const [tempbasket, setTemp] = useState([]); 
+  const [tbill, setBill] = useState(0);
+  const [tvat, setVat] = useState(0);  
+  const [tsub, setSub] = useState(0);  
 
   // const temps=[];
     const [ordernew, setOrder] = useState(
       {
       waiter:"",
-      table:"",
       notes:"",
       payment:"",
       dine:"",
       total:"",
       sub:"",
-      vat:""
+      vat:"",
+      id:props.match.params.id
     }
     );
 
@@ -64,6 +70,7 @@ const CashierNew =(props)=>{
     fetchPostList();
     getwaiters();
     getinfo();
+    
   }, [setPosts],[setPost]);
  
 
@@ -79,6 +86,7 @@ const CashierNew =(props)=>{
 
   
     const tempbas=(oid,name,prices)=>{
+    
       // temps.push({id:oid,price:prices});
       // console.log(temps);
       // console.log(temps.length);
@@ -102,7 +110,7 @@ const CashierNew =(props)=>{
 
       trash.className='trash';
       trashy.className='trashy';
-  
+      trash.onClick = "alert('blah')";
 
 
       trashy.appendChild(trashh);
@@ -121,21 +129,13 @@ const CashierNew =(props)=>{
 
      
 
-
-      // const tot=document.getElementById("total");
-      // tot.innerText=tempbasket.length;
-      // const tots=document.createElement('span');
-      // const total=document.createTextNode(tempbasket.length);
-
-      // tots.appendChild(total);
-      // tot.appendChild(tots);
     }
 
 
-    const total=()=>{
+    const total=(price)=>{
       // let totals=0;
       // tempbasket.forEach(element => {
-      //   const tot=element.price*element.quantity;
+      //   const tot=element.price+;
       //   totals=tot+totals;
 
       // });
@@ -143,28 +143,40 @@ const CashierNew =(props)=>{
       const tot=document.getElementById("total");
       const sub=document.getElementById("sub");
       const vat=document.getElementById("vat");
-      const totals = tempbasket.reduce(function(tot, price) {
-        return tot + +price.price
-      }, 0)
+
+
+
+      
+       const totals = parseInt(tot.innerText) + parseInt(price);
+      
+      // const totals = tempbasket.reduce((tots, price) =>
+      // tots + parseFloat(price.price)
+      // , 0)
       // const totals=tempbasket.reduce((a,v) =>  a + v.price , 0 );
-      tot.innerText=totals;
+
+      tot.innerHTML=totals;
       const vate=totals*0.025;
 
-      vat.innerText=vate;
-      sub.innerText=totals-vate;
+      vat.innerHTML=vate;
+      const subs=totals-vate;
+      sub.innerHTML=totals-vate;
 
-
+     
+      setOrder({...ordernew,
+        total:totals,sub:subs,vat:vate,
+      })
       console.log(totals);
     }
 
 
     const additem=(oid, prices)=>{
 
+      setTemp([...tempbasket, {id:oid,price:prices}]);
       console.log("Back length:"+tempbasket.length);
       
-      setTemp([...tempbasket, { id: oid, price: prices }]);
+      // setTemp([...tempbasket, { id: oid, price: prices }]);
       
-      console.log("Back:"+tempbasket);
+  
       
     }
 
@@ -176,12 +188,38 @@ const CashierNew =(props)=>{
 
 
 
-    function add(e){
+    const add=(e)=>{
       console.log(prod);
      e.preventDefault();
-     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createorder.php',JSON.stringify(prod)).then(function(response){
+     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/addorder.php',JSON.stringify(prod)).then(function(response){
          console.log(response.data);
+         if(response.data == 1){
+          MySwal.fire({
+              title: "Order #"+props.match.params.id+"Placed",
+              text:"Order has been placed",
+              icon: "success",
+              button :true
+            }).then(function(){
+              window.location='/cashier/order_main';
+            });
+
+      }
+      else{
+          MySwal.fire({
+              title: "Inventory Not added",
+              text:"Error adding inventory",
+              icon: "error",
+              button :true
+            });
+
+      }
      })
+  }
+
+  function onChange(e){
+    setOrder({...ordernew,
+      [e.target.name]:e.target.value
+    })
   }
     return (
     <div class="process">
@@ -235,20 +273,18 @@ const CashierNew =(props)=>{
             <Row id="mens">
               <h6>OrderMenu</h6>
               <Row id='fodc' overflow>
+              
               {post.blogs &&
                 post.blogs.map((item)=>(
 
 
-                <Col id='foodc'><Button id='fod' key={item.id} onClick={()=>{tempbas(item.id,item.name,item.price); total(); additem(item.id, item.price)}}>
+                <Col id='foodc'><Button id='fod' key={item.id} onClick={()=>{tempbas(item.id,item.name,item.price); total(item.price); additem(item.id, item.price)}}>
                   <Image src={logo}></Image>
                   <h6>{item.name}</h6>
                   <p>Ghc {item.price}</p>
                   </Button></Col>
                
                 ))}
-                
-
-                
                 
               </Row>
             </Row>
@@ -259,12 +295,13 @@ const CashierNew =(props)=>{
           </Col>
           <Col id="orderdine">
 
-            <Form id="formdine">
+            <Form id="formdine" >
                 <Container>
                     <Row>
                       <Form.Group>
                       <GiForkKnifeSpoon/>
-                        <select id="dn" name="dine">
+                        <select id="dn" name="dine" value={ordernew.dine} onChange = {onChange} >
+                        <option >Select Dine Type</option>
                             <option value="Dine-In">Dine-In</option>
                             <option value="Delivery">Delivery</option>
                             <option value="Pickup">Pickup</option>
@@ -277,10 +314,11 @@ const CashierNew =(props)=>{
                     </Row>
 
                     <Row>
-                      <Col><select name="waiter">
+                      <Col><select name="waiter" value={ordernew.waiter} onChange = {onChange}>
+                      <option >Select Waiter</option>
                       {waiter.blogs &&
                 waiter.blogs.map((item)=>(
-                  <option key={item.id} value={item.id}>{item.fname}</option>
+                  <option key={item.id} value={item.name}>{item.fname}</option>
                 ))}
 
                   </select></Col>
@@ -296,24 +334,9 @@ const CashierNew =(props)=>{
                   <Row id="food" overflow>
 
 
-{/* one */}
+
                       <Row id="orderlist" >
-                        {/* <Col>
-                        <Button id="fod">
-                          <Row>
-                            <Col><h6>Pineapple Juice</h6></Col>
-                            <Col><QuantityPicker smooth/></Col>
-                            <Col><h6>Ghc 10.00</h6></Col>
-                          </Row>
-                          
-                          <Row> <p>Ghc 10.00</p></Row>
-                          
-                         
-                        </Button>
-                        </Col>
-                        <Col>
-                        <Button id="trash"><FaTrash/></Button>
-                        </Col> */}
+                       
                       </Row>
 
 
@@ -331,11 +354,12 @@ const CashierNew =(props)=>{
                   <Row id="dinefoot">
                   <Row> 
                     <h6>Notes</h6>
-                    <textarea name="notes"></textarea>
+                    <textarea name="notes" value={ordernew.notes} onChange = {onChange} rows="1"></textarea>
                     </Row>
                   <Row>
                     <h6>Payment Method</h6>
-                      <select name="payment">
+                      <select name="payment" value={ordernew.payment} onChange = {onChange}>
+                      <option >Select Payment</option>
                           <option value="Cash">Cash</option>
                           <option value="Mobile Money">Mobile Money</option>
                           <option value="E-card">E-card</option>
@@ -347,7 +371,8 @@ const CashierNew =(props)=>{
 
                   <Row>
                       <Col><h6>SubTotal</h6></Col>
-                      <Col id="amts"><h6 id="sub"></h6></Col>
+                     
+                      <Col id="amts"> <h6 id="sub"></h6></Col>
                   </Row>
                   <Row>
                       <Col><h6>VAT</h6></Col>
@@ -355,11 +380,11 @@ const CashierNew =(props)=>{
                   </Row>
                   <Row>
                       <Col><h6>Total</h6></Col>
-                      <Col id="amt"><h6 id="total"></h6></Col>
+                      <Col id="amt"><h6 id="total">0</h6></Col>
                   </Row>
 
                     <Row>
-                      <Button type="submit" name="submitdine">Place Order</Button>
+                      <Button type="button" onClick={add}name="submitdine">Place Order</Button>
                       
                       
                       </Row>

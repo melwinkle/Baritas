@@ -8,7 +8,7 @@ class order_items{
     public $order;
     public $menu;
     public $quant;
-    public $amt;
+    public $price;
 
     public function __construct($db)
     {
@@ -17,18 +17,16 @@ class order_items{
 
     public function create()
     {
-        $query ="INSERT into order_items(order_id,menu_id,quantity,amount) VALUES (:o,:m,:q,:a)";
+        $query ="INSERT into order_items(order_id,menu_id,amount) VALUES (:o,:m,:a)";
         $stmt = $this->conn->prepare($query);
 
         $this->order=htmlspecialchars(strip_tags($this->order));
-        $this->menu=htmlspecialchars(strip_tags($this->menu));
-        $this->quant=htmlspecialchars(strip_tags($this->quant));
-        $this->amt=htmlspecialchars(strip_tags($this->amt));
+        $this->id=htmlspecialchars(strip_tags($this->id));
+        $this->price=htmlspecialchars(strip_tags($this->price));
 
         $stmt->bindParam(':o',$this->order);
-        $stmt->bindParam(':m',$this->menu);
-        $stmt->bindParam(':q',$this->quant);
-        $stmt->bindParam(':a',$this->amt);  
+        $stmt->bindParam(':m',$this->id);
+        $stmt->bindParam(':a',$this->price);  
 
         if ($stmt->execute()) {
             $this->id = $this->conn->lastInsertId();

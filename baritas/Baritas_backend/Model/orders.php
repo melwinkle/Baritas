@@ -30,11 +30,7 @@ class orders
     }
     public function createnew()
     {
-<<<<<<< HEAD
         $query = "INSERT into orders(restaurant_id,user_id,table_id) VALUES (:r,:u,:t)";
-=======
-        $query = "INSERT into orders(restaurant_id,`user_id`) VALUES (:r,:u)";
->>>>>>> d459e4dfd09e002fe23cb5a0b7cb6443b53bc114
         $stmt = $this->conn->prepare($query);
 
   
@@ -48,13 +44,10 @@ class orders
 
         $stmt->bindParam(':r', $this->restaurant);
         $stmt->bindParam(':u', $this->cashier);
-<<<<<<< HEAD
         $stmt->bindParam(':t', $this->table);
 
 
 
-=======
->>>>>>> d459e4dfd09e002fe23cb5a0b7cb6443b53bc114
         if ($stmt->execute()) {
             $this->id = $this->conn->lastInsertId();
             echo $this->id;
@@ -64,21 +57,21 @@ class orders
 
         return false;
     }
-    public function create()
+    public function updateorder()
     {
-        $query = "INSERT into orders(bill_no,payment_method,waiter_name,total_cost,stats,table_id,dine_type,`user_id`,sub_total,special_notes) VALUES (:b,:pm,:w,:tc,:s,:t,:di,:u,:su,:sn) where order_id=:i";
+        $query="UPDATE orders SET bill_no=:i, payment_method=:pm,waiter_name=:w,total_cost=:tc,dine_type=:di,sub_total=:su,special_notes=:sn where order_id=:i";
         $stmt = $this->conn->prepare($query);
 
   
-        $this->bill = htmlspecialchars(strip_tags($this->bill));
-        $this->pay = htmlspecialchars(strip_tags($this->pay));
-        $this->waiter = htmlspecialchars(strip_tags($this->waiter));
-        $this->total_cost = htmlspecialchars(strip_tags($this->total_cost));
-        $this->stats = htmlspecialchars(strip_tags($this->stats));
-        $this->table = htmlspecialchars(strip_tags($this->table));
-        $this->dine = htmlspecialchars(strip_tags($this->dine));
-        $this->sub = htmlspecialchars(strip_tags($this->sub));
-        $this->notes = htmlspecialchars(strip_tags($this->notes));
+        // $this->bill = htmlspecialchars(strip_tags($this->bill));
+        // $this->pay = htmlspecialchars(strip_tags($this->pay));
+        // $this->waiter = htmlspecialchars(strip_tags($this->waiter));
+        // $this->total_cost = htmlspecialchars(strip_tags($this->total_cost));
+        // $this->stats = htmlspecialchars(strip_tags($this->stats));
+        // $this->table = htmlspecialchars(strip_tags($this->table));
+        // $this->dine = htmlspecialchars(strip_tags($this->dine));
+        // $this->sub = htmlspecialchars(strip_tags($this->sub));
+        // $this->notes = htmlspecialchars(strip_tags($this->notes));
 
 
         $stmt->bindParam(':i', $this->id);
@@ -86,8 +79,6 @@ class orders
         $stmt->bindParam(':pm', $this->pay);
         $stmt->bindParam(':w', $this->waiter);
         $stmt->bindParam(':tc', $this->total_cost);
-        $stmt->bindParam(':s', $this->stats);
-        $stmt->bindParam(':t', $this->table);
         $stmt->bindParam(':di', $this->dine);
         $stmt->bindParam(':su', $this->sub);
         $stmt->bindParam(':sn', $this->notes);

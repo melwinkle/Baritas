@@ -1400,7 +1400,11 @@ margin-left:-5%;
   margin-left:70%;
 }
 #formdine #dinefoot #amts,#amts{
-  margin-left:69.5%;
+  margin-left:69%;
+}
+#formdine #dinefoot input{
+  width:50%;
+  font-size:12pt;
 }
 
 #formdine #dinefoot button{

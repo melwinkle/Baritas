@@ -16,27 +16,29 @@ $items  = new order_items($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$order->date=$data->dat;
+
 $order->pay=$data->payment;
-$order->waiter= $data->wait;
-$order->total_cost= $data->cost;
-$order->stats=$data->status;
-$order->restaurant = $data->rest;
-$order->table = $data->table;
-$order->dine = $data->type;
-$order->user_id = $data->cashier;
-$order->sub =$data->s;
-$data->notes =$data->special_notes;
+$order->waiter= $data->waiter;
+$order->total_cost= $data->total;
+$order->id = $data->id;
+$order->dine = $data->dine;
+$order->sub =$data->sub;
+$order->bill =$data->id;
+$order->notes =$data->notes;
 
-$order->create();
+if($order->updateorder()){
+    echo true;
+}
+else{
+    echo false;
+}
 
-$list = $data->orderList;
+$list = $data->list;
 
 foreach($list as $p){
-    $items->order = $order->getId();
-    $items->menu = $p->menu_id;
-    $items->quant = $p->quantity;
-    $items->amt = $p->amount;
+    $items->order = $data->id;
+    $items->id = $p->id;
+    $items->price = $p->price;
 
     $items->create();
 }

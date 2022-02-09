@@ -12,7 +12,8 @@ $invent = new orders($db);
 $invent->restaurant =$_GET['id'];
 $result = $invent->bar();
 $num = $result->rowCount();
-
+// drink_stat is for when food is ready
+// |drink_stats is when drink exist
 if ($num > 0) {
 
   

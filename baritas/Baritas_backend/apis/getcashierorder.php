@@ -28,7 +28,7 @@ if ($num > 0) {
 
     if($stats=='Pending'){
         if($dine_type=="Dine-In"){
-            $dine=$dine_type.':Table'.$table_id;
+            $dine=$dine_type.':'.$table_id;
         }
         else{
             $dine=$dine_type;
@@ -89,7 +89,7 @@ else{
                     extract($row1);
                 
                     if($dine_type=="Dine-In"){
-                        $dine=$dine_type.':Table'.$table_id;
+                        $dine=$dine_type.':'.$table_id;
                     }
                     else{
                         $dine=$dine_type;
