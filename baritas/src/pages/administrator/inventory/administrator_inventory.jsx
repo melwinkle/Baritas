@@ -120,7 +120,7 @@ const AxiosPost = () => {
     <MDBTable  bordered id="invtb">
         <MDBTableHead>
           <tr>
-            <th>ID</th>
+            <th>No.</th>
             <th>Product Name </th>
             <th>Unit Price</th>
             <th>In Stock</th>
@@ -136,9 +136,9 @@ const AxiosPost = () => {
               }else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
                   return item;
               }
-            }).map((item) => (
+            }).map((item,index) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
+                <td>{index + 1}</td>
                 <td>{item.name}</td>
                 <td>{item.unit}</td>
                 <td>{item.in}</td>

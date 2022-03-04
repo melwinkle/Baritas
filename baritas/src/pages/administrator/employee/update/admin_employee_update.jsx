@@ -130,7 +130,7 @@ function EmployeeUpdate(props) {
            
             <Container id="invt">
             <Row>
-        <Link to="/administrator/category/view"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
+        <Link to="/administrator/employee/"><Button id="backh"><FaArrowLeft/>Back</Button></Link>
     </Row>
 
     <Row id="invtr">

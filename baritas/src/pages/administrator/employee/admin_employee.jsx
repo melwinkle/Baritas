@@ -129,7 +129,7 @@ const Employee = () => {
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>No.</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>User Role</th>
@@ -140,9 +140,9 @@ const Employee = () => {
           </tr>
         </thead>
         <tbody>
-        {posts.blogs && posts.blogs.map((item) => (
+        {posts.blogs && posts.blogs.map((item,index) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
+                <td>{index + 1}</td>
                 <td>{item.first}</td>
                 <td>{item.last}</td>
                 <td>{item.rolename}</td>
@@ -163,7 +163,7 @@ const Employee = () => {
 <ReactBootStrap.Table  bordered hover id="invtb">
   <thead>
     <tr>
-      <th>ID</th>
+      <th>No.</th>
       <th>Full Name</th>
       <th>Status</th>
       <th>Actions</th>
@@ -171,13 +171,13 @@ const Employee = () => {
   </thead>
   <tbody>
     
-  {post.blog && post.blog.map((item) => (
+  {post.blog && post.blog.map((item,index) => (
    
             
 
              
              <tr key={item.wid}>
-          <td>{item.wid}</td>
+          <td>{index + 1}</td>
           <td>{item.wfirst}</td>
           <td><button class="b4" disabled>{item.wstat}</button></td>
           <td><a class="ab1"href={'/administrator/employee/waiter/' + item.wid}><button class="b1">Edit</button></a>

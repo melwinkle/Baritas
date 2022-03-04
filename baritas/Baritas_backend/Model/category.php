@@ -3,7 +3,6 @@ class category{
     private $conn;
     private $table='category';
 
-
     public $id;
     public $name;
     public $rest;

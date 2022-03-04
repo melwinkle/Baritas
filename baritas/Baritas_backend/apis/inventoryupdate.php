@@ -9,12 +9,13 @@ $con = mysqli_connect("localhost","root","","baritas");
  
 $data = json_decode(file_get_contents("php://input"));
 
-        $look = $data->menu;
-        $rest_id = $data->rest;
-        $quant = $data->quantity;
+foreach($data as $item){
+        $look = $item->menu;
+        $rest_id = $item->rest;
+        $quant = $item->quantity;   
 
-    $sql = "SELECT * from menu where menu_id='$rest_id' and menu_id='$look'";
 
+    $sql = "SELECT * from menu where    menu_id='$look'";
     $result =mysqli_query($con,$sql);
     $num = mysqli_num_rows($result);
     
@@ -25,13 +26,14 @@ $data = json_decode(file_get_contents("php://input"));
                foreach($newarray as $x=>$val){
                   $sql1="UPDATE inventory SET in_stock=in_stock-($val*$quant) where product_name='$x' and restaurant_id='$rest_id'";
                   $result1 = mysqli_query($con,$sql1);
-                  }
+                }
                   if($result1){
                    echo "true";
-                   break;
                } 
        }
     }
+}
+
     
  
 
