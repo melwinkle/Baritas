@@ -38,8 +38,8 @@ if ($num > 0 ) {
             $role_name="Cashier";
         }
         
-        else{
-            $role_name="Branch Manager";
+        else {
+                $role_name="Branch Manager";
         }
 
 
@@ -77,7 +77,7 @@ if ($num > 0 ) {
     if($num_1>0){
         while ($row_1= $result_1->fetch(PDO::FETCH_ASSOC)) {
                 extract($row_1);
-    
+
             if($stats=='1'){
                 $state='Active';
             }else{

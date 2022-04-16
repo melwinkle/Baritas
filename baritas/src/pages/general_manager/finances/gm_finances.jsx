@@ -18,7 +18,7 @@ import {
   } from "react-pro-sidebar";
 
 import CanvasJSReact from "../../../canvasjs-3.4.5/canvasjs.react";
-
+import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
 /* We simply can use an array and loop and print each user */
 const GMFinancePage =()=>{
     
@@ -74,55 +74,39 @@ const GMFinancePage =()=>{
 		}
           return (
             <div class="proad">
-                        <div id="header">
-            {/* collapsed props to change menu size using menucollapse state */}
-          <ProSidebar >
-            <SidebarHeader>
-            <div className="logotext">
-                <Row>
-                    <Col><h3>Baritas</h3></Col>
-                
-                </Row>
-                
-                
-              </div>
+                        <nav
+              id="sidenav-1"
+              class="sidenav"
+              data-mdb-hidden="false"
+            >
+              <div className="logotext">
+              <Row>
+                  <Col><h3>Baritas Adenta</h3></Col>
               
-            </SidebarHeader>
-            <SidebarContent id="menuit">
-              <div class="menuitem">
-              <Link to="/general_manager/"> <button><FaList /><div> Home</div>
-             </button></Link>
-             
-              </div>
-
-
-              <div class="menuitem c">
-              <Link to="/general_manager/finances/"> <button><FaList /><div> Finances</div>
-             </button></Link>
-             
-              </div>
-             
+              </Row>
               
-              <div class="menuitem">
-              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
-             </button></Link>
-             
+              
+            </div>
+              <ul class="sidenav-menu">
+                
+                <li class="sidenav-item ">
+                  <a href="/general_manager/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-user-friends me-3"></i><span>Home</span></MDBBtn></a>
+                </li>
+               
+                <li class="sidenav-item active">
+                  <a href="/general_manager/finances/" class="sidenav-link"
+                    ><MDBBtn ><i class="fas fa-piggy-bank me-3"></i><span>Finances</span></MDBBtn></a>
+                </li>
+                
+               
+              
+                </ul>
+
+              <div class='logout'>
+                <FiLogOut/> Log Out
               </div>
-           
-             
-            
-             
-             
-             
-             
-            
-          </SidebarContent>
-            {/* <SidebarFooter>
-              Baritas (c)
-            </SidebarFooter> */}
-          </ProSidebar>
-        </div>
-  
+            </nav>
             
   <Container id="invt">
     

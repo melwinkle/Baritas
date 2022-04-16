@@ -33,13 +33,18 @@ const BarVPage = (props) => {
         console.log(data.data);
       };
       fetchPostList();
-      complete();
+
     }, [setPosts]);
   
 
    
  const complete=(it)=>{
-  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatebar.php?id='+it)
+  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatebar.php?id='+it).then(function(response){
+    console.log(response);
+    if(response.status === 200){
+      window.location.href="/bar/";
+    }
+      });
  }
 
   return (
@@ -106,7 +111,7 @@ const BarVPage = (props) => {
                         </Card.Body>
                         
                     </Card>
-                    <Col><Button id='b2' onClick={complete(item.order_id)}>COMPLETE</Button></Col>
+                    <Col><Button id='b2' onClick={()=>complete(item.order_id)}>COMPLETE</Button></Col>
                </Col>
 
 

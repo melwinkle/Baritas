@@ -41,7 +41,7 @@ if($food_stats=='0'){
    
             extract($row1);
 
-   if(($category!="3")){
+   if($category!="3"){
     $cat_sing=array( 
         'name_of_food'=>$name_of_food,
         'quantity'=>$quantity,

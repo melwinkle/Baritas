@@ -11,6 +11,7 @@ import MainPage from "./index.jsx";
 import CashierOrders from "./pages/cashier/order_main/cashier_main.jsx";
 import CashierOrdersC from "./pages/cashier/order_complete/cashier_complete.jsx";
 import CashierNew from "./pages/cashier/new/cashier_new.jsx";
+import CashierEdit from "./pages/cashier/newtest/cashier_new.jsx";
 import CashierTable from "./pages/cashier/table/table_map.jsx";
 import UsersPage from "./pages/cashier/orders/process_order.jsx";
 import TablePage from "./pages/cashier/table/table_map.jsx";
@@ -68,6 +69,8 @@ import BOrderViewPage from "./pages/branch_manager/orders/single/border_view.jsx
 import BProductionPage from "./pages/branch_manager/production/bmanager_production.jsx";
 import BProductPage from "./pages/branch_manager/production/general/administrator_production_g.jsx";
 import BEmployee from "./pages/branch_manager/employee/admin_employee.jsx";
+import BEmployeeUpdate from "./pages/branch_manager/employee/update/admin_employee_update.jsx";
+import BEmployeeWUpdate from "./pages/branch_manager/employee/waiter/admin_employee-update.jsx";
 import BInvoicePage from "./pages/branch_manager/production/invoice/general_invoice.jsx";
 import GeneralMPage from "./pages/general_manager/general_home.jsx";
 import GMFinancePage from "./pages/general_manager/finances/gm_finances.jsx";
@@ -107,6 +110,7 @@ class App extends Component {
        <Route exact path="/cashier/order_main" component={CashierOrders} />
        <Route exact path="/cashier/order_complete" component={CashierOrdersC} />
        <Route exact path="/cashier/new/:id/:table" component={CashierNew} />
+       <Route exact path="/cashier/newtest/:id" component={CashierEdit} />
        <Route exact path="/cashier/orders" component={UsersPage} />
        <Route exact path="/cashier/table" component={CashierTable} />
        <Route exact path="/cashier/takeaway" component={TakeawayPage} />
@@ -162,6 +166,8 @@ class App extends Component {
        <Route exact path="/branch_manager/finances" component={BranchFinancePage} />
        <Route exact path="/branch_manager/orders" component={BOrderPage} />
        <Route exact path="/branch_manager/employee" component={BEmployee} />
+       <Route exact path="/branch_manager/employee/update/:id" component={BEmployeeUpdate} />
+       <Route exact path="/branch_manager/employee/waiter/:id" component={BEmployeeWUpdate} />
        <Route exact path="/branch_manager/orders/view/:date" component={BOrderVPage} />
        <Route exact path="/branch_manager/orders/single/:id" component={BOrderViewPage} />
        <Route exact path="/branch_manager/production" component={BProductionPage} />

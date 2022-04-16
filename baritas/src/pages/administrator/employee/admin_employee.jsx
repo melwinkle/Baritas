@@ -125,7 +125,7 @@ const Employee = () => {
               <Container>
 <Row id="invtt">
 
-          <h3>GENERAL</h3>
+          <Form.Label>GENERAL</Form.Label>
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
@@ -148,7 +148,7 @@ const Employee = () => {
                 <td>{item.rolename}</td>
                 <td>{item.user}</td>
                 <td>{item.pass}</td>
-                <td><button class="b4" disabled>{item.stat}</button></td>
+                <td><button class={"b4 "+item.stat} disabled>{item.stat}</button></td>
                 <td><a class="ab1"href={'/administrator/employee/update/' + item.id}><button class="b1">Edit</button></a></td>
               </tr>
             ))}
@@ -159,7 +159,7 @@ const Employee = () => {
 
        
 <Row id="invtt">
-<h3>WAITERS</h3>
+<Form.Label>WAITERS</Form.Label>
 <ReactBootStrap.Table  bordered hover id="invtb">
   <thead>
     <tr>
@@ -179,7 +179,7 @@ const Employee = () => {
              <tr key={item.wid}>
           <td>{index + 1}</td>
           <td>{item.wfirst}</td>
-          <td><button class="b4" disabled>{item.wstat}</button></td>
+          <td><button class={"b4 "+item.wstat} disabled>{item.wstat}</button></td>
           <td><a class="ab1"href={'/administrator/employee/waiter/' + item.wid}><button class="b1">Edit</button></a>
          </td>
         </tr>

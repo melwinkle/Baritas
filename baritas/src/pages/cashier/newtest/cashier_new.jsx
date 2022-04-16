@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import '../../../App.css';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
@@ -13,10 +13,223 @@ import Card from 'react-bootstrap/Card';
 import {GiForkKnifeSpoon} from 'react-icons/gi';
 import { QuantityPicker } from 'react-qty-picker';
 import logo from "../../../images/IMG_8850.JPG";
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 /* We simply can use an array and loop and print each user */
-const CashierNew =()=>{
+const CashierEdit =(props)=>{
+
+  const [posts, setPosts] = useState({ blogs: [] });
+  const [post, setPost] = useState({ blogs: [] });
+  const [waiter, setWaiter] = useState({ blogs: [] });
+  const [last, setLast] = useState({ blogs: [] });
+  const id=sessionStorage.getItem("rest");
+
+  const [tempbasket, setTemp] = useState([]); 
+  const [tbill, setBill] = useState(0);
+  const [tempbaske, setTem] = useState([]); 
+  const [tvat, setVat] = useState(0);  
+  const [tsub, setSub] = useState(0);  
+
+  // const temps=[];
+    const [ordernew, setOrder] = useState(
+      {
+
+      notes:"",
+      payment:"",
+      dine:"",
+      total:"",
+      sub:"",
+      vat:"",
+      id:props.match.params.id,
+      list:tempbasket,
+    }
+    );
+const{waiters,notes,payment,dine,total,sub,vat,table}=ordernew;
+
+const l = {listnew:tempbaske};
+const prod = Object.assign(ordernew,l);
+
+   
+
+  useEffect(() => {
+    const fetchPostList = async () => {
+      const { data } = await axios(
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/getallcategories.php?id='+id
+      );
+      setPosts({ blogs: data.data });
+      // console.log(data);
+    };
+    const getwaiters=async()=>{
+      const {data}=  await axios.get(
+          'http://localhost/Baritas/baritas/Baritas_backend/apis/getallwaiter.php?id='+id
+        ); 
+        setWaiter({blogs: data.data});
+        // console.log(data);
+  
+      };
+      const getords=async()=>{
+        fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getanorder.php?id='+props.match.params.id)
+          .then((response)=>response.json())
+          .then((responseJSON)=>{
+              setOrder(responseJSON.data[0]);
+
+              console.log(responseJSON.data[0]);
+              
+          }
+          ); 
+      }
+    fetchPostList();
+    getwaiters();
+    getinfo();
+    getords();
+    // console.log("Back length:"+tempbasket);
+  }, [setPosts],[setPost],[setOrder]);
  
 
+  const getinfo=async(categ)=>{
+    const {data}=  await axios.get(
+        'http://localhost/Baritas/baritas/Baritas_backend/apis/getcategorymenu.php?id='+categ
+      ); 
+      // console.log(data);
+      setPost({blogs: data.data});
+      // console.log(data.data);
+
+    }
+
+
+  
+    const tempbas=(oid,name,prices)=>{
+    
+    
+
+      const tempb=document.getElementById('food');
+      const ordert=document.createElement('button');
+      const trash=document.createElement('button');
+      const orders=document.createElement('span');
+      const n=document.createElement('span');
+      const q=document.createElement('span');
+      const trashy=document.createElement('span');
+      orders.className='fodp';
+      ordert.className='fod';
+      n.className='fodh';
+      q.className='fodq';
+      const ordern=document.createTextNode(name);
+      const orderq=document.createTextNode('x'+'1');
+      const orderp=document.createTextNode('Ghc'+ prices);
+      const trashp=document.createTextNode('X');
+      const trashh=document.createTextNode('Remove');
+
+      trash.className='trash';
+      trashy.className='trashy';
+      trash.onClick = "alert('blah')";
+
+
+      trashy.appendChild(trashh);
+      n.appendChild(ordern);
+      q.appendChild(orderq);
+      orders.appendChild(orderp);
+      ordert.appendChild(n);
+      ordert.appendChild(q);
+      ordert.appendChild(orders);
+      trash.appendChild(trashy);
+      trash.appendChild(trashp);
+      tempb.appendChild(ordert);
+      tempb.appendChild(trash);
+
+
+
+     
+
+    }
+
+
+    const totals=(price)=>{
+  
+    
+      
+      const tot=document.getElementById("total");
+      const sub=document.getElementById("sub");
+      const vat=document.getElementById("vat");
+
+
+
+      
+       const totals = parseInt(tot.innerText) + parseInt(price);
+    
+const tota=totals;
+      tot.innerHTML=totals;
+      const vate=totals*0.025;
+
+      vat.innerHTML=vate;
+      const subs=totals-vate;
+      sub.innerHTML=totals-vate;
+// console.log("tot"+totals);
+     
+      setOrder({...ordernew,
+        total:tota,sub:subs,vat:vate,
+      })
+ 
+        }
+
+
+    const additem=(id,name,price)=>{
+      // console.log("B"+tempbasket);
+      ordernew.list.push({id,name,price});
+      setTem([...tempbaske,{id:id,name:name,price:price}]);
+      // ordernew.listnew.push({id,name,price});
+      // setTemp([...tempbasket, {id:oid,price:prices}]);
+
+      
+      // setTemp([...tempbasket, { id: oid, price: prices }]);
+      
+  
+      
+    }
+
+    const removeitem = index => {
+      const list = [...tempbasket];
+      list.splice(index, 1);
+      setTemp(list);
+    };
+
+
+
+    const add=(e)=>{
+      console.log(prod);
+     e.preventDefault();
+     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updateOrder.php',JSON.stringify(prod)).then(function(response){
+         console.log(response);
+         if(response.status == 200){
+          MySwal.fire({
+              title: "Order #"+props.match.params.id+"Updated",
+              text:"Order has been updated",
+              icon: "success",
+              button :true
+            }).then(function(){
+              window.location='/cashier/order_main';
+            });
+
+      }
+      else{
+          MySwal.fire({
+              title: "Order Not updated",
+              text:"Error adding order",
+              icon: "error",
+              button :true
+            });
+
+      }
+     })
+  }
+
+  function onChange(e){
+    setOrder({...ordernew,
+      [e.target.name]:e.target.value
+    })
+  }
     return (
     <div class="process">
       <Container>
@@ -29,7 +242,7 @@ const CashierNew =()=>{
                         <Navbar.Collapse id="responsive-navbar-nav">
                           <Nav className="me-auto">
                             <Nav.Link href="/cashier/order_main/">Orders</Nav.Link>
-                            <Nav.Link href="/cashier/new/">Pending</Nav.Link>
+                            <Nav.Link href="/cashier/table/">Pending</Nav.Link>
                             
                           </Nav>
                           <Nav>
@@ -50,36 +263,15 @@ const CashierNew =()=>{
             <Row id="menucat"  >
               
               <Col id="scrcat" > 
-              <Button id="catme" >Starters</Button>
+              {posts.blogs &&
+                posts.blogs.map((item)=>(
+              <Button id="catmec" onClick={() =>getinfo(item.category_id)} >{item.category_name}</Button>
             
              
-              
+                ))}
              
 
-              {/* <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button>
-              <Button id="catmec" >Starters</Button> */}
+              
               
            
               </Col>
@@ -90,16 +282,18 @@ const CashierNew =()=>{
             <Row id="mens">
               <h6>OrderMenu</h6>
               <Row id='fodc' overflow>
-                <Col id='foodc'><Button id='fod'>
+              
+              {post.blogs &&
+                post.blogs.map((item)=>(
+
+
+                <Col id='foodc'><Button id='fod' key={item.id} onClick={()=>{totals(item.price); additem(item.id,item.name, item.price)}}>
                   <Image src={logo}></Image>
-                  <h6>Pineapple Juice</h6>
-                  <p>Ghc 10.00</p>
+                  <h6>{item.name}</h6>
+                  <p>Ghc {item.price}</p>
                   </Button></Col>
                
-
-                
-
-                
+                ))}
                 
               </Row>
             </Row>
@@ -110,12 +304,13 @@ const CashierNew =()=>{
           </Col>
           <Col id="orderdine">
 
-            <Form id="formdine">
+            <Form id="formdine" >
                 <Container>
                     <Row>
                       <Form.Group>
                       <GiForkKnifeSpoon/>
-                        <select id="dn" name="dine">
+                        <select id="dn" name="dine" value={dine} onChange = {onChange} >
+                        <option >Select Dine Type</option>
                             <option value="Dine-In">Dine-In</option>
                             <option value="Delivery">Delivery</option>
                             <option value="Pickup">Pickup</option>
@@ -124,22 +319,23 @@ const CashierNew =()=>{
                     </Row>
 
                     <Row>
-                      <h3>#Order124</h3>
+                      <h3>Order#{props.match.params.id}</h3>
                     </Row>
 
                     <Row>
-                      <Col><select name="waiter">
-                      <option value="Waiter 1">Waiter 1</option>
-                      <option value="Ama">Amam</option>
-                      <option value="Pearl">Pearl</option>
+                      <Col><select name="waiters" value={waiters} onChange = {onChange}>
+                      <option >Select Waiter</option>
+                      {waiter.blogs &&
+                waiter.blogs.map((item)=>(
+                  <option key={item.id} value={item.name}>{item.fname}</option>
+                ))}
+
                   </select></Col>
 
                   <Col>
                   <select name="table">
-                      <option value="Table 1">Table 1</option>
-                      <option value="Table 1">Table 1</option>
-                      <option value="Table 1">Table 1</option>
-                      <option value="Table 1">Table 1</option>
+                      <option value={table}>{table}</option>
+                      
                   </select></Col>
                   </Row>
 
@@ -147,25 +343,17 @@ const CashierNew =()=>{
                   <Row id="food" overflow>
 
 
-{/* one */}
-                      {/* <Row>
-                        <Col>
-                        <Button id="fod">
-                          <Row>
-                            <Col><h6>Pineapple Juice</h6></Col>
-                            <Col><QuantityPicker smooth/></Col>
-                            <Col><h6>Ghc 10.00</h6></Col>
-                          </Row>
-                          
-                          <Row> <p>Ghc 10.00</p></Row>
-                          
-                         
-                        </Button>
-                        </Col>
-                        <Col>
-                        <Button id="trash"><FaTrash/></Button>
-                        </Col>
-                      </Row> */}
+
+                      <Row id="orderlist" >
+                       
+                       {Object.keys(ordernew.list).map((prod,i)=>{
+                           return <div>
+                                  <button class="fod"><span class="fodh">{ordernew.list[prod].name}</span><span class="fodq">x1</span><span class="fodp">Ghc{ordernew.list[prod].price}</span></button>
+                                  <button class="trash"><span class="trashy">Remove</span>X</button>
+                            </div>
+                        
+                       })}
+                      </Row>
 
 
                    
@@ -182,11 +370,12 @@ const CashierNew =()=>{
                   <Row id="dinefoot">
                   <Row> 
                     <h6>Notes</h6>
-                    <textarea name="note"></textarea>
+                    <textarea name="notes" value={notes} onChange = {onChange} rows="1"></textarea>
                     </Row>
                   <Row>
                     <h6>Payment Method</h6>
-                      <select name="payment">
+                      <select name="payment" value={payment} onChange = {onChange}>
+                      <option >Select Payment</option>
                           <option value="Cash">Cash</option>
                           <option value="Mobile Money">Mobile Money</option>
                           <option value="E-card">E-card</option>
@@ -198,19 +387,20 @@ const CashierNew =()=>{
 
                   <Row>
                       <Col><h6>SubTotal</h6></Col>
-                      <Col id="amts"><h6 id="sub">0.00</h6></Col>
+                     
+                      <Col id="amts"> <h6 id="sub">{sub}</h6></Col>
                   </Row>
                   <Row>
                       <Col><h6>VAT</h6></Col>
-                      <Col id="amt"><h6 id="vat">0.00</h6></Col>
+                      <Col id="amt"><h6 id="vat">{vat}</h6></Col>
                   </Row>
                   <Row>
                       <Col><h6>Total</h6></Col>
-                      <Col id="amt"><h6 id="total">0.00</h6></Col>
+                      <Col id="amt"><h6 id="total">{total}</h6></Col>
                   </Row>
 
                     <Row>
-                      <Button type="submit" name="submitdine">Place Order</Button>
+                      <Button type="button" name="submitdine" onClick={add} >Place Order</Button>
                       
                       
                       </Row>
@@ -237,4 +427,4 @@ const CashierNew =()=>{
 
 }
 
-export default CashierNew;
+export default CashierEdit;

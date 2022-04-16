@@ -33,13 +33,19 @@ const KitchenVPage = (props) => {
         console.log(data.data);
       };
       fetchPostList();
-      complete();
+
     }, [setPosts]);
   
 
    
  const complete=(it)=>{
-  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatekitchen.php?id='+it)
+  axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatekitchen.php?id='+it).then(function(response){
+console.log(response);
+if(response.status === 200){
+  window.location.href="/kitchen/";
+}
+  });
+  // window.location.href="/kitchen/";
  }
 
   return (
@@ -107,7 +113,7 @@ const KitchenVPage = (props) => {
                         </Card.Body>
                         
                     </Card>
-                    <Col><Button id='b2' onClick={complete(item.order_id)}>COMPLETE</Button></Col>
+                    <Col><Button id='b2' onClick={()=>complete(item.order_id)}>COMPLETE</Button></Col>
                </Col>
 
 

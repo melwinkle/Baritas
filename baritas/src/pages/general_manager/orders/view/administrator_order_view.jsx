@@ -16,7 +16,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Container, Row, Col } from 'reactstrap';
 import { FaList,FaStore,FaArrowLeft } from "react-icons/fa";
-
+import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
  function GOrderVPage (props){
     
           
@@ -38,69 +38,52 @@ import { FaList,FaStore,FaArrowLeft } from "react-icons/fa";
        
         return (
           <div class="proad">
-              <div id="header">
-          {/* collapsed props to change menu size using menucollapse state */}
-        <ProSidebar >
-          <SidebarHeader>
-          <div className="logotext">
+              <nav
+              id="sidenav-1"
+              class="sidenav"
+              data-mdb-hidden="false"
+            >
+              <div className="logotext">
               <Row>
-                  <Col><h3>Baritas:Adenta</h3></Col>
+                  <Col><h3>Baritas Adenta</h3></Col>
               
               </Row>
               
               
             </div>
-            
-          </SidebarHeader>
-          <SidebarContent id="menuit">
-          <div class="menuitem">
-              <Link to="/general_manager/"> <button><FaList /><div> Home</div>
-             </button></Link>
-             
-              </div>
-
-              <div class="menuitem">
-              <Link to="/general_manager/inventory/"> <button><FaList /><div> Inventory</div>
-             </button></Link>
-             
-              </div>
-              <div class="menuitem">
-              <Link to="/general_manager/finances/inventory/"> <button><FaList /><div> Finances</div>
-             </button></Link>
-             
-              </div>
-              <div class="menuitem c">
-              <Link to="/general_manager/orders/"> <button><FaList /><div> Orders</div>
-             </button></Link>
-             
-              </div>
-
-             
-              <div class="menuitem">
-              <Link to="/general_manager/production/"> <button><FaList /><div> Production</div>
-             </button></Link>
-             
-              </div>
+              <ul class="sidenav-menu">
+              <li class="sidenav-item">
+                  <a href="/general_manager/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-user-friends me-3"></i><span>Home</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item ">
+                  <a href="/general_manager/employee/" class="sidenav-link"
+                    ><MDBBtn outline ><i class="fas fa-user-friends me-3"></i><span>Employee</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item ">
+                  <a href="/general_manager/inventory/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-boxes me-3"></i><span>Inventory</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item">
+                  <a href="/general_manager/finances/inventory/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-piggy-bank me-3"></i><span>Finances</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item active">
+                  <a href="/general_manager/orders/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-concierge-bell me-3"></i><span>Orders</span></MDBBtn></a>
+                </li>
+               
               
-              <div class="menuitem">
-              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
-             </button></Link>
-             
+                <li class="sidenav-item">
+                  <a href="/general_manager/production/" class="sidenav-link"
+                    ><MDBBtn outline ><i class="fas fa-file-invoice me-3"></i><span>Production</span></MDBBtn></a>
+                </li>
+              </ul>
+
+              <div class='logout'>
+                <FiLogOut/> Log Out
               </div>
-           
-             
-            
-             
-             
-             
-             
-            
-          </SidebarContent>
-          {/* <SidebarFooter>
-            Baritas (c)
-          </SidebarFooter> */}
-        </ProSidebar>
-      </div>
+            </nav>
 
           
       <Container id="invt">

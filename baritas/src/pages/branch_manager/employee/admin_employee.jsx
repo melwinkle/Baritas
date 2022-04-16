@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
+import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {
@@ -20,7 +21,7 @@ const BEmployee = () => {
   // const MySwal = withReactContent(Swal);
 
   const [posts, setPosts] = useState({ blogs: [] });
-  const [post, setPost] = useState({ blog: [] });
+  const [post, setPost] = useState({ blogs: [] });
   const [searchTerm,setSearchTerm] = useState('');
 
   const id=sessionStorage.getItem("rest");
@@ -30,12 +31,13 @@ const BEmployee = () => {
       const { data } = await axios(
         'http://localhost/Baritas/baritas/Baritas_backend/apis/fetchallemployee.php?id='+id
       );
+      console.log(data);
       setPosts({ blogs: data.data });
       setPost({blog: data.waiter})
-      console.log(data);
+      // console.log(data);
     };
     fetchPostList();
-  }, [setPosts]);
+  },[]);
 
 
   const wterminate=(id)=>{
@@ -52,72 +54,49 @@ const BEmployee = () => {
 }
   return (
     <div class="proad">
-         <div id="header">
-          {/* collapsed props to change menu size using menucollapse state */}
-        <ProSidebar >
-          <SidebarHeader>
-          <div className="logotext">
+        <nav
+              id="sidenav-1"
+              class="sidenav"
+              data-mdb-hidden="false"
+            >
+              <div className="logotext">
               <Row>
-                  <Col><h3>Baritas:Adenta</h3></Col>
+                  <Col><h3>Baritas Adenta</h3></Col>
               
               </Row>
               
               
             </div>
-            
-          </SidebarHeader>
-          <SidebarContent id="menuit">
-          <div class="menuitem c">
-              <Link to="/branch_manager/employee/"> <button><FaList /><div> Employee</div>
-             </button></Link>
-             
-              </div>
-            <div class="menuitem">
-              <Link to="/branch_manager/inventory/"> <button><FaList /><div> Inventory</div>
-             </button></Link>
-             
-              </div>
-              <div class="menuitem">
-              <Link to="/branch_manager/finances/"> <button><FaList /><div> Finances</div>
-             </button></Link>
-             
-              </div>
-              <div class="menuitem">
-              <Link to="/branch_manager/orders/"> <button><FaList /><div> Orders</div>
-             </button></Link>
-             
-              </div>
-{/* 
-              <div class="menuitem">
-              <Link to="/branch_manager/mainmenu/"> <button><FaList /><div> Menu</div>
-             </button></Link>
-             
-              </div> */}
-              <div class="menuitem">
-              <Link to="/branch_manager/production/"> <button><FaList /><div> Production</div>
-             </button></Link>
-             
-              </div>
-              <div class="menuitem">
-              <Link to="/"> <button><FiLogOut/><div> LogOut</div>
-             </button></Link>
-             
-              </div>
-           
-             
-            
-             
-             
-             
-             
-            
-          </SidebarContent>
-          {/* <SidebarFooter>
-            Baritas (c)
-          </SidebarFooter> */}
-        </ProSidebar>
-      </div>
+              <ul class="sidenav-menu">
+                
+                <li class="sidenav-item active">
+                  <a href="/branch_manager/employee/" class="sidenav-link"
+                    ><MDBBtn ><i class="fas fa-user-friends me-3"></i><span>Employee</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item">
+                  <a href="/branch_manager/inventory/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-boxes me-3"></i><span>Inventory</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item">
+                  <a href="/branch_manager/finances/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-piggy-bank me-3"></i><span>Finances</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item">
+                  <a href="/branch_manager/orders/" class="sidenav-link"
+                    ><MDBBtn outline><i class="fas fa-concierge-bell me-3"></i><span>Orders</span></MDBBtn></a>
+                </li>
+               
+              
+                <li class="sidenav-item">
+                  <a href="/branch_manager/production/" class="sidenav-link"
+                    ><MDBBtn outline ><i class="fas fa-file-invoice me-3"></i><span>Production</span></MDBBtn></a>
+                </li>
+              </ul>
 
+              <div class='logout'>
+                <FiLogOut/> Log Out
+              </div>
+            </nav>
 
 <Container id="invt">
   
@@ -134,7 +113,8 @@ const BEmployee = () => {
               <Container>
 <Row id="invtt">
 
-          <h3>GENERAL</h3>
+
+          <Form.Label>GENERAL</Form.Label> 
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
           <tr>
@@ -157,8 +137,8 @@ const BEmployee = () => {
                 <td>{item.rolename}</td>
                 <td>{item.user}</td>
                 <td>{item.pass}</td>
-                <td><button class="b4" disabled>{item.stat}</button></td>
-                <td><a class="ab1"href={'/administrator/employee/update/' + item.id}><button class="b1">Edit</button></a></td>
+                <td><button class={"b4 "+item.stat} disabled>{item.stat}</button></td>
+                <td><a class="ab1"href={'/branch_manager/employee/update/' + item.id}><button class="b1">Edit</button></a></td>
               </tr>
             ))}
         </tbody>
@@ -168,7 +148,7 @@ const BEmployee = () => {
 
        
 <Row id="invtt">
-<h3>WAITERS</h3>
+<Form.Label>WAITERS</Form.Label> 
 <ReactBootStrap.Table  bordered hover id="invtb">
   <thead>
     <tr>
@@ -180,16 +160,12 @@ const BEmployee = () => {
   </thead>
   <tbody>
     
-  {post.blog && post.blog.map((item) => (
-   
-            
-
-             
-             <tr key={item.wid}>
+  {post.blog && post.blog.map((item) => (          
+          <tr key={item.wid}>
           <td>{item.wid}</td>
           <td>{item.wfirst}</td>
-          <td><button class="b4" disabled>{item.wstat}</button></td>
-          <td><a class="ab1"href={'/administrator/employee/waiter/' + item.wid}><button class="b1">Edit</button></a>
+          <td><button class={'b4 '+item.wstat}  disabled>{item.wstat}</button></td>
+          <td><a class="ab1"href={'/branch_manager/employee/waiter/' + item.wid}><button class="b1">Edit</button></a>
          </td>
         </tr>
          

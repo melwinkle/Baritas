@@ -102,6 +102,9 @@ const CashierOrders =()=>{
   
         }
 
+const getedit=(id)=>{
+    window.location.href="/cashier/newtest/"+id;
+}
         const neworder=()=>{
             window.location='/cashier/table/';
         //     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createorder.php?id='+id+'&ud='+ud,JSON.stringify(ud,id)).then(function(response){
@@ -367,7 +370,7 @@ const CashierOrders =()=>{
             </Row>
             <Row>
                 <Col><Button id="b1" onClick={() =>getcancel(items.order_id)}>CANCEL</Button></Col>
-                <Col><Button id="b2">EDIT</Button></Col>
+                <Col><Button id="b2" onClick={() =>getedit(items.order_id)}>EDIT</Button></Col>
                 <Col><Button id="b3" onClick={() =>getcomplete(items.order_id)}>COMPLETE</Button></Col>
             </Row>
           

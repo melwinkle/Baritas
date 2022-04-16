@@ -28,8 +28,7 @@ if($num>0){
         $cat_item =array(
             'id'=> $map_id,
             "name"=>$table_name,
-            "x"=> $x_cod,
-            "y"=>$y_cod
+            "postion"=> $position,
         );  
        
         array_push($cat_arr["data"], $cat_item);   

@@ -1577,6 +1577,27 @@ th{
   font-size:15pt;
 
 }
+.search{
+  background:#800020;
+  color:white;
+  border:none;
+  border-radius:5px;
+  margin-top: 2%;
+  font-size:15pt;
+
+}
+.download{
+  background:#800020;
+  color:white;
+  border:none;
+  border-radius:5px;
+  margin-top: 2%;
+  font-size:12pt;
+  width:20%;
+  margin-bottom: 2%;
+  margin-left: -1%;
+
+}
 #forminv select{
   margin-left:1.4%;
   border-color: rgb(212, 211, 211);
@@ -1600,6 +1621,7 @@ th{
 }
 #cat .card{
   margin-top:2%;
+
 
 }
 
@@ -1968,13 +1990,18 @@ form td:last-child {
   padding:6%;
 }
 
-.b4{
-  background:green;
+.b4.Active {
+  background:rgb(36, 112, 36);
   border-radius: 5px;
   border:none;
   color:white;
 }
-
+.b4.Inactive {
+  background:crimson;
+  border-radius: 5px;
+  border:none;
+  color:white;
+}
 
 #adds button{
   width:90%;

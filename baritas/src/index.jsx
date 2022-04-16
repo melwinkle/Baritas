@@ -38,6 +38,7 @@ class MainPage extends React.Component {
         }
         else if((result.UserData.role)==='3'){
           sessionStorage.setItem('barData',result);
+          sessionStorage.setItem('rest',result.UserData.rest);
           this.setState({redirect:true});
           window.location='/bar';
         }
@@ -55,6 +56,7 @@ class MainPage extends React.Component {
         }
         else if((result.UserData.role)==='6'){
           sessionStorage.setItem('branchMData',JSON.stringify(result));
+          sessionStorage.setItem('rest',result.UserData.rest);
           this.setState({redirect:true});
           window.location='/branch_manager/inventory';
         }

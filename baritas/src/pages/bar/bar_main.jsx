@@ -30,7 +30,8 @@ const BarPage = () => {
           'http://localhost/Baritas/baritas/Baritas_backend/apis/getbarorder.php?id='+id
         );
         setPosts({ blogs: data.data });
-        console.log(data.data);
+        console.log(id);
+        console.log(data);
       };
       fetchPostList();
     }, [setPosts]);
@@ -65,14 +66,14 @@ const BarPage = () => {
         </section>
        
        
-        <Container id="bar">
+       
+       <Container id="bar">
            <Row id="rbar">
            {posts.blogs &&
               posts.blogs.map((item)=>(
-                Object.keys(item.drink).map((drink, index) =>
-                
-                    item.drink.length>0
-                        ?( 
+
+           
+
                <Col>
                     <Card id="bcard" >
                         <Card.Header id="bhead">
@@ -81,30 +82,31 @@ const BarPage = () => {
                         <Card.Body>
                            
                             <Card.Text id="barit">  
-                           
+                            {Object.keys(item.drink).map((drink, index) =>
                               <Row>
                                                             
                                                             <Col><h6>{item.drink[drink].name_of_food}</h6></Col>
                                                             <Col><h4>x{item.drink[drink].quantity}</h4></Col>
                                                         </Row>
-
+)}
                               
                             </Card.Text>
-                        
+                           <Card.Text id="barit">
+                           <h6>Notes</h6>
+                               
+                               <p>{item.special_notes}</p>
+                           </Card.Text>
+                           
 
                            <Row>
                                 
                               
-                                <Link to={"/bar/view/"+item.order_id}>  <Button id="yes" ><FaCheckCircle/></Button></Link>
+                                <a href={'/bar/view/'+item.order_id}><Button id="yes"  ><FaCheckCircle/></Button></a>
                                 </Row>
                         </Card.Body>
                         
                     </Card>
                </Col>
-                        )
-                        :null
-               )
-              
                  ))}
                
 

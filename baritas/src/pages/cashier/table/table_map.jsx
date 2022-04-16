@@ -74,18 +74,17 @@ const addtab=()=>{
   // }
 
 
-  const { value: email } = MySwal.fire({
-    title: 'Input email address',
-    input: 'email',
-    inputLabel: 'Your email address',
-    inputPlaceholder: 'Enter your email address'
+  const { value: text } = MySwal.fire({
+    title: 'Input table name',
+    input: 'text',
+    inputLabel: 'New Table Name',
+    inputPlaceholder: 'Enter table name'
   })
   
-  if (email) {
-    MySwal.fire(`Entered email: ${email}`)
-  }
+  if (text) {
+    MySwal.fire(`New Table: ${text}`)
 }
-
+}
 
 const neworder=(name)=>{
   axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createorder.php?id='+id+'&ud='+ud+'&table='+name,JSON.stringify(ud,id)).then(function(response){
@@ -140,17 +139,13 @@ const neworder=(name)=>{
 
 
        {posts.blogs && posts.blogs.map((item, index) => 
-          <Draggable
-          key={item.id}
-          defaultPosition={{x:item.x,y:item.y}}
-          onStop={(data)=>trackPos(data,item.id)}
-        >
+          
           <Button  className="boxb"  onClick={()=>neworder(item.name)}>
             {item.name}
            
           </Button>
           
-        </Draggable>
+     
        )}
 
 

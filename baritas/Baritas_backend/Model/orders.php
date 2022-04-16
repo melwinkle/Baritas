@@ -234,7 +234,7 @@ class orders
 
     }
     public function kitchens(){
-        $query ="SELECT order_id,special_notes,drink_stats,stats,drink_stat,food_stats,food_stat from orders where restaurant_id=:r and food_stat='1'";
+        $query ="SELECT order_id,special_notes,drink_stats,stats,drink_stat,food_stats,food_stat from orders where restaurant_id=:r";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
@@ -252,7 +252,7 @@ class orders
     }
     
     public function kitchenc(){
-        $query ="SELECT order_id,special_notes,drink_stats,stats,drink_stat,food_stats,food_stat from orders where restaurant_id=:r and food_stats='1'  ";
+        $query ="SELECT order_id,special_notes,drink_stats,stats,drink_stat,food_stats,food_stat from orders where restaurant_id=:r ";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
@@ -260,7 +260,7 @@ class orders
 
     }
     public function bar(){
-        $query ="SELECT order_id,special_notes,drink_stats,stats,drink_stat,food_stats,food_stat from orders where restaurant_id=:r and drink_stats='1'";
+        $query ="SELECT order_id,special_notes,drink_stats,stats,drink_stat,food_stats,food_stat from orders where restaurant_id=:r ";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
@@ -338,5 +338,19 @@ class orders
         return $stmt;
 
     }
+
+    public function checkitem(){
+        $query ="UPDATE orders SET sub_total=:s, total_cost=:t , payment_method=:p , speical_notes=:sn where order_id=:i";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":t",$this->total_cost);
+        $stmt->bindParam(":s",$this->sub);
+        $stmt->bindParam(":p",$this->pay);
+        $stmt->bindParam(":sn",$this->notes);
+
+        $stmt->execute();
+        return $stmt;
+    }
+
+    
 }
 ?>

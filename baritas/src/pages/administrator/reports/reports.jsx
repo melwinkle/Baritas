@@ -11,7 +11,7 @@ import {
   SidebarHeader,
   SidebarContent,
 } from "react-pro-sidebar";
-import { FaList,FaStore } from "react-icons/fa";
+import { FaFileDownload, FaList,FaStore } from "react-icons/fa";
 import "../../../Header.css";
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
@@ -44,9 +44,10 @@ const Reports = () => {
     
     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/reports.php' ,JSON.stringify(searchTerm)).then(function(response){
   //  console.log(response.data);
+  
    setPosts({ blogs: response.data.data});
   //  posts.push(response.data.data);
-        console.log(response.data.data);
+        // console.log(response.data.data);
 
    })
 }
@@ -67,6 +68,7 @@ const Reports = () => {
     
     },{}
  )
+
 
 const newImg =[imeiIndex('cat_name',posts.blogs)];
  console.log(newImg);
@@ -159,15 +161,15 @@ const newImg =[imeiIndex('cat_name',posts.blogs)];
 
   </Row>
 
- 
+  <MDBBtn class="download" onClick={exportHTML}>Download Report<FaFileDownload/></MDBBtn>
 <Row id="invtt" >
-  <Row id="cat" overflow>
-    {Object.keys(newImg[0]).map((index)=>(
+   <Row id="source-html" >
+
+  <Row id="cat" overflow >
+  
+{Object.keys(newImg[0])?.map((index)=>(
                   
 
-          
-
-   
   <MDBCard>
        <MDBCardTitle>{index}</MDBCardTitle>
        <MDBCardBody>
@@ -200,16 +202,37 @@ const newImg =[imeiIndex('cat_name',posts.blogs)];
    </MDBCard>
 
              ))}  
+               </Row>
+
+    
 
   
-  </Row>
-   
 
+   
+  </Row>
       
       </Row>
       </Container>
     </div>
   );
 };
+
+
+function exportHTML(){
+  let header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+       "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+       "xmlns='http://www.w3.org/TR/REC-html40'>"+
+       "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><style>body{ text-align:center;}</style><body>";
+  var footer = "</body></html>";
+  var sourceHTML = header+document.getElementById("source-html").innerHTML+footer;
+  
+  var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+  var fileDownload = document.createElement("a");
+  document.body.appendChild(fileDownload);
+  fileDownload.href = source;
+  fileDownload.download = 'document.doc';
+  fileDownload.click();
+  document.body.removeChild(fileDownload);
+}
 
 export default Reports;

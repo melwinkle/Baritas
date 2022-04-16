@@ -22,7 +22,7 @@ if($menu->updatekitchen()){
 
 
     echo '{"Update Order#"' .json_encode($menu->id).' }';
-    echo true;
+    return true;
 }
 else{
     echo false;
