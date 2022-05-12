@@ -88,7 +88,7 @@ const MySwal = withReactContent(Swal);
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas Adenta</h3></Col>
+                  <Col><h3>Baritas </h3></Col>
               
               </Row>
               

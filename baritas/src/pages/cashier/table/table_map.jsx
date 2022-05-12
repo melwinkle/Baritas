@@ -59,20 +59,6 @@ const CashierTable =(props)=>{
 const addtab=()=>{
 
 
-  // const { value: text } =  MySwal.fire({
-  //   title: 'Enter new Table name',
-  //   input: 'textarea',
-  //   inputAttributes: {
-  //     'aria-label': 'Type table name'
-  //   },
-  //   showCancelButton: true
-  // })
-  
-  // if (text) {
-  //   console.log(`${text}`);
-  //   // axios.post("http://localhost/Baritas/baritas/Baritas_backend/apis/tablemapadd.php?id="+id+"&name="+text);
-  // }
-
 
   const { value: text } = MySwal.fire({
     title: 'Input table name',
@@ -101,59 +87,52 @@ const neworder=(name)=>{
     
 
     return (
-    <div class="process">
+    <div class="processed">
       <Container>
     
-          <Col id="newnab">
-            <Navbar  id="nabc" expand="lg"  fixed="top">
-                    <Container>
-                        <Navbar.Brand href="#home">Baritas</Navbar.Brand>
-                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                        <Navbar.Collapse id="responsive-navbar-nav">
-                          <Nav className="me-auto">
-                            <Nav.Link href="/cashier/order_main/">Orders</Nav.Link>
-                            <Nav.Link href="/cashier/new/">Pending</Nav.Link>
-                            
-                          </Nav>
-                          <Nav>
-                            <Nav.Link href="#deets">Cashier 1</Nav.Link>
-                            <Nav.Link eventKey={2} href="#memes">
-                              Logout
-                            </Nav.Link>
-                          </Nav>
-                        </Navbar.Collapse>
-                    </Container>
-                </Navbar>
+    <Col id="newnab">
+      <Navbar  id="nabc" expand="lg"  fixed="top">
+              <Container>
+                  <Navbar.Brand href="#home">Baritas</Navbar.Brand>
+                  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                  <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="me-auto">
+                      <Nav.Link href="/cashier/order_main/">Orders</Nav.Link>
+                      <Nav.Link href="/cashier/new/">Pending</Nav.Link>
+                      
+                    </Nav>
+                    <Nav>
+                      <Nav.Link href="#deets">Cashier 1</Nav.Link>
+                      <Nav.Link eventKey={2} href="#memes">
+                        Logout
+                      </Nav.Link>
+                    </Nav>
+                  </Navbar.Collapse>
+              </Container>
+          </Navbar>
 
 </Col>
 
-
-       </Container>
-
-
-       <Container>
-         <div id="dragb">
-         <Button onClick={()=>addtab()}>Add new Table</Button>
-         </div>
-         
+ </Container>
 
 
-       {posts.blogs && posts.blogs.map((item, index) => 
-          
-          <Button  className="boxb"  onClick={()=>neworder(item.name)}>
-            {item.name}
-           
-          </Button>
-          
-     
-       )}
+   
+  <Container >
+  <Row>
+<Link id="tabs"> <Button id="backht" >Add New Table <FaPlus/></Button></Link>
 
-
-
-       </Container>
-        
-        
+</Row>
+    <Row >
+    {posts.blogs && posts.blogs.map((item, index) => 
+  <Col id="tablename"><Button  id="boxb"  onClick={()=>neworder(item.name)}>
+  {item.name}
+  </Button>
+      </Col>
+)}
       
+    </Row>
+  </Container>
+ 
     </div>
   );
 

@@ -105,15 +105,14 @@ const CashierNew =(props)=>{
       const ordern=document.createTextNode(name);
       const orderq=document.createTextNode('x'+'1');
       const orderp=document.createTextNode('Ghc'+prices);
-      const trashp=document.createTextNode('X');
-      const trashh=document.createTextNode('Remove');
+  
 
       trash.className='trash';
       trashy.className='trashy';
-      trash.onClick = "alert('blah')";
+  
 
 
-      trashy.appendChild(trashh);
+
       n.appendChild(ordern);
       q.appendChild(orderq);
       orders.appendChild(orderp);
@@ -121,7 +120,7 @@ const CashierNew =(props)=>{
       ordert.appendChild(q);
       ordert.appendChild(orders);
       trash.appendChild(trashy);
-      trash.appendChild(trashp);
+
       tempb.appendChild(ordert);
       tempb.appendChild(trash);
 
@@ -223,17 +222,15 @@ const CashierNew =(props)=>{
   }
     return (
     <div class="process">
-      <Container>
-    
-          <Col id="newnab">
-            <Navbar  id="nab" expand="lg"  fixed="top">
+      <Container id="newnab">
+      <Navbar  id="nab" expand="lg"  fixed="top">
                     <Container>
                         <Navbar.Brand href="#home">Baritas</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                           <Nav className="me-auto">
                             <Nav.Link href="/cashier/order_main/">Orders</Nav.Link>
-                            <Nav.Link href="/cashier/table/">Pending</Nav.Link>
+                      
                             
                           </Nav>
                           <Nav>
@@ -246,58 +243,39 @@ const CashierNew =(props)=>{
                     </Container>
                 </Navbar>
 
-
-
-
-          {/* body of menu */}
-          <Container id="menct" >
-            <Row id="menucat"  >
-              
-              <Col id="scrcat" > 
-              {posts.blogs &&
-                posts.blogs.map((item)=>(
-              <Button id="catmec" onClick={() =>getinfo(item.category_id)} >{item.category_name}</Button>
-            
-             
+                <Container id="menct">
+                  <Row id="menucat">
+                    <Col id="scrcat">
+                        {posts.blogs &&
+                    posts.blogs.map((item)=>(
+                  <Button id="catmec" onClick={() =>getinfo(item.category_id)} >{item.category_name}</Button>
                 ))}
-             
+                    </Col>
+                  </Row>
 
-              
-              
-           
-              </Col>
-        
-
-            </Row>
-
-            <Row id="mens">
+                  <Row id="mens">
               <h6>OrderMenu</h6>
               <Row id='fodc' overflow>
               
               {post.blogs &&
                 post.blogs.map((item)=>(
-
-
                 <Col id='foodc'><Button id='fod' key={item.id} onClick={()=>{tempbas(item.id,item.name,item.price); total(item.price); additem(item.id, item.price)}}>
                   <Image src={logo}></Image>
                   <h6>{item.name}</h6>
                   <p>Ghc {item.price}</p>
                   </Button></Col>
-               
                 ))}
-                
               </Row>
             </Row>
 
-          </Container>
+                </Container>
 
 
-          </Col>
-          <Col id="orderdine">
-
-            <Form id="formdine" >
-                <Container>
-                    <Row>
+      </Container>
+      <Container id="orderdine">
+        <Form id="formdine">
+          <Container>
+          <Row>
                       <Form.Group>
                       <GiForkKnifeSpoon/>
                         <select id="dn" name="dine" value={ordernew.dine} onChange = {onChange} >
@@ -308,7 +286,6 @@ const CashierNew =(props)=>{
                         </select>
                       </Form.Group>
                     </Row>
-
                     <Row>
                       <h3>Order#{props.match.params.id}</h3>
                     </Row>
@@ -325,32 +302,14 @@ const CashierNew =(props)=>{
 
                   <Col>
                   <select name="table">
-                      <option value="Table 1">{props.match.params.table}</option>
+                      <option value={props.match.params.table}>{props.match.params.table}</option>
                       
                   </select></Col>
                   </Row>
 
-                  {/* body */}
                   <Row id="food" overflow>
-
-
-
-                      <Row id="orderlist" >
-                       
-                      </Row>
-
-
-                   
-
-
-                      
-
-                      
-
+                      <Row id="orderlist" ></Row>
                   </Row>
-                  
-
-                  {/* footer */}
                   <Row id="dinefoot">
                   <Row> 
                     <h6>Notes</h6>
@@ -390,18 +349,9 @@ const CashierNew =(props)=>{
                       </Row>
                     
                   </Row>
-                </Container>
-              
-              
-               
-                   
-                  </Form>
-    
-          
-          
-          </Col>
-          
-         
+          </Container>
+
+        </Form>
       </Container>
         
         

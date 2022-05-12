@@ -119,15 +119,14 @@ const prod = Object.assign(ordernew,l);
       const ordern=document.createTextNode(name);
       const orderq=document.createTextNode('x'+'1');
       const orderp=document.createTextNode('Ghc'+ prices);
-      const trashp=document.createTextNode('X');
-      const trashh=document.createTextNode('Remove');
+
 
       trash.className='trash';
       trashy.className='trashy';
       trash.onClick = "alert('blah')";
 
 
-      trashy.appendChild(trashh);
+
       n.appendChild(ordern);
       q.appendChild(orderq);
       orders.appendChild(orderp);
@@ -135,7 +134,7 @@ const prod = Object.assign(ordernew,l);
       ordert.appendChild(q);
       ordert.appendChild(orders);
       trash.appendChild(trashy);
-      trash.appendChild(trashp);
+
       tempb.appendChild(ordert);
       tempb.appendChild(trash);
 
@@ -232,17 +231,15 @@ const tota=totals;
   }
     return (
     <div class="process">
-      <Container>
-    
-          <Col id="newnab">
-            <Navbar  id="nab" expand="lg"  fixed="top">
+      <Container id="newnab">
+      <Navbar  id="nab" expand="lg"  fixed="top">
                     <Container>
                         <Navbar.Brand href="#home">Baritas</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                           <Nav className="me-auto">
                             <Nav.Link href="/cashier/order_main/">Orders</Nav.Link>
-                            <Nav.Link href="/cashier/table/">Pending</Nav.Link>
+                      
                             
                           </Nav>
                           <Nav>
@@ -255,59 +252,41 @@ const tota=totals;
                     </Container>
                 </Navbar>
 
-
-
-
-          {/* body of menu */}
-          <Container id="menct" >
-            <Row id="menucat"  >
-              
-              <Col id="scrcat" > 
-              {posts.blogs &&
-                posts.blogs.map((item)=>(
-              <Button id="catmec" onClick={() =>getinfo(item.category_id)} >{item.category_name}</Button>
-            
-             
+                <Container id="menct">
+                  <Row id="menucat">
+                    <Col id="scrcat">
+                        {posts.blogs &&
+                    posts.blogs.map((item)=>(
+                  <Button id="catmec" onClick={() =>getinfo(item.category_id)} >{item.category_name}</Button>
                 ))}
-             
+                    </Col>
+                  </Row>
 
-              
-              
-           
-              </Col>
-        
-
-            </Row>
-
-            <Row id="mens">
+                  <Row id="mens">
               <h6>OrderMenu</h6>
               <Row id='fodc' overflow>
               
               {post.blogs &&
                 post.blogs.map((item)=>(
-
-
-                <Col id='foodc'><Button id='fod' key={item.id} onClick={()=>{totals(item.price); additem(item.id,item.name, item.price)}}>
+                  <Col id='foodc'><Button id='fod' key={item.id} onClick={()=>{totals(item.price); additem(item.id,item.name, item.price)}}>
                   <Image src={logo}></Image>
                   <h6>{item.name}</h6>
                   <p>Ghc {item.price}</p>
                   </Button></Col>
-               
                 ))}
-                
               </Row>
             </Row>
 
-          </Container>
+                </Container>
 
 
-          </Col>
-          <Col id="orderdine">
-
-            <Form id="formdine" >
-                <Container>
-                    <Row>
+      </Container>
+      <Container id="orderdine">
+        <Form id="formdine">
+          <Container>
+          <Row>
                       <Form.Group>
+                      <GiForkKnifeSpoon/>
                       <GiForkKnifeSpoon/>
                         <select id="dn" name="dine" value={dine} onChange = {onChange} >
                         <option >Select Dine Type</option>
@@ -317,7 +296,6 @@ const tota=totals;
                         </select>
                       </Form.Group>
                     </Row>
-
                     <Row>
                       <h3>Order#{props.match.params.id}</h3>
                     </Row>
@@ -334,39 +312,22 @@ const tota=totals;
 
                   <Col>
                   <select name="table">
-                      <option value={table}>{table}</option>
+                  <option value={table}>{table}</option>
                       
                   </select></Col>
                   </Row>
 
-                  {/* body */}
                   <Row id="food" overflow>
-
-
-
                       <Row id="orderlist" >
-                       
-                       {Object.keys(ordernew.list).map((prod,i)=>{
+                      {Object.keys(ordernew.list).map((prod,i)=>{
                            return <div>
                                   <button class="fod"><span class="fodh">{ordernew.list[prod].name}</span><span class="fodq">x1</span><span class="fodp">Ghc{ordernew.list[prod].price}</span></button>
-                                  <button class="trash"><span class="trashy">Remove</span>X</button>
+                         
                             </div>
                         
                        })}
                       </Row>
-
-
-                   
-
-
-                      
-
-                      
-
                   </Row>
-                  
-
-                  {/* footer */}
                   <Row id="dinefoot">
                   <Row> 
                     <h6>Notes</h6>
@@ -374,7 +335,7 @@ const tota=totals;
                     </Row>
                   <Row>
                     <h6>Payment Method</h6>
-                      <select name="payment" value={payment} onChange = {onChange}>
+                      <select name="payment" value={ordernew.payment} onChange = {onChange}>
                       <option >Select Payment</option>
                           <option value="Cash">Cash</option>
                           <option value="Mobile Money">Mobile Money</option>
@@ -385,7 +346,7 @@ const tota=totals;
 
 
 
-                  <Row>
+                    <Row>
                       <Col><h6>SubTotal</h6></Col>
                      
                       <Col id="amts"> <h6 id="sub">{sub}</h6></Col>
@@ -406,20 +367,10 @@ const tota=totals;
                       </Row>
                     
                   </Row>
-                </Container>
-              
-              
-               
-                   
-                  </Form>
-    
-          
-          
-          </Col>
-          
-         
+          </Container>
+
+        </Form>
       </Container>
-        
         
       
     </div>

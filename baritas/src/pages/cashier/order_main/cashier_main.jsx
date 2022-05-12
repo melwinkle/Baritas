@@ -91,6 +91,7 @@ const CashierOrders =()=>{
               }).then((result) => {
                 if (result.isConfirmed) {
                     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/changeordercancel.php?id='+order);
+               
 
                 }
               })
@@ -126,7 +127,7 @@ const getedit=(id)=>{
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
       <Nav.Link href="/cashier/order_main/">Orders</Nav.Link>
-      <Nav.Link href="/cashier/table/">Pending</Nav.Link>
+
       
     </Nav>
     <Nav>

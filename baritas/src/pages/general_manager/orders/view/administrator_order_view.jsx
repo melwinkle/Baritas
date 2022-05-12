@@ -45,7 +45,7 @@ import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,M
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas Adenta</h3></Col>
+                  <Col><h3>Baritas </h3></Col>
               
               </Row>
               

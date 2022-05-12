@@ -37,7 +37,7 @@ $list = $data->list;
 
 foreach($list as $p){
     $items->order = $data->id;
-    $items->menu = $p->menu;
+    $items->menu = $p->id;
     $items->price = $p->price;
 
     $items->create();

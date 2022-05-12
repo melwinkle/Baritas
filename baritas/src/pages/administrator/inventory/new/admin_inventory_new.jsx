@@ -84,7 +84,7 @@ class InventoryNPage extends React.Component {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas Adenta</h3></Col>
+                  <Col><h3>Baritas </h3></Col>
               
               </Row>
               
