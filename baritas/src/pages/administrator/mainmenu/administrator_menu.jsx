@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react';
+import React,{ useEffect, useState,useMemo } from 'react';
 import "../../../App.css";
 import {MDBBtn} from 'mdb-react-ui-kit';
 import DataTable from './component/DataTable';
@@ -16,11 +16,19 @@ import {
     SidebarHeader,
     SidebarContent,
   } from "react-pro-sidebar";
+import { TableHeader, Pagination, Search } from "../../../components/DataTable";
+
  const AdminMenuPage =()=>{
     const [posts, setPosts] = useState({ blogs: [] });
 
     const id= sessionStorage.getItem("rest");
-    const [searchTerm,setSearchTerm] = useState('');
+    const ITEMS_PER_PAGE = 10;
+
+    const [totalItems, setTotalItems] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState("");
+    const [sorting, setSorting] = useState({ field: "", order: "" });
+
     useEffect(() => {
       const fetchPostList = async () => {
         const { data } = await axios(
@@ -31,6 +39,43 @@ import {
       };
       fetchPostList();
     }, [setPosts]);
+
+    const commentsData = useMemo(() => {
+      let computedComments = posts.blogs;
+  
+      if (search) {
+          computedComments = computedComments.filter(
+              comment =>
+              comment.name.toLowerCase().includes(search.toLowerCase()) ||
+              comment.category.toLowerCase().includes(search.toLowerCase())
+          );
+      }
+  
+      setTotalItems(computedComments.length);
+  
+      //Sorting comments
+      if (sorting.field) {
+          const reversed = sorting.order === "asc" ? 1 : -1;
+          computedComments = computedComments.sort(
+              (a, b) =>
+                  reversed * a[sorting.field].localeCompare(b[sorting.field])
+          );
+      }
+  
+      //Current Page slice
+      return computedComments.slice(
+          (currentPage - 1) * ITEMS_PER_PAGE,
+          (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+      );
+  }, [posts.blogs, currentPage, search, sorting]);
+
+  const headers = [
+    { name: "Menu Name", field: "name", sortable: false },
+    { name: "Category", field: "category", sortable: true },
+    { name: "Size", field: "size", sortable: false },
+    { name: "Price", field: "price", sortable: true },
+    { name: "Action", field: "body", sortable: false },
+];
   
   
           return (
@@ -102,8 +147,12 @@ import {
   <Row>
   <Form.Label>Menu Name</Form.Label> 
     <Col>
-  
-      <Form.Control type="text" name="menu"  placeholder="Enter item" onChange={event =>{setSearchTerm(event.target.value)}} /></Col>
+    <Search
+      onSearch={value => {
+      setSearch(value);
+      setCurrentPage(1);
+}}/>
+</Col>
       <Col></Col>
   </Row>
       
@@ -119,24 +168,14 @@ import {
   
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
-            <tr>
-              <th>Menu Name</th>
-              <th>Category</th>
-              <th>Size</th>
-              <th>Price</th>
-              <th>Actions</th>
-       
-            </tr>
+          <TableHeader
+              headers={headers}
+              onSorting={(field, order) =>
+              setSorting({ field, order })
+              }/>
           </thead>
           <tbody>
-            {posts.blogs &&
-              posts.blogs.filter((item)=>{
-                if(searchTerm ==""){
-                  return item;
-                }else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
-                   return item; 
-                }
-              }).map((item) => (
+            {commentsData.map((item) => (
                 <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>{item.category}</td>
@@ -148,6 +187,11 @@ import {
               ))}
           </tbody>
         </ReactBootStrap.Table>
+        <Pagination
+          total={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          currentPage={currentPage}
+          onPageChange={page => setCurrentPage(page)}/>
         </Row>
         </Container>
             

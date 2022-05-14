@@ -79,7 +79,7 @@ const OrderMainPage =()=> {
   // const handleShow = () => setShow(true);
 
   const headers = [
-    { name: "Date", field: "id", sortable: false },
+    { name: "Date", field: "date", sortable: false },
     { name: "Total Orders", field: "count", sortable: true },
     { name: "Total Income", field: "total", sortable: true },
     { name: "Action", field: "body", sortable: false },
@@ -198,10 +198,6 @@ const OrderMainPage =()=> {
           onPageChange={page => setCurrentPage(page)}/>
       </Row>
       </Container>
-
-          
-         
-
           </div>
         );
     
