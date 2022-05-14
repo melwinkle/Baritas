@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react";
+import React,{ useEffect, useState,useMemo } from "react";
 import '../../../App.css';
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
@@ -19,14 +19,20 @@ import {
   import { Container, Row, Col } from 'reactstrap';
 // import { Container, Row, Col } from 'reactstrap';
 import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
-
+import { TableHeader, Pagination, Search } from "../../../components/DataTable";
 /* We simply can use an array and loop and print each user */
 const GMOrderPage =()=> {
     
     const [posts, setPosts] = useState({ blogs: [] });
+    const ITEMS_PER_PAGE = 10;
+    const [searchTerm,setSearchTerm] = useState('');
+    const [totalItems, setTotalItems] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState("");
+    const [sorting, setSorting] = useState({ field: "", order: "" });
 
     const id = sessionStorage.getItem("rest");
-  useEffect(() => {
+    useEffect(() => {
     const fetchPostList = async () => {
       const { data } = await axios(
         'http://localhost/Baritas/baritas/Baritas_backend/apis/getallorders.php?id='+id
@@ -40,6 +46,41 @@ const GMOrderPage =()=> {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const commentsData = useMemo(() => {
+    let computedComments = posts.blogs;
+
+    if (searchTerm) {
+        computedComments = computedComments.filter(
+            comment =>
+            comment.date.includes(searchTerm) 
+        );
+    }
+
+    setTotalItems(computedComments.length);
+
+    //Sorting comments
+    if (sorting.field) {
+        const reversed = sorting.order === "asc" ? 1 : -1;
+        computedComments = computedComments.sort(
+            (a, b) =>
+                reversed * a[sorting.field].localeCompare(b[sorting.field])
+        );
+    }
+
+    //Current Page slice
+    return computedComments.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+    );
+}, [posts.blogs, currentPage, searchTerm, sorting]);
+
+const headers = [
+  { name: "Date", field: "date", sortable: false },
+  { name: "Total Orders", field: "count", sortable: true },
+  { name: "Total Income", field: "total", sortable: true },
+  { name: "Action", field: "body", sortable: false },
+];
 
         return (
           <div class="proad">
@@ -101,8 +142,8 @@ const GMOrderPage =()=> {
 <Form.Label>Order Date</Form.Label> 
   <Col>
 
-    <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
-    <Col> <Button id="searchb"> Search</Button></Col>
+    <Form.Control type="date" name="inventory"  placeholder="Enter item" onChange={event =>{setSearchTerm(event.target.value)}}/></Col>
+    <Col></Col>
 </Row>
     
    
@@ -117,18 +158,14 @@ const GMOrderPage =()=> {
 
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
-          <tr>
-          
-            <th>Date </th>
-           <th>Total Orders</th>
-           <th>Total Income</th>
-            <th>Actions</th>
-     
-          </tr>
+        <TableHeader
+              headers={headers}
+              onSorting={(field, order) =>
+              setSorting({ field, order })
+              }/>
         </thead>
         <tbody>
-          {posts.blogs &&
-            posts.blogs.map((item) => (
+          {commentsData.map((item) => (
               <tr key={item.date}>
               
                 <td>{item.date}</td>
@@ -142,6 +179,11 @@ const GMOrderPage =()=> {
             ))}
         </tbody>
       </ReactBootStrap.Table>
+      <Pagination
+          total={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          currentPage={currentPage}
+          onPageChange={page => setCurrentPage(page)}/>
       </Row>
       </Container>
           

@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react";
+import React,{ useEffect, useState, useMemo } from "react";
 import '../../../App.css';
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
@@ -15,6 +15,7 @@ import {FaList} from "react-icons/fa";
 
 import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
 import { Container, Row, Col } from 'reactstrap';
+import { TableHeader, Pagination, Search } from "../../../components/DataTable";
 // get data fron the procution folder 
 
 /* We simply can use an array and loop and print each user */
@@ -26,6 +27,11 @@ const BProductionPage =()=> {
 
     const item=JSON.parse(sessionStorage.getItem("branchMData"));
     const id = item.UserData.rest;
+    const ITEMS_PER_PAGE = 10;
+    const [totalItems, setTotalItems] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState("");
+    const [sorting, setSorting] = useState({ field: "", order: "" });
 
     useEffect(() => {
       const fetchPostList = async () => {
@@ -37,6 +43,42 @@ const BProductionPage =()=> {
       };
       fetchPostList();
     }, [setPosts]);
+
+
+    const commentsData = useMemo(() => {
+      let computedComments = posts.blogs;
+  
+      if (search) {
+          computedComments = computedComments.filter(
+              comment =>
+              comment.date.includes(search) ||
+              comment.total.includes(search)
+          );
+      }
+  
+      setTotalItems(computedComments.length);
+  
+      //Sorting comments
+      if (sorting.field) {
+          const reversed = sorting.order === "asc" ? 1 : -1;
+          computedComments = computedComments.sort(
+              (a, b) =>
+                  reversed * a[sorting.field].localeCompare(b[sorting.field])
+          );
+      }
+  
+      //Current Page slice
+      return computedComments.slice(
+          (currentPage - 1) * ITEMS_PER_PAGE,
+          (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+      );
+  }, [posts.blogs, currentPage, search, sorting]);
+
+  const headers = [
+    { name: "Date", field: "date", sortable: false },
+    { name: "Total Transactions", field: "total", sortable: true },
+    { name: "Action", field: "body", sortable: false },
+];
   
     
      
@@ -97,8 +139,8 @@ const BProductionPage =()=> {
   <Form.Label>Transaction Date</Form.Label> 
     <Col>
   
-      <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
-      <Col> <Button id="searchb"> Search</Button></Col>
+      <Form.Control type="date" name="inventory"  placeholder="Enter item" onChange={event =>{setSearch(event.target.value)}} /></Col>
+      <Col></Col>
   </Row>
       
      
@@ -113,19 +155,14 @@ const BProductionPage =()=> {
   
         <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
-            <tr>
-             
-            <th>Date </th>
-             
-             <th>Total Transactions</th>
-             <th>Actions</th>
-         
-       
-            </tr>
+        <TableHeader
+              headers={headers}
+              onSorting={(field, order) =>
+              setSorting({ field, order })
+              }/>
           </thead>
           <tbody>
-            {posts.blogs &&
-              posts.blogs.map((item) => (
+            {commentsData.map((item) => (
                 <tr key={item.transaction_id}>
                  
                 <td>{item.date}</td>
@@ -138,6 +175,11 @@ const BProductionPage =()=> {
               ))}
           </tbody>
         </ReactBootStrap.Table>
+        <Pagination
+          total={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          currentPage={currentPage}
+          onPageChange={page => setCurrentPage(page)}/>
         </Row>
         </Container>
             

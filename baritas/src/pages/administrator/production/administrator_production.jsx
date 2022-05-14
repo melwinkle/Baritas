@@ -142,8 +142,8 @@ const AProductionPage =()=> {
   <Form.Label>Transaction Date</Form.Label> 
     <Col>
   
-      <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
-      <Col> <Button id="searchb"> Search</Button></Col>
+      <Form.Control type="date" name="inventory"  placeholder="Enter item" onChange={event =>{setSearch(event.target.value)}}/></Col>
+      <Col> </Col>
   </Row>
       
      

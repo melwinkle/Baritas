@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react";
+import React,{ useEffect, useState,useMemo } from "react";
 import '../../../App.css';
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
@@ -18,6 +18,8 @@ import {
   } from "react-pro-sidebar";
   import { FaList,FaStore } from "react-icons/fa";
   import { Container, Row, Col } from 'reactstrap';
+import { TableHeader, Pagination, Search } from "../../../components/DataTable";
+
 // import { Container, Row, Col } from 'reactstrap';
 
 
@@ -25,9 +27,45 @@ import {
 const BOrderPage =()=> {
     
     const [posts, setPosts] = useState({ blogs: [] });
-
+    const [searchTerm,setSearchTerm] = useState('');
     const item=JSON.parse(sessionStorage.getItem("branchMData"));
     const id = item.UserData.rest;
+
+    const ITEMS_PER_PAGE = 10;
+
+    const [totalItems, setTotalItems] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState("");
+    const [sorting, setSorting] = useState({ field: "", order: "" });
+
+
+    const commentsData = useMemo(() => {
+      let computedComments = posts.blogs;
+  
+      if (searchTerm) {
+          computedComments = computedComments.filter(
+              comment =>
+              comment.date.includes(searchTerm) 
+          );
+      }
+  
+      setTotalItems(computedComments.length);
+  
+      //Sorting comments
+      if (sorting.field) {
+          const reversed = sorting.order === "asc" ? 1 : -1;
+          computedComments = computedComments.sort(
+              (a, b) =>
+                  reversed * a[sorting.field].localeCompare(b[sorting.field])
+          );
+      }
+  
+      //Current Page slice
+      return computedComments.slice(
+          (currentPage - 1) * ITEMS_PER_PAGE,
+          (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+      );
+  }, [posts.blogs, currentPage, searchTerm, sorting]);
 
   useEffect(() => {
     const fetchPostList = async () => {
@@ -40,9 +78,16 @@ const BOrderPage =()=> {
     fetchPostList();
   }, [setPosts]);
   const [show, setShow] = useState(false);
-  const [searchTerm,setSearchTerm] = useState('');
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const headers = [
+    { name: "Date", field: "date", sortable: false },
+    { name: "Total Orders", field: "count", sortable: true },
+    { name: "Total Income", field: "total", sortable: true },
+    { name: "Action", field: "body", sortable: false },
+];
 
         return (
           <div class="proad">
@@ -101,7 +146,7 @@ const BOrderPage =()=> {
   <Col>
 
     <Form.Control type="date" name="inventory"  placeholder="Enter item" onChange={event =>{setSearchTerm(event.target.value)}} /></Col>
-    <Col> <Button id="searchb"> Search</Button></Col>
+    <Col></Col>
 </Row>
     
    
@@ -116,25 +161,14 @@ const BOrderPage =()=> {
 
 <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
-          <tr>
-            <th>Date </th>
-            <th>Total Orders</th>
-            <th>Total Income</th>
-            <th>Actions</th>
-     
-          </tr>
+        <TableHeader
+              headers={headers}
+              onSorting={(field, order) =>
+              setSorting({ field, order })
+              }/>
         </thead>
         <tbody>
-          {posts.blogs &&
-            posts.blogs.filter((item)=>{
-              if(searchTerm == ""){
-                return item;
-              }
-              else if(item.date.includes(searchTerm)){
-                return item;
-              }
-
-            }).map((item) => (
+          {commentsData.map((item) => (
               <tr key={item.id}>
                 <td>{item.date}</td>
                 <td>{item.count}</td>
@@ -148,6 +182,11 @@ const BOrderPage =()=> {
             ))}
         </tbody>
       </ReactBootStrap.Table>
+      <Pagination
+          total={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          currentPage={currentPage}
+          onPageChange={page => setCurrentPage(page)}/>
       </Row>
       </Container>
           

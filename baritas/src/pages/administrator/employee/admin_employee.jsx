@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import * as ReactBootStrap from "react-bootstrap";
 import {MDBBtn} from 'mdb-react-ui-kit';
 import axios from "axios";
@@ -16,6 +16,8 @@ import {FiLogOut} from "react-icons/fi";
 import { Container, Row, Col } from 'reactstrap';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { TableHeader, Pagination, Search } from "../../../components/DataTable";
+
 const Employee = () => {
 
   // const MySwal = withReactContent(Swal);
@@ -25,6 +27,96 @@ const Employee = () => {
   const [searchTerm,setSearchTerm] = useState('');
 
   const id=sessionStorage.getItem("rest");
+  const [totalItems, setTotalItems] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage1, setCurrentPage1] = useState(1);
+  const [search, setSearch] = useState("");
+  const [sorting, setSorting] = useState({ field: "", order: "" });
+  const [sorting1, setSorting1] = useState({ field: "", order: "" });
+
+
+  const ITEMS_PER_PAGE = 10;
+
+  const headers = [
+    { name: "No#", field: "id", sortable: false },
+    { name: "First Name", field: "first", sortable: true },
+    { name: "Last Name", field: "last", sortable: true },
+    { name: "User Role", field: "rolename", sortable: false },
+    { name: "Username", field: "user", sortable: false },
+    { name: "Password", field: "pass", sortable: false },
+    { name: "Status", field: "stats", sortable: false },
+    { name: "Action", field: "body", sortable: false }
+]
+
+const headers1 = [
+  { name: "No#", field: "id", sortable: false },
+  { name: "Full Name", field: "wfirst", sortable: true },
+  { name: "Status", field: "stats", sortable: false },
+  { name: "Action", field: "body", sortable: false }
+]
+  const commentsData = useMemo(() => {
+    let computedComments = posts.blogs;
+
+    if (search) {
+        computedComments = computedComments.filter(
+            comment =>
+            comment.first.toLowerCase().includes(search.toLowerCase()) ||
+            comment.last.toLowerCase().includes(search.toLowerCase()) ||
+            comment.user.toLowerCase().includes(search.toLowerCase()) ||
+            comment.rolename.toLowerCase().includes(search.toLowerCase()) ||
+            comment.stat.toLowerCase().includes(search.toLowerCase())
+
+
+
+        );
+    }
+
+    setTotalItems(computedComments.length);
+
+    //Sorting comments
+    if (sorting.field) {
+        const reversed = sorting.order === "asc" ? 1 : -1;
+        computedComments = computedComments.sort(
+            (a, b) =>
+                reversed * a[sorting.field].localeCompare(b[sorting.field])
+        );
+    }
+
+    //Current Page slice
+    return computedComments.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+    );
+}, [posts.blogs, currentPage, search, sorting]);
+
+
+const commentsData1 = useMemo(() => {
+  let computedComments = post.blog;
+
+  if (search) {
+      computedComments = computedComments.filter(
+          comment =>
+          comment.wfirst.toLowerCase().includes(search.toLowerCase())
+      );
+  }
+
+  setTotalItems(computedComments.length);
+
+  //Sorting comments
+  if (sorting1.field) {
+      const reversed = sorting.order === "asc" ? 1 : -1;
+      computedComments = computedComments.sort(
+          (a, b) =>
+              reversed * a[sorting1.field].localeCompare(b[sorting1.field])
+      );
+  }
+
+  //Current Page slice
+  return computedComments.slice(
+      (currentPage1 - 1) * ITEMS_PER_PAGE,
+      (currentPage1 - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+  );
+}, [post.blog, currentPage1, search, sorting1]);
 
   useEffect(() => {
     const fetchPostList = async () => {
@@ -126,21 +218,22 @@ const Employee = () => {
 <Row id="invtt">
 
           <Form.Label>GENERAL</Form.Label>
+          <Search
+                                onSearch={value => {
+                                    setSearch(value);
+                                    setCurrentPage(1);
+                                }}
+                            />
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
-          <tr>
-            <th>No.</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>User Role</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
+        <TableHeader
+              headers={headers}
+              onSorting={(field, order) =>
+              setSorting({ field, order })
+              }/>
         </thead>
         <tbody>
-        {posts.blogs && posts.blogs.map((item,index) => (
+        {commentsData.map((item,index) => (
               <tr key={item.id}>
                 <td>{index + 1}</td>
                 <td>{item.first}</td>
@@ -154,7 +247,13 @@ const Employee = () => {
             ))}
         </tbody>
       </ReactBootStrap.Table>
+      <Pagination
+          total={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          currentPage={currentPage}
+          onPageChange={page => setCurrentPage(page)}/>
       </Row>
+      
 
 
        
@@ -162,20 +261,15 @@ const Employee = () => {
 <Form.Label>WAITERS</Form.Label>
 <ReactBootStrap.Table  bordered hover id="invtb">
   <thead>
-    <tr>
-      <th>No.</th>
-      <th>Full Name</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
+  <TableHeader
+              headers={headers1}
+              onSorting={(field, order) =>
+              setSorting({ field, order })
+              }/>
   </thead>
   <tbody>
     
-  {post.blog && post.blog.map((item,index) => (
-   
-            
-
-             
+  {commentsData1.map((item,index) => (
              <tr key={item.wid}>
           <td>{index + 1}</td>
           <td>{item.wfirst}</td>
@@ -190,6 +284,11 @@ const Employee = () => {
           ))}
   </tbody>
 </ReactBootStrap.Table>
+<Pagination
+          total={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          currentPage={currentPage1}
+          onPageChange={page => setCurrentPage1(page)}/>
 </Row>
   
   </Container>

@@ -54,7 +54,9 @@ const AxiosPost = () => {
         );
     }
 
-    setTotalItems(computedComments.length);
+
+      setTotalItems(computedComments.length);
+
 
     //Sorting comments
     if (sorting.field) {

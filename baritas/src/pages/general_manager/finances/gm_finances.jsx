@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react";
+import React,{ useEffect, useState,useMemo } from "react";
 import '../../../App.css';
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
@@ -18,10 +18,16 @@ import {
   } from "react-pro-sidebar";
 
 import CanvasJSReact from "../../../canvasjs-3.4.5/canvasjs.react";
+import { TableHeader, Pagination, Search } from "../../../components/DataTable";
 import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
 /* We simply can use an array and loop and print each user */
 const GMFinancePage =()=>{
-    
+  const ITEMS_PER_PAGE = 10;
+
+  const [totalItems, setTotalItems] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [sorting, setSorting] = useState({ field: "", order: "" });
    
     const [posts, setPosts] = useState({ blogs: [] });
     const id=sessionStorage.getItem("rest");
@@ -53,7 +59,7 @@ const GMFinancePage =()=>{
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
+    const [searchTerm,setSearchTerm] = useState('');
 
     const options = {
 			exportEnabled: true,
@@ -72,6 +78,40 @@ const GMFinancePage =()=>{
 				dataPoints: points
 			}]
 		}
+
+    const headers = [
+      { name: "Date", field: "date", sortable: true },
+      { name: "Total Income", field: "bill", sortable: true },
+      { name: "Action", field: "body", sortable: false }
+  ];
+
+    const commentsData = useMemo(() => {
+      let computedComments = posts.blogs;
+    
+      if (searchTerm) {
+          computedComments = computedComments.filter(
+              comment =>
+              comment.date.includes(searchTerm) 
+          );
+      }
+    
+      setTotalItems(computedComments.length);
+    
+      //Sorting comments
+      if (sorting.field) {
+          const reversed = sorting.order === "asc" ? 1 : -1;
+          computedComments = computedComments.sort(
+              (a, b) =>
+                  reversed * a[sorting.field].localeCompare(b[sorting.field])
+          );
+      }
+    
+      //Current Page slice
+      return computedComments.slice(
+          (currentPage - 1) * ITEMS_PER_PAGE,
+          (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+      );
+    }, [posts.blogs, currentPage, searchTerm, sorting]);
           return (
             <div class="proad">
                         <nav
@@ -118,8 +158,8 @@ const GMFinancePage =()=>{
   <Form.Label>Sales Date</Form.Label> 
     <Col>
   
-      <Form.Control type="date" name="inventory"  placeholder="Enter item" /></Col>
-      <Col> <Button id="searchb"> Search</Button></Col>
+      <Form.Control type="date" name="inventory"  placeholder="Enter item"  onChange={event =>{setSearchTerm(event.target.value)}}/></Col>
+      <Col> </Col>
   </Row>
       
      
@@ -134,19 +174,14 @@ const GMFinancePage =()=>{
   
         <ReactBootStrap.Table  bordered hover id="invtb">
           <thead>
-            <tr>
-
-              <th>Date </th>
-              <th>Total Income</th>
-              <th>Actions</th>
-        
-         
-       
-            </tr>
+         <TableHeader
+              headers={headers}
+              onSorting={(field, order) =>
+              setSorting({ field, order })
+              }/>
           </thead>
           <tbody>
-            {posts.blogs &&
-              posts.blogs.map((item) => (
+            {commentsData.map((item) => (
                 <tr key={item.id}>
                 <td>{item.date}</td>
                 <td>Ghc {item.bill}</td>
@@ -170,6 +205,11 @@ const GMFinancePage =()=>{
               ))}
           </tbody>
         </ReactBootStrap.Table>
+        <Pagination
+          total={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          currentPage={currentPage}
+          onPageChange={page => setCurrentPage(page)}/>
         </Row>
         </Container>
             

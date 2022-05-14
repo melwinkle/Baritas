@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
@@ -14,10 +14,17 @@ import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import { Container, Row, Col } from 'reactstrap';
 import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
+import { TableHeader, Pagination, Search } from "../../../components/DataTable";
+
 const GMInventory = () => {
   const [posts, setPosts] = useState({ blogs: [] });
 
   const id=sessionStorage.getItem("rest");
+  const [totalItems, setTotalItems] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [sorting, setSorting] = useState({ field: "", order: "" });
+  const ITEMS_PER_PAGE = 10;
   
   useEffect(() => {
     const fetchPostList = async () => {
@@ -29,6 +36,46 @@ const GMInventory = () => {
     };
     fetchPostList();
   }, [setPosts]);
+
+  const headers = [
+    { name: "No#", field: "id", sortable: false },
+    { name: "Product Name", field: "name", sortable: true },
+    { name: "Unit Price", field: "unit", sortable: true },
+    { name: "In Stock", field: "in", sortable: false },
+    { name: "Measurement", field: "Measure", sortable: false },
+    { name: "Action", field: "body", sortable: false }
+];
+
+const commentsData = useMemo(() => {
+  let computedComments = posts.blogs;
+
+  if (search) {
+      computedComments = computedComments.filter(
+          comment =>
+          comment.name.toLowerCase().includes(search.toLowerCase()) ||
+          comment.unit.toLowerCase().includes(search.toLowerCase())
+      );
+  }
+
+
+    setTotalItems(computedComments.length);
+
+
+  //Sorting comments
+  if (sorting.field) {
+      const reversed = sorting.order === "asc" ? 1 : -1;
+      computedComments = computedComments.sort(
+          (a, b) =>
+              reversed * a[sorting.field].localeCompare(b[sorting.field])
+      );
+  }
+
+  //Current Page slice
+  return computedComments.slice(
+      (currentPage - 1) * ITEMS_PER_PAGE,
+      (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+  );
+}, [posts.blogs, currentPage, search, sorting]);
 
   return (
     <div class="proad">
@@ -92,8 +139,13 @@ const GMInventory = () => {
 <Form.Label>Inventory Item</Form.Label> 
   <Col>
 
-    <Form.Control type="text" name="inventory"  placeholder="Enter item" /></Col>
-    <Col> <Button id="searchb"> Search</Button></Col>
+  <Search
+                                onSearch={value => {
+                                    setSearch(value);
+                                    setCurrentPage(1);
+                                }}
+                            /></Col>
+    <Col> </Col>
 </Row>
     
    
@@ -108,21 +160,16 @@ const GMInventory = () => {
 
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
-          <tr>
-            <th>ID</th>
-            <th>Product Name </th>
-            <th>Category</th>
-            <th>Unit Price</th>
-            <th>In Stock</th>
-            <th>Measurement</th>
-            <th>Actions</th>
-          </tr>
+        <TableHeader
+              headers={headers}
+              onSorting={(field, order) =>
+              setSorting({ field, order })
+              }/>
         </thead>
         <tbody>
-          {posts.blogs &&
-            posts.blogs.map((item) => (
+          {commentsData.map((item,index) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
+                <td>{index + 1}</td>
                 <td>{item.name}</td>
                 <td>{item.category}</td>
                 <td>{item.unit}</td>
@@ -134,6 +181,11 @@ const GMInventory = () => {
             ))}
         </tbody>
       </ReactBootStrap.Table>
+      <Pagination
+          total={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          currentPage={currentPage}
+          onPageChange={page => setCurrentPage(page)}/>
       </Row>
       </Container>
     </div>
