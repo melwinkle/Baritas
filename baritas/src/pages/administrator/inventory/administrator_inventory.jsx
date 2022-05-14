@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
 import Form from 'react-bootstrap/Form';
@@ -16,12 +16,21 @@ import "../../../Header.css";
 import { Link } from 'react-router-dom';
 import {FiLogOut} from "react-icons/fi";
 import { Container, Row, Col } from 'reactstrap';
+
+import { TableHeader, Pagination, Search } from "../../../components/DataTable";
 const AxiosPost = () => {
   const [posts, setPosts] = useState({ blogs: [] });
 
   const [searchTerm,setSearchTerm] = useState('');
 
+  const [totalItems, setTotalItems] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState("");
+    const [sorting, setSorting] = useState({ field: "", order: "" });
+
   const id=sessionStorage.getItem("rest");
+
+  const ITEMS_PER_PAGE = 10;
 
   useEffect(() => {
     const fetchPostList = async () => {
@@ -33,6 +42,46 @@ const AxiosPost = () => {
     };
     fetchPostList();
   }, [setPosts]);
+
+  const commentsData = useMemo(() => {
+    let computedComments = posts.blogs;
+
+    if (search) {
+        computedComments = computedComments.filter(
+            comment =>
+            comment.name.toLowerCase().includes(search.toLowerCase()) ||
+            comment.unit.toLowerCase().includes(search.toLowerCase())
+        );
+    }
+
+    setTotalItems(computedComments.length);
+
+    //Sorting comments
+    if (sorting.field) {
+        const reversed = sorting.order === "asc" ? 1 : -1;
+        computedComments = computedComments.sort(
+            (a, b) =>
+                reversed * a[sorting.field].localeCompare(b[sorting.field])
+        );
+    }
+
+    //Current Page slice
+    return computedComments.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+    );
+}, [posts.blogs, currentPage, search, sorting]);
+
+  const headers = [
+    { name: "No#", field: "id", sortable: false },
+    { name: "Product Name", field: "name", sortable: true },
+    { name: "Unit Price", field: "unit", sortable: true },
+    { name: "In Stock", field: "in", sortable: false },
+    { name: "Measurement", field: "Measure", sortable: false },
+    { name: "Action", field: "body", sortable: false }
+];
+
+
 
   return (
     <div class="proad">
@@ -102,7 +151,12 @@ const AxiosPost = () => {
 <Form.Label>Inventory Item</Form.Label> 
   <Col>
 
-    <Form.Control type="text" name="inventory"  placeholder="Enter item to search" onChange={event =>{setSearchTerm(event.target.value)}}/></Col>
+  <Search
+                                onSearch={value => {
+                                    setSearch(value);
+                                    setCurrentPage(1);
+                                }}
+                            /></Col>
     <Col> </Col>
 </Row>
     
@@ -115,28 +169,19 @@ const AxiosPost = () => {
 
  
 <Row id="invtt">
+
   
    
     <MDBTable  bordered id="invtb">
         <MDBTableHead>
-          <tr>
-            <th>No.</th>
-            <th>Product Name </th>
-            <th>Unit Price</th>
-            <th>In Stock</th>
-            <th>Measurement</th>
-            <th>Actions</th>
-          </tr>
+             <TableHeader
+              headers={headers}
+              onSorting={(field, order) =>
+              setSorting({ field, order })
+              }/>
         </MDBTableHead>
         <MDBTableBody>
-          {posts.blogs &&
-            posts.blogs.filter((item)=>{
-              if(searchTerm ==""){
-                return item;
-              }else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
-                  return item;
-              }
-            }).map((item,index) => (
+          {commentsData.map((item,index) => (
               <tr key={item.id}>
                 <td>{index + 1}</td>
                 <td>{item.name}</td>
@@ -146,11 +191,16 @@ const AxiosPost = () => {
                 <td><a class="ab1"href={'/administrator/inventory/update/' + item.id}><button class="b2">Edit</button></a>
                <a class="ab1" href={'/administrator/inventory/view/' + item.id}> <button class="b1">View</button></a></td>
               </tr>
-            ))}
+            ))}    
         </MDBTableBody>
+     
       </MDBTable>
 
-
+      <Pagination
+          total={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          currentPage={currentPage}
+          onPageChange={page => setCurrentPage(page)}/>
       
       </Row>
       </Container>

@@ -23,8 +23,6 @@ import CanvasJSReact from "../../../canvasjs-3.4.5/canvasjs.react";
 
 /* We simply can use an array and loop and print each user */
 const AdminFinancePage =()=>{
-    
-   
     const [posts, setPosts] = useState({ blogs: [] });
 
     const id=sessionStorage.getItem("rest");
