@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react";
+import React,{ useEffect, useState,useMemo } from "react";
 import '../../../App.css';
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
@@ -19,7 +19,7 @@ import {
   import { Container, Row, Col } from 'reactstrap';
 // import { Container, Row, Col } from 'reactstrap';
 import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
-
+import { TableHeader, Pagination, Search } from "../../../components/DataTable";
 
 /* We simply can use an array and loop and print each user */
 const OrderMainPage =()=> {
@@ -27,6 +27,12 @@ const OrderMainPage =()=> {
     const [posts, setPosts] = useState({ blogs: [] });
 
     const id = sessionStorage.getItem("rest");
+    const ITEMS_PER_PAGE = 10;
+
+    const [totalItems, setTotalItems] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState("");
+    const [sorting, setSorting] = useState({ field: "", order: "" });
 
   useEffect(() => {
     const fetchPostList = async () => {
@@ -38,67 +44,49 @@ const OrderMainPage =()=> {
     };
     fetchPostList();
   }, [setPosts]);
+
+  const commentsData = useMemo(() => {
+    let computedComments = posts.blogs;
+
+    if (search) {
+        computedComments = computedComments.filter(
+            comment =>
+            comment.date.includes(search) 
+        );
+    }
+
+    setTotalItems(computedComments.length);
+
+    //Sorting comments
+    if (sorting.field) {
+        const reversed = sorting.order === "asc" ? 1 : -1;
+        computedComments = computedComments.sort(
+            (a, b) =>
+                reversed * a[sorting.field].localeCompare(b[sorting.field])
+        );
+    }
+
+    //Current Page slice
+    return computedComments.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+    );
+}, [posts.blogs, currentPage, search, sorting]);
+
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+
+  const headers = [
+    { name: "Date", field: "id", sortable: false },
+    { name: "Total Orders", field: "count", sortable: true },
+    { name: "Total Income", field: "total", sortable: true },
+    { name: "Action", field: "body", sortable: false },
+];
 
   const [searchTerm,setSearchTerm] = useState('');
 
-  // const Modalshow=()=>{
-  //   handleShow,
-  //   <Modal show={show} onHide={handleClose} id="mods">
-  //                               <Modal.Header closeButton>
-  //                               <Modal.Title>Bill No.bill-bill</Modal.Title>
-  //                               </Modal.Header>
-  //                               <Modal.Body >
-  //                                   <Row>
-  //                                       <Col>bill</Col>
-  //                                       <Col>Table #bill</Col>
-  //                                   </Row>
-  //                                   <Row>
-  //                                       <ReactBootStrap.Card id="order">
-  //                                           <ReactBootStrap.Card.Text >
-                                              
-  //                                             <Row>
-  //                                               <Col>billx bill</Col>
-                                            
-  //                                               <Col>bill</Col>
-  //                                             </Row>
-                                             
-                                             
-  //                                           </ReactBootStrap.Card.Text>
-  //                                       </ReactBootStrap.Card>
-  //                                   </Row>
-                                 
-                                    
-
-
-  //                                   <Row id="fut">
-  //                                     <hr/>
-  //                                   <Row >
-  //                                          <Col><h6>Sub-Total</h6></Col>
-  //                                          <Col id="val">bill</Col>
-                                           
-  //                                      </Row>
-  //                                      <Row>
-  //                                          <Col><h6>VAT(2.5%)</h6></Col>
-  //                                          <Col  id="val">40.00</Col>
-                                           
-  //                                      </Row>
-
-  //                                      <Row>
-  //                                          <Col><h6>Total</h6></Col>
-  //                                          <Col id="val">bill</Col>
-                                           
-  //                                      </Row>
-
-  //                                   </Row>
-  //                                   </Modal.Body>
-                               
-  //                           </Modal>
-                 
-  // }
         return (
           <div class="proad">
                        <nav
@@ -182,25 +170,14 @@ const OrderMainPage =()=> {
 
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
-          <tr>
-            <th>Date </th>
-            <th>Total Orders</th>
-            <th>Total Income</th>
-            <th>Actions</th>
-     
-          </tr>
+        <TableHeader
+              headers={headers}
+              onSorting={(field, order) =>
+              setSorting({ field, order })
+              }/>
         </thead>
         <tbody>
-          {posts.blogs &&
-            posts.blogs.filter((item)=>{
-              if(searchTerm == ""){
-                return item;
-              }
-              else if(item.date.includes(searchTerm)){
-                return item;
-              }
-
-            }).map((item) => (
+          {commentsData.map((item) => (
               <tr key={item.id}>
                 <td>{item.date}</td>
                 <td>{item.count}</td>
@@ -214,8 +191,14 @@ const OrderMainPage =()=> {
             ))}
         </tbody>
       </ReactBootStrap.Table>
+      <Pagination
+          total={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          currentPage={currentPage}
+          onPageChange={page => setCurrentPage(page)}/>
       </Row>
       </Container>
+
           
          
 
