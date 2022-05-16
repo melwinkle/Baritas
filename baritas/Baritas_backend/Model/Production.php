@@ -57,7 +57,7 @@ class production
     public function allproduction(){
         $query="SELECT * from production";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':r',$this->restaurant);
+        // $stmt->bindParam(':r',$this->restaurant);
         $stmt->execute();
         return $stmt;
     }

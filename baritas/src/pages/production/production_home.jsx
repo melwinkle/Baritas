@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useMemo} from "react";
 import '../../App.css';
 import * as ReactBootStrap from "react-bootstrap";
 import axios from "axios";
@@ -18,16 +18,32 @@ import { Container, Row, Col } from 'reactstrap';
 import Badge from 'react-bootstrap/Badge';
 // get data fron the procution folder 
 import { MDBBtn,MDBTable, MDBTableHead, MDBTableBody, MDBCardBody, MDBCardText,MDBCard  } from 'mdb-react-ui-kit';
+import { TableHeader, Pagination, Search } from "../../components/DataTable";
+
 /* We simply can use an array and loop and print each user */
 function ProductionPage(){
     
   const [posts, setPosts] = useState({ blogs: [] });
+  const [totalItems, setTotalItems] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [sorting, setSorting] = useState({ field: "", order: "" });
+  const ITEMS_PER_PAGE = 10;
 
   const[alert,setAlert]=useState({
     alert_num:""
   });
 
   const{alert_num}=alert;
+
+  const headers = [
+    { name: "No#", field: "id", sortable: false },
+    { name: "Product Name", field: "product_name", sortable: true },
+    { name: "In Stock", field: "in_stock", sortable: false },
+    { name: "Measurement", field: "measurement", sortable: false },
+    { name: "Recipe", field: "recipe", sortable: false },
+    { name: "Action", field: "body", sortable: false }
+];
   
   useEffect(() => {
     const fetchPostList = async () => {
@@ -51,6 +67,39 @@ function ProductionPage(){
       }
       );
   }
+
+  const commentsData = useMemo(() => {
+    let computedComments = posts.blogs;
+  
+    if (search) {
+        computedComments = computedComments.filter(
+            comment =>
+            comment.product_name.toLowerCase().includes(search.toLowerCase()) ||
+            comment.recipe.toLowerCase().includes(search.toLowerCase()) ||
+            comment.measurement.toLowerCase().includes(search.toLowerCase()) 
+
+        );
+    }
+  
+  
+      setTotalItems(computedComments.length);
+  
+  
+    //Sorting comments
+    if (sorting.field) {
+        const reversed = sorting.order === "asc" ? 1 : -1;
+        computedComments = computedComments.sort(
+            (a, b) =>
+                reversed * a[sorting.field].localeCompare(b[sorting.field])
+        );
+    }
+  
+    //Current Page slice
+    return computedComments.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
+    );
+  }, [posts.blogs, currentPage, search, sorting]);
     return (
         
         <div class="proad">
@@ -101,9 +150,13 @@ function ProductionPage(){
 <Row>
 <Form.Label>Production Item</Form.Label> 
   <Col>
-
-    <Form.Control type="text" name="productiob"  placeholder="Enter item" /></Col>
-    <Col> <Button id="searchb"> Search</Button></Col>
+  <Search
+                                onSearch={value => {
+                                    setSearch(value);
+                                    setCurrentPage(1);
+                                }}
+                            /></Col>
+    <Col> </Col>
 </Row>
     
    
@@ -118,20 +171,16 @@ function ProductionPage(){
 
       <ReactBootStrap.Table  bordered hover id="invtb">
         <thead>
-          <tr>
-            {/* <th>ID</th> */}
-            <th>Product Name </th>
-            <th>In Stock</th>
-            <th>Measurement</th>
-            <th>Recipe</th>
-            <th>Actions</th>
-          </tr>
+        <TableHeader
+              headers={headers}
+              onSorting={(field, order) =>
+              setSorting({ field, order })
+              }/>
         </thead>
         <tbody>
-          {posts.blogs &&
-            posts.blogs.map((item) => (
+          {commentsData.map((item,index) => (
               <tr key={item.production_id}>
-                {/* <td>{item.production_id}</td> */}
+                <td>{index + 1}</td>
                 <td>{item.product_name}</td>
                 <td>{item.in_stock}</td>
                 <td>{item.measurement}</td>
@@ -142,6 +191,11 @@ function ProductionPage(){
             ))}
         </tbody>
       </ReactBootStrap.Table>
+      <Pagination
+          total={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+          currentPage={currentPage}
+          onPageChange={page => setCurrentPage(page)}/>
       </Row>
       </Container>
         
