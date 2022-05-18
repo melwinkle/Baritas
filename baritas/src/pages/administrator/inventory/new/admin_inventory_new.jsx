@@ -34,6 +34,7 @@ class InventoryNPage extends React.Component {
         };
         this.add = this.add.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.branch="";
     }
 
      add(e){
@@ -71,9 +72,22 @@ class InventoryNPage extends React.Component {
             [e.target.name]: e.target.value
         });
     }
+    getbranchname=()=>{
+      if(this.state.rest==1){
+          this.branch="Adenta";
+      }
+      else if(this.state.rest==2){
+        this.branch="Atomic";
+      }
+      else if(this.state.rest==3){
+        this.branch="Legon Campus";
+      }
+  }
 
 
   render() { 
+   
+   
     return (
         
         <div class="proad">
@@ -84,7 +98,7 @@ class InventoryNPage extends React.Component {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas </h3></Col>
+                  <Col><h3>Baritas {this.branch}</h3></Col>
               
               </Row>
               

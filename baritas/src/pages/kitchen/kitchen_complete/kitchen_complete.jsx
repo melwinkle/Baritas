@@ -33,13 +33,27 @@ const KitchenCPage = () => {
         console.log(data.data);
       };
       fetchPostList();
+      getbranchname();
     }, [setPosts]);
   
 
    
  
 
-  return (
+  const[branch,setBranch]=useState("");
+  const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
       <div class="order">
 
       
@@ -50,13 +64,18 @@ const KitchenCPage = () => {
         <section class="pending" id="pending">
         <div class="topbar">
               <Container>
+              <Row>
+                <Col><h4>Baritas Kitchen:{branch}</h4></Col>
+                </Row>
                   <Row>
                      
                       <Col id="lnk"><Link to="/kitchen/"><h4 class="com" id="act" ><strong>Open</strong></h4></Link></Col>
                       <Col id="lnk"> <h4 class="active sec" id="rs">Completed</h4></Col>        
                   </Row>
-                  <Row id="logs"><Col>
-                  <Link to="/"><FiLogOut/></Link>
+                  <Row id="logs">
+                 
+                    <Col>
+                  <Link to="/"> <FiLogOut/></Link>
                   </Col></Row> 
                 </Container>
             </div>

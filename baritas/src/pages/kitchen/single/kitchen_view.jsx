@@ -22,7 +22,7 @@ import { FiLogOut } from 'react-icons/fi';
 const KitchenVPage = (props) => {
 
     const [posts, setPosts] = useState({ blogs: [] });
-    // const id=sessionStorage.getItem("rest");
+    const id=sessionStorage.getItem('rest');
 
     useEffect(() => {
       const fetchPostList = async () => {
@@ -33,7 +33,7 @@ const KitchenVPage = (props) => {
         console.log(data.data);
       };
       fetchPostList();
-
+getbranchname();
     }, [setPosts]);
   
 
@@ -48,7 +48,20 @@ if(response.status === 200){
   // window.location.href="/kitchen/";
  }
 
-  return (
+  const[branch,setBranch]=useState("");
+  const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
       <div class="order">
 
       
@@ -59,14 +72,20 @@ if(response.status === 200){
         <section class="pending" id="pending">
         <div class="topbar">
               <Container>
+              <Row>
+                <Col><h4>Baritas Kitchen:{branch}</h4></Col>
+                </Row>
                   <Row>
                      
                       <Col><h4 class="active" id="act"><strong>Open</strong></h4></Col>
                       <Col  id="lnk"> <Link to="/kitchen/kitchen_complete/"><h4 class="com sec" id="rs">Completed</h4></Link></Col>        
                   </Row>
-                  <Row id="logs"><Col>
+                  <Row id="logs">
+                 
+                    <Col>
                   <Link to="/"><FiLogOut/></Link>
-                  </Col></Row> 
+                  </Col>
+                  </Row> 
                 </Container>
             </div>
 

@@ -38,6 +38,7 @@ import { TableHeader, Pagination, Search } from "../../../components/DataTable";
         console.log(data);
       };
       fetchPostList();
+      getbranchname();
     }, [setPosts]);
 
     const commentsData = useMemo(() => {
@@ -77,8 +78,21 @@ import { TableHeader, Pagination, Search } from "../../../components/DataTable";
     { name: "Action", field: "body", sortable: false },
 ];
   
+const[branch,setBranch]=useState("");
   
-          return (
+          const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
             <div class="proad">
                          <nav
               id="sidenav-1"
@@ -87,7 +101,7 @@ import { TableHeader, Pagination, Search } from "../../../components/DataTable";
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas </h3></Col>
+                  <Col><h3>Baritas {branch}</h3></Col>
               
               </Row>
               

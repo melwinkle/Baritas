@@ -14,6 +14,8 @@ function useQuery() {
 }
 function TakeawayPage (){
   let query = useQuery();
+
+   
     return (
     <div class="process">
 

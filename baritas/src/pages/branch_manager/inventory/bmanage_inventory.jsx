@@ -35,6 +35,7 @@ const BranchInvent = () => {
       console.log(data);
     };
     fetchPostList();
+    getbranchname();
   }, [setPosts]);
 
   const headers = [
@@ -77,7 +78,20 @@ const BranchInvent = () => {
     );
 }, [posts.blogs, currentPage, search, sorting]);
 
-  return (
+const[branch,setBranch]=useState("");
+  const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
     <div class="proad">
          <nav
               id="sidenav-1"
@@ -86,7 +100,7 @@ const BranchInvent = () => {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas </h3></Col>
+                  <Col><h3>Baritas {branch}</h3></Col>
               
               </Row>
               
@@ -119,7 +133,8 @@ const BranchInvent = () => {
               </ul>
 
               <div class='logout'>
-                <FiLogOut/> Log Out
+                <Link to='/'><FiLogOut/> Log Out</Link>
+                
               </div>
             </nav>
   

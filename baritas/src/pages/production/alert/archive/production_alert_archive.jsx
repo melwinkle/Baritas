@@ -45,6 +45,8 @@ function ProductionAPage (){
       }
       );
   }
+    
+   
     return (
         
         <div class="proad">
@@ -55,7 +57,7 @@ function ProductionAPage (){
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas</h3></Col>
+                  <Col><h3>Baritas Production</h3></Col>
               
               </Row>
               

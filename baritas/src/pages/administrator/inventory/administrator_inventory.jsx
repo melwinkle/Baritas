@@ -22,7 +22,7 @@ const AxiosPost = () => {
   const [posts, setPosts] = useState({ blogs: [] });
 
   const [searchTerm,setSearchTerm] = useState('');
-
+  const [branch,setBranch] = useState('');
   const [totalItems, setTotalItems] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState("");
@@ -41,7 +41,10 @@ const AxiosPost = () => {
       console.log(data);
     };
     fetchPostList();
+    getbranchname();
   }, [setPosts]);
+
+
 
   const commentsData = useMemo(() => {
     let computedComments = posts.blogs;
@@ -85,7 +88,19 @@ const AxiosPost = () => {
 
 
 
-  return (
+  const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
     <div class="proad">
             <nav
               id="sidenav-1"
@@ -94,7 +109,7 @@ const AxiosPost = () => {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas </h3></Col>
+                  <Col><h3>Baritas {branch}</h3></Col>
               
               </Row>
               

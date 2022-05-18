@@ -28,10 +28,23 @@ import {
         console.log(data);
       };
       fetchPostList();
+      getbranchname();
     }, [setPosts]);
   
-  
-          return (
+    const[branch,setBranch]=useState("");
+          const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
             <div class="proad">
                         <div id="header">
             {/* collapsed props to change menu size using menucollapse state */}
@@ -39,7 +52,7 @@ import {
             <SidebarHeader>
             <div className="logotext">
                 <Row>
-                    <Col><h3>Baritas:Adenta</h3></Col>
+                    <Col><h3>Baritas {branch}</h3></Col>
                 
                 </Row>
                 

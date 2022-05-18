@@ -34,7 +34,19 @@ import Button from "react-bootstrap/button";
         }
         );
     },[]);
-        return (
+        const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
           <div class="proad">
               <div id="header">
           {/* collapsed props to change menu size using menucollapse state */}

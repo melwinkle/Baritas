@@ -28,7 +28,7 @@ function ProductionGTPage (props) {
   const[alert,setAlert]=useState({
     alert_num:""
   });
-
+const id=sessionStorage.getItem("rest");
   const{alert_num}=alert;
 
   useEffect(() => {
@@ -41,6 +41,7 @@ function ProductionGTPage (props) {
     };
     fetchPostList();
     alertnum();
+    getbranchname();
   }, [setPosts]);
   
 
@@ -53,6 +54,20 @@ function ProductionGTPage (props) {
       }
       );
   }
+
+  const[branch,setBranch]=useState("");
+    const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
     return (
         
         <div class="proad">
@@ -63,16 +78,20 @@ function ProductionGTPage (props) {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas</h3></Col>
+                  <Col><h3>Baritas Production</h3></Col>
               
               </Row>
               
               
             </div>
               <ul class="sidenav-menu">
-                <li class="sidenav-item">
-                  <a href="/administrator/production_g/" class="sidenav-link" >
+              <li class="sidenav-item">
+                  <a href="/administrator/" class="sidenav-link" >
                   <MDBBtn outline><i class="fas fa-home fa-fw me-3"></i><span>Home</span></MDBBtn></a>
+                </li>
+                <li class="sidenav-item ">
+                  <a href="/administrator/production_g/" class="sidenav-link" >
+                  <MDBBtn outline><i class="fas fa-home fa-fw me-3"></i><span>Main</span></MDBBtn></a>
                 </li>
                 <li class="sidenav-item active">
                   <a href="/administrator/production_g/transact/" class="sidenav-link"

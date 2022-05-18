@@ -70,7 +70,7 @@ const CashierNew =(props)=>{
     fetchPostList();
     getwaiters();
     getinfo();
-    
+    getbranchname();
   }, [setPosts],[setPost]);
  
 
@@ -220,12 +220,25 @@ const CashierNew =(props)=>{
       [e.target.name]:e.target.value
     })
   }
+  const[branch,setBranch]=useState("");
+    const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
     return (
     <div class="process">
       <Container id="newnab">
       <Navbar  id="nab" expand="lg"  fixed="top">
                     <Container>
-                        <Navbar.Brand href="#home">Baritas</Navbar.Brand>
+                        <Navbar.Brand href="#home">Baritas {branch}</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
                           <Nav className="me-auto">
@@ -235,7 +248,7 @@ const CashierNew =(props)=>{
                           </Nav>
                           <Nav>
                             <Nav.Link href="#deets">Cashier 1</Nav.Link>
-                            <Nav.Link eventKey={2} href="#memes">
+                            <Nav.Link eventKey={2} href="/">
                               Logout
                             </Nav.Link>
                           </Nav>

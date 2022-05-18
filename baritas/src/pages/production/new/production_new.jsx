@@ -87,8 +87,9 @@ function ProductionNPage (){
        console.log(response.data);
    })
 }
-       
-        return (
+   
+   
+    return (
           <div class="proad">
                  <nav
               id="sidenav-1"
@@ -97,7 +98,7 @@ function ProductionNPage (){
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas</h3></Col>
+                  <Col><h3>Baritas Production</h3></Col>
               
               </Row>
               
@@ -152,7 +153,9 @@ function ProductionNPage (){
              
 
              {inputList.map((x, i) => {
-        return (
+       
+   
+    return (
    
           <Row>
           <Col>

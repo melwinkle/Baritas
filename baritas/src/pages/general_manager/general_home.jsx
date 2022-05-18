@@ -22,15 +22,18 @@ function GeneralMPage (){
     }, [setRest]);
 
 
+
    function handleClick(btn) {
     sessionStorage.setItem('rest',btn);
     }
 
+   
+   
     return (
     <div class="proda">
      
      <div class="acco">
-       <button><FiLogOut />Logout</button>
+       <button><Link to='/'><FiLogOut />Logout</Link></button>
      
      </div>
 

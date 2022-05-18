@@ -51,7 +51,7 @@ const CashierTable =(props)=>{
     console.log(data);
   };
   fetchPostList();
-
+getbranchname();
 
 },[setPosts]);
   
@@ -85,7 +85,19 @@ const neworder=(name)=>{
 }
 
     
-
+const[branch,setBranch]=useState("");
+    const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
     return (
     <div class="processed">
       <Container>
@@ -93,7 +105,7 @@ const neworder=(name)=>{
     <Col id="newnab">
       <Navbar  id="nabc" expand="lg"  fixed="top">
               <Container>
-                  <Navbar.Brand href="#home">Baritas</Navbar.Brand>
+                  <Navbar.Brand href="#home">Baritas {branch}</Navbar.Brand>
                   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                   <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">

@@ -24,9 +24,9 @@ function BOrderViewPage(props){
  
 
   const [posts, setPosts] = useState({ blogs: [] });
+  const item=JSON.parse(sessionStorage.getItem("branchMData"));
 
-
-
+  const id = item.UserData.rest;
   
   
   useEffect(() => {
@@ -38,10 +38,23 @@ function BOrderViewPage(props){
       console.log(data);
     };
     fetchPostList();
+    getbranchname();
   }, [setPosts]);
  
-  
-        return (
+  const[branch,setBranch]=useState("");
+        const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
           <div class="proad">
            <nav
               id="sidenav-1"
@@ -50,7 +63,7 @@ function BOrderViewPage(props){
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas </h3></Col>
+                  <Col><h3>Baritas {branch}</h3></Col>
               
               </Row>
               

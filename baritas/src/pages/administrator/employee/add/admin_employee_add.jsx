@@ -32,6 +32,7 @@ const id=sessionStorage.getItem("rest");
     };
     this.add = this.add.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.branch='';
    
 
 }
@@ -79,10 +80,23 @@ const id=sessionStorage.getItem("rest");
     this.setState({ img: event.target.files[0].name });
   
   };
+
+  getbranchname=()=>{
+    if(id==1){
+       this.branch="Adenta";
+    }
+    else if(id==2){
+      this.branch="Atomic";
+    }
+    else if(id==3){
+      this.branch="Legon Campus";
+    }
+}
   
     render() {
        
-        return (
+   
+    return (
           <div class="proad">
                        <nav
               id="sidenav-1"

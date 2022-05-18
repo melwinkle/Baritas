@@ -13,6 +13,8 @@ import {
 /* We simply can use an array and loop and print each user */
 class AdminMPage extends React.Component {
   render() {
+    
+   
     return (
         <div class="proad">
               <div id="header">

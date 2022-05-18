@@ -33,6 +33,7 @@ class AdminFInventoryPage extends React.Component {
             }
         };
         this.dataTableRef = React.createRef();
+        this.branch="";
     }
 
     onChangeSearch = (e) => {
@@ -41,6 +42,7 @@ class AdminFInventoryPage extends React.Component {
         this.setState({ searchValue });
         this.dataTableRef.current.search(searchValue);
     };
+  
 
     render() {
         const {
@@ -48,7 +50,9 @@ class AdminFInventoryPage extends React.Component {
             options,
             searchValue
         } = this.state;
-        return (
+        
+   
+    return (
           <div class="proda">
               <div class="accor">
                  <Link to="/administrator/menu/"><button><FaHome/></button></Link>

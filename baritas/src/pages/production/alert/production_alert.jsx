@@ -55,6 +55,8 @@ function ProductionALPage () {
     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatealert.php?id='+id)
   }
     
+   
+   
     return (
         
         <div class="proad">
@@ -65,7 +67,7 @@ function ProductionALPage () {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas</h3></Col>
+                  <Col><h3>Baritas Production</h3></Col>
               
               </Row>
               

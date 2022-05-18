@@ -103,6 +103,8 @@ import StoreUPage from "./pages/store/update/store_update.jsx";
 import Reports from "./pages/administrator/reports/reports.jsx";
 class App extends Component {
   render() {
+ 
+   
     return (
       <Router>
        {/*All our Routes goes here!*/}

@@ -41,14 +41,16 @@ class AdminFMenuPage extends React.Component {
         this.setState({ searchValue });
         this.dataTableRef.current.search(searchValue);
     };
-
+    
     render() {
         const {
             columns,
             options,
             searchValue
         } = this.state;
-        return (
+        
+   
+    return (
           <div class="proda">
               <div class="accor">
                  <Link to="/administrator/menu/"><button><FaHome/></button></Link>

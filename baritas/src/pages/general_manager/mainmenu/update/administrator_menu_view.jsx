@@ -12,7 +12,19 @@ import rooster from "../../../../images/IMG_8850.JPG";
 
     render() {
        
-        return (
+        const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
           <div class="proda">
               <div class="accorr c">
                  <Link to="/administrator/menu/"><button><FaHome/></button></Link>

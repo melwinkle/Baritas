@@ -100,6 +100,8 @@ function ProductionPage(){
         (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE
     );
   }, [posts.blogs, currentPage, search, sorting]);
+  
+   
     return (
         
         <div class="proad">
@@ -112,7 +114,7 @@ function ProductionPage(){
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas</h3></Col>
+                  <Col><h3>Baritas Production</h3></Col>
               
               </Row>
               
@@ -135,7 +137,8 @@ function ProductionPage(){
               </ul>
 
               <div class='logout'>
-                <FiLogOut/> Log Out
+                <Link to='/'><FiLogOut/> Log Out</Link>
+                
               </div>
             </nav>
       <Container id="invt">

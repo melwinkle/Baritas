@@ -22,6 +22,7 @@ function StorePage(){
   });
 
   const{alert_num}=alert;
+  const id=sessionStorage.getItem('rest');
   
   useEffect(() => {
     const fetchPostList = async () => {
@@ -34,6 +35,7 @@ function StorePage(){
     fetchPostList();
 
     alertnum();
+  
   }, [setPosts]);
 
   const alertnum=()=>{
@@ -45,6 +47,8 @@ function StorePage(){
       }
       );
   }
+   
+   
     return (
         
         <div class="proad">
@@ -57,7 +61,7 @@ function StorePage(){
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas</h3></Col>
+                  <Col><h3>Baritas Store</h3></Col>
               
               </Row>
               

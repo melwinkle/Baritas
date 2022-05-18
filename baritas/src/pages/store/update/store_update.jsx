@@ -28,10 +28,12 @@ function StoreUPage(props){
 });
 const{alert_num}=alert;
 const{product_name,stock_limit,in_stock}=production;
+const id=sessionStorage.getItem('rest');
 
 useEffect(async ()=>{
  produp();
  alertnum();
+
 },[]);
 
 function onChange(e){
@@ -72,7 +74,9 @@ const alertnum=()=>{
 
 
        
-        return (
+     
+   
+    return (
           <div class="proad">
              
              <nav
@@ -82,7 +86,7 @@ const alertnum=()=>{
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas</h3></Col>
+                  <Col><h3>Baritas Store</h3></Col>
               
               </Row>
               

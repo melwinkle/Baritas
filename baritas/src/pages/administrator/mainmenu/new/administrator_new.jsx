@@ -32,7 +32,8 @@ const MySwal = withReactContent(Swal);
     };
     this.add = this.add.bind(this);
     this.onChange = this.onChange.bind(this);
-   
+   this.branch="";
+   this.id=sessionStorage.getItem('rest');
 
 }
 
@@ -79,10 +80,23 @@ const MySwal = withReactContent(Swal);
     this.setState({ img: event.target.files[0].name });
   
   };
+  getbranchname=()=>{
+    if(this.id==1){
+        this.branch="Adenta";
+    }
+    else if(this.id==2){
+      this.branch="Atomic";
+    }
+    else if(this.id==3){
+      this.branch="Legon Campus";
+    }
+}
   
     render() {
        
-        return (
+        
+   
+    return (
           <div class="proad">
                       <nav
               id="sidenav-1"
@@ -91,7 +105,7 @@ const MySwal = withReactContent(Swal);
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas </h3></Col>
+                  <Col><h3>Baritas {this.branch}</h3></Col>
               
               </Row>
               

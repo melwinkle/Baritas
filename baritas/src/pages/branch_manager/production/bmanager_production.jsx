@@ -42,6 +42,7 @@ const BProductionPage =()=> {
         console.log(data);
       };
       fetchPostList();
+      getbranchname();
     }, [setPosts]);
 
 
@@ -81,8 +82,20 @@ const BProductionPage =()=> {
 ];
   
     
-     
-          return (
+const[branch,setBranch]=useState("");
+          const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
             <div class="proad">
                         <nav
               id="sidenav-1"
@@ -91,7 +104,7 @@ const BProductionPage =()=> {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas </h3></Col>
+                  <Col><h3>Baritas {branch}</h3></Col>
               
               </Row>
               

@@ -36,6 +36,8 @@ class StoreNPage extends React.Component {
         this.add = this.add.bind(this);
         this.onChange = this.onChange.bind(this);
         this.alertnum=this.alertnum.bind(this);
+
+        
      
  
     }
@@ -105,7 +107,10 @@ class StoreNPage extends React.Component {
           }
           );
       }
+    
   render() { 
+
+   
     return (
         
         <div class="proad">
@@ -116,7 +121,7 @@ class StoreNPage extends React.Component {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas</h3></Col>
+                  <Col><h3>Baritas Store</h3></Col>
               
               </Row>
               

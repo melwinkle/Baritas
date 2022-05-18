@@ -19,6 +19,7 @@ function BranchMPage (){
         console.log(data);
       };
       fetchPostList();
+   
     }, [setRest]);
 
 
@@ -26,6 +27,8 @@ function BranchMPage (){
     sessionStorage.setItem('rest',btn);
     }
 
+  
+   
     return (
     <div class="proda">
      

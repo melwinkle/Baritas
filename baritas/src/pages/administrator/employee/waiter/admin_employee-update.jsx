@@ -33,7 +33,8 @@ function EmployeeWUpdate(props) {
 });
 
     const{fname,stat,stats}=inventory;
-
+const[branch,setBranch]=useState("");
+const id=sessionStorage.getItem('rest');
     useEffect(async ()=>{
         await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getaemployee.php?wid='+props.match.params.id)
         .then((response)=>response.json())
@@ -42,6 +43,7 @@ function EmployeeWUpdate(props) {
             console.log(responseJSON.employee);
         }
         );
+        getbranchname();
     },[]);
      function onChange(e){
         const newInventory ={...inventory}
@@ -68,6 +70,18 @@ function EmployeeWUpdate(props) {
         })
      }
 
+    const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
     return ( 
         <div class="proad">
               <nav
@@ -77,7 +91,7 @@ function EmployeeWUpdate(props) {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas </h3></Col>
+                <Col><h3>Baritas {branch}</h3></Col>
               
               </Row>
               

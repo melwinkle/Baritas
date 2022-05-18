@@ -21,8 +21,10 @@ const CashierOrders =()=>{
     const id=sessionStorage.getItem("rest");
     const ud=sessionStorage.getItem("id");
     const [post, setPost] = useState({ blogs: [] });
-
-    // const{order_id,waiter_name,table,date,sub,stats,special_notes,pay,vat,total,order}=post;
+    
+    const [branch, setBranch] = useState('');
+    
+    
 
     useEffect(() => {
       const fetchPostList = async () => {
@@ -32,9 +34,11 @@ const CashierOrders =()=>{
         setPosts({ blogs: data.data });
         console.log(data);
       };
+      getbranchname();
       
       fetchPostList();
       getinfo();
+
   
     }, [setPosts],[setPost])
 
@@ -108,21 +112,30 @@ const getedit=(id)=>{
 }
         const neworder=()=>{
             window.location='/cashier/table/';
-        //     axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/createorder.php?id='+id+'&ud='+ud,JSON.stringify(ud,id)).then(function(response){
-        //         console.log(response.data);
-        //         if(response.data.length!=0){
-        //             window.location='/cashier/new/'+response.data.substring(0,2);
-        //         }
-        // });
+      
 
 
+        }
+
+      
+   
+    const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
         }
    
     return (
     <div class="process">
    <Navbar  id="nab" expand="lg"  fixed="top">
   <Container>
-  <Navbar.Brand href="#home">Baritas</Navbar.Brand>
+  <Navbar.Brand href="#home">Baritas {branch}</Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">

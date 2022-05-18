@@ -33,7 +33,8 @@ function EditInventory(props) {
 });
 
     const{name,unit,inn,Measure,limit}=inventory;
-
+const id=sessionStorage.getItem('rest');
+const[branch,setBranch]=useState("");
     useEffect(async ()=>{
         await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getainventoryitem.php?id='+props.match.params.id)
         .then((response)=>response.json())
@@ -42,6 +43,7 @@ function EditInventory(props) {
             console.log(responseJSON.inventory);
         }
         );
+        getbranchname();
     },[]);
      function onChange(e){
         const newInventory ={...inventory}
@@ -68,6 +70,18 @@ function EditInventory(props) {
         })
      }
 
+    const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
     return ( 
         <div class="proad">
              <div id="header">
@@ -76,7 +90,7 @@ function EditInventory(props) {
           <SidebarHeader>
           <div className="logotext">
               <Row>
-                  <Col><h3>Baritas:Adenta</h3></Col>
+                  <Col><h3>Baritas {branch}</h3></Col>
               
               </Row>
               

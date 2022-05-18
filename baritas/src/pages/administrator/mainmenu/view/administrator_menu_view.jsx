@@ -33,7 +33,8 @@ const MySwal = withReactContent(Swal);
 });
 
     const{name,category,price,size,catid,restaurant}=Menu;
-
+const id=sessionStorage.getItem('rest');
+const[branch, setBranch]=useState("");
     useEffect(async ()=>{
         await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getonemenu.php?id='+props.match.params.id)
         .then((response)=>response.json())
@@ -82,7 +83,9 @@ const MySwal = withReactContent(Swal);
 
     function showToast(){
         
-            return (
+          
+   
+    return (
                 <Toast id="tbt">
                     <Toast.Header>
                         <strong className="mr-auto">
@@ -100,7 +103,19 @@ const MySwal = withReactContent(Swal);
                     );
             
     }
-        return (
+        const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
           <div class="proad">
                <nav
               id="sidenav-1"
@@ -109,7 +124,7 @@ const MySwal = withReactContent(Swal);
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas </h3></Col>
+                  <Col><h3>Baritas {branch}</h3></Col>
               
               </Row>
               

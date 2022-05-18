@@ -31,6 +31,7 @@ const Employee = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPage1, setCurrentPage1] = useState(1);
   const [search, setSearch] = useState("");
+  const [branch, setBranch] = useState("");
   const [sorting, setSorting] = useState({ field: "", order: "" });
   const [sorting1, setSorting1] = useState({ field: "", order: "" });
 
@@ -128,6 +129,7 @@ const commentsData1 = useMemo(() => {
       console.log(data);
     };
     fetchPostList();
+    getbranchname();
   }, [setPosts]);
 
 
@@ -143,7 +145,19 @@ const commentsData1 = useMemo(() => {
   
 
 }
-  return (
+  const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
     <div class="proad">
           <nav
               id="sidenav-1"
@@ -152,7 +166,7 @@ const commentsData1 = useMemo(() => {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas </h3></Col>
+                  <Col><h3>Baritas {branch}</h3></Col>
               
               </Row>
               

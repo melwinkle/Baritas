@@ -14,6 +14,8 @@ function useQuery() {
 }
 function WaiterPage () {
   let query = useQuery();
+  
+   
     return (
         <div class="process">
           

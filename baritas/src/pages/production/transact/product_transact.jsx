@@ -27,6 +27,7 @@ const ProductionHPage =()=> {
     const[alert,setAlert]=useState({
       alert_num:""
     });
+    
   
     const{alert_num}=alert;
     useEffect(() => {
@@ -39,6 +40,7 @@ const ProductionHPage =()=> {
       };
       fetchPostList();
       alertnum();
+
     }, [setPosts]);
     const alertnum=()=>{
       fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getalertnum.php')
@@ -50,7 +52,10 @@ const ProductionHPage =()=> {
         );
     }
   
-          return (
+         
+       
+   
+    return (
             <div class="proad">
                            <nav
               id="sidenav-1"
@@ -59,7 +64,7 @@ const ProductionHPage =()=> {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas</h3></Col>
+                  <Col><h3>Baritas Production</h3></Col>
               
               </Row>
               

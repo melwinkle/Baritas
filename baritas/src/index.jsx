@@ -27,6 +27,7 @@ class MainPage extends React.Component {
       PostData(this.state).then((result)=>{
         if((result.UserData.role)==='1'){
           sessionStorage.setItem('adminData',result);
+          sessionStorage.setItem('rest',result.UserData.rest);
           this.setState({redirect:true});
           window.location='/administrator';
         }
@@ -51,6 +52,7 @@ class MainPage extends React.Component {
         }
         else if((result.UserData.role)==='5'){
           sessionStorage.setItem('generalMData',result);
+          sessionStorage.setItem('rest',result.UserData.rest);
           this.setState({redirect:true});
           window.location='/general_manager';
         }
@@ -62,11 +64,13 @@ class MainPage extends React.Component {
         }
         else if((result.UserData.role)==='7'){
           sessionStorage.setItem('productionData',result);
+          sessionStorage.setItem('rest',result.UserData.rest);
           this.setState({redirect:true});
           window.location='/production';
         }
         else if((result.UserData.role)==='8'){
           sessionStorage.setItem('storeData',result);
+          sessionStorage.setItem('rest',result.UserData.rest);
           this.setState({redirect:true});
           window.location='/store';
         }
@@ -110,7 +114,7 @@ class MainPage extends React.Component {
   </Row>
   <Row id="in">
   <Button variant="primary" id="subbut" type="button" onClick={this.login}>
-    Submit
+    LOGIN
   </Button>
   </Row>
   </Container>

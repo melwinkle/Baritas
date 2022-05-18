@@ -33,6 +33,7 @@ const KitchenPage = () => {
         console.log(data.data);
       };
       fetchPostList();
+      getbranchname();
     }, [setPosts]);
   
 
@@ -41,7 +42,20 @@ const KitchenPage = () => {
 //   axios.post('http://localhost/Baritas/baritas/Baritas_backend/apis/updatekitchen.php?id='+it)
 //  }
 
-  return (
+  const[branch,setBranch]=useState("");
+  const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
+    return (
       <div class="order">
 
       
@@ -52,12 +66,18 @@ const KitchenPage = () => {
         <section class="pending" id="pending">
         <div class="topbar">
               <Container>
+                <Row>
+                <Col><h4>Baritas Kitchen:{branch}</h4></Col>
+                </Row>
                   <Row>
                      
                       <Col><h4 class="active" id="act"><strong>Open</strong></h4></Col>
                       <Col  id="lnk"> <Link to="/kitchen/kitchen_complete/"><h4 class="com sec" id="rs">Completed</h4></Link></Col>        
                   </Row>
-                  <Row id="logs"><Col>
+                  <Row id="logs">
+                   
+                    <Col>
+               
                   <Link to="/"><FiLogOut/></Link>
                   </Col></Row> 
                 </Container>

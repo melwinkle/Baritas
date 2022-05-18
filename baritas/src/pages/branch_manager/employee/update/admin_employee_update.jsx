@@ -38,7 +38,7 @@ function BEmployeeUpdate(props) {
 });
 
     const{fname,lname,pass,role,user,rolename,stat,stats}=inventory;
-
+const id=sessionStorage.getItem('rest');
     useEffect(async ()=>{
         await fetch('http://localhost/Baritas/baritas/Baritas_backend/apis/getaemployee.php?id='+props.match.params.id)
         .then((response)=>response.json())
@@ -47,6 +47,7 @@ function BEmployeeUpdate(props) {
             console.log(responseJSON.employee);
         }
         );
+        getbranchname();
     },[]);
      function onChange(e){
         const newInventory ={...inventory}
@@ -73,6 +74,19 @@ function BEmployeeUpdate(props) {
         })
      }
 
+     const[branch,setBranch]=useState("");
+    const getbranchname=()=>{
+            if(id==1){
+                setBranch("Adenta")
+            }
+            else if(id==2){
+                setBranch("Atomic")
+            }
+            else if(id==3){
+                setBranch("Legon Campus")
+            }
+        }
+   
     return ( 
         <div class="proad">
              <nav

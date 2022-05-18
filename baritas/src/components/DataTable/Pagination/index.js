@@ -34,6 +34,8 @@ const PaginationComponent = ({
 
     if (totalPages === 0) return null;
 
+  
+   
     return (
         <Pagination>
             <Pagination.Prev

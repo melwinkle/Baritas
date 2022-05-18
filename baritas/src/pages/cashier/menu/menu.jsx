@@ -40,7 +40,8 @@ function MenuMPage() {
      window.location="/../kitchen_view/";
    }
 
-  return (
+ 
+    return (
       
     <div class="menu">
 

@@ -108,6 +108,8 @@ class ProductionANPage extends React.Component {
           );
       }
   render() { 
+    
+   
     return (
         
         <div class="proad">
@@ -118,7 +120,7 @@ class ProductionANPage extends React.Component {
             >
               <div className="logotext">
               <Row>
-                  <Col><h3>Baritas</h3></Col>
+                  <Col><h3>Baritas Production</h3></Col>
               
               </Row>
               
